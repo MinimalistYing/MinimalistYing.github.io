@@ -1,12 +1,16 @@
 body {
-	font-size: 14px;
+	font-size: medium;
 	font-family: "Microsoft YaHei","Cursive";
 	margin: 0;
 	padding:  0;
 }
+/* 导航 */
 header>p,header>nav,header>nav li {
 	display: inline-block;
 } 
+header>nav li{
+
+}
 header>nav {
 	float: right;
 }
@@ -14,11 +18,30 @@ header,.skill {
 	background-color: rgb(153, 204, 51);
 	color: white;
 }
+/* 个人履历 */
+.info>.info-bar {
+	width: 50%;
+	margin: 0 auto;
+}
+/* 工作技能 */
 .skill>.wrapper {
 	width: 50%;
 	margin: 0 auto;
 }
-.infp>.info-bar {
+.skill-badge {
+	background-color: white;
+    color: black;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    display: inline-block;
+    text-align: center;
+}
+
+/* 项目经历 */
+.project>.wrapper {
 	width: 50%;
 	margin: 0 auto;
 }
