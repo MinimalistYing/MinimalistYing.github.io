@@ -29,6 +29,10 @@ header,.skill {
 .info-bar>span:last-child {
 	float: right;
 }
+.info-bar .tips {
+	font-size: small;
+	color: gray;
+}
 /* 工作技能 */
 .skill {
 	padding: 30px 0;
