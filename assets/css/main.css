@@ -24,6 +24,9 @@ header,.skill {
 	margin: 0 auto;
 }
 /* 工作技能 */
+.skill {
+	padding: 30px 0;
+}
 .skill>.wrapper {
 	width: 50%;
 	margin: 0 auto;
@@ -32,14 +35,14 @@ header,.skill {
 	background-color: white;
     color: black;
     margin: 5px;
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     display: inline-block;
     text-align: center;
-    line-height: 70px;
+    line-height: 100px;
 }
 
 /* 项目经历 */
