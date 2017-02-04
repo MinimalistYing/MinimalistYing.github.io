@@ -104,3 +104,21 @@ footer {
 footer>p {
 	text-align: center;
 }
+
+/* 滚动至顶 */
+#to-top {
+	width: 25px;
+	height: 25px
+	border-radius: 50%;
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	background-color: white;
+	transition: all .5s;
+	-webkit-transition: all .5s;
+	-moz-transition: all .5s;
+}
+#to-top:hover {
+	background-color: gray;
+	color: white;
+}
