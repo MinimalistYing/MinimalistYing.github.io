@@ -14,13 +14,18 @@ header>nav ul {
 header>nav li {
 	border-bottom: 2px solid transparent; 
     transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
 }
 header>nav li>a {
 	padding: 16px;
+    text-decoration: none;
+    color: white;
+    line-height: 53px;
 }
 header>nav li:hover {
 	cursor: pointer;
-	border-bottom-color: green;
+	border-bottom-color: #a5e426;
 }
 header>nav {
 	float: right;
@@ -66,6 +71,14 @@ header,#skill {
     display: inline-block;
     text-align: center;
     line-height: 100px;
+    transition: all .3s;
+    -webkit-transition: all .3s;
+    -moz-transition: all .3s;
+}
+.skill-badge:hover {
+	background-color: seashell;
+	cursor: pointer;
+	transform: rotate(180deg);
 }
 
 /* 项目经历 */
