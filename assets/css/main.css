@@ -7,9 +7,18 @@ body {
 /* 导航 */
 header>p,header>nav,header>nav li {
 	display: inline-block;
+}
+header>nav ul {
+	margin: 0;
 } 
-header>nav li{
-
+header>nav li {
+	border-bottom: 2px solid transparent;
+    padding: 16px;
+    transition: all .3s;
+}
+header>nav li:hover {
+	cursor: pointer;
+	border-bottom-color: green;
 }
 header>nav {
 	float: right;
@@ -17,9 +26,10 @@ header>nav {
 header,.skill {
 	background-color: rgb(153, 204, 51);
 	color: white;
+	padding: 0 20px;
 }
 /* 个人履历 */
-.info>.info-bar {
+#info>.info-bar {
 	width: 30%;
     margin: 10px auto;
     border: 1px solid #ddd;
@@ -34,10 +44,10 @@ header,.skill {
 	color: gray;
 }
 /* 工作技能 */
-.skill {
+#skill {
 	padding: 30px 0;
 }
-.skill>.wrapper {
+#skill>.wrapper {
 	width: 50%;
 	margin: 0 auto;
 }
@@ -56,10 +66,10 @@ header,.skill {
 }
 
 /* 项目经历 */
-.project {
+#project {
 	padding: 50px 0;
 }
-.project>.wrapper {
+#project>.wrapper {
 	width: 75%;
 	margin: 50px auto;
 	padding: 20px;
