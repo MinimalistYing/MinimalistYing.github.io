@@ -107,18 +107,25 @@ footer>p {
 
 /* 滚动至顶 */
 #to-top {
-	width: 25px;
-	height: 25px
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+    text-align: center;
 	border-radius: 50%;
-	position: absolute;
-	bottom: 20px;
-	right: 20px;
-	background-color: white;
+	position: fixed;
+	bottom: 25px;
+	right: 25px;
+	background-color: gainsboro;
+    color: white;
 	transition: all .5s;
 	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 }
+#to-top.hide {
+	display: none;
+}
 #to-top:hover {
 	background-color: gray;
 	color: white;
+	cursor: pointer;
 }
