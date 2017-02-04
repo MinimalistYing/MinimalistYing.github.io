@@ -12,9 +12,11 @@ header>nav ul {
 	margin: 0;
 } 
 header>nav li {
-	border-bottom: 2px solid transparent;
-    padding: 16px;
+	border-bottom: 2px solid transparent; 
     transition: all .3s;
+}
+header>nav li>a {
+	padding: 16px;
 }
 header>nav li:hover {
 	cursor: pointer;
