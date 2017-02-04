@@ -23,7 +23,7 @@ header>nav li:hover {
 header>nav {
 	float: right;
 }
-header,.skill {
+header,#skill {
 	background-color: rgb(153, 204, 51);
 	color: white;
 	padding: 0 20px;
@@ -42,6 +42,7 @@ header,.skill {
 .info-bar .tips {
 	font-size: small;
 	color: gray;
+	margin-left: 5px;
 }
 /* 工作技能 */
 #skill {
