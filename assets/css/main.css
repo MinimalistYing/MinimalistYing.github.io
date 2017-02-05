@@ -116,10 +116,10 @@ footer>p {
 	bottom: 25px;
 	right: 25px;
 	background-color: gainsboro;
-    color: white;
-	transition: all .5s;
-	-webkit-transition: all .5s;
-	-moz-transition: all .5s;
+    color: black;
+	transition: all .3s;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
 }
 #to-top.hide {
 	display: none;
