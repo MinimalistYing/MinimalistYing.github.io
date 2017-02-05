@@ -26,7 +26,7 @@ header>nav li>a {
 }
 header>nav li:hover {
 	cursor: pointer;
-	border-bottom-color: #a5e426;
+	border-bottom-color: darkseagreen;
 	background-color: #a5e426;
 }
 header>nav {
@@ -107,9 +107,9 @@ footer>p {
 
 /* 滚动至顶 */
 #to-top {
-	width: 40px;
-	height: 40px;
-	line-height: 40px;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
     text-align: center;
 	border-radius: 50%;
 	position: fixed;

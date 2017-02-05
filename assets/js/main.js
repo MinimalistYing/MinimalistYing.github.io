@@ -2,7 +2,7 @@ $(function(){
 	$('#to-top').click(function(){
 		$('html, body').animate({
             scrollTop: 0
-        }, 1000);
+        }, 300);
 	})
 
 	$(window).scroll(function(){
