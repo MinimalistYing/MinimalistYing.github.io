@@ -38,6 +38,25 @@ header,#skill {
 	padding: 0 20px;
 }
 /* 个人履历 */
+#info>.info-card {
+	width: 20%;
+    margin: 20px auto;
+    padding: 10px 20px;
+    border: 1px solid gray;
+    box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
+}
+#info .card-photo {
+	display: inline-block;
+	width: 49%;
+}
+#info .card-photo img {
+    width: 150px;
+}
+#info .card-message {
+	display: inline-block;
+	width: 49%;
+    text-align: center;
+}
 #info>.info-bar {
 	width: 30%;
     margin: 10px auto;
