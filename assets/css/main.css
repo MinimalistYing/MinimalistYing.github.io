@@ -26,8 +26,8 @@ header>nav li>a {
 }
 header>nav li:hover {
 	cursor: pointer;
-	border-bottom-color: darkseagreen;
-	background-color: #a5e426;
+	border-bottom-color: hotpink;
+    background-color: crimson;
 }
 header>nav {
 	float: right;
@@ -45,14 +45,10 @@ header,#skill {
     border: 1px solid #ddd;
     box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
 }
-#info .card-photo {
-	display: inline-block;
-	width: 49%;
-}
 #info .card-photo img {
     width: 150px;
 }
-#info .card-message {
+#info .card-message,#info .card-photo {
 	display: inline-block;
 	width: 49%;
     text-align: center;

@@ -6,10 +6,6 @@ $(function(){
 	})
 
 	$(window).scroll(function(){
-		if ($(window).scrollTop() > 50) {
-			$('#to-top').removeClass('hide');
-		} else {
-			$('#to-top').addClass('hide');
-		}
+		$(window).scrollTop() > 50 ? $('#to-top').removeClass('hide') : $('#to-top').addClass('hide');
 	})
 })
