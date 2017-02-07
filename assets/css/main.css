@@ -40,6 +40,7 @@ header,#skill {
 /* 个人履历 */
 #info>.info-card {
 	width: 20%;
+	min-width: 380px;
     margin: 20px auto;
     padding: 10px 20px;
     border: 1px solid #ddd;
@@ -55,6 +56,7 @@ header,#skill {
 }
 #info>.info-bar {
 	width: 30%;
+	min-width: 500px;
     margin: 10px auto;
     border: 1px solid #ddd;
     border-radius: 7px;
