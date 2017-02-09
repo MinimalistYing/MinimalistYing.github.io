@@ -64,6 +64,7 @@ header,#skill {
 }
 .info-bar>span:last-child {
 	float: right;
+	font-size: medium;
 }
 .info-bar .tips {
 	font-size: small;
