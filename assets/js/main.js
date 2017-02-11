@@ -9,5 +9,5 @@ $(function(){
 		$(window).scrollTop() > 50 ? $('#to-top').removeClass('hide') : $('#to-top').addClass('hide');
 	})
 
-	$(body).minimodal();
+	$('body').minimodal();
 })
