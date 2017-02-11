@@ -41,7 +41,7 @@
 
 	$.fn.minimodal = function (options) {
 		var opt = $.extend({}, MiniModal.defaults, options);
-		return this.eadh(function(){
+		return this.each(function(){
 			var modal = new MiniModal($(this), options);
 		})
 	}
