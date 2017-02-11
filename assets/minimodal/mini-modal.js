@@ -22,7 +22,7 @@
     	width : 500,
     	height : 300,
     	top: 200,
-    	backgroundColor: white
+    	backgroundColor: 'white'
     }
 
     MiniModal.prototype.init = function(element, options) {
