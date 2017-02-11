@@ -18,7 +18,7 @@
 
 	MiniModal.VERSION = 1.0;
 
-    MiniModal.pototype.DEFAULTS = {
+    MiniModal.prototype.DEFAULTS = {
     	width : 500,
     	height : 300,
     	top: 200,
