@@ -90,7 +90,6 @@ header,#skill {
     -moz-border-radius: 50%;
     display: inline-block;
     text-align: center;
-    line-height: 25px;
     transition: all .3s;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
@@ -101,10 +100,13 @@ header,#skill {
 	transform: rotate(360deg);
 }
 .skill-badge>p:last-child {
-	font-size: small;
+	font-size: smaller;
 	color: grey;
+	margin-top: -10px;
 }
-
+.skill-badge>p:first-child {
+	margin-top: 40px;
+}
 /* 项目经历 */
 #project {
 	padding: 50px 0;
