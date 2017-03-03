@@ -1,67 +1,107 @@
+@media all and (max-width: 720px){
+	body {
+		font-size: large;
+	}
+	nav {
+		display: none;
+	}	
+    .info>.info-card {
+	    width: 80%;
+        margin: 5px auto;
+        padding: 2px 2px;
+    }
+    .card-message,
+    .card-photo {
+	    width: 100%;
+    }
+    .info>.info-bar {
+	    width: 80%;
+        margin: 10px auto;
+        padding: 5px 5px;
+    }
+    .info-bar>span:last-child,
+    #to-top {
+	    display: none;
+    }
+}
+@media all and (min-width: 720px){
+	body {
+		font-size: medium;
+	}
+	nav {
+		display: inline-block;
+	}
+	.info>.info-card {
+	    width: 20%;
+	    min-width: 380px;
+        margin: 20px auto;
+        padding: 10px 20px;
+    }
+    .card-message,
+    .card-photo {
+	    width: 49%;
+    }
+    .info>.info-bar {
+	    width: 30%;
+	    min-width: 550px;
+        margin: 10px auto;
+        padding: 5px 20px;
+    }	
+}
 body {
-	font-size: medium;
 	font-family: "Microsoft YaHei","Cursive";
 	margin: 0;
 	padding:  0;
 }
 /* 导航 */
-header>p,header>nav,header>nav li {
+header>p,nav li {
 	display: inline-block;
 }
-header>nav ul {
+nav ul {
 	margin: 0;
 } 
-header>nav li {
+nav li {
 	border-bottom: 2px solid transparent;
 	border-right: 1px solid white; 
     transition: all .3s;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
 }
-header>nav li>a {
+nav li>a {
 	padding: 16px;
     text-decoration: none;
     color: white;
     line-height: 53px;
 }
-header>nav li:hover {
+nav li:hover {
 	cursor: pointer;
 	border-bottom-color: hotpink;
     background-color: crimson;
 }
-header>nav {
+nav {
 	float: right;
 }
-header,#skill {
+header,.skill {
 	background-color: rgb(153, 204, 51);
 	color: white;
 	padding: 0 20px;
 }
 /* 个人履历 */
-#info>.info-card {
-	width: 20%;
-	min-width: 380px;
-    margin: 20px auto;
-    padding: 10px 20px;
+.info>.info-card {
     border: 1px solid #ddd;
     box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
 }
-#info .card-photo img {
+.card-photo img {
     width: 150px;
 }
-#info .card-message,
-#info .card-photo {
+.card-message,
+.card-photo {
 	display: inline-block;
-	width: 49%;
     text-align: center;
 }
-#info>.info-bar {
-	width: 30%;
-	min-width: 550px;
-    margin: 10px auto;
+.info>.info-bar {
     border: 1px solid #ddd;
     border-radius: 7px;
-    padding: 5px 20px;
 }
 .info-bar>span:last-child {
 	float: right;
@@ -73,10 +113,10 @@ header,#skill {
 	margin-left: 5px;
 }
 /* 工作技能 */
-#skill {
+.skill {
 	padding: 30px 0;
 }
-#skill>.wrapper {
+.skill>.wrapper {
 	width: 50%;
 	margin: 0 auto;
 }
@@ -113,10 +153,10 @@ header,#skill {
 	margin-top: 35px;
 }
 /* 项目经历 */
-#project {
+.project {
 	padding: 50px 0;
 }
-#project>.wrapper {
+.project>.wrapper {
 	width: 75%;
 	margin: 50px auto;
 	padding: 20px;
