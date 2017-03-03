@@ -23,6 +23,14 @@
     #to-top {
 	    display: none;
     }
+    .skill-badge {
+    	margin: 10px 5px;
+        width: 92px;
+        height: 92px;
+    }
+    .skill-badge>p:first-child {
+	    margin-top: 25px;
+    }     
 }
 @media all and (min-width: 720px){
 	body {
@@ -46,7 +54,18 @@
 	    min-width: 550px;
         margin: 10px auto;
         padding: 5px 20px;
-    }	
+    }
+    .skill>.wrapper {
+	    width: 50%;
+    }
+    .skill-badge {
+    	margin: 10px 20px;
+        width: 100px;
+        height: 100px;
+    }
+    .skill-badge>p:first-child {
+	    margin-top: 35px;
+    }  	
 }
 body {
 	font-family: "Microsoft YaHei","Cursive";
@@ -117,15 +136,11 @@ header,.skill {
 	padding: 30px 0;
 }
 .skill>.wrapper {
-	width: 50%;
 	margin: 0 auto;
 }
 .skill-badge {
 	background-color: white;
-    color: black;
-    margin: 10px 20px;
-    width: 100px;
-    height: 100px;
+    color: black;    
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -148,9 +163,6 @@ header,.skill {
 	font-size: smaller;
 	color: grey;
 	margin-top: -10px;
-}
-.skill-badge>p:first-child {
-	margin-top: 35px;
 }
 /* 项目经历 */
 .project {
