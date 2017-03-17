@@ -58,7 +58,7 @@
         padding: 5px 20px;
     }
     .skill>.wrapper {
-	    width: 50%;
+	    width: 75%;
     }
     .skill-badge {
     	margin: 10px 20px;
@@ -102,7 +102,7 @@ nav li:hover {
 nav {
 	float: right;
 }
-header,.skill {
+header {
 	background-color: rgb(153, 204, 51);
 	color: white;
 	padding: 0 20px;
@@ -136,16 +136,19 @@ header,.skill {
 /* 工作技能 */
 .skill {
 	padding: 30px 0;
+	border-top: 1px solid rgb(153, 204, 51);;
+	border-bottom: 1px solid rgb(153, 204, 51);;
 }
 .skill>.wrapper {
 	margin: 0 auto;
 }
 .skill-badge {
-	background-color: white;
-    color: black;    
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
+	background-color: rgb(153, 204, 51);
+    color: white;
+    border: 1px solid #c5c5c5;    
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     display: inline-block;
     text-align: center;
     transition: all .3s;
@@ -153,8 +156,9 @@ header,.skill {
     -moz-transition: all .3s;
 }
 .skill-badge:hover {
-	background-color: seashell;
+	background-color: darkseagreen;
 	cursor: pointer;
+	box-shadow: 0px 0px 8px #ababab;
 	transform: scale(1.2,1.2);
 	-webkit-transform: scale(1.2,1.2);
 	-ms-transform: scale(1.2,1.2);
@@ -163,7 +167,6 @@ header,.skill {
 }
 .skill-badge>p:last-child {
 	font-size: smaller;
-	color: grey;
 	margin-top: -10px;
 }
 /* 项目经历 */
@@ -172,7 +175,7 @@ header,.skill {
 }
 .project>.wrapper {
 	width: 75%;
-	margin: 50px auto;
+	margin: 30px auto;
 	padding: 20px;
 	border: 1px solid #ddd;
     box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
