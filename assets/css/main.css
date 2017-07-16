@@ -116,10 +116,18 @@ nav {
     float: right;
 }
 header {
-    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    width: 100%;
 
     color: white;
     background-color: #81D8D0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 1px 2px 3px #e4e4e4;
+    z-index: 999;
+}
+main {
+    margin-top: 80px;
 }
 /* 个人履历 */
 .info > .info-card {
@@ -164,7 +172,7 @@ header {
 .skill-badge {
     display: inline-block;
 
-    border: 1px solid #c5c5c5;
+    border: 1px solid #ace4df;
     -webkit-border-radius: 5px;
        -moz-border-radius: 5px;
             border-radius: 5px;
@@ -179,9 +187,9 @@ header {
             transition: all .3s;
 }
 .skill-badge:hover {
-    background-color: darkseagreen;
-
-    box-shadow: 0 0 8px #ababab;
+    background-color: #ace4df;
+    color: #666;
+    box-shadow: 0 0 4px #ababab;
 
     -webkit-transform: scale(1.2,1.2);
        -moz-transform: scale(1.2,1.2);
@@ -212,9 +220,7 @@ header {
 
 /* 页脚 */
 footer {
-    border-top: 1px solid #81D8D0;
-
-    box-shadow: -1px -1px 3px #e4e4e4;
+    border-top: 1px solid #ddd;
 }
 footer > p {
     text-align: center;
