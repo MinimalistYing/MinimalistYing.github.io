@@ -1,7 +1,7 @@
 /*小屏*/
 @media all and (max-width: 720px) {
     body {
-        font-size: large;
+        font-size: 12px;
     }
     nav {
         display: none;
@@ -36,7 +36,7 @@
 /*大屏*/
 @media all and (min-width: 720px) {
     body {
-        font-size: medium;
+        font-size: 14px;
     }
     nav {
         display: inline-block;
@@ -72,6 +72,8 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: #fafafa;
+    color: #333;
 
     font-family: "Microsoft YaHei","Cursive";
 }
@@ -87,9 +89,9 @@ nav li {
     border-right: 1px solid white;
     border-bottom: 2px solid transparent;
 
-    -webkit-transition: all .3s;
-       -moz-transition: all .3s;
-            transition: all .3s;
+    -webkit-transition: background-color .3s;
+       -moz-transition: background-color .3s;
+            transition: background-color .3s;
 }
 nav li > a {
     padding: 16px;
@@ -97,12 +99,16 @@ nav li > a {
     line-height: 53px;
     text-decoration: none;
 
-    color: white;
+    color: inherit;
+    -webkit-transition: color .3s;
+       -moz-transition: color .3s;
+            transition: color .3s;
 }
 nav li:hover {
-    border-bottom-color: hotpink;
+    color: #333;
+    border-bottom-color: #ACE4DF;
 
-    background-color: crimson;
+    background-color: #ACE4DF;
 
     cursor: pointer;
 }
@@ -113,7 +119,7 @@ header {
     padding: 0 20px;
 
     color: white;
-    background-color: rgb(153, 204, 51);
+    background-color: #81D8D0;
 }
 /* 个人履历 */
 .info > .info-card {
@@ -148,9 +154,9 @@ header {
 }
 /* 工作技能 */
 .skill {
-    border-top: 1px solid rgb(153, 204, 51);
-    border-bottom: 1px solid rgb(153, 204, 51);
-    padding: 30px 0;;;
+    border-top: 1px solid #81D8D0;
+    border-bottom: 1px solid #81D8D0;
+    padding: 30px 0;
 }
 .skill > .wrapper {
     margin: 0 auto;
@@ -166,7 +172,7 @@ header {
     text-align: center;
 
     color: white;
-    background-color: rgb(153, 204, 51);
+    background-color: #81D8D0;
 
     -webkit-transition: all .3s;
        -moz-transition: all .3s;
@@ -206,9 +212,9 @@ header {
 
 /* 页脚 */
 footer {
-    border-top: 1px solid #9c3;
+    border-top: 1px solid #81D8D0;
 
-    box-shadow: -1px -1px 3px rgba(153, 204, 51, .48);
+    box-shadow: -1px -1px 3px #e4e4e4;
 }
 footer > p {
     text-align: center;
