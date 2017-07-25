@@ -1,0 +1,55 @@
+Inline-block
+1. For inline-block for ie8 to work, <!DOCTYPE html> has to be declared, as well as <meta http-equiv="X-UA-Compatible" content="IE=edge">for correct rendering mode. Has to be first loading element in head. 
+2. inline-block may cause width problem. Use max-width: 100% or inherit to fix.
+3. Try use *display: inline; *zoom:1; or float: left/right(works same as zoom), because ie8 treat inline-block as block element in cerntain condition. This supports ie6+
+4. inline-block may stack or overlap on each other even they are in same line, to fix it use margin-right: 1px if possible, otherwise, use #3 tip above
+5. Align to bottom: Inline or inline-block elements can be aligned to the bottom of block level elements if the line-height of the parent/block element is greater than that of the inline element.*
+6. Using 'vertical-align: baseline' would stack inline-block element instead of align them.
+
+Float and img width
+.float > img, If img has max-width: 100% in IE8, it will be 0 width. image won't be seen. 
+If image has default width and height set up from server, then image maybe seen but could be bigger than its container size.
+More details: 
+http://www.zeilenwechsel.de/it/articles/5/How-max-width-fails-in-IE8.html
+
+Backgournd-image: url(img.jpg); Don't need quote, but sometime if IE8 have two css properties in same line, then seperated the property
+in a new selectors(new selectors can be same)
+
+max-width/height in IE8 
+max-xx: auto will not override any specific value for IE8. You have to give a value(px or 100%) to override modern browser's max-width/height.
+Stair case
+li>a {display:block; float: left;} will make stair like render, the parent div(in this case <li>) needs to be float or inline. 
+
+Small height not recognized
+IE refuse to render smaller height than set font size. add font-size: 0 or overflow:hidden;
+
+Overflow and Relatively Positioned 
+Parent div has no position but overflow:hidden, and child div has position:relative, ie doesn't trancate child elem. Fix: add Po:r to parent div.
+
+Table and Table-cell
+1. Table or Table-cell's width may not be recognized by ie8, use table-layout: fixed.
+2. Use width instead of max-width for images inside ie8 because ie8 take default image size. Or use table-layout: fixed;
+3. Element inside table-cell maybe not able to absolute positioned in IE8.
+4. Line-height maybe not correct in table or table cell for all IE version.
+5. Table is not 100% even width: 100% is set. Add margin: 0 to table it will be 100% for ie8;
+6. Thumb of rule: always add 100% along with display: table; 
+
+
+CSS bugs from W3C
+1. Transform and Fixed position: If parent has 'transform', then any child has position: fixed 
+   will not stay as fixed element but 'absolute' element. 
+
+Fixed top header and anchor scroll:
+padding-top: 100px; margin-bottom: -100px; will create an empty gap. (search for "fixed top header and anchor scroll")
+#Hash tag anchor link position is not correct when there is fixed positioned header. Solution:
+https://css-tricks.com/hash-tag-links-padding/
+
+Psuedo font size class bug for IE9-11
+:before or :after class isn't being overriden by property defined at bottom. https://connect.microsoft.com/IE/feedback/details/813398/ie-11-css-before-with-font-size-in-em-units-ignores-css-precedence-rules
+Using 'rem' for unit may work, but if the element's display property is 'table', it won't work. The element has to be a block level.
+
+Psuedo text-decoration bug for IE 9-11
+Same situation as above example but for text-decoration: underline property. It has to be set and reset the same property in order for :psuedo:hover or :hover:psuedo to work.
+
+IE 10 11 Edge bug
+IE doesn't recongnize position: initial; Must use 'static' instead
