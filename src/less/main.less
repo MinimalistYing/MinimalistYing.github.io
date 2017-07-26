@@ -1,0 +1,319 @@
+/*小屏*/
+@media all and (max-width: 720px) {
+    body {
+        font-size: 12px;
+    }
+    nav {
+        display: none;
+    }
+    .info > .info-card {
+        margin: 5px auto;
+        padding: 2px;
+        width: 80%;
+    }
+    .card-message,
+    .card-photo {
+        width: 100%;
+    }
+    .info > .info-bar {
+        margin: 10px auto;
+        padding: 5px;
+        width: 80%;
+    }
+    .info-bar > span:last-child,
+    #to-top {
+        display: none;
+    }
+    .skill-badge {
+        margin: 10px 5px;
+        width: 92px;
+        height: 92px;
+    }
+    .skill-badge > p:first-child {
+        margin-top: 25px;
+    }
+}
+/*大屏*/
+@media all and (min-width: 720px) {
+    body {
+        font-size: 14px;
+    }
+    nav {
+        display: inline-block;
+    }
+    .info > .info-card {
+        margin: 20px auto;
+        padding: 10px 20px;
+        width: 20%;
+        min-width: 380px;
+    }
+    .card-message,
+    .card-photo {
+        width: 49%;
+    }
+    .info > .info-bar {
+        margin: 10px auto;
+        padding: 5px 20px;
+        width: 30%;
+        min-width: 550px;
+    }
+    .skill > .wrapper {
+        width: 75%;
+    }
+    .skill-badge {
+        margin: 10px 20px;
+        width: 100px;
+        height: 100px;
+    }
+    .skill-badge > p:first-child {
+        margin-top: 35px;
+    }
+}
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    color: #333;
+
+    font-family: "Microsoft YaHei","Cursive";
+}
+/* 导航 */
+header > p,
+nav li {
+    display: inline-block;
+}
+nav ul {
+    margin: 0;
+}
+nav li {
+    border-right: 1px solid white;
+    border-bottom: 2px solid transparent;
+
+    -webkit-transition: background-color .3s;
+       -moz-transition: background-color .3s;
+            transition: background-color .3s;
+}
+nav li > a {
+    padding: 16px;
+
+    line-height: 53px;
+    text-decoration: none;
+
+    color: inherit;
+    -webkit-transition: color .3s;
+       -moz-transition: color .3s;
+            transition: color .3s;
+}
+nav li:hover {
+    color: #333;
+    border-bottom-color: #ACE4DF;
+
+    background-color: #ACE4DF;
+
+    cursor: pointer;
+}
+nav {
+    float: right;
+}
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+    color: white;
+    background-color: #81D8D0;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 1px 2px 3px #e4e4e4;
+    z-index: 999;
+}
+main {
+    margin-top: 80px;
+}
+/* 个人履历 */
+.info > .info-card {
+    border: 1px solid #ddd;
+
+    box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
+}
+.card-photo img {
+    width: 150px;
+}
+.card-message,
+.card-photo {
+    display: inline-block;
+
+    text-align: center;
+}
+.info > .info-bar {
+    border: 1px solid #ddd;
+    border-radius: 7px;
+}
+.info-bar > span:last-child {
+    float: right;
+
+    font-size: medium;
+}
+.info-bar .tips {
+    margin-left: 5px;
+
+    font-size: small;
+
+    color: gray;
+}
+/* 工作技能 */
+.skill {
+    border-top: 1px solid #81D8D0;
+    border-bottom: 1px solid #81D8D0;
+    padding: 30px 0;
+}
+.skill > .wrapper {
+    text-align: center;
+    margin: 0 auto;
+}
+.skill-badge {
+    display: inline-block;
+
+    border: 1px solid #ace4df;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
+
+    text-align: center;
+
+    color: white;
+    background-color: #81D8D0;
+
+    -webkit-transition: all .3s;
+       -moz-transition: all .3s;
+            transition: all .3s;
+}
+.skill-badge:hover {
+    background-color: #ace4df;
+    color: #666;
+    box-shadow: 0 0 4px #ababab;
+
+    -webkit-transform: scale(1.2,1.2);
+       -moz-transform: scale(1.2,1.2);
+        -ms-transform: scale(1.2,1.2);
+         -o-transform: scale(1.2,1.2);
+            transform: scale(1.2,1.2);
+
+    cursor: pointer;
+}
+.skill-badge > p:last-child {
+    margin-top: -10px;
+
+    font-size: smaller;
+}
+/* 项目经历 */
+.project {
+    padding: 50px 0;
+}
+.project > .wrapper {
+    margin: 30px auto;
+    border: 1px solid #ddd;
+    padding: 20px;
+    padding: 10px;
+    width: 75%;
+
+    box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
+}
+
+/* 页脚 */
+footer {
+    border-top: 1px solid #ddd;
+}
+footer > p {
+    text-align: center;
+}
+
+/* 滚动至顶 */
+#to-top {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+
+    line-height: 50px;
+    text-align: center;
+
+    color: black;
+    background-color: white;
+
+    -webkit-transition: all .3s;
+       -moz-transition: all .3s;
+            transition: all .3s;
+}
+#to-top.hide {
+    display: none;
+}
+#to-top:hover {
+    -webkit-animation: top-animation 1.5s;
+            animation: top-animation 1.5s;
+
+    cursor: pointer;
+}
+@keyframes top-animation {
+    0% {
+        -webkit-transform: scale(1,1);
+           -moz-transform: scale(1,1);
+            -ms-transform: scale(1,1);
+             -o-transform: scale(1,1);
+                transform: scale(1,1);
+    }
+    33% {
+        -webkit-transform: scale(1.2,1.2);
+           -moz-transform: scale(1.2,1.2);
+            -ms-transform: scale(1.2,1.2);
+             -o-transform: scale(1.2,1.2);
+                transform: scale(1.2,1.2);
+    }
+    66% {
+        -webkit-transform: scale(.8,.8);
+           -moz-transform: scale(.8,.8);
+            -ms-transform: scale(.8,.8);
+             -o-transform: scale(.8,.8);
+                transform: scale(.8,.8);
+    }
+    100% {
+        -webkit-transform: scale(1,1);
+           -moz-transform: scale(1,1);
+            -ms-transform: scale(1,12);
+             -o-transform: scale(1,1);
+                transform: scale(1,1);
+    }
+}
+@-webkit-keyframes top-animation {
+    0% {
+        -webkit-transform: scale(1,1);
+           -moz-transform: scale(1,1);
+            -ms-transform: scale(1,1);
+             -o-transform: scale(1,1);
+                transform: scale(1,1);
+    }
+    33% {
+        -webkit-transform: scale(1.2,1.2);
+           -moz-transform: scale(1.2,1.2);
+            -ms-transform: scale(1.2,1.2);
+             -o-transform: scale(1.2,1.2);
+                transform: scale(1.2,1.2);
+    }
+    66% {
+        -webkit-transform: scale(.8,.8);
+           -moz-transform: scale(.8,.8);
+            -ms-transform: scale(.8,.8);
+             -o-transform: scale(.8,.8);
+                transform: scale(.8,.8);
+    }
+    100% {
+        -webkit-transform: scale(1,1);
+           -moz-transform: scale(1,1);
+            -ms-transform: scale(1,12);
+             -o-transform: scale(1,1);
+                transform: scale(1,1);
+    }
+}
