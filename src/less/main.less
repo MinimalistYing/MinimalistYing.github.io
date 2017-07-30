@@ -1,4 +1,4 @@
-/*Ð¡ÆÁ*/
+/*å°å±*/
 @media all and (max-width: 720px) {
     body {
         font-size: 12px;
@@ -33,7 +33,7 @@
         margin-top: 25px;
     }
 }
-/*´óÆÁ*/
+/*å¤§å±*/
 @media all and (min-width: 720px) {
     body {
         font-size: 14px;
@@ -77,7 +77,7 @@ body {
 
     font-family: "Microsoft YaHei","Cursive";
 }
-/* µ¼º½ */
+/* å¯¼èˆª */
 .header-title {
     display: inline-block;
     margin-left: 20px;
@@ -91,9 +91,7 @@ nav li {
     border-right: 1px solid white;
     border-bottom: 2px solid transparent;
 
-    -webkit-transition: background-color .3s;
-       -moz-transition: background-color .3s;
-            transition: background-color .3s;
+    transition: background-color .3s;
 }
 nav li > a {
     padding: 16px;
@@ -102,9 +100,7 @@ nav li > a {
     text-decoration: none;
 
     color: inherit;
-    -webkit-transition: color .3s;
-       -moz-transition: color .3s;
-            transition: color .3s;
+    transition: color .3s;
 }
 nav li:hover {
     color: #333;
@@ -131,7 +127,7 @@ header {
 main {
     margin-top: 80px;
 }
-/* ¸öÈËÂÄÀú */
+/* ä¸ªäººå±¥åŽ† */
 .info > .info-card {
     border: 1px solid #ddd;
 
@@ -162,7 +158,7 @@ main {
 
     color: gray;
 }
-/* ¹¤×÷¼¼ÄÜ */
+/* å·¥ä½œæŠ€èƒ½ */
 .skill {
     border-top: 1px solid #81D8D0;
     border-bottom: 1px solid #81D8D0;
@@ -176,29 +172,21 @@ main {
     display: inline-block;
 
     border: 1px solid #ace4df;
-    -webkit-border-radius: 5px;
-       -moz-border-radius: 5px;
-            border-radius: 5px;
+    border-radius: 5px;
 
     text-align: center;
 
     color: white;
     background-color: #81D8D0;
 
-    -webkit-transition: all .3s;
-       -moz-transition: all .3s;
-            transition: all .3s;
+    transition: all .3s;
 }
 .skill-badge:hover {
     background-color: #ace4df;
     color: #666;
     box-shadow: 0 0 4px #ababab;
 
-    -webkit-transform: scale(1.2,1.2);
-       -moz-transform: scale(1.2,1.2);
-        -ms-transform: scale(1.2,1.2);
-         -o-transform: scale(1.2,1.2);
-            transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2);
 
     cursor: pointer;
 }
@@ -207,7 +195,7 @@ main {
 
     font-size: smaller;
 }
-/* ÏîÄ¿¾­Àú */
+/* é¡¹ç›®ç»åŽ† */
 .project {
     padding: 50px 0;
 }
@@ -221,7 +209,7 @@ main {
     box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
 }
 
-/* Ò³½Å */
+/* é¡µè„š */
 footer {
     border-top: 1px solid #ddd;
 }
@@ -229,7 +217,7 @@ footer > p {
     text-align: center;
 }
 
-/* ¹ö¶¯ÖÁ¶¥ */
+/* æ»šåŠ¨è‡³é¡¶ */
 #to-top {
     position: fixed;
     right: 25px;
@@ -246,76 +234,41 @@ footer > p {
     color: black;
     background-color: white;
 
-    -webkit-transition: all .3s;
-       -moz-transition: all .3s;
-            transition: all .3s;
+    transition: all .3s;
 }
 #to-top.hide {
     display: none;
 }
 #to-top:hover {
-    -webkit-animation: top-animation 1.5s;
-            animation: top-animation 1.5s;
+    animation: top-animation 1.5s;
 
     cursor: pointer;
 }
 @keyframes top-animation {
     0% {
-        -webkit-transform: scale(1,1);
-           -moz-transform: scale(1,1);
-            -ms-transform: scale(1,1);
-             -o-transform: scale(1,1);
-                transform: scale(1,1);
+        transform: scale(1,1);
     }
     33% {
-        -webkit-transform: scale(1.2,1.2);
-           -moz-transform: scale(1.2,1.2);
-            -ms-transform: scale(1.2,1.2);
-             -o-transform: scale(1.2,1.2);
-                transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
     }
     66% {
-        -webkit-transform: scale(.8,.8);
-           -moz-transform: scale(.8,.8);
-            -ms-transform: scale(.8,.8);
-             -o-transform: scale(.8,.8);
-                transform: scale(.8,.8);
+        transform: scale(.8,.8);
     }
     100% {
-        -webkit-transform: scale(1,1);
-           -moz-transform: scale(1,1);
-            -ms-transform: scale(1,12);
-             -o-transform: scale(1,1);
-                transform: scale(1,1);
+        transform: scale(1,1);
     }
 }
 @-webkit-keyframes top-animation {
     0% {
-        -webkit-transform: scale(1,1);
-           -moz-transform: scale(1,1);
-            -ms-transform: scale(1,1);
-             -o-transform: scale(1,1);
-                transform: scale(1,1);
+        transform: scale(1,1);
     }
     33% {
-        -webkit-transform: scale(1.2,1.2);
-           -moz-transform: scale(1.2,1.2);
-            -ms-transform: scale(1.2,1.2);
-             -o-transform: scale(1.2,1.2);
-                transform: scale(1.2,1.2);
+        transform: scale(1.2,1.2);
     }
     66% {
-        -webkit-transform: scale(.8,.8);
-           -moz-transform: scale(.8,.8);
-            -ms-transform: scale(.8,.8);
-             -o-transform: scale(.8,.8);
-                transform: scale(.8,.8);
+        transform: scale(.8,.8);
     }
     100% {
-        -webkit-transform: scale(1,1);
-           -moz-transform: scale(1,1);
-            -ms-transform: scale(1,12);
-             -o-transform: scale(1,1);
-                transform: scale(1,1);
+        transform: scale(1,1);
     }
 }

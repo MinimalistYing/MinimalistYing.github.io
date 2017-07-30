@@ -1,4 +1,4 @@
-/*С��*/
+/*小屏*/
 @media all and (max-width: 720px) {
   body {
     font-size: 12px;
@@ -33,7 +33,7 @@
     margin-top: 25px;
   }
 }
-/*����*/
+/*大屏*/
 @media all and (min-width: 720px) {
   body {
     font-size: 14px;
@@ -76,7 +76,7 @@ body {
   color: #333;
   font-family: "Microsoft YaHei", "Cursive";
 }
-/* ���� */
+/* 导航 */
 .header-title {
   display: inline-block;
   margin-left: 20px;
@@ -90,7 +90,7 @@ nav li {
   border-right: 1px solid white;
   border-bottom: 2px solid transparent;
   -webkit-transition: background-color 0.3s;
-  -moz-transition: background-color 0.3s;
+  -o-transition: background-color 0.3s;
   transition: background-color 0.3s;
 }
 nav li > a {
@@ -99,7 +99,7 @@ nav li > a {
   text-decoration: none;
   color: inherit;
   -webkit-transition: color .3s;
-  -moz-transition: color .3s;
+  -o-transition: color .3s;
   transition: color .3s;
 }
 nav li:hover {
@@ -118,16 +118,18 @@ header {
   color: white;
   background-color: #81D8D0;
   border-bottom: 1px solid #ddd;
-  box-shadow: 1px 2px 3px #e4e4e4;
+  -webkit-box-shadow: 1px 2px 3px #e4e4e4;
+          box-shadow: 1px 2px 3px #e4e4e4;
   z-index: 999;
 }
 main {
   margin-top: 80px;
 }
-/* �������� */
+/* 个人履历 */
 .info > .info-card {
   border: 1px solid #ddd;
-  box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
+  -webkit-box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
+          box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
 }
 .card-photo img {
   width: 150px;
@@ -150,7 +152,7 @@ main {
   font-size: small;
   color: gray;
 }
-/* �������� */
+/* 工作技能 */
 .skill {
   border-top: 1px solid #81D8D0;
   border-bottom: 1px solid #81D8D0;
@@ -163,32 +165,29 @@ main {
 .skill-badge {
   display: inline-block;
   border: 1px solid #ace4df;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
   border-radius: 5px;
   text-align: center;
   color: white;
   background-color: #81D8D0;
   -webkit-transition: all .3s;
-  -moz-transition: all .3s;
+  -o-transition: all .3s;
   transition: all .3s;
 }
 .skill-badge:hover {
   background-color: #ace4df;
   color: #666;
-  box-shadow: 0 0 4px #ababab;
+  -webkit-box-shadow: 0 0 4px #ababab;
+          box-shadow: 0 0 4px #ababab;
   -webkit-transform: scale(1.2, 1.2);
-  -moz-transform: scale(1.2, 1.2);
-  -ms-transform: scale(1.2, 1.2);
-  -o-transform: scale(1.2, 1.2);
-  transform: scale(1.2, 1.2);
+      -ms-transform: scale(1.2, 1.2);
+          transform: scale(1.2, 1.2);
   cursor: pointer;
 }
 .skill-badge > p:last-child {
   margin-top: -10px;
   font-size: smaller;
 }
-/* ��Ŀ���� */
+/* 项目经历 */
 .project {
   padding: 50px 0;
 }
@@ -198,16 +197,17 @@ main {
   padding: 20px;
   padding: 10px;
   width: 75%;
-  box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
+  -webkit-box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
+          box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
 }
-/* ҳ�� */
+/* 页脚 */
 footer {
   border-top: 1px solid #ddd;
 }
 footer > p {
   text-align: center;
 }
-/* �������� */
+/* 滚动至顶 */
 #to-top {
   position: fixed;
   right: 25px;
@@ -221,7 +221,7 @@ footer > p {
   color: black;
   background-color: white;
   -webkit-transition: all .3s;
-  -moz-transition: all .3s;
+  -o-transition: all .3s;
   transition: all .3s;
 }
 #to-top.hide {
@@ -229,66 +229,42 @@ footer > p {
 }
 #to-top:hover {
   -webkit-animation: top-animation 1.5s;
-  animation: top-animation 1.5s;
+          animation: top-animation 1.5s;
   cursor: pointer;
 }
 @keyframes top-animation {
   0% {
     -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+            transform: scale(1, 1);
   }
   33% {
     -webkit-transform: scale(1.2, 1.2);
-    -moz-transform: scale(1.2, 1.2);
-    -ms-transform: scale(1.2, 1.2);
-    -o-transform: scale(1.2, 1.2);
-    transform: scale(1.2, 1.2);
+            transform: scale(1.2, 1.2);
   }
   66% {
     -webkit-transform: scale(0.8, 0.8);
-    -moz-transform: scale(0.8, 0.8);
-    -ms-transform: scale(0.8, 0.8);
-    -o-transform: scale(0.8, 0.8);
-    transform: scale(0.8, 0.8);
+            transform: scale(0.8, 0.8);
   }
   100% {
     -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 12);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+            transform: scale(1, 1);
   }
 }
 @-webkit-keyframes top-animation {
   0% {
     -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+            transform: scale(1, 1);
   }
   33% {
     -webkit-transform: scale(1.2, 1.2);
-    -moz-transform: scale(1.2, 1.2);
-    -ms-transform: scale(1.2, 1.2);
-    -o-transform: scale(1.2, 1.2);
-    transform: scale(1.2, 1.2);
+            transform: scale(1.2, 1.2);
   }
   66% {
     -webkit-transform: scale(0.8, 0.8);
-    -moz-transform: scale(0.8, 0.8);
-    -ms-transform: scale(0.8, 0.8);
-    -o-transform: scale(0.8, 0.8);
-    transform: scale(0.8, 0.8);
+            transform: scale(0.8, 0.8);
   }
   100% {
     -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 12);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
+            transform: scale(1, 1);
   }
 }
