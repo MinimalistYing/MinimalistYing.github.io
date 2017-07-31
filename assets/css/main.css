@@ -268,3 +268,22 @@ footer > p {
             transform: scale(1, 1);
   }
 }
+/* MEMO */
+.memo-main {
+  padding-right: 20%;
+}
+.memo-main .memo-col {
+  display: inline-block;
+  width: 20%;
+}
+.memo-main .memo-card {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  border-top: 3px solid #81D8D0;
+}
+.memo-anchor {
+  position: fixed;
+}
