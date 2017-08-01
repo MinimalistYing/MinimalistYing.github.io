@@ -272,9 +272,18 @@ footer > p {
 .memo-main {
   padding-right: 20%;
 }
+.memo-main pre {
+  white-space: normal;
+  font-family: sans-serif;
+  font-size: 12px;
+  background: #f6f6f6;
+  border-radius: 3px;
+  padding: 2px 5px;
+}
 .memo-main .memo-col {
   display: inline-block;
   width: 20%;
+  vertical-align: top;
 }
 .memo-main .memo-card {
   width: 80%;
