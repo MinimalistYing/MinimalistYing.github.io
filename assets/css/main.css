@@ -72,7 +72,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fafafa;
+  background-color: #fff;
   color: #333;
   font-family: "Microsoft YaHei", "Cursive";
 }
@@ -271,6 +271,7 @@ footer > p {
 /* MEMO */
 .memo-main {
   padding-right: 20%;
+  padding-left: 5%;
 }
 .memo-main pre {
   white-space: normal;
@@ -278,7 +279,8 @@ footer > p {
   font-size: 12px;
   background: #f6f6f6;
   border-radius: 3px;
-  padding: 2px 5px;
+  padding: 5px 10px;
+  text-align: center;
 }
 .memo-main .memo-col {
   display: inline-block;
@@ -288,6 +290,7 @@ footer > p {
 .memo-main .memo-card {
   width: 80%;
   margin: 0 auto;
+  margin-bottom: 30px;
   padding: 10px 20px;
   border: 1px solid #ddd;
   border-radius: 3px;
