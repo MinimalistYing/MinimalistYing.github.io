@@ -32,10 +32,10 @@
     	<div class="memo-col">
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22</pre><pre>parseInt('0x16', 10) = 0</pre></div>
 
-			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将一个带有滚动条的元素用父元素包裹，并将父元素设为<pre>overflow : hidden</pre>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>
-			&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden&quot;&gt;
+			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<pre>overflow : hidden</pre>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>
+			&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;
 			<br/>
-			&lt;div class=&quot;inner&quot; style=&quot;overflow : hidden&quot;&gt;&lt;/div&gt;
+			&lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;
 			<br/>&lt;/div&gt;
 			</pre>的写法</div>
     	</div>
