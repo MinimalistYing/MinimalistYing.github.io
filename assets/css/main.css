@@ -88,10 +88,12 @@ nav ul {
 nav li {
   display: inline-block;
   border-right: 1px solid white;
-  border-bottom: 2px solid transparent;
   -webkit-transition: background-color 0.3s;
   -o-transition: background-color 0.3s;
   transition: background-color 0.3s;
+}
+nav li.selected {
+  border-top-color: white;
 }
 nav li > a {
   padding: 16px;
@@ -104,7 +106,6 @@ nav li > a {
 }
 nav li:hover {
   color: #333;
-  border-bottom-color: #ACE4DF;
   background-color: #ACE4DF;
   cursor: pointer;
 }
@@ -164,7 +165,7 @@ main {
 }
 .skill-badge {
   display: inline-block;
-  border: 1px solid #ace4df;
+  border: 1px solid #ACE4DF;
   border-radius: 5px;
   text-align: center;
   color: white;
@@ -174,7 +175,7 @@ main {
   transition: all .3s;
 }
 .skill-badge:hover {
-  background-color: #ace4df;
+  background-color: #ACE4DF;
   color: #666;
   -webkit-box-shadow: 0 0 4px #ababab;
           box-shadow: 0 0 4px #ababab;
