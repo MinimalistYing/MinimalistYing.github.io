@@ -1,6 +1,7 @@
 @tiffany: #81D8D0;
 @tiffany-hover: #ACE4DF;
-@white-background: #fefefe;
+@white-background: #FEFEFE;
+@gary-border: #DDD;
 
 /*小屏*/
 @media all and (max-width: 720px) {
@@ -93,29 +94,29 @@ nav ul {
 }
 nav li {
     display: inline-block;
-    margin: 20px 15px;
+    padding: 20px 15px;
     border-bottom: 2px solid transparent;
 
-    transition: background-color .3s;
+    transition: background,color .3s,.3s ease-in;
     &.selected {
-        border-top-color: white;
+        border-bottom-color: @tiffany-hover;
     }
 }
 nav li > a {
     text-decoration: none;
 
     color: inherit;
-    transition: color .3s;
 }
 nav li:hover {
-    color: #333;
+    color: @white-background;
 
-    background-color: @tiffany-hover;
+    background: @tiffany-hover;
 
     cursor: pointer;
 }
 nav {
     float: right;
+    margin-right: 30px;
 }
 header {
     position: fixed;
@@ -165,8 +166,8 @@ main {
 }
 /* 工作技能 */
 .skill {
-    border-top: 1px solid @tiffany;
-    border-bottom: 1px solid @tiffany;
+    border-top: 1px solid @gary-border;
+    border-bottom: 1px solid @gary-border;
     padding: 30px 0;
 }
 .skill > .wrapper {

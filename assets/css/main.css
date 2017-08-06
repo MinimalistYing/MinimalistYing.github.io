@@ -72,7 +72,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fefefe;
+  background-color: #FEFEFE;
   color: #333;
   font-family: "Microsoft YaHei", "Cursive";
 }
@@ -88,29 +88,27 @@ nav ul {
 }
 nav li {
   display: inline-block;
-  margin: 20px 15px;
+  padding: 20px 15px;
   border-bottom: 2px solid transparent;
-  -webkit-transition: background-color 0.3s;
-  -o-transition: background-color 0.3s;
-  transition: background-color 0.3s;
+  -webkit-transition: background, color 0.3s, 0.3s ease-in;
+  -o-transition: background, color 0.3s, 0.3s ease-in;
+  transition: background, color 0.3s, 0.3s ease-in;
 }
 nav li.selected {
-  border-top-color: white;
+  border-bottom-color: #ACE4DF;
 }
 nav li > a {
   text-decoration: none;
   color: inherit;
-  -webkit-transition: color .3s;
-  -o-transition: color .3s;
-  transition: color .3s;
 }
 nav li:hover {
-  color: #333;
-  background-color: #ACE4DF;
+  color: #FEFEFE;
+  background: #ACE4DF;
   cursor: pointer;
 }
 nav {
   float: right;
+  margin-right: 30px;
 }
 header {
   position: fixed;
@@ -118,7 +116,7 @@ header {
   width: 100%;
   font-size: 16px;
   color: #81D8D0;
-  background-color: #fefefe;
+  background-color: #FEFEFE;
   border-bottom: 1px solid #ddd;
   -webkit-box-shadow: 1px 1px 5px #f3f3f3;
           box-shadow: 1px 1px 5px #f3f3f3;
@@ -156,8 +154,8 @@ main {
 }
 /* 工作技能 */
 .skill {
-  border-top: 1px solid #81D8D0;
-  border-bottom: 1px solid #81D8D0;
+  border-top: 1px solid #DDD;
+  border-bottom: 1px solid #DDD;
   padding: 30px 0;
 }
 .skill > .wrapper {
