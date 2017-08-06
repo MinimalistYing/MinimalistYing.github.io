@@ -72,7 +72,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: #fefefe;
   color: #333;
   font-family: "Microsoft YaHei", "Cursive";
 }
@@ -83,11 +83,13 @@ body {
   cursor: context-menu;
 }
 nav ul {
+  height: 63px;
   margin: 0;
 }
 nav li {
   display: inline-block;
-  border-right: 1px solid white;
+  margin: 20px 15px;
+  border-bottom: 2px solid transparent;
   -webkit-transition: background-color 0.3s;
   -o-transition: background-color 0.3s;
   transition: background-color 0.3s;
@@ -96,8 +98,6 @@ nav li.selected {
   border-top-color: white;
 }
 nav li > a {
-  padding: 16px;
-  line-height: 53px;
   text-decoration: none;
   color: inherit;
   -webkit-transition: color .3s;
@@ -116,11 +116,12 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  color: white;
-  background-color: #81D8D0;
+  font-size: 16px;
+  color: #81D8D0;
+  background-color: #fefefe;
   border-bottom: 1px solid #ddd;
-  -webkit-box-shadow: 1px 2px 3px #e4e4e4;
-          box-shadow: 1px 2px 3px #e4e4e4;
+  -webkit-box-shadow: 1px 1px 5px #f3f3f3;
+          box-shadow: 1px 1px 5px #f3f3f3;
   z-index: 999;
 }
 main {

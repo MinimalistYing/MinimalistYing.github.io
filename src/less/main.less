@@ -1,5 +1,6 @@
-@tiffany : #81D8D0;
-@tiffany-hover : #ACE4DF;
+@tiffany: #81D8D0;
+@tiffany-hover: #ACE4DF;
+@white-background: #fefefe;
 
 /*小屏*/
 @media all and (max-width: 720px) {
@@ -75,7 +76,7 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #fff;
+    background-color: @white-background;
     color: #333;
 
     font-family: "Microsoft YaHei","Cursive";
@@ -87,11 +88,13 @@ body {
     cursor: context-menu;
 }
 nav ul {
+    height: 63px;
     margin: 0;
 }
 nav li {
     display: inline-block;
-    border-right: 1px solid white;
+    margin: 20px 15px;
+    border-bottom: 2px solid transparent;
 
     transition: background-color .3s;
     &.selected {
@@ -99,9 +102,6 @@ nav li {
     }
 }
 nav li > a {
-    padding: 16px;
-
-    line-height: 53px;
     text-decoration: none;
 
     color: inherit;
@@ -121,11 +121,12 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    font-size: 16px;
 
-    color: white;
-    background-color: @tiffany;
+    color: @tiffany;
+    background-color: @white-background;
     border-bottom: 1px solid #ddd;
-    box-shadow: 1px 2px 3px #e4e4e4;
+    box-shadow: 1px 1px 5px #f3f3f3;
     z-index: 999;
 }
 main {
