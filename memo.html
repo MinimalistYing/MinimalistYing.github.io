@@ -21,29 +21,40 @@
     </header>
     <main class="memo-main">
     	<div class="memo-col">
-			<div class="memo-card">为了使<pre>display: inline-block</pre>在IE8中起作用，必须在文档开头加上<pre>&lt;!DOCTYPE html&gt;</pre>并在头部加上<pre>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</pre></div>
+			<div class="memo-card">为了使<pre>display: inline-block</pre>在IE8中起作用，必须在文档开头加上<pre>&lt;!DOCTYPE html&gt;</pre>并在头部加上<pre>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</pre>	
+			<div class="memo-time">2017/8/1</div></div>
 
-			<div class="memo-card">判断一个值是否为<pre>NaN</pre>一定要通过<pre>isNaN()</pre>而不是通过等号比较，因为<pre>NaN !== NaN</pre></div>
+			<div class="memo-card">判断一个值是否为<pre>NaN</pre>一定要通过<pre>isNaN()</pre>而不是通过等号比较，因为<pre>NaN !== NaN</pre>
+			<div class="memo-time">2017/8/2</div></div>
+
+			<div class="memo-card">实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数，或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑，改变完成后再将原有函数绑定回元素上
+			<div class="memo-time">2017/8/7</div></div>
     	</div>
     	<div class="memo-col">
-			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法</div>
+			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
+			<div class="memo-time">2017/8/2</div></div>
 
-			<div class="memo-card">通过Javascript<pre>element.scrollTop = value</pre>或者jQuery<pre>$(dom).scrollTop(value)</pre>去设置滚动条滚动位置时，注意所选取的元素就是设置了<pre>overflow-y : scroll</pre>的元素</div>
+			<div class="memo-card">通过Javascript<pre>element.scrollTop = value</pre>或者jQuery<pre>$(dom).scrollTop(value)</pre>去设置滚动条滚动位置时，注意所选取的元素就是设置了<pre>overflow-y : scroll</pre>的元素
+			<div class="memo-time">2017/8/3</div></div>
     	</div>
     	<div class="memo-col">
-			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22</pre><pre>parseInt('0x16', 10) = 0</pre></div>
+			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22</pre><pre>parseInt('0x16', 10) = 0</pre>
+			<div class="memo-time">2017/8/2</div></div>
 
 			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<pre>overflow : hidden</pre>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>
 			&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;
 			<br/>
 			&lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;
 			<br/>&lt;/div&gt;
-			</pre>的写法</div>
+			</pre>的写法
+			<div class="memo-time">2017/8/3</div></div>
     	</div>
     	<div class="memo-col">
-			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<pre>0.1 + 0.2 !== 0.3</pre>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题</div>
+			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<pre>0.1 + 0.2 !== 0.3</pre>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
+			<div class="memo-time">2017/8/2</div></div>
 
-			<div class="memo-card">在自测与后台有交互，会发送请求的地方时一定要注意在Chrome的Network中观察发送请求的URL、参数等是否符合预期，同时也要注意考虑请求返回失败或返回空结果时页面UI的展示</div>
+			<div class="memo-card">在自测与后台有交互，会发送请求的地方时一定要注意在Chrome的Network中观察发送请求的URL、参数等是否符合预期，同时也要注意考虑请求返回失败或返回空结果时页面UI的展示
+			<div class="memo-time">2017/8/6</div></div>
     	</div>
     </main>
     <aside class="memo-anchor">

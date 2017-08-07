@@ -131,7 +131,7 @@ header {
   font-size: 16px;
   color: #81D8D0;
   background-color: #FEFEFE;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #DDD;
   -webkit-box-shadow: 1px 1px 5px #f3f3f3;
           box-shadow: 1px 1px 5px #f3f3f3;
   z-index: 999;
@@ -141,7 +141,7 @@ main {
 }
 /* 个人履历 */
 .info > .info-card {
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   -webkit-box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
           box-shadow: 1px 2px 5px rgba(169, 169, 169, 0.18);
 }
@@ -154,7 +154,7 @@ main {
   text-align: center;
 }
 .info > .info-bar {
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   border-radius: 7px;
 }
 .info-bar > span:last-child {
@@ -207,7 +207,7 @@ main {
 }
 .project > .wrapper {
   margin: 30px auto;
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   padding: 20px;
   padding: 10px;
   width: 75%;
@@ -216,7 +216,7 @@ main {
 }
 /* 页脚 */
 footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #DDD;
 }
 footer > p {
   text-align: center;
@@ -226,7 +226,7 @@ footer > p {
   position: fixed;
   right: 25px;
   bottom: 25px;
-  border: 1px solid #ddd;
+  border: 1px solid #DDD;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -321,13 +321,28 @@ footer > p {
   vertical-align: top;
 }
 .memo-main .memo-card {
+  position: relative;
   width: 80%;
   margin: 0 auto;
   margin-bottom: 30px;
-  padding: 10px 20px;
-  border: 1px solid #ddd;
+  padding: 10px 20px 20px;
+  border: 1px solid #DDD;
   border-radius: 3px;
   border-top: 3px solid #81D8D0;
+}
+.memo-main .memo-time {
+  position: absolute;
+  bottom: 2px;
+  right: 5px;
+  font-size: 12px;
+  color: #f6f6f6;
+  -webkit-transition: color .3s;
+  -o-transition: color .3s;
+  transition: color .3s;
+}
+.memo-main .memo-time:hover {
+  cursor: default;
+  color: #ACE4DF;
 }
 .memo-anchor {
   position: fixed;
