@@ -1,3 +1,17 @@
+/*html5*/
+article,
+aside,
+dialog,
+footer,
+header,
+main,
+section,
+footer,
+nav,
+figure,
+menu {
+  display: block;
+}
 /*小屏*/
 @media all and (max-width: 720px) {
   body {
@@ -123,7 +137,7 @@ header {
   z-index: 999;
 }
 main {
-  margin-top: 80px;
+  margin-top: 85px;
 }
 /* 个人履历 */
 .info > .info-card {
@@ -292,6 +306,7 @@ footer > p {
 .memo-main {
   padding-right: 15%;
   padding-left: 5%;
+  line-height: 1.6;
 }
 .memo-main pre {
   white-space: normal;
