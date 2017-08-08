@@ -322,6 +322,16 @@ footer > p {
   border: 1px solid #DDD;
   border-radius: 3px;
   border-top: 3px solid #81D8D0;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.memo-main .memo-card:hover {
+  -webkit-box-shadow: 0px 20px 15px -10px #ddd;
+          box-shadow: 0px 20px 15px -10px #ddd;
+  -webkit-transform: translateY(-5px);
+      -ms-transform: translateY(-5px);
+          transform: translateY(-5px);
 }
 .memo-main .memo-time {
   position: absolute;
@@ -329,12 +339,13 @@ footer > p {
   right: 5px;
   font-size: 12px;
   color: #f6f6f6;
-  -webkit-transition: color .3s;
-  -o-transition: color .3s;
-  transition: color .3s;
+  -webkit-transition: color, font-size 0.3s, 0.3s ease-in-out;
+  -o-transition: color, font-size 0.3s, 0.3s ease-in-out;
+  transition: color, font-size 0.3s, 0.3s ease-in-out;
 }
 .memo-main .memo-time:hover {
   cursor: default;
+  font-size: 14px;
   color: #ACE4DF;
 }
 .memo-anchor {
