@@ -36,6 +36,9 @@
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
 			<div class="memo-time">2017/8/2</div></div>
 
+			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<pre>0.1 + 0.2 !== 0.3</pre>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
+			<div class="memo-time">2017/8/2</div></div>
+
 			<div class="memo-card">通过Javascript<pre>element.scrollTop = value</pre>或者jQuery<pre>$(dom).scrollTop(value)</pre>去设置滚动条滚动位置时，注意所选取的元素就是设置了<pre>overflow-y : scroll</pre>的元素
 			<div class="memo-time">2017/8/3</div></div>
     	</div>
@@ -50,10 +53,6 @@
 			<br/>&lt;/div&gt;
 			</pre>的写法
 			<div class="memo-time">2017/8/3</div></div>
-    	</div>
-    	<div class="memo-col">
-			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<pre>0.1 + 0.2 !== 0.3</pre>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
-			<div class="memo-time">2017/8/2</div></div>
 
 			<div class="memo-card">在自测与后台有交互，会发送请求的地方时一定要注意在Chrome的Network中观察发送请求的URL、参数等是否符合预期，同时也要注意考虑请求返回失败或返回空结果时页面UI的展示
 			<div class="memo-time">2017/8/6</div></div>

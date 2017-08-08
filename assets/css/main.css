@@ -282,24 +282,17 @@ footer > p {
             transform: scale(1, 1);
   }
 }
-@media all and (min-width: 1600px) {
+@media all and (min-width: 1024px) {
+  body {
+    min-width: 1200px;
+  }
   .memo-col {
-    width: 20%;
+    width: 30%;
   }
 }
-@media all and (min-width: 1200px) and (max-width: 1599px) {
+@media all and (max-width: 1023px) {
   .memo-col {
-    width: 33%;
-  }
-}
-@media all and (min-width: 720px) and (max-width: 1199px) {
-  .memo-col {
-    width: 49%;
-  }
-}
-@media all and (max-width: 719px) {
-  .memo-col {
-    width: 80%;
+    width: 95%;
   }
 }
 /* MEMO */
