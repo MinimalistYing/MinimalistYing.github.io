@@ -31,6 +31,9 @@
 			<br>
 			注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时，需要将解绑和绑定操作放在延时函数中执行，避免反复多次的绑定事件和解绑事件消耗过多资源，导致浏览器卡顿
 			<div class="memo-time">2017/8/7</div></div>
+
+			<div class="memo-card">IE8切换为兼容性视图模式时会将原User-Agent中包含的<pre>MSIE8.0</pre>转变为<pre>MSTE7.0</pre>所以在通过UA来判断IE版本时尤其要注意
+			<div class="memo-time">2017/8/9</div></div>
     	</div>
     	<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法

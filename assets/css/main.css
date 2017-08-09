@@ -327,8 +327,8 @@ footer > p {
   transition: all 0.3s ease-in-out;
 }
 .memo-main .memo-card:hover {
-  -webkit-box-shadow: 0px 20px 15px -10px #ddd;
-          box-shadow: 0px 20px 15px -10px #ddd;
+  -webkit-box-shadow: 0px 25px 40px -20px #ddd;
+          box-shadow: 0px 25px 40px -20px #ddd;
   -webkit-transform: translateY(-5px);
       -ms-transform: translateY(-5px);
           transform: translateY(-5px);
