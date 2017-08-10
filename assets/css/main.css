@@ -333,6 +333,11 @@ footer > p {
       -ms-transform: translateY(-5px);
           transform: translateY(-5px);
 }
+.memo-main .memo-card:hover .memo-time {
+  cursor: default;
+  font-size: 14px;
+  color: #ACE4DF;
+}
 .memo-main .memo-time {
   position: absolute;
   bottom: 2px;
@@ -342,11 +347,6 @@ footer > p {
   -webkit-transition: color, font-size 0.3s, 0.3s ease-in-out;
   -o-transition: color, font-size 0.3s, 0.3s ease-in-out;
   transition: color, font-size 0.3s, 0.3s ease-in-out;
-}
-.memo-main .memo-time:hover {
-  cursor: default;
-  font-size: 14px;
-  color: #ACE4DF;
 }
 .memo-anchor {
   position: fixed;
