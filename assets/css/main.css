@@ -12,6 +12,19 @@ figure,
 menu {
   display: block;
 }
+/*文字选中的颜色*/
+::-moz-selection {
+  background: #ACE4DF;
+  color: #FEFEFE;
+}
+::-webkit-selection {
+  background: #ACE4DF;
+  color: #FEFEFE;
+}
+::selection {
+  background: #ACE4DF;
+  color: #FEFEFE;
+}
 /*小屏*/
 @media all and (max-width: 720px) {
   body {

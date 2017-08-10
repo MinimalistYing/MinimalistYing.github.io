@@ -7,6 +7,21 @@
 article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     display:block;
 }
+/*文字选中的颜色*/
+::-moz-selection {
+    background:@tiffany-hover;
+    color:@white-background;
+}
+
+::-webkit-selection {
+    background:@tiffany-hover; 
+    color:@white-background;
+}
+
+::selection {
+    background:@tiffany-hover; 
+    color:@white-background;
+}
 /*小屏*/
 @media all and (max-width: 720px) {
     body {

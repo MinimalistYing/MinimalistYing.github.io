@@ -9,15 +9,4 @@ window.onload = function() {
 			$aChild.click();
 		}
 	}
-
-	var $cards = document.getElementsByClassName('memo-card')
-
-	for (let i = 0; i < $cards.length; i++) {
-		$cards[i].onmouseenter = () => {
-			console.info($cards[i].getElementsByClassName('memo-time')[0])
-			let e = document.createEvent("MouseEvents");
-			e.initEvent("onmouseenter", true, true);
-			$cards[i].getElementsByClassName('memo-time')[0].dispatchEvent(e);
-		}
-	}
 }
