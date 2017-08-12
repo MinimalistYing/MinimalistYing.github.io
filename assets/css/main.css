@@ -316,6 +316,7 @@ footer > p {
 }
 .memo-main pre {
   white-space: normal;
+  word-break: break-word;
   font-family: sans-serif;
   background: #f6f6f6;
   border-radius: 3px;
