@@ -24,9 +24,6 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
 }
 /*小屏*/
 @media all and (max-width: 720px) {
-    body {
-        font-size: 12px;
-    }
     nav {
         display: none;
     }
@@ -59,9 +56,6 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
 }
 /*大屏*/
 @media all and (min-width: 720px) {
-    body {
-        font-size: 14px;
-    }
     nav {
         display: inline-block;
     }
@@ -98,6 +92,7 @@ body {
     padding: 0;
     background-color: @white-background;
     color: #333;
+    font-size: 14px;
 
     font-family: "Microsoft YaHei","Cursive";
 }
@@ -298,26 +293,31 @@ footer > p {
     }
 }
 
-
+/*PC设备*/
 @media all and (min-width: 1024px) {
     body {
         min-width: 1200px;
+    }
+    .memo-main {
+        padding-right: 15%;
     }
     .memo-col {
         width: 30%;
     }
 }
 
-
+/*移动设备*/
 @media all and (max-width: 1023px) {
     .memo-col {
-        width: 95%;
+        width: 100%;
+    }
+    .memo-main {
+        padding-right: 5%;
     }
 }
 
 /* MEMO */
 .memo-main {
-    padding-right: 15%;
     padding-left: 5%;
     line-height: 1.6;
     pre {
