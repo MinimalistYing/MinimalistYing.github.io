@@ -50,6 +50,9 @@
 
 			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<pre>:hover</pre>下的样式，之前的思路是通过借助jQuery<pre>$(parent).hover(() => $(son).hover())</pre>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br/>// 这里是鼠标悬浮在父元素上是子元素的样式<br/>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<pre>mouseenter/mouseleave/mousemove</pre>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<pre>:hover</pre>状态的
 			<div class="memo-time">2017/8/10</div></div>
+
+			<div class="memo-card">当一个<pre>display : inline-block</pre>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<pre>display : inline-block</pre>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
+			<div class="memo-time">2017/8/13</div></div>
     	</div>
     	<div class="memo-col">
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22</pre><pre>parseInt('0x16', 10) = 0</pre>
@@ -68,6 +71,9 @@
 
 			<div class="memo-card"><pre>::selection</pre>可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
 			<div class="memo-time">2017/8/10</div></div>
+
+			<div class="memo-card">可以通过<pre>filter : Alpha(opacity = ?)</pre>来在IE7-8中兼容CSS3的<pre>opacity</pre>属性
+			<div class="memo-time">2017/8/13</div></div>
     	</div>
     </main>
     <aside class="memo-anchor">
