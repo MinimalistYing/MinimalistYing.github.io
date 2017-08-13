@@ -19,6 +19,7 @@
   "homepage": "https://github.com/MinimalistYing/MinimalistYing.github.io#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.7.0",
     "gulp-less": "^3.3.2",
     "gulp-plumber": "^1.1.0",
     "less": "^2.7.2"
