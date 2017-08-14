@@ -2,6 +2,8 @@
 @tiffany-hover: #ACE4DF;
 @white-background: #FEFEFE;
 @gary-border: #DDD;
+@deep-pink: #ff1493;
+@dark-pink: #ff90cd;
 
 /*html5*/
 article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
@@ -328,6 +330,19 @@ footer > p {
         border-radius: 3px;
         padding: 5px 10px; 
         text-align: center;
+    }
+    a {
+        color: @deep-pink;
+        transition: color .3s;
+        &:link {
+            color: @deep-pink;
+        }
+        &:visited {
+            color: @dark-pink;
+        }
+        &:hover {
+            color: @deep-pink;
+        }
     }
     .memo-col {
         display: inline-block;
