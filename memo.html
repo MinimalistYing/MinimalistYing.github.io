@@ -59,6 +59,9 @@
 
 			<div class="memo-card">当一个<pre>display : inline-block</pre>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<pre>display : inline-block</pre>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
 			<div class="memo-time">2017/8/13</div></div>
+
+			<div class="memo-card">当一个<pre>position: absolute</pre>的绝对定位元素的父元素的<pre>overflow</pre>值被设为非<pre>visible</pre>时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为<pre>overflow: visible</pre>或者尽量保证定位元素不会超出父元素的边界
+			<div class="memo-time">2017/8/15</div></div>
     	</div>
     	<div class="memo-col">
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22</pre><pre>parseInt('0x16', 10) = 0</pre>
