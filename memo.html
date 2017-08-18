@@ -89,6 +89,9 @@
 
 			<div class="memo-card">当一个元素被设为<pre>display: flex</pre>时，它会被当作一个Flex Container，而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置<pre>float | clear | vertical-align</pre>的值都是无效的
 			<div class="memo-time">2017/8/16</div></div>
+
+			<div class="memo-card">在IE8下如果在<pre>table-layout : auto</pre>的表格中为单元格设置<pre>white-space : nowrap<br>overflow : hidden<br>text-overflow : ellipsis</pre>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局<br>要想实现这种效果，只能将表格设为<pre>table-layout : fixed</pre>
+			<div class="memo-time">2017/8/16</div></div>
     	</div>
     </main>
     <aside class="memo-anchor">
