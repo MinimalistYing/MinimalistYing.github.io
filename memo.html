@@ -57,7 +57,7 @@
 			<div class="memo-card">通过Javascript<pre>element.scrollTop = value</pre>或者jQuery<pre>$(dom).scrollTop(value)</pre>去设置滚动条滚动位置时，注意所选取的元素就是设置了<pre>overflow-y : scroll</pre>的元素
 			<div class="memo-time">2017/8/3</div></div>
 
-			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<pre>:hover</pre>下的样式，之前的思路是通过借助jQuery<pre>$(parent).hover(() => $(son).hover())</pre>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br/>// 这里是鼠标悬浮在父元素上是子元素的样式<br/>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<pre>mouseenter/mouseleave/mousemove</pre>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<pre>:hover</pre>状态的
+			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<pre>:hover</pre>下的样式，之前的思路是通过借助jQuery<pre>$(parent).hover(() => $(son).hover())</pre>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br>// 这里是鼠标悬浮在父元素上是子元素的样式<br>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<pre>mouseenter/mouseleave/mousemove</pre>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<pre>:hover</pre>状态的
 			<div class="memo-time">2017/8/10</div></div>
 
 			<div class="memo-card">当一个<pre>display : inline-block</pre>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<pre>display : inline-block</pre>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
@@ -72,9 +72,9 @@
 
 			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<pre>overflow : hidden</pre>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>
 			&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;
-			<br/>
+			<br>
 			&lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;
-			<br/>&lt;/div&gt;
+			<br>&lt;/div&gt;
 			</pre>的写法
 			<div class="memo-time">2017/8/3</div></div>
 
