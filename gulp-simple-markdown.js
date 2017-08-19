@@ -14,34 +14,34 @@ function markdown() {
 		var originHtml, result
 
 		if (file.isNull()) {
-	        throw "Please Check Files!"
-	    }
+			throw "Please Check Files!"
+		}
 
-	    // buffer对象可以操作
-        if (file.isBuffer()) {
-            //拿到单个文件buffer             
-            file.contents = new Buffer(file.contents.toString("utf-8"),"utf-8")
-        }
-         
-        // stream流是不能操作的,可以通过fs.readFileSync
-        if (file.isStream()) {
-            // 同步读取
-            file.contents = new Buffer(s.readFileSync(file.path).toString("utf-8"),"utf-8")
-        }
+		// buffer对象可以操作
+		if (file.isBuffer()) {
+			//拿到单个文件buffer             
+			file.contents = new Buffer(file.contents.toString("utf-8"),"utf-8")
+		}
+		 
+		// stream流是不能操作的,可以通过fs.readFileSync
+		if (file.isStream()) {
+			// 同步读取
+			file.contents = new Buffer(s.readFileSync(file.path).toString("utf-8"),"utf-8")
+		}
 
-        originHtml = file.contents.toString("utf-8")// 转化为字符串
-        result = code(originHtml)
-        file.contents = new Buffer(result)
+		originHtml = file.contents.toString("utf-8")// 转化为字符串
+		result = code(originHtml)
+		file.contents = new Buffer(result)
 
 		this.push(file)
 		// 声明文件已处理完毕
 		callback()
 	},function(callback) {
 		// 声明文件已处理完毕
-    	callback()
-    });
+		callback()
+	});
 
-    return stream// 最后将文件流返回
+	return stream// 最后将文件流返回
 }
 
 /**
@@ -53,7 +53,13 @@ function markdown() {
  * @return {[String]}      [转化后的文本]
  */
 function code(text) {
-	return text.replace(/ `(.+?)` /g, '<pre>$1</pre>')
+	return text.replace(/ `(.+?)` /g, (match, $1) => {// match为匹配串 $1为第一个捕获型分组匹配的字符串
+		var result = $1.replace(/</g, '&lt;')// 转义 <
+					   .replace(/>/g, '&gt;')// 转义 >
+					   .replace(/"/g, '&quot;')// 转义 "
+
+		return `<pre>${result}</pre>`
+	})
 }
 
 module.exports = markdown;

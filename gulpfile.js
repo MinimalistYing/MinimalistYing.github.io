@@ -5,6 +5,7 @@ const gulp= require('gulp'),
 	  cleanCSS = require('gulp-clean-css')
 	  simpleMarkDown = require('./gulp-simple-markdown')
 
+// 预处理less
 gulp.task('less', () => {
 	return gulp.src('src/less/**/*.less')
 		.pipe(plumber())
@@ -14,6 +15,7 @@ gulp.task('less', () => {
 		.pipe(gulp.dest('assets/css'))
 })
 
+// 预处理自己用部分MarkDown语法写的HTML
 gulp.task('markdown', () => {
 	return gulp.src('src/view/memo.html')
 		.pipe(simpleMarkDown())
