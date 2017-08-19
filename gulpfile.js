@@ -15,7 +15,7 @@ gulp.task('less', () => {
 })
 
 gulp.task('markdown', () => {
-	return gulp.src()
+	return gulp.src('src/view/memo.html')
 		.pipe(simpleMarkDown())
 		.pipe(gulp.dest('./'))
 })
@@ -24,4 +24,8 @@ gulp.task('less:watch', () => {
 	gulp.watch('src/less/**/*.less', ['less'])
 })
 
-gulp.task('default', ['less', 'markdown', 'less:watch'])
+gulp.task('markdown:watch', () => {
+	gulp.watch('src/view/memo.html', ['markdown'])
+})
+
+gulp.task('default', ['less', 'markdown', 'less:watch', 'markdown:watch'])
