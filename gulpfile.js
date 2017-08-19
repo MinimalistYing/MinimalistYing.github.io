@@ -3,6 +3,7 @@ const gulp= require('gulp'),
 	  plumber = require('gulp-plumber')
 	  autoprefixer = require('gulp-autoprefixer')
 	  cleanCSS = require('gulp-clean-css')
+	  simpleMarkDown = require('./gulp-simple-markdown')
 
 gulp.task('less', () => {
 	return gulp.src('src/less/**/*.less')
@@ -13,8 +14,14 @@ gulp.task('less', () => {
 		.pipe(gulp.dest('assets/css'))
 })
 
+gulp.task('markdown', () => {
+	return gulp.src()
+		.pipe(simpleMarkDown())
+		.pipe(gulp.dest('./'))
+})
+
 gulp.task('less:watch', () => {
 	gulp.watch('src/less/**/*.less', ['less'])
 })
 
-gulp.task('default', ['less', 'less:watch'])
+gulp.task('default', ['less', 'markdown', 'less:watch'])
