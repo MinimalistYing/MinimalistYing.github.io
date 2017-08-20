@@ -46,6 +46,12 @@
 
 			<div class="memo-card">HTML5新增了<pre>input</pre>事件来监听文本框的输入变化,但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
 			<div class="memo-time">2017/8/17</div></div>
+
+			<div class="memo-card">正则表达式中的<pre>.</pre>可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用<pre>[\s\S]</pre>
+			<div class="memo-time">2017/8/20</div></div>
+
+			<div class="memo-card">Javascript中字符串替换API<pre>String.replace(reg, replacement)</pre>其中的replacement可以是一个回调函数<pre>(match, $1, $2, offset, string) =&gt;{}</pre>通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
+			<div class="memo-time">2017/8/20</div></div>
     	</div>
     	<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
@@ -85,7 +91,7 @@
 			<div class="memo-card">当一个元素被设为<pre>display: flex</pre>时，它会被当作一个Flex Container，而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置<pre>float | clear | vertical-align</pre>的值都是无效的
 			<div class="memo-time">2017/8/16</div></div>
 
-			<div class="memo-card">在IE8下如果在<pre>table-layout : auto</pre>的表格中为单元格设置<pre>white-space : nowrap<br>overflow : hidden<br>text-overflow : ellipsis</pre>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局<br>要想实现这种效果，只能将表格设为<pre>table-layout : fixed</pre>
+			<div class="memo-card">在IE8下如果在<pre>table-layout : auto</pre>的表格中为单元格设置<pre>white-space : nowrap<br>overflow : hidden<br>text-overflow : ellipsis</pre>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为<pre>table-layout : fixed</pre>
 			<div class="memo-time">2017/8/16</div></div>
     	</div>
     </main>
