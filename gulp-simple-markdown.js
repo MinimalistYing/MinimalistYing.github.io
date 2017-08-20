@@ -57,6 +57,7 @@ function code(text) {
 				var result = $1.replace(/</g, '&lt;')// 转义 <
 							.replace(/>/g, '&gt;')// 转义 >
 							.replace(/"/g, '&quot;')// 转义 "
+							.replace(/  /g, '<br>')// 在代码中连续的俩个空格当作换行处理
 
 		return `<pre>${result}</pre>`
 	})
