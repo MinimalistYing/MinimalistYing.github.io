@@ -1,6 +1,6 @@
 /**
  * gulp插件
- * 为了省去我在写Memo时需多次输入<pre></pre>的重复劳作
+ * 为了省去我在写Memo时需多次输入<pre></pre>等类似标签的重复劳作
  * 并提升原文件的可读性
  * 利用markdown的格式写src中的memo
  * 自动转化为所需的html
@@ -30,7 +30,7 @@ function markdown() {
 		}
 
 		originHtml = file.contents.toString("utf-8")// 转化为字符串
-		result = code(originHtml)
+		result = code(time(memocard(originHtml)))// 将原字符串转化成所需的HTMl
 		file.contents = new Buffer(result)
 
 		this.push(file)
@@ -46,7 +46,7 @@ function markdown() {
 
 /**
  * 将Markdown代码转化为HTML
- * 把`..`替换为<pre></pre> 
+ * 把`..`替换为<pre>..</pre> 
  * 对其中的特殊字符进行转义
  * 把换行替换为<br>
  * @param  {[String]} text [原始文本]
@@ -61,6 +61,25 @@ function code(text) {
 
 		return `<pre>${result}</pre>`
 	})
+}
+
+/**
+ * 将Memo中
+ * [- 备忘笔记 -]替换为
+ * <div class="memo-card">备忘笔记</div>
+ * 形式的HTML
+ */
+function memocard(text) {
+	return text.replace(/\[- ([\s\S]+?) -\]/g, '<div class="memo-card">$1</div>')
+}
+
+/**
+ * 将 #2017/8/20# 形式写的日期替换为
+ * <div class="memo-time">2017/8/20</div>
+ * 形式的Html
+ */
+function time(text) {
+	return text.replace(/#(.+?)#/g, '<div class="memo-time">$1</div>')
 }
 
 module.exports = markdown;
