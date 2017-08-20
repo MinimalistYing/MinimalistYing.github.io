@@ -54,9 +54,9 @@ function markdown() {
  */
 function code(text) {
 	return text.replace(/ `(.+?)` /g, (match, $1) => {// match为匹配串 $1为第一个捕获型分组匹配的字符串
-		var result = $1.replace(/</g, '&lt;')// 转义 <
-					   .replace(/>/g, '&gt;')// 转义 >
-					   .replace(/"/g, '&quot;')// 转义 "
+				var result = $1.replace(/</g, '&lt;')// 转义 <
+							.replace(/>/g, '&gt;')// 转义 >
+							.replace(/"/g, '&quot;')// 转义 "
 
 		return `<pre>${result}</pre>`
 	})

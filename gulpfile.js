@@ -12,14 +12,14 @@ gulp.task('less', () => {
 		.pipe(less())
 		.pipe(autoprefixer({browsers: ['last 4 versions']}))
 		.pipe(cleanCSS({compatibility: 'ie8'}))
-		.pipe(gulp.dest('assets/css'))
+		.pipe(gulp.dest('dist/assets/css'))
 })
 
 // 预处理自己用部分MarkDown语法写的HTML
 gulp.task('markdown', () => {
 	return gulp.src('src/view/memo.html')
 		.pipe(simpleMarkDown())
-		.pipe(gulp.dest('./'))
+		.pipe(gulp.dest('dist/'))
 })
 
 gulp.task('less:watch', () => {
