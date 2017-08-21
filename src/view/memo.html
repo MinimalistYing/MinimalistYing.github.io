@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MinimalistYing.io-Memo</title>
 	
 	<link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon.ico">
@@ -10,17 +10,17 @@
 </head>
 <body>
 	<header>
-        <h3 class="header-title">MinimalistYing.io</h3>
-        <nav>
-            <ul>
-                <li ><a href="../../index.html">Home</a></li>
-                <li class="selected"><a href="./memo.html">Memo</a></li>
-                <li ><a href="https://github.com/MinimalistYing">Github</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="memo-main">
-    	<div class="memo-col">
+		<h3 class="header-title">MinimalistYing.io</h3>
+		<nav>
+			<ul>
+				<li ><a href="../../index.html">Home</a></li>
+				<li class="selected"><a href="./memo.html">Memo</a></li>
+				<li ><a href="https://github.com/MinimalistYing">Github</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="memo-main">
+		<div class="memo-col">
 			[- 为了使 `display: inline-block` 在IE8中起作用，必须在文档开头加上 `<!DOCTYPE html>` 并在头部加上 `<meta http-equiv="X-UA-Compatible" content="IE=edge">` 	
 			#2017/8/1# -]
 
@@ -52,8 +52,8 @@
 
 			[- Javascript中字符串替换API `String.replace(reg, replacement)` 其中的replacement可以是一个回调函数 `(match, $1, $2, offset, string) =>{}` 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			#2017/8/20# -]
-    	</div>
-    	<div class="memo-col">
+		</div>
+		<div class="memo-col">
 			[- IE8中的伪元素只支持类似 `:after` 的写法，不支持 `::after` 的写法
 			#2017/8/2# -]
 
@@ -73,9 +73,9 @@
 			#2017/8/15# -]
 			
 			[- Gulp确保任务按一定顺序执行 `gulp.task('second', ['first'], () => {})` Gulp在匹配的文件列表中剔除指定文件 `gulp.src(['asset/*.js', '!asset/exclude.js'], () => {})` 上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
-			#2017/8/21 -]
-    	</div>
-    	<div class="memo-col">
+			#2017/8/21# -]
+		</div>
+		<div class="memo-col">
 			[- 在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') = 22` 而你可能期望的结果是 `parseInt('0x16') = 0` 所以显示的指定进制才能做到真正的结果可控 `parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0`  
 			#2017/8/2# -]
 
@@ -102,12 +102,12 @@
 		
 			[- 在使用 `gulp.src(...).pipe(...).pipe(...)` 的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误 `gulp.src().pipe().on('err', () => {})` 会使代码变得很复杂，推荐使用Pump的方式来进行处理 `var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)` 
 			#2017/8/21# -]
-    	</div>
-    </main>
-    <aside class="memo-anchor">
+		</div>
+	</main>
+	<aside class="memo-anchor">
 		<ul></ul>
-    </aside>
+	</aside>
 
-    <script type="text/javascript" src="./assets/js/main.js"></script>
+	<script type="text/javascript" src="./assets/js/main.js"></script>
 </body>
 </html>

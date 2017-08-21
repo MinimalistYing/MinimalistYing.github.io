@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>MinimalistYing.io-Memo</title>
 	
 	<link rel="shortcut icon" type="image/x-icon" href="./assets/img/favicon.ico">
@@ -10,17 +10,17 @@
 </head>
 <body>
 	<header>
-        <h3 class="header-title">MinimalistYing.io</h3>
-        <nav>
-            <ul>
-                <li ><a href="../../index.html">Home</a></li>
-                <li class="selected"><a href="./memo.html">Memo</a></li>
-                <li ><a href="https://github.com/MinimalistYing">Github</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="memo-main">
-    	<div class="memo-col">
+		<h3 class="header-title">MinimalistYing.io</h3>
+		<nav>
+			<ul>
+				<li ><a href="../../index.html">Home</a></li>
+				<li class="selected"><a href="./memo.html">Memo</a></li>
+				<li ><a href="https://github.com/MinimalistYing">Github</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main class="memo-main">
+		<div class="memo-col">
 			<div class="memo-card">为了使<pre>display: inline-block</pre>在IE8中起作用，必须在文档开头加上<pre>&lt;!DOCTYPE html&gt;</pre>并在头部加上<pre>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</pre>	
 			<div class="memo-time">2017/8/1</div></div>
 
@@ -52,8 +52,8 @@
 
 			<div class="memo-card">Javascript中字符串替换API<pre>String.replace(reg, replacement)</pre>其中的replacement可以是一个回调函数<pre>(match, $1, $2, offset, string) =&gt;{}</pre>通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			<div class="memo-time">2017/8/20</div></div>
-    	</div>
-    	<div class="memo-col">
+		</div>
+		<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
 			<div class="memo-time">2017/8/2</div></div>
 
@@ -71,8 +71,11 @@
 
 			<div class="memo-card">当一个<pre>position: absolute</pre>的绝对定位元素的父元素的<pre>overflow</pre>值被设为非<pre>visible</pre>时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为<pre>overflow: visible</pre>或者尽量保证定位元素不会超出父元素的边界
 			<div class="memo-time">2017/8/15</div></div>
-    	</div>
-    	<div class="memo-col">
+			
+			<div class="memo-card">Gulp确保任务按一定顺序执行<pre>gulp.task('second', ['first'], () =&gt; {})</pre>Gulp在匹配的文件列表中剔除指定文件<pre>gulp.src(['asset/*.js', '!asset/exclude.js'], () =&gt; {})</pre>上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
+			<div class="memo-time">2017/8/21</div></div>
+		</div>
+		<div class="memo-col">
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22<br>parseInt('0x16', 10) = 0</pre> 
 			<div class="memo-time">2017/8/2</div></div>
 
@@ -93,12 +96,18 @@
 
 			<div class="memo-card">在IE8下如果在<pre>table-layout : auto</pre>的表格中为单元格设置<pre>white-space : nowrap<br>overflow : hidden<br>text-overflow : ellipsis</pre>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为<pre>table-layout : fixed</pre>
 			<div class="memo-time">2017/8/16</div></div>
-    	</div>
-    </main>
-    <aside class="memo-anchor">
+		
+			<div class="memo-card">Gulp在文件变化时触发回调函数<pre>gulp.watch('...', (event) =&gt; {})<br>//event.path 发生变化文件的路径<br>//event.type added|changed|deleted|renamed</pre>
+			<div class="memo-time">2017/8/21</div></div>
+		
+			<div class="memo-card">在使用<pre>gulp.src(...).pipe(...).pipe(...)</pre>的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误<pre>gulp.src().pipe().on('err', () =&gt; {})</pre>会使代码变得很复杂，推荐使用Pump的方式来进行处理<pre>var pump = require('pump')<br>pump([gulp.src(), uglify(), concat()], cb)</pre>
+			<div class="memo-time">2017/8/21</div></div>
+		</div>
+	</main>
+	<aside class="memo-anchor">
 		<ul></ul>
-    </aside>
+	</aside>
 
-    <script type="text/javascript" src="./assets/js/main.js"></script>
+	<script type="text/javascript" src="./assets/js/main.js"></script>
 </body>
 </html>
