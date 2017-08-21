@@ -71,6 +71,9 @@
 
 			[- 当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
 			#2017/8/15# -]
+			
+			[- Gulp确保任务按一定顺序执行 `gulp.task('second', ['first'], () => {})` Gulp在匹配的文件列表中剔除指定文件 `gulp.src(['asset/*.js', '!asset/exclude.js'], () => {})` 上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
+			#2017/8/21 -]
     	</div>
     	<div class="memo-col">
 			[- 在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') = 22` 而你可能期望的结果是 `parseInt('0x16') = 0` 所以显示的指定进制才能做到真正的结果可控 `parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0`  
