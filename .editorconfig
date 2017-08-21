@@ -1,7 +1,8 @@
-# top-most EditorConfig file
+# 用于改变Github中代码的显示格式
 root = true
 
-# all files
 [*]
 indent_style = tab
 indent_size = 4
+charset = utf-8
+end_of_line = lf
