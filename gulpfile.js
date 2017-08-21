@@ -1,8 +1,8 @@
 const gulp= require('gulp'),
-	  less= require('gulp-less')
-	  plumber = require('gulp-plumber')
-	  autoprefixer = require('gulp-autoprefixer')
-	  cleanCSS = require('gulp-clean-css')
+	  less= require('gulp-less'),
+	  plumber = require('gulp-plumber'),
+	  autoprefixer = require('gulp-autoprefixer'),
+	  cleanCSS = require('gulp-clean-css'),
 	  simpleMarkDown = require('./gulp-simple-markdown')
 
 // 预处理less
@@ -22,12 +22,10 @@ gulp.task('markdown', () => {
 		.pipe(gulp.dest('dist/'))
 })
 
-gulp.task('less:watch', () => {
+// 监听文件改变 对改变的文件进行预处理
+gulp.task('watch', () => {
 	gulp.watch('src/less/**/*.less', ['less'])
-})
-
-gulp.task('markdown:watch', () => {
 	gulp.watch('src/view/memo.html', ['markdown'])
 })
 
-gulp.task('default', ['less', 'markdown', 'less:watch', 'markdown:watch'])
+gulp.task('default', ['less', 'markdown', 'watch'])
