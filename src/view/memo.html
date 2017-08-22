@@ -44,7 +44,7 @@
 			详情可见这篇<a href="https://philipwalton.com/articles/how-we-track-pageviews-is-all-wrong/">Blog</a>
 			#2017/8/14# -]
 
-			[- HTML5新增了 `input` 事件来监听文本框的输入变化,但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听 `propertychange` 来实现兼容IE8
+			[- HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听 `propertychange` 来实现兼容IE8
 			#2017/8/17# -]
 
 			[- 正则表达式中的 `.` 可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用 `[\s\S]` 
@@ -52,6 +52,9 @@
 
 			[- Javascript中字符串替换API `String.replace(reg, replacement)` 其中的replacement可以是一个回调函数 `(match, $1, $2, offset, string) =>{}` 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			#2017/8/20# -]
+			
+			[- HTTP中的URL中没有具体表明端口号时，默认访问80端口，而HTTPS中的默认端口号为443
+			#2017/8/22# -]
 		</div>
 		<div class="memo-col">
 			[- IE8中的伪元素只支持类似 `:after` 的写法，不支持 `::after` 的写法
@@ -74,6 +77,9 @@
 			
 			[- Gulp确保任务按一定顺序执行 `gulp.task('second', ['first'], () => {})` Gulp在匹配的文件列表中剔除指定文件 `gulp.src(['asset/*.js', '!asset/exclude.js'], () => {})` 上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
 			#2017/8/21# -]
+			
+			[- 关于URI/URL/URN，URL和URM其实是URI(Uniform Resource Identifier)统一资源定位符的子集。URL不止指定了资源的地址，同时还指定了获取资源的方式（协议/方法等等）。而URN则只通过特定的命名空间标识资源，不关注操作获取资源的方式。
+			#2017/8/22# -]	
 		</div>
 		<div class="memo-col">
 			[- 在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') = 22` 而你可能期望的结果是 `parseInt('0x16') = 0` 所以显示的指定进制才能做到真正的结果可控 `parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0`  
