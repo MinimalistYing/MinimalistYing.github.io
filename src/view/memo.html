@@ -108,6 +108,9 @@
 		
 			[- 在使用 `gulp.src(...).pipe(...).pipe(...)` 的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误 `gulp.src().pipe().on('err', () => {})` 会使代码变得很复杂，推荐使用Pump的方式来进行处理 `var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)` 
 			#2017/8/21# -]
+			
+			[- 在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性 `<a> <applet> <area> <embed> <form> <frame> <frameset> <iframe> <img> <object>` 那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素 `<div id="a"></div>` 在script中 `console.info(a)  //<div id="a"></div>`
+			#2017/8/23# -]
 		</div>
 	</main>
 	<aside class="memo-anchor">
