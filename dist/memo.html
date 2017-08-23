@@ -44,7 +44,7 @@
 			详情可见这篇<a href="https://philipwalton.com/articles/how-we-track-pageviews-is-all-wrong/">Blog</a>
 			<div class="memo-time">2017/8/14</div></div>
 
-			<div class="memo-card">HTML5新增了<pre>input</pre>事件来监听文本框的输入变化,但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
+			<div class="memo-card">HTML5新增了<pre>input</pre>事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
 			<div class="memo-time">2017/8/17</div></div>
 
 			<div class="memo-card">正则表达式中的<pre>.</pre>可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用<pre>[\s\S]</pre>
@@ -52,6 +52,12 @@
 
 			<div class="memo-card">Javascript中字符串替换API<pre>String.replace(reg, replacement)</pre>其中的replacement可以是一个回调函数<pre>(match, $1, $2, offset, string) =&gt;{}</pre>通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			<div class="memo-time">2017/8/20</div></div>
+			
+			<div class="memo-card">HTTP中的URL中没有具体表明端口号时，默认访问80端口，而HTTPS中的默认端口号为443
+			<div class="memo-time">2017/8/22</div></div>
+			
+			<div class="memo-card">HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
+			<div class="memo-time">2017/8/23/</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
@@ -74,6 +80,9 @@
 			
 			<div class="memo-card">Gulp确保任务按一定顺序执行<pre>gulp.task('second', ['first'], () =&gt; {})</pre>Gulp在匹配的文件列表中剔除指定文件<pre>gulp.src(['asset/*.js', '!asset/exclude.js'], () =&gt; {})</pre>上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
 			<div class="memo-time">2017/8/21</div></div>
+			
+			<div class="memo-card">关于URI/URL/URN，URL和URM其实是URI(Uniform Resource Identifier)统一资源定位符的子集。URL不止指定了资源的地址，同时还指定了获取资源的方式（协议/方法等等）。而URN则只通过特定的命名空间标识资源，不关注操作获取资源的方式。
+			<div class="memo-time">2017/8/22</div></div>	
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22<br>parseInt('0x16', 10) = 0</pre> 
@@ -102,6 +111,9 @@
 		
 			<div class="memo-card">在使用<pre>gulp.src(...).pipe(...).pipe(...)</pre>的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误<pre>gulp.src().pipe().on('err', () =&gt; {})</pre>会使代码变得很复杂，推荐使用Pump的方式来进行处理<pre>var pump = require('pump')<br>pump([gulp.src(), uglify(), concat()], cb)</pre>
 			<div class="memo-time">2017/8/21</div></div>
+			
+			<div class="memo-card">在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性<pre>&lt;a&gt; &lt;applet&gt; &lt;area&gt; &lt;embed&gt; &lt;form&gt; &lt;frame&gt; &lt;frameset&gt; &lt;iframe&gt; &lt;img&gt; &lt;object&gt;</pre>那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素<pre>&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</pre>在script中<pre>console.info(a)<br>//结果为&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</pre>
+			<div class="memo-time">2017/8/23</div></div>
 		</div>
 	</main>
 	<aside class="memo-anchor">
