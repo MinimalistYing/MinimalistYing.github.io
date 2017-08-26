@@ -20,112 +20,150 @@
 		</nav>
 	</header>
 	<main class="memo-main">
+		<!-- JS相关 -->
 		<div class="memo-anchor-target">JavaScript<a class="fake-target" name="javascript">&nbsp;</a></div>
 		<div class="memo-col">
-			[- 为了使 `display: inline-block` 在IE8中起作用，必须在文档开头加上 `<!DOCTYPE html>` 并在头部加上 `<meta http-equiv="X-UA-Compatible" content="IE=edge">` 	
-			#2017/8/1# -]
-
 			[- 判断一个值是否为 `NaN` 一定要通过 `isNaN()` 而不是通过等号比较，因为 `NaN !== NaN` 
 			#2017/8/2# -]
 
+			[- Javascript中字符串替换API `String.replace(reg, replacement)` 其中的replacement可以是一个回调函数 `(match, $1, $2, offset, string) =>{}` 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
+			#2017/8/20# -]
+
+			[- 在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') = 22` 而你可能期望的结果是 `parseInt('0x16') = 0` 所以显示的指定进制才能做到真正的结果可控 `parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0`  
+			#2017/8/2# -]
+		</div>
+		<div class="memo-col">
 			[- 实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数，或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑，改变完成后再将原有函数绑定回元素上
 			<br>
 			注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时，需要将解绑和绑定操作放在延时函数中执行，避免反复多次的绑定事件和解绑事件消耗过多资源，导致浏览器卡顿
 			#2017/8/7# -]
 
-			[- IE8切换为兼容性视图模式时会将原User-Agent中包含的 `MSIE8.0` 转变为 `MSIE7.0` 所以在通过UA来判断IE版本时尤其要注意
-			#2017/8/9# -]
-
+			[- 在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
+			#2017/8/2# -]
+		</div>
+		<div class="memo-col">
 			[- 判断点击是否在某个DOM外部发生的思路，判断 `event.srcElement(IE) || event.target(FF)` 是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
 			#2017/8/12# -]
 
+			[- 通过Javascript `element.scrollTop = value` 或者jQuery `$(dom).scrollTop(value)` 去设置滚动条滚动位置时，注意所选取的元素就是设置了 `overflow-y : scroll` 的元素
+			#2017/8/3# -]
+		</div>
+
+		<!-- CSS相关 -->
+		<div class="memo-anchor-target">Cascading Style Sheets<a class="fake-target" name="css">&nbsp;</a></div>
+		<div class="memo-col">
+			[- 想实现鼠标悬浮在一个父元素上能触发其子元素在 `:hover` 下的样式，之前的思路是通过借助jQuery `$(parent).hover(() => $(son).hover())` 来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似 `.parent:hover .son {  // 这里是鼠标悬浮在父元素上是子元素的样式  }` 先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的 `mouseenter/mouseleave/mousemove` 事件，而即使是在代码中触发了这些事件也是无法触发CSS的 `:hover` 状态的
+			#2017/8/10# -]
+
+			[- 为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为 `overflow : hidden` 同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似 `<div calss="wrapper" style="overflow : hidden; width : 200px">  <div class="inner" style="max-height : 10px; overflow : scroll; width : 220px"></div>  </div>` 的写法
+			#2017/8/3# -]
+		</div>
+		<div class="memo-col">
+			[- 当一个 `display : inline-block` 元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它 `display : inline-block` 元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
+			#2017/8/13# -]
+
+			[-  `::selection` 可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
+			#2017/8/10# -]
+		</div>
+		<div class="memo-col">
+			[- 当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
+			#2017/8/15# -]
+
+			[- 当一个元素被设为 `display: flex` 时，它会被当作一个Flex Container，而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置 `float | clear | vertical-align` 的值都是无效的
+			#2017/8/16# -]
+		</div>
+
+		<!-- 兼容性相关 -->
+		<div class="memo-anchor-target">浏览器兼容性<a class="fake-target" name="compatibility">&nbsp;</a></div>
+		<div class="memo-col">
+			[- 为了使 `display: inline-block` 在IE8中起作用，必须在文档开头加上 `<!DOCTYPE html>` 并在头部加上 `<meta http-equiv="X-UA-Compatible" content="IE=edge">` 	
+			#2017/8/1# -]
+
+			[- 可以通过 `filter : Alpha(opacity = ?)` 来在IE7-8中兼容CSS3的 `opacity` 属性
+			#2017/8/13# -]
+		</div>
+		<div class="memo-col">
+			[- IE8切换为兼容性视图模式时会将原User-Agent中包含的 `MSIE8.0` 转变为 `MSIE7.0` 所以在通过UA来判断IE版本时尤其要注意
+			#2017/8/9# -]
+
+			[- 在IE8下如果在 `table-layout : auto` 的表格中为单元格设置 `white-space : nowrap  overflow : hidden  text-overflow : ellipsis` 想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为 `table-layout : fixed` 
+			#2017/8/16# -]
+		</div>
+		<div class="memo-col">
+			[- IE8中的伪元素只支持类似 `:after` 的写法，不支持 `::after` 的写法
+			#2017/8/2# -]
+		</div>
+
+		<!-- Gulp相关 -->
+		<div class="memo-anchor-target">Gulp<a class="fake-target" name="gulp">&nbsp;</a></div>
+		<div class="memo-col">
+			[- Gulp确保任务按一定顺序执行 `gulp.task('second', ['first'], () => {})` Gulp在匹配的文件列表中剔除指定文件 `gulp.src(['asset/*.js', '!asset/exclude.js'], () => {})` 上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
+			#2017/8/21# -]
+		</div>
+		<div class="memo-col">
+			[- Gulp在文件变化时触发回调函数 `gulp.watch('...', (event) => {})  //event.path 发生变化文件的路径  //event.type added|changed|deleted|renamed` 
+			#2017/8/21# -]
+		</div>
+		<div class="memo-col">
+			[- 在使用 `gulp.src(...).pipe(...).pipe(...)` 的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误 `gulp.src().pipe().on('err', () => {})` 会使代码变得很复杂，推荐使用Pump的方式来进行处理 `var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)` 
+			#2017/8/21# -]
+		</div>
+
+		<!-- Http相关 -->
+		<div class="memo-anchor-target">HyperText Transfer Protocol<a class="fake-target" name="http">&nbsp;</a></div>
+		<div class="memo-col">
+			[- HTTP中的URL中没有具体表明端口号时，默认访问80端口，而HTTPS中的默认端口号为443
+			#2017/8/22# -]
+
+			[- 由于TCP具有慢启动特性（不能在连接的开始就将所有的IP分组一次发出，而是只有在一个分组成功确认后才有发出其它俩个分组的权限），所以新连接的速度一般会比已建立好的连接要慢
+			#2017/8/25# -]
+		</div>
+		<div class="memo-col">
+			[- HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
+			#2017/8/23# -]
+
+			[- 关于URI/URL/URN，URL和URM其实是URI(Uniform Resource Identifier)统一资源定位符的子集。URL不止指定了资源的地址，同时还指定了获取资源的方式（协议/方法等等）。而URN则只通过特定的命名空间标识资源，不关注操作获取资源的方式。
+			#2017/8/22# -]
+		</div>
+		<div class="memo-col">
+			[- 源IP地址、目标IP地址、源端口号、目标端口号这四个值一起唯一地定义了一个TCP连接
+			#2017/8/25# -]
+		</div>
+
+		<!-- 其它没法归类的 -->
+		<div class="memo-anchor-target">杂项<a class="fake-target" name="other">&nbsp;</a></div>
+		<div class="memo-col">
 			[- 关于采集站点的PV、UV数据，传统的做法是当页面load完成后像后台发送数据，当作一次PV<br>
 			但在SPA(Single Page App)以及PWA(Progressive Web App)的情景下，这样的断定方式显得不那么合理，用户有可能一天中只Load一次页面然后在一天的任意时间段在这个应用中活动而不需要再一次Load页面<br>
 			考虑用更新的方式进行统计可能比较合理，例如借助<a href="https://developer.mozilla.org/en-US/docs/Web/API/Page_Visibility_API">Page Visibility API</a>在用户初次打开应用浏览以及过去合理的一段时间后(可以用Session持续的最长时间来判断)后从其它再次切换到这个Tab页都作为一次PV<br>
 			详情可见这篇<a href="https://philipwalton.com/articles/how-we-track-pageviews-is-all-wrong/">Blog</a>
 			#2017/8/14# -]
 
-			[- HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听 `propertychange` 来实现兼容IE8
-			#2017/8/17# -]
-
 			[- 正则表达式中的 `.` 可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用 `[\s\S]` 
-			#2017/8/20# -]
-
-			[- Javascript中字符串替换API `String.replace(reg, replacement)` 其中的replacement可以是一个回调函数 `(match, $1, $2, offset, string) =>{}` 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
-			#2017/8/20# -]
-			
-			[- HTTP中的URL中没有具体表明端口号时，默认访问80端口，而HTTPS中的默认端口号为443
-			#2017/8/22# -]
-			
-			[- HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
-			#2017/8/23# -]
-			
-			[- 源IP地址、目标IP地址、源端口号、目标端口号这四个值一起唯一地定义了一个TCP连接
-			#2017/8/25# -]
-			
-			[- 由于TCP具有慢启动特性（不能在连接的开始就将所有的IP分组一次发出，而是只有在一个分组成功确认后才有发出其它俩个分组的权限），所以新连接的速度一般会比已建立好的连接要慢
-			#2017/8/25# -]
+			#2017/8/20# -]	
 		</div>
 		<div class="memo-col">
-			[- IE8中的伪元素只支持类似 `:after` 的写法，不支持 `::after` 的写法
-			#2017/8/2# -]
-
-			[- 在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
-			#2017/8/2# -]
-
-			[- 通过Javascript `element.scrollTop = value` 或者jQuery `$(dom).scrollTop(value)` 去设置滚动条滚动位置时，注意所选取的元素就是设置了 `overflow-y : scroll` 的元素
-			#2017/8/3# -]
-
-			[- 想实现鼠标悬浮在一个父元素上能触发其子元素在 `:hover` 下的样式，之前的思路是通过借助jQuery `$(parent).hover(() => $(son).hover())` 来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似 `.parent:hover .son {  // 这里是鼠标悬浮在父元素上是子元素的样式  }` 先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的 `mouseenter/mouseleave/mousemove` 事件，而即使是在代码中触发了这些事件也是无法触发CSS的 `:hover` 状态的
-			#2017/8/10# -]
-
-			[- 当一个 `display : inline-block` 元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它 `display : inline-block` 元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
-			#2017/8/13# -]
-
-			[- 当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
-			#2017/8/15# -]
-			
-			[- Gulp确保任务按一定顺序执行 `gulp.task('second', ['first'], () => {})` Gulp在匹配的文件列表中剔除指定文件 `gulp.src(['asset/*.js', '!asset/exclude.js'], () => {})` 上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
-			#2017/8/21# -]
-			
-			[- 关于URI/URL/URN，URL和URM其实是URI(Uniform Resource Identifier)统一资源定位符的子集。URL不止指定了资源的地址，同时还指定了获取资源的方式（协议/方法等等）。而URN则只通过特定的命名空间标识资源，不关注操作获取资源的方式。
-			#2017/8/22# -]	
-		</div>
-		<div class="memo-col">
-			[- 在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') = 22` 而你可能期望的结果是 `parseInt('0x16') = 0` 所以显示的指定进制才能做到真正的结果可控 `parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0`  
-			#2017/8/2# -]
-
-			[- 为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为 `overflow : hidden` 同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似 `<div calss="wrapper" style="overflow : hidden; width : 200px">  <div class="inner" style="max-height : 10px; overflow : scroll; width : 220px"></div>  </div>` 的写法
-			#2017/8/3# -]
-
 			[- 在自测与后台有交互，会发送请求的地方时一定要注意在Chrome的Network中观察发送请求的URL、参数等是否符合预期，同时也要注意考虑请求返回失败或返回空结果时页面UI的展示
 			#2017/8/6# -]
 
-			[-  `::selection` 可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
-			#2017/8/10# -]
-
-			[- 可以通过 `filter : Alpha(opacity = ?)` 来在IE7-8中兼容CSS3的 `opacity` 属性
-			#2017/8/13# -]
-
-			[- 当一个元素被设为 `display: flex` 时，它会被当作一个Flex Container，而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置 `float | clear | vertical-align` 的值都是无效的
-			#2017/8/16# -]
-
-			[- 在IE8下如果在 `table-layout : auto` 的表格中为单元格设置 `white-space : nowrap  overflow : hidden  text-overflow : ellipsis` 想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为 `table-layout : fixed` 
-			#2017/8/16# -]
-		
-			[- Gulp在文件变化时触发回调函数 `gulp.watch('...', (event) => {})  //event.path 发生变化文件的路径  //event.type added|changed|deleted|renamed` 
-			#2017/8/21# -]
-		
-			[- 在使用 `gulp.src(...).pipe(...).pipe(...)` 的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误 `gulp.src().pipe().on('err', () => {})` 会使代码变得很复杂，推荐使用Pump的方式来进行处理 `var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)` 
-			#2017/8/21# -]
-			
+			[- HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听 `propertychange` 来实现兼容IE8
+			#2017/8/17# -]
+		</div>
+		<div class="memo-col">
 			[- 在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性 `<a> <applet> <area> <embed> <form> <frame> <frameset> <iframe> <img> <object>` 那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素 `<div id="a"></div>` 在script中 `console.info(a)  //结果为<div id="a"></div>` 
 			#2017/8/23# -]
 		</div>
 	</main>
+
+	<!-- 右侧导航 -->
 	<aside class="memo-anchor">
 		<ul>
-			<li><a href="#javascript">Javascript</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+			<li><a href="#css">CSS</a></li>
+			<li><a href="#compatibility">兼容性</a></li>
+			<li><a href="#gulp">Gulp</a></li>
+			<li><a href="#http">HTTP</a></li>
+			<li><a href="#other">杂项</a></li>
 		</ul>
 	</aside>
 
