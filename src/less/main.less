@@ -4,6 +4,7 @@
 @gary-border: #DDD;
 @deep-pink: #ff1493;
 @dark-pink: #ff90cd;
+@font-black: #333;
 
 /*html5*/
 article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
@@ -383,4 +384,38 @@ footer > p {
 }
 .memo-anchor {
     position: fixed;
+    right: 100px;
+    top: 90px;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    a {
+        color: @font-black;
+        padding: 10px;
+        text-decoration: none;
+        font-size: 18px;
+    }
+}
+.memo-anchor-target {
+    position: relative;
+    padding: 5px 0 5px 5px;
+    margin: 10px 0;
+    font-size: 16px;
+    color: @font-black;
+    &::before {
+        content: "#";
+        color: @tiffany;
+        position: absolute;
+        left: -10px;
+        bottom: 2px;
+        font-size: 1.2em;
+        font-weight: 700;
+    }
+    .fake-target {
+        position: relative;
+        top: -70px;
+    }    
 }

@@ -20,6 +20,7 @@
 		</nav>
 	</header>
 	<main class="memo-main">
+		<div class="memo-anchor-target">JavaScript<a class="fake-target" name="javascript">&nbsp;</a></div>
 		<div class="memo-col">
 			<div class="memo-card">为了使<pre>display: inline-block</pre>在IE8中起作用，必须在文档开头加上<pre>&lt;!DOCTYPE html&gt;</pre>并在头部加上<pre>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</pre>	
 			<div class="memo-time">2017/8/1</div></div>
@@ -57,7 +58,13 @@
 			<div class="memo-time">2017/8/22</div></div>
 			
 			<div class="memo-card">HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
-			<div class="memo-time">2017/8/23/</div></div>
+			<div class="memo-time">2017/8/23</div></div>
+			
+			<div class="memo-card">源IP地址、目标IP地址、源端口号、目标端口号这四个值一起唯一地定义了一个TCP连接
+			<div class="memo-time">2017/8/25</div></div>
+			
+			<div class="memo-card">由于TCP具有慢启动特性（不能在连接的开始就将所有的IP分组一次发出，而是只有在一个分组成功确认后才有发出其它俩个分组的权限），所以新连接的速度一般会比已建立好的连接要慢
+			<div class="memo-time">2017/8/25</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
@@ -117,7 +124,9 @@
 		</div>
 	</main>
 	<aside class="memo-anchor">
-		<ul></ul>
+		<ul>
+			<li><a href="#javascript">Javascript</a></li>
+		</ul>
 	</aside>
 
 	<script type="text/javascript" src="./assets/js/main.js"></script>
