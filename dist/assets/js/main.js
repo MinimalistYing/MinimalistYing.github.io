@@ -5,9 +5,9 @@ function scrollToAnchor(){
 	var hash = window.location.hash.substring(1).slice(1), 
 		anchorDom; // 伪锚点dom对象
 
-	anchorDom = document.querySelector(`a[name="${hash}"]`).parentNode;
+	anchorDom = document.querySelector(`a[name="${hash}"]`) && document.querySelector(`a[name="${hash}"]`).parentNode;
 
-	animationToAnchor(document.body.scrollTop, anchorDom.offsetTop - 60);
+	anchorDom && animationToAnchor(document.body.scrollTop, anchorDom.offsetTop - 60);
 }
 
 /**

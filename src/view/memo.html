@@ -62,8 +62,11 @@
 			[- 当一个 `display : inline-block` 元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它 `display : inline-block` 元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
 			#2017/8/13# -]
 
-			[-  `::selection` 可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
+			[- `::selection` 可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
 			#2017/8/10# -]
+
+			[- 可以通过给锚点设置一个向上的负偏移量来实现调至锚点位置时不会将锚点至于页面最顶部(避免被顶部所固定的Header遮挡)，类似: `a {  position: relative;  top: -66px;  }` 
+			#2017/8/27# -]
 		</div>
 		<div class="memo-col">
 			[- 当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
