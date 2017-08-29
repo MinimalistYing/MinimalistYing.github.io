@@ -111,6 +111,19 @@
 			[- 在使用 `gulp.src(...).pipe(...).pipe(...)` 的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误 `gulp.src().pipe().on('err', () => {})` 会使代码变得很复杂，推荐使用Pump的方式来进行处理 `var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)` 
 			#2017/8/21# -]
 		</div>
+		
+		<!-- jQuery相关 -->
+		<div class="memo-anchor-target">jQuery<a class="fake-target" name="jquery">&nbsp;</a></div>
+		<div class="memo-col">
+			[- 利用好jQuery的事件命名空间可以减少很多需要在一个Dom元素的同一事件上绑定多个不同回调函数时会碰到的问题，例如 `$(dom).on('click.a', () => {})  $(dom).on('click.b', () => {})` 当出于某种原因需要解绑第一个函数时，只需要 `$(dom).off('.a')` 即可实现，同时也不会对b命名空间下的绑定事件有任何影响。如果想触发某个特定空间下的事件，可以通过 `$(dom).trigger('click.b')` 来实现
+			#2017/8/29# -]
+		</div>
+		<div class="memo-col">
+			
+		</div>
+		<div class="memo-col">
+			
+		</div>
 
 		<!-- Http相关 -->
 		<div class="memo-anchor-target">HyperText Transfer Protocol<a class="fake-target" name="http">&nbsp;</a></div>
@@ -171,6 +184,7 @@
 			<li><a href="#_css">CSS</a></li>
 			<li><a href="#_compatibility">兼容性</a></li>
 			<li><a href="#_gulp">Gulp</a></li>
+			<li><a href="#_jquery">jQuery</a></li>
 			<li><a href="#_http">HTTP</a></li>
 			<li><a href="#_other">杂项</a></li>
 		</ul>
