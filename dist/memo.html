@@ -117,12 +117,17 @@
 		<div class="memo-col">
 			<div class="memo-card">利用好jQuery的事件命名空间可以减少很多需要在一个Dom元素的同一事件上绑定多个不同回调函数时会碰到的问题，例如<pre>$(dom).on('click.a', () =&gt; {})<br>$(dom).on('click.b', () =&gt; {})</pre>当出于某种原因需要解绑第一个函数时，只需要<pre>$(dom).off('.a')</pre>即可实现，同时也不会对b命名空间下的绑定事件有任何影响。如果想触发某个特定空间下的事件，可以通过<pre>$(dom).trigger('click.b')</pre>来实现
 			<div class="memo-time">2017/8/29</div></div>
+			
+			<div class="memo-card">jQuery可以通过<pre>$(':visible')/$(':hidden')</pre>来查找可见/不可见的Dom元素(通过判断元素的height和width是否大于0，所以<pre>opacity:0<br>visibility: hidden</pre>的元素会被认为是可见的)。这俩种选择器会带来性能上的问题，尽量避免使用，一定要使用的话也应该先通过纯CSS选择器将目标选出再通过<pre>$(dom).is(':visible')/$(dom).is(':hidden')</pre>判断，或者通过<pre>$(dom).filter(':visible')/$(dom).filter(':hidden')</pre>过滤
+			<div class="memo-time">2017/8/30</div></div>
 		</div>
 		<div class="memo-col">
-			
+			<div class="memo-card">jQuery核心函数的几种重载形式：<pre>//相当于$( document ).ready()<br>$(($) =&gt; {<br>//文档加载完毕<br>})</pre><pre>//选择器<br>$('selector')</pre><pre>//选择器(在父元素的范围下)<br>$('selector', parentDom)</pre><pre>//将Dom对象包装成jQuery对象<br>$(dom)</pre><pre>//将Dom对象的数组包装成jQuery对象<br>$(domArray)</pre><pre>//1.4以后返回空的jQuery对象<br>$()</pre><pre>//将Html字符串包装成jQuery对象<br>$('&lt;div&gt;&lt;/div&gt;')</pre><pre>//生成一个标签并包装成jQuery对象<br>$('&lt;div&gt;', {'class': 'a'})</pre>
+			<div class="memo-time">2017/8/30</div></div>
 		</div>
 		<div class="memo-col">
-			
+			<div class="memo-card">使用<pre>$(dom).html('...')</pre>时需注意防范脚本注入攻击，如果传入的字符串中包含可又用户填写的字段需要先进行转义，更好的办法是尽量使用<pre>$(dom).text('...')</pre>
+			<div class="memo-time">2017/8/30</div></div>
 		</div>
 
 		<!-- Http相关 -->
@@ -174,6 +179,9 @@
 		<div class="memo-col">
 			<div class="memo-card">HTML5新增了<pre>input</pre>事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
 			<div class="memo-time">2017/8/17</div></div>
+			
+			<div class="memo-card">阅读垠神博客有感  1.会写程序不是一件很了不起的事情，不要自负  2.语言、框架都只是工具，会用即可，不必过于推崇，重要的是我们脑海里的思想  3.开发软件也是一种工程，一定要极力避免Bug，这才是一个工程师该做的  4.面对同事、新人的提问请耐心解答，不要动不动就让提问者自行Google  5.不要觉得向他人提问是什么难为情的事，世界上总有东西是你不清楚的，哪怕是你日常工作所用的东西  6.复杂的代码不是显示能力的途径，简单易懂的才是
+			<div class="memo-time">2017/8/30</div></div>
 		</div>
 	</main>
 
