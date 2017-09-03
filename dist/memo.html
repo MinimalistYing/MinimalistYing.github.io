@@ -40,6 +40,9 @@
 			<br>
 			注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时，需要将解绑和绑定操作放在延时函数中执行，避免反复多次的绑定事件和解绑事件消耗过多资源，导致浏览器卡顿
 			<div class="memo-time">2017/8/7</div></div>
+			
+			<div class="memo-card">用于监听CSS3动画结束的事件<pre>webkitAnimationEnd// Chrome Safari<br>mozAnimationEnd<br>MSAnimationEnd// IE10<br>oanimationend// Opera<br>animationend</pre>
+			<div class="memo-time">2017/9/1</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">判断点击是否在某个DOM外部发生的思路，判断<pre>event.srcElement(IE) || event.target(FF)</pre>是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
@@ -47,6 +50,9 @@
 
 			<div class="memo-card">在使用Javascript的<pre>parseInt()</pre>时，最好显示的指明进制，因为<pre>parseInt('0x16') = 22</pre>而你可能期望的结果是<pre>parseInt('0x16') = 0</pre>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22<br>parseInt('0x16', 10) = 0</pre> 
 			<div class="memo-time">2017/8/2</div></div>
+
+			<div class="memo-card">Javascript中的假值(falsy values)<pre>false<br>null<br>undefined<br>空字符串''<br>0<br>NaN</pre>其它值都为true
+			<div class="memo-time">2017/9/3</div></div>
 		</div>
 
 		<!-- CSS相关 -->
@@ -95,6 +101,9 @@
 		<div class="memo-col">
 			<div class="memo-card">IE8切换为兼容性视图模式时会将原User-Agent中包含的<pre>MSIE8.0</pre>转变为<pre>MSIE7.0</pre>所以在通过UA来判断IE版本时尤其要注意
 			<div class="memo-time">2017/8/9</div></div>
+			
+			<div class="memo-card">Edge和IE11还有Safari好像会试图去识别页面上的数字是否像电话号码，如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)，想禁用这一特性可在HTML中加上<pre>&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no,email=no,address=no&quot;&gt;</pre>
+			<div class="memo-time">2017/9/1</div></div>
 		</div>
 
 		<!-- Gulp相关 -->
