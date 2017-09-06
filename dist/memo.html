@@ -61,7 +61,7 @@
 			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<pre>overflow : hidden</pre>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;<br>&lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;<br>&lt;/div&gt;</pre>的写法
 			<div class="memo-time">2017/8/3</div></div>
 
-			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<pre>:hover</pre>下的样式，之前的思路是通过借助jQuery<pre>$(parent).hover(() =&gt; $(son).hover())</pre>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br>// 这里是鼠标悬浮在父元素上是子元素的样式<br>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<pre>mouseenter/mouseleave/mousemove</pre>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<pre>:hover</pre>状态的
+			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<pre>:hover</pre>下的样式，之前的思路是通过借助jQuery<pre>$(parent).hover(() =&gt; $(son).hover())</pre>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br>// 这里是鼠标悬浮在父元素上时子元素的样式<br>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<pre>mouseenter/mouseleave/mousemove</pre>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<pre>:hover</pre>状态的
 			<div class="memo-time">2017/8/10</div></div>
 
 			<div class="memo-card">可以通过给锚点设置一个向上的负偏移量来实现调至锚点位置时不会将锚点至于页面最顶部(避免被顶部所固定的Header遮挡)，类似:<pre>a {<br>position: relative;<br>top: -66px;<br>}</pre>
@@ -90,6 +90,9 @@
 
 			<div class="memo-card">可以通过<pre>filter : Alpha(opacity = ?)</pre>来在IE7-8中兼容CSS3的<pre>opacity</pre>属性
 			<div class="memo-time">2017/8/13</div></div>
+			
+			<div class="memo-card">关于<pre>&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot;&gt;</pre>详情参看<a href="https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do">这个回答</a>
+			<div class="memo-time">2017/9/5</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">IE8中的伪元素只支持类似<pre>:after</pre>的写法，不支持<pre>::after</pre>的写法
@@ -157,6 +160,9 @@
 
 			<div class="memo-card">源IP地址、目标IP地址、源端口号、目标端口号这四个值一起唯一地定义了一个TCP连接
 			<div class="memo-time">2017/8/25</div></div>
+			
+			<div class="memo-card">HTTP响应中的Date首部应该表示原始服务器最初产生这个对象的日期
+			<div class="memo-time">2017/9/5</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
@@ -164,6 +170,9 @@
 
 			<div class="memo-card">通常Web服务器的文件系统会有一个根目录(Document Root)来专门用于存放Web内容，当服务器收到一个对静态资源的请求时会获取其URI并附加在根目录后去寻找相应的文件，例如服务器的根目录为<pre>/usr/home</pre>请求为<pre>/test/haha.gif</pre>服务器会在文件系统的<pre>/usr/home/test/haha.gif</pre>目录下去寻找被请求的资源文件。要注意的是，一个服务器也可能同时提供多个Web站点，它可以通过不同的请求Host或者IP来访问不同的根目录
 			<div class="memo-time">2017/8/28</div></div>
+			
+			<div class="memo-card">`Cache-Control : no-store` 禁止代理缓存<pre>Cache-Control : no-cache<br>Pragma : no-cache// 兼容HTTP/1.0</pre>允许缓存，但必须先与服务器进行新鲜度验证，之后才能将内容返回给客户端<pre>Cache-Control : max-age:66,must-revalidate</pre>允许缓存，并且只有在内容过期后才必须进行新鲜度验证（在缓存过期时即使服务器错误也不会将这个陈旧的缓存返回给客户端）
+			<div class="memo-time">2017/9/5</div></div>
 		</div>
 
 		<!-- 其它没法归类的 -->
@@ -174,6 +183,9 @@
 
 			<div class="memo-card">正则表达式中的<pre>.</pre>可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用<pre>[\s\S]</pre>
 			<div class="memo-time">2017/8/20</div></div>	
+			
+			<div class="memo-card">在HTML中属性可以用双引号、单引号、甚至不用引号包围，浏览器都是支持的。所以Google为了节省字节会采用不用引号的风格，大概对访问量极大的网站这也是一种省钱的方式吧
+			<div class="memo-time">2017/9/4</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">关于采集站点的PV、UV数据，传统的做法是当页面load完成后像后台发送数据，当作一次PV<br>
@@ -184,9 +196,12 @@
 
 			<div class="memo-card">在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性<pre>&lt;a&gt; &lt;applet&gt; &lt;area&gt; &lt;embed&gt; &lt;form&gt; &lt;frame&gt; &lt;frameset&gt; &lt;iframe&gt; &lt;img&gt; &lt;object&gt;</pre>那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素<pre>&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</pre>在script中<pre>console.info(a)<br>//结果为&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</pre>
 			<div class="memo-time">2017/8/23</div></div>
+			
+			<div class="memo-card"><pre>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;<br>&lt;meta charset=&quot;utf-8&quot;&gt;</pre>在HTML中俩者都可用来表明页面所采用的字符集，各浏览器的兼容性良好，但后者更短建议采用后者
+			<div class="memo-time">2017/9/5</div>-]
 		</div>
 		<div class="memo-col">
-			<div class="memo-card">HTML5新增了<pre>input</pre>事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
+			[- HTML5新增了<pre>input</pre>事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<pre>propertychange</pre>来实现兼容IE8
 			<div class="memo-time">2017/8/17</div></div>
 			
 			<div class="memo-card">阅读垠神博客有感  1.会写程序不是一件很了不起的事情，不要自负  2.语言、框架都只是工具，会用即可，不必过于推崇，重要的是我们脑海里的思想  3.开发软件也是一种工程，一定要极力避免Bug，这才是一个工程师该做的  4.面对同事、新人的提问请耐心解答，不要动不动就让提问者自行Google  5.不要觉得向他人提问是什么难为情的事，世界上总有东西是你不清楚的，哪怕是你日常工作所用的东西  6.复杂的代码不是显示能力的途径，简单易懂的才是
