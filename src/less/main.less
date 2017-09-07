@@ -2,6 +2,7 @@
 @tiffany-hover: #ACE4DF;
 @white-background: #FEFEFE;
 @gary-border: #DDD;
+@gray-bg: #f6f6f6;
 @deep-pink: #ff1493;
 @dark-pink: #ff90cd;
 @font-black: #333;
@@ -31,11 +32,6 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     nav {
         display: none;
     }
-    .info > .info-card {
-        margin: 5px auto;
-        padding: 2px;
-        width: 80%;
-    }
     .card-message,
     .card-photo {
         width: 100%;
@@ -63,12 +59,6 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     nav {
         display: inline-block;
     }
-    .info > .info-card {
-        margin: 20px auto;
-        padding: 10px 20px;
-        width: 20%;
-        min-width: 380px;
-    }
     .card-message,
     .card-photo {
         width: 49%;
@@ -77,7 +67,7 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
         margin: 10px auto;
         padding: 5px 20px;
         width: 30%;
-        min-width: 550px;
+        min-width: 410px;
     }
     .skill > .wrapper {
         width: 75%;
@@ -149,22 +139,33 @@ header {
     z-index: 999;
 }
 main {
-    margin-top: 85px;
+    margin-top: 65px;
 }
-/* 个人履历 */
-.info > .info-card {
-    border: 1px solid @gary-border;
 
-    box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
+/* 个人履历 */
+.info {
+    position: fixed;
+    height: 100%;
+    width: 30%;
+    background: @gray-bg;
+
+    .card-photo img {
+        margin-top: 50px;
+        width: 150px;
+    }
 }
-.card-photo img {
-    margin-top: 15px;
-    width: 150px;
-}
+
 .card-message,
 .card-photo {
-    display: inline-block;
-
+    text-align: center;
+    margin: 0 auto;
+}
+.card-photo {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    background: #fff;
     text-align: center;
 }
 .card-message {
@@ -187,6 +188,9 @@ main {
     color: gray;
 }
 /* 工作技能 */
+.right {
+    margin-left: 30%;
+}
 .skill {
     border-top: 1px solid @gary-border;
     border-bottom: 1px solid @gary-border;
