@@ -103,6 +103,9 @@
 
 			[- 在IE8下如果在 `table-layout : auto` 的表格中为单元格设置 `white-space : nowrap  overflow : hidden  text-overflow : ellipsis` 想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为 `table-layout : fixed` 
 			#2017/8/16# -]
+			
+			[- 通过ES5shim和Babel使用新特性Class时如果类并没有继承却在 `contructor()` 中调用了 `super()` 会导致在IE8下报错Stackoverflow。谨记如果没有继承关系则不应该调用 `super()` 方法 
+			#2017/9/8# -]
 		</div>
 		<div class="memo-col">
 			[- IE8切换为兼容性视图模式时会将原User-Agent中包含的 `MSIE8.0` 转变为 `MSIE7.0` 所以在通过UA来判断IE版本时尤其要注意
