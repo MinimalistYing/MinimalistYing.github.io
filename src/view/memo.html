@@ -43,6 +43,9 @@
 			
 			[- 用于监听CSS3动画结束的事件 `webkitAnimationEnd// Chrome Safari  mozAnimationEnd  MSAnimationEnd// IE10  oanimationend// Opera  animationend` 
 			#2017/9/1# -]
+			
+			[- 利用原生的JS即可输出格式化后的JSON字符串 `JSON.stringify(value[, replacer[, space]])` 其中space即是缩进数，默认无缩进，最大为10。replacer可以是一个过滤函数，用来筛选或替换最后的输出结果。具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">这篇文档</a>
+			#2017/9/8# -]
 		</div>
 		<div class="memo-col">
 			[- 判断点击是否在某个DOM外部发生的思路，判断 `event.srcElement(IE) || event.target(FF)` 是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
