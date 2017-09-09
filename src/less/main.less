@@ -118,9 +118,20 @@ header {
     border-bottom: 1px solid @gary-border;
     box-shadow: 1px 1px 5px #f3f3f3;
     z-index: 999;
+    transition: top .5s;
+
+    &.hide-top {
+        top: -65px;
+    }
 }
 main {
-    margin-top: 65px;
+    margin-top: 63px;
+    transition: margin-top .5s;
+
+
+    &.hide-top {
+        margin-top: 0;
+    }
 }
 
 /* 个人履历 */
@@ -131,7 +142,13 @@ main {
     min-width: 300px;
     display: flex;
     align-items: center;
-    background: @gray-bg;
+    background: @white-background;
+    border-right: 2px solid @gray-bg;
+    transition: background .5s;
+
+    &.hide-top {
+        background: @gray-bg;
+    }
 
     .info {
         width: 100%;

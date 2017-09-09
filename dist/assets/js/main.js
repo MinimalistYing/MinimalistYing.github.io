@@ -49,6 +49,38 @@ function animationToAnchor(start, stop){
     });
 }
 
+/**
+ * 向下滚动时收起头部导航 向上滚动时展开头部导航
+ */
+function toggleHeader() {
+  var lastScrollTop = document.body.scrollTop,
+    header = document.getElementsByTagName('header')[0],
+    main = document.getElementsByTagName('main')[0],
+    infoWrap = document.getElementsByClassName('info-wrapper')[0];
+
+  document.onscroll = () => {
+    // 避免滚动最底部时由于头部收起 滚动条变短引起的页面抖动
+    if (document.body.scrollTop + 65 < document.body.scrollHeight - window.innerHeight) {
+      if (document.body.scrollTop > lastScrollTop && !header.className) {
+        header.className = 'hide-top';
+        main.className = main.className + ' hide-top';
+
+        if (infoWrap) {
+          infoWrap.className = infoWrap.className + ' hide-top';
+        }
+      } else if (document.body.scrollTop < lastScrollTop && header.className === 'hide-top') {
+        header.className = '';
+        main.className = main.className.replace(' hide-top', '');
+
+        if (infoWrap) {
+          infoWrap.className = infoWrap.className.replace(' hide-top', '');
+        }
+      }
+    }
+    
+    lastScrollTop = document.body.scrollTop;
+  }
+}
 
 window.onhashchange = function(){
 	scrollToAnchor();
@@ -67,4 +99,6 @@ window.onload = function() {
 	}
 
 	scrollToAnchor();
+
+  toggleHeader();
 }
