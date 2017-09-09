@@ -32,18 +32,9 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     nav {
         display: none;
     }
-    .card-message,
-    .card-photo {
+    .info-message,
+    .info-photo {
         width: 100%;
-    }
-    .info > .info-bar {
-        margin: 10px auto;
-        padding: 5px;
-        width: 80%;
-    }
-    .info-bar > span:last-child,
-    #to-top {
-        display: none;
     }
     .skill-badge {
         margin: 10px 5px;
@@ -58,16 +49,6 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
 @media all and (min-width: 720px) {
     nav {
         display: inline-block;
-    }
-    .card-message,
-    .card-photo {
-        width: 49%;
-    }
-    .info > .info-bar {
-        margin: 10px auto;
-        padding: 5px 20px;
-        width: 30%;
-        min-width: 410px;
     }
     .skill > .wrapper {
         width: 75%;
@@ -143,24 +124,30 @@ main {
 }
 
 /* 个人履历 */
-.info {
+.info-wrapper {
     position: fixed;
     height: 100%;
     width: 30%;
+    display: flex;
+    align-items: center;
     background: @gray-bg;
 
-    .card-photo img {
+    .info {
+        width: 100%;
+    }
+
+    .info-photo img {
         margin-top: 50px;
         width: 150px;
     }
 }
 
-.card-message,
-.card-photo {
+.info-message,
+.info-photo {
     text-align: center;
     margin: 0 auto;
 }
-.card-photo {
+.info-photo {
     border-radius: 50%;
     width: 150px;
     height: 150px;
@@ -168,24 +155,8 @@ main {
     background: #fff;
     text-align: center;
 }
-.card-message {
+.info-message {
     vertical-align: top;
-}
-.info > .info-bar {
-    border: 1px solid @gary-border;
-    border-radius: 7px;
-}
-.info-bar > span:last-child {
-    float: right;
-
-    font-size: medium;
-}
-.info-bar .tips {
-    margin-left: 5px;
-
-    font-size: small;
-
-    color: gray;
 }
 /* 工作技能 */
 .right {
@@ -239,70 +210,6 @@ main {
     line-height: 2;
 
     box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
-}
-
-/* 页脚 */
-footer {
-    border-top: 1px solid @gary-border;
-}
-footer > p {
-    text-align: center;
-}
-
-/* 滚动至顶 */
-#to-top {
-    position: fixed;
-    right: 25px;
-    bottom: 25px;
-
-    border: 1px solid @gary-border;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-
-    line-height: 50px;
-    text-align: center;
-
-    color: black;
-    background-color: white;
-
-    transition: all .3s;
-}
-#to-top.hide {
-    display: none;
-}
-#to-top:hover {
-    animation: top-animation 1.5s;
-
-    cursor: pointer;
-}
-@keyframes top-animation {
-    0% {
-        transform: scale(1,1);
-    }
-    33% {
-        transform: scale(1.2,1.2);
-    }
-    66% {
-        transform: scale(.8,.8);
-    }
-    100% {
-        transform: scale(1,1);
-    }
-}
-@-webkit-keyframes top-animation {
-    0% {
-        transform: scale(1,1);
-    }
-    33% {
-        transform: scale(1.2,1.2);
-    }
-    66% {
-        transform: scale(.8,.8);
-    }
-    100% {
-        transform: scale(1,1);
-    }
 }
 
 /*PC设备*/
