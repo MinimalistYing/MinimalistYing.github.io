@@ -38,11 +38,8 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     }
     .skill-badge {
         margin: 10px 5px;
-        width: 92px;
-        height: 92px;
-    }
-    .skill-badge > p:first-child {
-        margin-top: 25px;
+        width: 80px;
+        height: 80px;
     }
 }
 /*大屏*/
@@ -50,16 +47,10 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     nav {
         display: inline-block;
     }
-    .skill > .wrapper {
-        width: 75%;
-    }
     .skill-badge {
-        margin: 10px 20px;
-        width: 100px;
-        height: 100px;
-    }
-    .skill-badge > p:first-child {
-        margin-top: 35px;
+        margin: 25px;
+        width: 80px;
+        height: 80px;
     }
 }
 body {
@@ -190,40 +181,31 @@ main {
     margin-left: 25%;
 }
 .skill {
-    border-top: 1px solid @gary-border;
-    border-bottom: 1px solid @gary-border;
-    padding: 30px 0;
-}
-.skill > .wrapper {
-    text-align: center;
-    margin: 0 auto;
+    padding: 50px 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .skill-badge {
-    display: inline-block;
-
-    border: 1px solid @tiffany-hover;
-    border-radius: 5px;
+    border: 1px solid #ABABAB;
 
     text-align: center;
-
-    color: white;
-    background-color: @tiffany;
+    transform: rotateZ(45deg);
 
     transition: all .3s;
+
+    p {
+        transform: rotateZ(-45deg);
+        margin: 30px 0px;
+    }
 }
 .skill-badge:hover {
+    color: white;
     background-color: @tiffany-hover;
-    color: #666;
-    box-shadow: 0 0 4px #ababab;
 
-    transform: scale(1.2,1.2);
+    transform: scale(1.2,1.2) rotateZ(45deg);
 
     cursor: pointer;
-}
-.skill-badge > p:last-child {
-    margin-top: -10px;
-
-    font-size: smaller;
 }
 /* 项目经历 */
 .project {
@@ -262,6 +244,14 @@ main {
     }
     .memo-anchor {
         display: none;
+    }
+    .info-wrapper {
+        position: static;
+        border: none;
+        width: 100%;
+    }
+    .right {
+        margin-left: 0;
     }
 }
 
