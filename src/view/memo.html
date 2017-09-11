@@ -113,6 +113,9 @@
 			
 			[- Edge和IE11还有Safari好像会试图去识别页面上的数字是否像电话号码，如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)，想禁用这一特性可在HTML中加上 `<meta name="format-detection" content="telephone=no,email=no,address=no">` 
 			#2017/9/1# -]
+			
+			[-  IE8下可采用 `filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#(ieFilter)color,endColorstr=#(ieFilter)color);` 来兼容 `rgba()` 
+			#2017/9/11# -]
 		</div>
 
 		<!-- Gulp相关 -->
