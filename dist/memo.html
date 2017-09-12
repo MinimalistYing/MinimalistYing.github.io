@@ -113,6 +113,9 @@
 			
 			<div class="memo-card">Edge和IE11还有Safari好像会试图去识别页面上的数字是否像电话号码，如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)，想禁用这一特性可在HTML中加上<pre>&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no,email=no,address=no&quot;&gt;</pre>
 			<div class="memo-time">2017/9/1</div></div>
+			
+			<div class="memo-card"> IE8下可采用<pre>filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=&lt;div class=&quot;memo-time&quot;&gt;(ieFilter)color,endColorstr=&lt;/div&gt;(ieFilter)color);</pre>来兼容<pre>rgba()</pre>
+			<div class="memo-time">2017/9/11</div></div>
 		</div>
 
 		<!-- Gulp相关 -->
