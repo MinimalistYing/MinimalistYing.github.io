@@ -118,11 +118,6 @@ header {
 main {
     margin-top: 63px;
     transition: margin-top .5s;
-
-
-    &.hide-top {
-        margin-top: 0;
-    }
 }
 
 /* 个人履历 */
@@ -135,10 +130,14 @@ main {
     align-items: center;
     background: @white-background;
     border-right: 2px solid @gray-bg;
-    transition: background .5s;
+    transition: background .5s, margin .5s;
 
     &.hide-top {
         background: @gray-bg;
+    }
+
+    .hide-top & {
+        margin-top: -64px;
     }
 
     .info {
