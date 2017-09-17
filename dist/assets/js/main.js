@@ -16,36 +16,37 @@ function scrollToAnchor(){
  * @param  {Number} stop  结束位置
  */
 function animationToAnchor(start, stop){
-	var next;
-  	if (stop === start) {// 不需要滚动
-  		return;
-  	}
+    var next;
 
-  	if (stop > start) {// 下滑
-  		next = start + 50;
+	if (stop === start) {// 不需要滚动
+		return;
+	}
 
-  		if (next > stop){// 避免滑过头
-  			next = stop;
-  		}
-  	} else {// 上滑
-  		next = start - 50;
+	if (stop > start) {// 下滑
+		next = start + 50;
 
-  		if (next < stop){// 避免滑过头
-  			next = stop;
-  		}
-  	}
+		if (next > stop){// 避免滑过头
+			next = stop;
+		}
+	} else {// 上滑
+		next = start - 50;
+
+		if (next < stop){// 避免滑过头
+			next = stop;
+		}
+	}
     
 
     // 如丝般顺滑
     window.requestAnimationFrame(function(){
-      document.body.scrollTop = next;
+        document.body.scrollTop = next;
 
-      // 滚动到预定位置则结束
-      if(next === stop){
-        return;
-      }
+        // 滚动到预定位置则结束
+        if(next === stop){
+            return;
+        }
 
-      animationToAnchor(next, stop); // 递归 滚动至锚点对应位置为止
+        animationToAnchor(next, stop); // 递归 滚动至锚点对应位置为止
     });
 }
 
@@ -100,5 +101,5 @@ window.onload = function() {
 
 	scrollToAnchor();
 
-  toggleHeader();
+    toggleHeader();
 }
