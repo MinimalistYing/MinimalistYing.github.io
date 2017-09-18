@@ -76,6 +76,9 @@
 
 			[- 当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
 			#2017/8/15# -]
+			
+			[- 一种提高使用transform以及opacity来做过度效果性能的思路<a href="https://aerotwist.com/blog/flip-your-animations/">FLIP</a>
+			#2017/9/18# -]
 		</div>
 		<div class="memo-col">
 			[- 当一个 `display : inline-block` 元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它 `display : inline-block` 元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
