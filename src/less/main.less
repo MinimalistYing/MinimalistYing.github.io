@@ -2,7 +2,7 @@
 @tiffany-hover: #ACE4DF;
 @white-background: #FEFEFE;
 @gary-border: #DDD;
-@gray-bg: #f6f6f6;
+@gray-bg: #fafafa;
 @deep-pink: #ff1493;
 @dark-pink: #ff90cd;
 @font-black: #333;
@@ -258,6 +258,10 @@ main {
 .memo-main {
     padding-left: 5%;
     line-height: 1.6;
+    transition: background .6s;
+    &.hide-top {
+        background: @gray-bg;
+    }
     pre {
         white-space: normal;
         word-break: break-word;
@@ -287,12 +291,12 @@ main {
     .memo-card {
         position: relative;
         width: 80%;
+        background: #fff;
         margin: 0 auto;
         margin-bottom: 30px;
         padding: 10px 20px 20px;
         border: 1px solid @gary-border;
         border-radius: 3px;
-        border-top: 3px solid @tiffany;
         transition: all .3s;
 
         &:hover {

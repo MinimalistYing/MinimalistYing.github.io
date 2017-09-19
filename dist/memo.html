@@ -76,6 +76,9 @@
 
 			<div class="memo-card">当一个<pre>position: absolute</pre>的绝对定位元素的父元素的<pre>overflow</pre>值被设为非<pre>visible</pre>时，会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，暂时对这种问题的解决方式只知道将父元素改为<pre>overflow: visible</pre>或者尽量保证定位元素不会超出父元素的边界
 			<div class="memo-time">2017/8/15</div></div>
+			
+			<div class="memo-card">一种提高使用transform以及opacity来做过度效果性能的思路<a href="https://aerotwist.com/blog/flip-your-animations/">FLIP</a>
+			<div class="memo-time">2017/9/18</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">当一个<pre>display : inline-block</pre>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<pre>display : inline-block</pre>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
@@ -162,6 +165,9 @@
 			
 			<div class="memo-card">Web服务器也可以接受一个目录的URL请求，类似<pre>/dir/</pre>通过配置服务器可以指定不同的返回形式，可以返回一个错误，可以默认的去搜索该目录下的index.html并返回，可以扫描目录返回包含目录内容的html页面(通常这是不安全的，因为这样会把站点的目录结构暴露出来)
 			<div class="memo-time">2017/8/28</div></div>
+			
+			<div class="memo-card">HTTP常见状态码<pre>200 =&gt; 请求成功<br>301 =&gt; 资源永久迁移<br>302 =&gt; 资源临时迁移<br>303 =&gt;需要去另一个地址获取资源<br>304 =&gt; 资源未发生变化<br>400 =&gt; 请求异常<br>401 =&gt; 未授权<br>403 =&gt; 服务器拒绝请求<br>404 =&gt; 未找到<br>405 =&gt; 不支持的请求方法<br>408 =&gt; 请求超时<br>500 =&gt; 服务器错误<br>502 =&gt; 网关故障<br>504 =&gt; 网关超时</pre>
+			<div class="memo-time">2017/9/19</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">关于URI/URL/URN，URL和URM其实是URI(Uniform Resource Identifier)统一资源定位符的子集。URL不止指定了资源的地址，同时还指定了获取资源的方式（协议/方法等等）。而URN则只通过特定的命名空间标识资源，不关注操作获取资源的方式。
