@@ -148,6 +148,9 @@
 		<div class="memo-col">
 			[- jQuery核心函数的几种重载形式： `//相当于$( document ).ready()  $(($) => {  //文档加载完毕  })`  `//选择器  $('selector')`  `//选择器(在父元素的范围下)  $('selector', parentDom)`  `//将Dom对象包装成jQuery对象  $(dom)`  `//将Dom对象的数组包装成jQuery对象  $(domArray)`  `//1.4以后返回空的jQuery对象  $()`  `//将Html字符串包装成jQuery对象  $('<div></div>')`  `//生成一个标签并包装成jQuery对象  $('<div>', {'class': 'a'})` 
 			#2017/8/30# -]
+			
+			[- jQuery部分版本(1.10.X 1.8.X 可能还有其它)存在一个很奇怪的Bug，在HTML标签中使用nodeName作为ID(或者input的name)会导致页面报错 `a.nodeName.toLowerCase is not a function` 使用nodeType作为ID会导致$(window)发生变化并且绑定在上面的resize事件会失效。综上所述，以后谨记不要使用nodeName/nodeType/nodeValue作为HEML标签的ID或者name。
+			#2017/9/26# -]
 		</div>
 		<div class="memo-col">
 			[- 使用 `$(dom).html('...')` 时需注意防范脚本注入攻击，如果传入的字符串中包含可由用户填写的字段需要先进行转义，更好的办法是尽量使用 `$(dom).text('...')` 
