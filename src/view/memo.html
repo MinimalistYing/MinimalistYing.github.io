@@ -68,6 +68,9 @@
 			
 			[- 在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，则会继续在其原型链上查找直至Object.prototype,如果都没有找到才会返回undefined
 			#2017/9/27# -]
+			
+			[- 判断是否是数组的方法，IE9+直接用原生的 `Array.isArray()` 如果要向下兼容的话 `Object.prototype.toString.call(arg) === '[object Array]'` Ps:jQuery的$.isArray()亦是采用这种方式
+			#2017/9/27# -]
 		</div>
 
 		<!-- CSS相关 -->
