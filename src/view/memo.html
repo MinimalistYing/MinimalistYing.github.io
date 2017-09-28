@@ -74,6 +74,9 @@
 			
 			[- 判断是否是数组的方法，IE9+直接用原生的 `Array.isArray()` 如果要向下兼容的话 `Object.prototype.toString.call(arg) === '[object Array]'` Ps:jQuery的$.isArray()亦是采用这种方式
 			#2017/9/27# -]
+			
+			[- 关于String.prototype.split([separator[, limit]]) `'abc'.split()// ['abc']  'abc'.split('')// ['a','b','c']  'a,b'.split(/(,)/)// ["a", ",", "b"]  'abc'.split('').reverse().join('')// 字符串倒序`
+			#2017/9/28# -]
 		</div>
 
 		<!-- CSS相关 -->
