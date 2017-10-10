@@ -32,13 +32,13 @@
 			<div class="memo-card">Javascript中字符串替换API<code>String.replace(reg, replacement)</code>其中的replacement可以是一个回调函数<code>(match, $1, $2, offset, string) =&gt;{}</code>通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			<div class="memo-time">2017/8/20</div></div>
 			
-			<div class="memo-card">Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见<pre>var a = {}<br>a.test // undefined<br>Object.prototype.test = 'Hello'<br>a.test // Hello</pre>
+			<div class="memo-card">Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见<pre>var a = {}<br>a.test =&gt; undefined<br>Object.prototype.test = 'Hello'<br>a.test =&gt; Hello</pre>
 			<div class="memo-time">2017/9/27</div></div>
 			
 			<div class="memo-card">可以使用Object的<code>hasOwnProperty()</code>方法来检测一个属性是该对象独有还是由原型链继承而来
 			<div class="memo-time">2017/9/27</div></div>
 			
-			<div class="memo-card">Javascript的<code>setTimeout()  setInterval()</code>都可以接受字符串参数，并类似eval()将其执行，不安全并且效率低下，最好不要使用。具体可见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout">这篇文档</a>
+			<div class="memo-card">Javascript的<code>setTimeout()</code>和<code>setInterval()</code>都可以接受字符串参数，并类似eval()将其执行，不安全并且效率低下，最好不要使用。具体可见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout">这篇文档</a>
 			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
@@ -50,48 +50,48 @@
 			注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时，需要将解绑和绑定操作放在延时函数中执行，避免反复多次的绑定事件和解绑事件消耗过多资源，导致浏览器卡顿
 			<div class="memo-time">2017/8/7</div></div>
 			
-			<div class="memo-card">用于监听CSS3动画结束的事件<code>webkitAnimationEnd// Chrome Safari  mozAnimationEnd  MSAnimationEnd// IE10  oanimationend// Opera  animationend</code>
+			<div class="memo-card">用于监听CSS3动画结束的事件<pre>webkitAnimationEnd// Chrome Safari<br>mozAnimationEnd<br>MSAnimationEnd// IE10<br>oanimationend// Opera<br>animationend</pre>
 			<div class="memo-time">2017/9/1</div></div>
 			
 			<div class="memo-card">利用原生的JS即可输出格式化后的JSON字符串<code>JSON.stringify(value[, replacer[, space]])</code>其中space即是缩进数，默认无缩进，最大为10。replacer可以是一个过滤函数，用来筛选或替换最后的输出结果。具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">这篇文档</a>
 			<div class="memo-time">2017/9/8</div></div>
 			
-			<div class="memo-card">Javascript中的Array其实是一种类数组的对象，效率比真正的数组要低，所以会有如下一些奇怪的行为<code>var arr = [1,2,3]  arr[0]// 1  arr['0']// 1  arr.name = 'Hello'  arr.name// 'Hello'  arr[10] = 10  arr[6]// undefined  arr.length = 1  arr// [1]</code>
+			<div class="memo-card">Javascript中的Array其实是一种类数组的对象，效率比真正的数组要低，所以会有如下一些奇怪的行为<pre>var arr = [1,2,3]<br>arr[0] =&gt; 1<br>arr['0'] =&gt; 1<br>arr.name = 'Hello'<br>arr.name =&gt; 'Hello'<br>arr[10] = 10<br>arr[6] =&gt; undefined<br>arr.length = 1<br>arr =&gt; [1]</pre>
 			<div class="memo-time">2017/9/27</div></div>
 			
-			<div class="memo-card">Array.prototype.sort()可传入比较函数<code>comparefn(a, b)</code>来排序，希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
+			<div class="memo-card"><code>Array.prototype.sort()</code>可传入比较函数<code>comparefn(a, b)</code>来排序，希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
 			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">判断点击是否在某个DOM外部发生的思路，判断<code>event.srcElement(IE) || event.target(FF)</code>是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
 			<div class="memo-time">2017/8/12</div></div>
 
-			<div class="memo-card">在使用Javascript的<code>parseInt()</code>时，最好显示的指明进制，因为<code>parseInt('0x16') = 22</code>而你可能期望的结果是<code>parseInt('0x16') = 0</code>所以显示的指定进制才能做到真正的结果可控<code>parseInt('0x16', 16) = 22  parseInt('0x16', 10) = 0</code> 
+			<div class="memo-card">在使用Javascript的<code>parseInt()</code>时，最好显示的指明进制，因为<code>parseInt('0x16') = 22</code>而你可能期望的结果是<code>parseInt('0x16') = 0</code>所以显示的指定进制才能做到真正的结果可控<pre>parseInt('0x16', 16) = 22<br>parseInt('0x16', 10) = 0</pre> 
 			<div class="memo-time">2017/8/2</div></div>
 
-			<div class="memo-card">Javascript中的假值(falsy values)<code>false  null  undefined  空字符串''  0  NaN</code>其它值都为true
+			<div class="memo-card">Javascript中的假值(falsy values)<pre>false<br>null<br>undefined<br>空字符串''<br>0<br>NaN</pre>其它值都为true
 			<div class="memo-time">2017/9/3</div></div>
 			
 			<div class="memo-card">在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，则会继续在其原型链上查找直至Object.prototype,如果都没有找到才会返回undefined
 			<div class="memo-time">2017/9/27</div></div>
 			
-			<div class="memo-card">判断是否是数组的方法，IE9+直接用原生的<code>Array.isArray()</code>如果要向下兼容的话<code>Object.prototype.toString.call(arg) === '[object Array]'</code>Ps:jQuery的$.isArray()亦是采用这种方式
+			<div class="memo-card">判断是否是数组的方法，IE9+直接用原生的<code>Array.isArray()</code>如果要向下兼容的话<pre>Object.prototype.toString.call(arg) === '[object Array]'</pre>Ps:jQuery的$.isArray()亦是采用这种方式
 			<div class="memo-time">2017/9/27</div></div>
 			
-			<div class="memo-card">关于String.prototype.split([separator[, limit]]) `'abc'.split()// ['abc']  'abc'.split('')// ['a','b','c']  'a,b'.split(/(,)/)// ["a", ",", "b"]  'abc'.split('').reverse().join('')// 字符串倒序`
+			<div class="memo-card">关于<code>String.prototype.split([separator[, limit]])</code><pre>'abc'.split() =&gt; ['abc']<br>'abc'.split('') =&gt; ['a','b','c']<br>'a,b'.split(/(,)/) =&gt; [&quot;a&quot;, &quot;,&quot;, &quot;b&quot;]<br>'abc'.split('').reverse().join('')// 字符串倒序</pre>
 			<div class="memo-time">2017/9/28</div></div>
 		</div>
 
 		<!-- CSS相关 -->
 		<div class="memo-anchor-target">Cascading Style Sheets<a class="fake-target" name="css">&nbsp;</a></div>
 		<div class="memo-col">
-			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<code>overflow : hidden</code>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<code>&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;  &lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;  &lt;/div&gt;</code>的写法
+			<div class="memo-card">为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，可以通过将其用父元素包裹，并将父元素设为<code>overflow : hidden</code>同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似<pre>&lt;div calss=&quot;wrapper&quot; style=&quot;overflow : hidden; width : 200px&quot;&gt;<br>&lt;div class=&quot;inner&quot; style=&quot;max-height : 10px; overflow : scroll; width : 220px&quot;&gt;&lt;/div&gt;<br>&lt;/div&gt;</pre>的写法
 			<div class="memo-time">2017/8/3</div></div>
 
-			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<code>:hover</code>下的样式，之前的思路是通过借助jQuery<code>$(parent).hover(() =&gt; $(son).hover())</code>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<code>.parent:hover .son {  // 这里是鼠标悬浮在父元素上时子元素的样式  }</code>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<code>mouseenter/mouseleave/mousemove</code>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<code>:hover</code>状态的
+			<div class="memo-card">想实现鼠标悬浮在一个父元素上能触发其子元素在<code>:hover</code>下的样式，之前的思路是通过借助jQuery<code>$(parent).hover(() =&gt; $(son).hover())</code>来实现，今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似<pre>.parent:hover .son {<br>// 这里是鼠标悬浮在父元素上时子元素的样式<br>}</pre>先前的思路在使用原生的Javascript时更难实现，因为原生的规范中并没有hover事件，与之相关的是鼠标的<code>mouseenter/mouseleave/mousemove</code>事件，而即使是在代码中触发了这些事件也是无法触发CSS的<code>:hover</code>状态的
 			<div class="memo-time">2017/8/10</div></div>
 
-			<div class="memo-card">可以通过给锚点设置一个向上的负偏移量来实现调至锚点位置时不会将锚点至于页面最顶部(避免被顶部所固定的Header遮挡)，类似:<code>a {  position: relative;  top: -66px;  }</code>
+			<div class="memo-card">可以通过给锚点设置一个向上的负偏移量来实现调至锚点位置时不会将锚点至于页面最顶部(避免被顶部所固定的Header遮挡)，类似:<pre>a {<br>position: relative;<br>top: -66px;<br>}</pre>
 			<div class="memo-time">2017/8/27</div></div>
 		</div>
 		<div class="memo-col">
@@ -128,7 +128,7 @@
 			<div class="memo-card">IE8中的伪元素只支持类似<code>:after</code>的写法，不支持<code>::after</code>的写法
 			<div class="memo-time">2017/8/2</div></div>
 
-			<div class="memo-card">在IE8下如果在<code>table-layout : auto</code>的表格中为单元格设置<code>white-space : nowrap  overflow : hidden  text-overflow : ellipsis</code>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为<code>table-layout : fixed</code>
+			<div class="memo-card">在IE8下如果在<code>table-layout : auto</code>的表格中为单元格设置<pre>white-space : nowrap<br>overflow : hidden<br>text-overflow : ellipsis</pre>想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。要想实现这种效果，只能将表格设为<code>table-layout : fixed</code>
 			<div class="memo-time">2017/8/16</div></div>
 			
 			<div class="memo-card">通过ES5shim和Babel使用新特性Class时如果类并没有继承却在<code>contructor()</code>中调用了<code>super()</code>会导致在IE8下报错Stackoverflow。谨记如果没有继承关系则不应该调用<code>super()</code>方法 
@@ -138,39 +138,39 @@
 			<div class="memo-card">IE8切换为兼容性视图模式时会将原User-Agent中包含的<code>MSIE8.0</code>转变为<code>MSIE7.0</code>所以在通过UA来判断IE版本时尤其要注意
 			<div class="memo-time">2017/8/9</div></div>
 			
-			<div class="memo-card">Edge和IE11还有Safari好像会试图去识别页面上的数字是否像电话号码，如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)，想禁用这一特性可在HTML中加上<code>&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no,email=no,address=no&quot;&gt;</code>
+			<div class="memo-card">Edge和IE11还有Safari好像会试图去识别页面上的数字是否像电话号码，如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)，想禁用这一特性可在HTML中加上<pre>&lt;meta name=&quot;format-detection&quot; content=&quot;telephone=no,email=no,address=no&quot;&gt;</pre>
 			<div class="memo-time">2017/9/1</div></div>
 			
-			<div class="memo-card"> IE8下可采用<code>filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=&lt;div class=&quot;memo-time&quot;&gt;(ieFilter)color,endColorstr=&lt;/div&gt;(ieFilter)color);</code>来兼容<code>rgba()</code>
+			<div class="memo-card"> IE8下可采用<code>filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=xxx,endColorstr=xxx);</code>来兼容<code>rgba()</code>
 			<div class="memo-time">2017/9/11</div></div>
 		</div>
 
 		<!-- Gulp相关 -->
 		<div class="memo-anchor-target">Gulp<a class="fake-target" name="gulp">&nbsp;</a></div>
 		<div class="memo-col">
-			<div class="memo-card">Gulp确保任务按一定顺序执行<code>gulp.task('second', ['first'], () =&gt; {})</code>Gulp在匹配的文件列表中剔除指定文件<code>gulp.src(['asset/*.js', '!asset/exclude.js'], () =&gt; {})</code>上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
+			<div class="memo-card">Gulp确保任务按一定顺序执行<pre>gulp.task('second', ['first'], () =&gt; {})</pre>Gulp在匹配的文件列表中剔除指定文件<pre>gulp.src(['asset/*.js', '!asset/exclude.js'], () =&gt; {})</pre>上述代码会匹配asset目录下除去exclude.js的所有以.js结尾的文件
 			<div class="memo-time">2017/8/21</div></div>
 		</div>
 		<div class="memo-col">
-			<div class="memo-card">Gulp在文件变化时触发回调函数<code>gulp.watch('...', (event) =&gt; {})  //event.path 发生变化文件的路径  //event.type added|changed|deleted|renamed</code>
+			<div class="memo-card">Gulp在文件变化时触发回调函数<pre>gulp.watch('...', (event) =&gt; {})<br>//event.path 发生变化文件的路径<br>//event.type added|changed|deleted|renamed</pre>
 			<div class="memo-time">2017/8/21</div></div>
 		</div>
 		<div class="memo-col">
-			<div class="memo-card">在使用<code>gulp.src(...).pipe(...).pipe(...)</code>的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误<code>gulp.src().pipe().on('err', () =&gt; {})</code>会使代码变得很复杂，推荐使用Pump的方式来进行处理<code>var pump = require('pump')  pump([gulp.src(), uglify(), concat()], cb)</code>
+			<div class="memo-card">在使用<pre>gulp.src(...).pipe(...).pipe(...)</pre>的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误<pre>gulp.src().pipe().on('err', () =&gt; {})</pre>会使代码变得很复杂，推荐使用Pump的方式来进行处理<pre>var pump = require('pump')<br>pump([gulp.src(), uglify(), concat()], cb)</pre>
 			<div class="memo-time">2017/8/21</div></div>
 		</div>
 		
 		<!-- jQuery相关 -->
 		<div class="memo-anchor-target">jQuery<a class="fake-target" name="jquery">&nbsp;</a></div>
 		<div class="memo-col">
-			<div class="memo-card">利用好jQuery的事件命名空间可以减少很多需要在一个Dom元素的同一事件上绑定多个不同回调函数时会碰到的问题，例如<code>$(dom).on('click.a', () =&gt; {})  $(dom).on('click.b', () =&gt; {})</code>当出于某种原因需要解绑第一个函数时，只需要<code>$(dom).off('.a')</code>即可实现，同时也不会对b命名空间下的绑定事件有任何影响。如果想触发某个特定空间下的事件，可以通过<code>$(dom).trigger('click.b')</code>来实现
+			<div class="memo-card">利用好jQuery的事件命名空间可以减少很多需要在一个Dom元素的同一事件上绑定多个不同回调函数时会碰到的问题，例如<pre>$(dom).on('click.a', () =&gt; {})<br>$(dom).on('click.b', () =&gt; {})</pre>当出于某种原因需要解绑第一个函数时，只需要<code>$(dom).off('.a')</code>即可实现，同时也不会对b命名空间下的绑定事件有任何影响。如果想触发某个特定空间下的事件，可以通过<code>$(dom).trigger('click.b')</code>来实现
 			<div class="memo-time">2017/8/29</div></div>
 			
-			<div class="memo-card">jQuery可以通过<code>$(':visible')/$(':hidden')</code>来查找可见/不可见的Dom元素(通过判断元素的height和width是否大于0，所以<code>opacity:0  visibility: hidden</code>的元素会被认为是可见的)。这俩种选择器会带来性能上的问题，尽量避免使用，一定要使用的话也应该先通过纯CSS选择器将目标选出再通过<code>$(dom).is(':visible')/$(dom).is(':hidden')</code>判断，或者通过<code>$(dom).filter(':visible')/$(dom).filter(':hidden')</code>过滤
+			<div class="memo-card">jQuery可以通过<code>$(':visible')/$(':hidden')</code>来查找可见/不可见的Dom元素(通过判断元素的height和width是否大于0，所以<code>opacity:0  visibility: hidden</code>的元素会被认为是可见的)。这俩种选择器会带来性能上的问题，尽量避免使用，一定要使用的话也应该先通过纯CSS选择器将目标选出再通过<code>$(dom).is(':visible')</code>或<code>$(dom).is(':hidden')</code>判断，或者通过<code>$(dom).filter(':visible')</code>或<code>$(dom).filter(':hidden')</code>过滤
 			<div class="memo-time">2017/8/30</div></div>
 		</div>
 		<div class="memo-col">
-			<div class="memo-card">jQuery核心函数的几种重载形式：<code>//相当于$( document ).ready()  $(($) =&gt; {  //文档加载完毕  })</code><code>//选择器  $('selector')</code><code>//选择器(在父元素的范围下)  $('selector', parentDom)</code><code>//将Dom对象包装成jQuery对象  $(dom)</code><code>//将Dom对象的数组包装成jQuery对象  $(domArray)</code><code>//1.4以后返回空的jQuery对象  $()</code><code>//将Html字符串包装成jQuery对象  $('&lt;div&gt;&lt;/div&gt;')</code><code>//生成一个标签并包装成jQuery对象  $('&lt;div&gt;', {'class': 'a'})</code>
+			<div class="memo-card">jQuery核心函数的几种重载形式：<pre>$(($) =&gt; {<br>//文档加载完毕<br>//相当于$( document ).ready()<br>})<br>$('selector') // 选择器<br>$('selector', parentDom) // 选择器(在父元素的范围下)<br>$(dom) // 将Dom对象包装成jQuery对象<br>$(domArray) // 将Dom对象的数组包装成jQuery对象<br>$() // 1.4以后返回空的jQuery对象<br>$('&lt;div&gt;&lt;/div&gt;') // 将Html字符串包装成jQuery对象<br>$('&lt;div&gt;', {'class': 'a'}) // 生成一个标签并包装成jQuery对象</pre>
 			<div class="memo-time">2017/8/30</div></div>
 			
 			<div class="memo-card">jQuery部分版本(1.10.X 1.8.X 可能还有其它)存在一个很奇怪的Bug，在HTML标签中使用nodeName作为ID(或者input的name)会导致页面报错<code>a.nodeName.toLowerCase is not a function</code>使用nodeType作为ID会导致$(window)发生变化并且绑定在上面的resize事件会失效。综上所述，以后谨记不要使用nodeName/nodeType/nodeValue作为HEML标签的ID或者name。
@@ -193,7 +193,7 @@
 			<div class="memo-card">Web服务器也可以接受一个目录的URL请求，类似<code>/dir/</code>通过配置服务器可以指定不同的返回形式，可以返回一个错误，可以默认的去搜索该目录下的index.html并返回，可以扫描目录返回包含目录内容的html页面(通常这是不安全的，因为这样会把站点的目录结构暴露出来)
 			<div class="memo-time">2017/8/28</div></div>
 			
-			<div class="memo-card">HTTP常见状态码<code>200 =&gt; 请求成功  301 =&gt; 资源永久迁移  302 =&gt; 资源临时迁移  303 =&gt;需要去另一个地址获取资源  304 =&gt; 资源未发生变化  400 =&gt; 请求异常  401 =&gt; 未授权  403 =&gt; 服务器拒绝请求  404 =&gt; 未找到  405 =&gt; 不支持的请求方法  408 =&gt; 请求超时  500 =&gt; 服务器错误  502 =&gt; 网关故障  504 =&gt; 网关超时</code>
+			<div class="memo-card">HTTP常见状态码<pre>200 =&gt; 请求成功<br>301 =&gt; 资源永久迁移<br>302 =&gt; 资源临时迁移<br>303 =&gt;需要去另一个地址获取资源<br>304 =&gt; 资源未发生变化<br>400 =&gt; 请求异常<br>401 =&gt; 未授权<br>403 =&gt; 服务器拒绝请求<br>404 =&gt; 未找到<br>405 =&gt; 不支持的请求方法<br>408 =&gt; 请求超时<br>500 =&gt; 服务器错误<br>502 =&gt; 网关故障<br>504 =&gt; 网关超时</pre>
 			<div class="memo-time">2017/9/19</div></div>
 		</div>
 		<div class="memo-col">
@@ -213,7 +213,7 @@
 			<div class="memo-card">通常Web服务器的文件系统会有一个根目录(Document Root)来专门用于存放Web内容，当服务器收到一个对静态资源的请求时会获取其URI并附加在根目录后去寻找相应的文件，例如服务器的根目录为<code>/usr/home</code>请求为<code>/test/haha.gif</code>服务器会在文件系统的<code>/usr/home/test/haha.gif</code>目录下去寻找被请求的资源文件。要注意的是，一个服务器也可能同时提供多个Web站点，它可以通过不同的请求Host或者IP来访问不同的根目录
 			<div class="memo-time">2017/8/28</div></div>
 			
-			<div class="memo-card">`Cache-Control : no-store` 禁止代理缓存<code>Cache-Control : no-cache  Pragma : no-cache// 兼容HTTP/1.0</code>允许缓存，但必须先与服务器进行新鲜度验证，之后才能将内容返回给客户端<code>Cache-Control : max-age:66,must-revalidate</code>允许缓存，并且只有在内容过期后才必须进行新鲜度验证（在缓存过期时即使服务器错误也不会将这个陈旧的缓存返回给客户端）
+			<div class="memo-card"><code>Cache-Control : no-store</code>禁止代理缓存<code>Cache-Control : no-cache  Pragma : no-cache// 兼容HTTP/1.0</code>允许缓存，但必须先与服务器进行新鲜度验证，之后才能将内容返回给客户端<code>Cache-Control : max-age:66,must-revalidate</code>允许缓存，并且只有在内容过期后才必须进行新鲜度验证（在缓存过期时即使服务器错误也不会将这个陈旧的缓存返回给客户端）
 			<div class="memo-time">2017/9/5</div></div>
 		</div>
 
@@ -232,7 +232,7 @@
 			<div class="memo-card">当页面的UI需要在后台数据返回后进行刷新时，一定要考虑到网络极差的情况下，请求会延迟很久后返回。这期间UI要怎样展示，或者用户能否进行操作，会不会有遗留的表单数据等等。
 			<div class="memo-time">2017/9/13</div></div>
 			
-			<div class="memo-card">关于正则表达式量词(Regexp Quantifier)<code>? =&gt; {0,1}</code><code>+ =&gt; {1,}</code> '* => {0,}' 如果只有一个量词则为贪婪匹配，会尽可能的匹配更多结果。如果量词后附加后缀?则进行非贪婪匹配。
+			<div class="memo-card">关于正则表达式量词(Regexp Quantifier)<pre>? =&gt; {0,1}<br>+ =&gt; {1,}<br>* =&gt; {0,}</pre>如果只有一个量词则为贪婪匹配，会尽可能的匹配更多结果。如果量词后附加后缀?则进行非贪婪匹配。
 			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
@@ -242,7 +242,7 @@
 			详情可见这篇<a href="https://philipwalton.com/articles/how-we-track-pageviews-is-all-wrong/">Blog</a>
 			<div class="memo-time">2017/8/14</div></div>
 
-			<div class="memo-card">在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性<code>&lt;a&gt; &lt;applet&gt; &lt;area&gt; &lt;embed&gt; &lt;form&gt; &lt;frame&gt; &lt;frameset&gt; &lt;iframe&gt; &lt;img&gt; &lt;object&gt;</code>那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素<code>&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</code>在script中<code>console.info(a)  //结果为&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</code>
+			<div class="memo-card">在新的HTML5规范中，如果一个元素拥有ID属性，那么ID属性的属性值就会成为window对象的属性名，属性值就是ID对应的元素。如果下列标签中的元素拥有name属性<code>&lt;a&gt; &lt;applet&gt; &lt;area&gt; &lt;embed&gt; &lt;form&gt; &lt;frame&gt; &lt;frameset&gt; &lt;iframe&gt; &lt;img&gt; &lt;object&gt;</code>那么name属性的属性值就会成为window对象的属性名。例如页面上有这么一个元素<code>&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</code>在script中<pre>console.info(a)<br>//结果为&lt;div id=&quot;a&quot;&gt;&lt;/div&gt;</pre>
 			<div class="memo-time">2017/8/23</div></div>
 			
 			<div class="memo-card"><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;  &lt;meta charset=&quot;utf-8&quot;&gt;</code>在HTML中俩者都可用来表明页面所采用的字符集，各浏览器的兼容性良好，但后者更短建议采用后者
@@ -255,7 +255,7 @@
 			<div class="memo-card">阅读垠神博客有感  1.会写程序不是一件很了不起的事情，不要自负  2.语言、框架都只是工具，会用即可，不必过于推崇，重要的是我们脑海里的思想  3.开发软件也是一种工程，一定要极力避免Bug，这才是一个工程师该做的  4.面对同事、新人的提问请耐心解答，不要动不动就让提问者自行Google  5.不要觉得向他人提问是什么难为情的事，世界上总有东西是你不清楚的，哪怕是你日常工作所用的东西  6.复杂的代码不是显示能力的途径，简单易懂的才是
 			<div class="memo-time">2017/8/30</div></div>
 			
-			<div class="memo-card">关于HTML中的相对路径<code>./</code>是文档相对路径，也就是当前访问页面的路径<code>/</code>是基于站点根目录的相对路径，举例说明访问网址http://0.0.0.0/1/2/son.html<code>./test.js =&gt; http://0.0.0.0/1/2/test.js</code><code>/test.js =&gt; http://0.0.0.0/test.js</code>
+			<div class="memo-card">关于HTML中的相对路径<code>./</code>是文档相对路径，也就是当前访问页面的路径<code>/</code>是基于站点根目录的相对路径，举例说明访问网址http://0.0.0.0/1/2/son.html<pre>./test.js =&gt; http://0.0.0.0/1/2/test.js<br>/test.js =&gt; http://0.0.0.0/test.js</pre>
 			<div class="memo-time">2017/9/13</div></div>
 		</div>
 	</main>
