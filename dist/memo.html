@@ -31,6 +31,15 @@
 
 			<div class="memo-card">Javascript中字符串替换API<pre>String.replace(reg, replacement)</pre>其中的replacement可以是一个回调函数<pre>(match, $1, $2, offset, string) =&gt;{}</pre>通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			<div class="memo-time">2017/8/20</div></div>
+			
+			<div class="memo-card">Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见<pre>var a = {}<br>a.test // undefined<br>Object.prototype.test = 'Hello'<br>a.test // Hello</pre>
+			<div class="memo-time">2017/9/27</div></div>
+			
+			<div class="memo-card">可以使用Object的<pre>hasOwnProperty()</pre>方法来检测一个属性是该对象独有还是由原型链继承而来
+			<div class="memo-time">2017/9/27</div></div>
+			
+			<div class="memo-card">Javascript的<pre>setTimeout()<br>setInterval()</pre>都可以接受字符串参数，并类似eval()将其执行，不安全并且效率低下，最好不要使用。具体可见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout">这篇文档</a>
+			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<pre>0.1 + 0.2 !== 0.3</pre>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
@@ -46,6 +55,12 @@
 			
 			<div class="memo-card">利用原生的JS即可输出格式化后的JSON字符串<pre>JSON.stringify(value[, replacer[, space]])</pre>其中space即是缩进数，默认无缩进，最大为10。replacer可以是一个过滤函数，用来筛选或替换最后的输出结果。具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify">这篇文档</a>
 			<div class="memo-time">2017/9/8</div></div>
+			
+			<div class="memo-card">Javascript中的Array其实是一种类数组的对象，效率比真正的数组要低，所以会有如下一些奇怪的行为<pre>var arr = [1,2,3]<br>arr[0]// 1<br>arr['0']// 1<br>arr.name = 'Hello'<br>arr.name// 'Hello'<br>arr[10] = 10<br>arr[6]// undefined<br>arr.length = 1<br>arr// [1]</pre>
+			<div class="memo-time">2017/9/27</div></div>
+			
+			<div class="memo-card">Array.prototype.sort()可传入比较函数<pre>comparefn(a, b)</pre>来排序，希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
+			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">判断点击是否在某个DOM外部发生的思路，判断<pre>event.srcElement(IE) || event.target(FF)</pre>是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
@@ -56,6 +71,15 @@
 
 			<div class="memo-card">Javascript中的假值(falsy values)<pre>false<br>null<br>undefined<br>空字符串''<br>0<br>NaN</pre>其它值都为true
 			<div class="memo-time">2017/9/3</div></div>
+			
+			<div class="memo-card">在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，则会继续在其原型链上查找直至Object.prototype,如果都没有找到才会返回undefined
+			<div class="memo-time">2017/9/27</div></div>
+			
+			<div class="memo-card">判断是否是数组的方法，IE9+直接用原生的<pre>Array.isArray()</pre>如果要向下兼容的话<pre>Object.prototype.toString.call(arg) === '[object Array]'</pre>Ps:jQuery的$.isArray()亦是采用这种方式
+			<div class="memo-time">2017/9/27</div></div>
+			
+			<div class="memo-card">关于String.prototype.split([separator[, limit]]) `'abc'.split()// ['abc']  'abc'.split('')// ['a','b','c']  'a,b'.split(/(,)/)// ["a", ",", "b"]  'abc'.split('').reverse().join('')// 字符串倒序`
+			<div class="memo-time">2017/9/28</div></div>
 		</div>
 
 		<!-- CSS相关 -->
@@ -148,6 +172,9 @@
 		<div class="memo-col">
 			<div class="memo-card">jQuery核心函数的几种重载形式：<pre>//相当于$( document ).ready()<br>$(($) =&gt; {<br>//文档加载完毕<br>})</pre><pre>//选择器<br>$('selector')</pre><pre>//选择器(在父元素的范围下)<br>$('selector', parentDom)</pre><pre>//将Dom对象包装成jQuery对象<br>$(dom)</pre><pre>//将Dom对象的数组包装成jQuery对象<br>$(domArray)</pre><pre>//1.4以后返回空的jQuery对象<br>$()</pre><pre>//将Html字符串包装成jQuery对象<br>$('&lt;div&gt;&lt;/div&gt;')</pre><pre>//生成一个标签并包装成jQuery对象<br>$('&lt;div&gt;', {'class': 'a'})</pre>
 			<div class="memo-time">2017/8/30</div></div>
+			
+			<div class="memo-card">jQuery部分版本(1.10.X 1.8.X 可能还有其它)存在一个很奇怪的Bug，在HTML标签中使用nodeName作为ID(或者input的name)会导致页面报错<pre>a.nodeName.toLowerCase is not a function</pre>使用nodeType作为ID会导致$(window)发生变化并且绑定在上面的resize事件会失效。综上所述，以后谨记不要使用nodeName/nodeType/nodeValue作为HEML标签的ID或者name。
+			<div class="memo-time">2017/9/26</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">使用<pre>$(dom).html('...')</pre>时需注意防范脚本注入攻击，如果传入的字符串中包含可由用户填写的字段需要先进行转义，更好的办法是尽量使用<pre>$(dom).text('...')</pre>
@@ -204,6 +231,9 @@
 			
 			<div class="memo-card">当页面的UI需要在后台数据返回后进行刷新时，一定要考虑到网络极差的情况下，请求会延迟很久后返回。这期间UI要怎样展示，或者用户能否进行操作，会不会有遗留的表单数据等等。
 			<div class="memo-time">2017/9/13</div></div>
+			
+			<div class="memo-card">关于正则表达式量词(Regexp Quantifier)<pre>? =&gt; {0,1}</pre><pre>+ =&gt; {1,}</pre> '* => {0,}' 如果只有一个量词则为贪婪匹配，会尽可能的匹配更多结果。如果量词后附加后缀?则进行非贪婪匹配。
+			<div class="memo-time">2017/9/28</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">关于采集站点的PV、UV数据，传统的做法是当页面load完成后像后台发送数据，当作一次PV<br>

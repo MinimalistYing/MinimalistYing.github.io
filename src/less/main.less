@@ -272,9 +272,9 @@ main {
 .memo-main {
     padding-left: 5%;
     line-height: 1.6;
-    transition: background .6s;
+    transition: background .8s;
     &.hide-top {
-        background: @gray-bg;
+        background: @font-black;
     }
     pre {
         white-space: normal;
@@ -378,6 +378,9 @@ main {
         bottom: 2px;
         font-size: 1.2em;
         font-weight: 700;
+    }
+    .hide-top & {
+        color: @white-background;
     }
     .fake-target {
         position: relative;
