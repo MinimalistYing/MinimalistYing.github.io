@@ -274,7 +274,7 @@ main {
     line-height: 1.6;
     transition: background .8s;
     &.hide-top {
-        background: @font-black;
+        background: #000;
     }
     pre {
         white-space: normal;
@@ -284,6 +284,12 @@ main {
         border-radius: 2px;
         padding: 5px 10px; 
         border-left: 3px solid #b9b9b9;
+    }
+    code {
+        background: #f6f6f6;
+        border-radius: 2px;
+        padding: 5px 10px;
+        font-family:-webkit-pictograph,"Microsoft YaHei",Verdana,sans-serif;
     }
     a {
         color: @deep-pink;
@@ -312,6 +318,7 @@ main {
         border: 1px solid @gary-border;
         border-radius: 3px;
         transition: all .3s;
+        line-height: 1.8;
 
         &:hover {
             box-shadow: 0 0 20px #ddd;

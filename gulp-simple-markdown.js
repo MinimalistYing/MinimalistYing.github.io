@@ -30,7 +30,7 @@ function markdown() {
 		}
 
 		originHtml = file.contents.toString("utf-8")// 转化为字符串
-		result = code(time(memocard(originHtml)))// 将原字符串转化成所需的HTMl
+		result = pre(code(time(memocard(originHtml))))// 将原字符串转化成所需的HTMl
 		file.contents = new Buffer(result)
 
 		this.push(file)
@@ -52,14 +52,31 @@ function markdown() {
  * @param  {[String]} text [原始文本]
  * @return {[String]}      [转化后的文本]
  */
-function code(text) {
-	return text.replace(/ `(.+?)` /g, (match, $1) => {// match为匹配串 $1为第一个捕获型分组匹配的字符串
+function pre(text) {
+	return text.replace(/ ```([^`]+?)``` /g, (match, $1) => {// match为匹配串 $1为第一个捕获型分组匹配的字符串
 				var result = $1.replace(/</g, '&lt;')// 转义 <
 							.replace(/>/g, '&gt;')// 转义 >
 							.replace(/"/g, '&quot;')// 转义 "
 							.replace(/  /g, '<br>')// 在代码中连续的俩个空格当作换行处理
 
 		return `<pre>${result}</pre>`
+	})
+}
+
+/**
+ * 将Markdown代码转化为HTML
+ * 把`..`替换为<code>..</code> 
+ * 对其中的特殊字符进行转义
+ * @param  {[String]} text [原始文本]
+ * @return {[String]}      [转化后的文本]
+ */
+function code(text) {
+	return text.replace(/ `([^`]+?)` /g, (match, $1) => {// match为匹配串 $1为第一个捕获型分组匹配的字符串
+				var result = $1.replace(/</g, '&lt;')// 转义 <
+							.replace(/>/g, '&gt;')// 转义 >
+							.replace(/"/g, '&quot;')// 转义 "
+
+		return `<code>${result}</code>`
 	})
 }
 

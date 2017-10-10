@@ -32,7 +32,7 @@
 			[- Javascript中字符串替换API `String.replace(reg, replacement)` 其中的replacement可以是一个回调函数 `(match, $1, $2, offset, string) =>{}` 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，具体参数意义以及接口可见<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace">这篇文档</a>
 			#2017/8/20# -]
 			
-			[- Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见 `var a = {}  a.test // undefined  Object.prototype.test = 'Hello'  a.test // Hello` 
+			[- Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见 ```var a = {}  a.test // undefined  Object.prototype.test = 'Hello'  a.test // Hello``` 
 			#2017/9/27# -]
 			
 			[- 可以使用Object的 `hasOwnProperty()` 方法来检测一个属性是该对象独有还是由原型链继承而来
