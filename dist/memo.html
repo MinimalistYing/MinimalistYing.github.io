@@ -188,7 +188,8 @@
 			<div class="memo-time">2017/10/13</div></div>
 		</div>
 		<div class="memo-col">
-
+			<div class="memo-card">如果确定一个Component再初始化后不需要重新render，可以在组件中声明<code>shouldComponentUpdate (nextProps, nextState) {return false;}</code>这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较<code>nextProps</code>和<code>nextState</code>中的指定值是否发生变化来实现。还可以通过继承React提供的<code>React.PureComponent</code>来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果<code>props.obj</code>中存储的是一个对象或者数组等就会失效
+			<div class="memo-time">2017/10/14</div></div>
 		</div>
 		<div class="memo-col">
 
