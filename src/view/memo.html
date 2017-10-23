@@ -40,6 +40,9 @@
 			
 			[- Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行，不安全并且效率低下，最好不要使用。具体可见<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout">这篇文档</a>
 			#2017/9/28# -]
+			
+			[- Javascript的变量名允许使用Unicode字符集中的所有字母和数字，所以类似 `var 变量 = 1` 也是合法的
+			#2017/10/23# -]
 		</div>
 		<div class="memo-col">
 			[- 在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
