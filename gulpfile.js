@@ -3,6 +3,7 @@ const gulp= require('gulp'),
 	  plumber = require('gulp-plumber'),
 	  autoprefixer = require('gulp-autoprefixer'),
 	  cleanCSS = require('gulp-clean-css'),
+	  markdown = require('gulp-markdown')
 	  simpleMarkDown = require('./gulp-simple-markdown')
 
 // 预处理less
@@ -16,16 +17,24 @@ gulp.task('less', () => {
 })
 
 // 预处理自己用部分MarkDown语法写的HTML
-gulp.task('markdown', () => {
+gulp.task('simplemarkdown', () => {
 	return gulp.src('src/view/memo.html')
 		.pipe(simpleMarkDown())
 		.pipe(gulp.dest('dist/'))
 })
 
+// 将博客的markdown转化为html
+gulp.task('markdown', () => {
+	return gulp.src('src/blog/**/*.md')
+		.pipe(markdown())
+		.pipe(gulp.dest('dist/blog/'))
+})
+
 // 监听文件改变 对改变的文件进行预处理
 gulp.task('watch', () => {
 	gulp.watch('src/less/**/*.less', ['less'])
-	gulp.watch('src/view/memo.html', ['markdown'])
+	gulp.watch('src/view/memo.html', ['simplemarkdown'])
+	gulp.watch('src/blog/**/*.md', ['markdown'])
 })
 
-gulp.task('default', ['less', 'markdown', 'watch'])
+gulp.task('default', ['less', 'simplemarkdown', 'watch', 'markdown'])
