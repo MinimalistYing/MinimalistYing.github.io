@@ -172,7 +172,27 @@ main {
         width: 150px;
     }   
 }
+.skill-wrapper {
+    margin: 10px auto;
+    cursor: pointer;
+    width: 66%;
+    text-align: center;
 
+    .skill-tag {
+        display: inline-block; 
+        padding: 2px 8px;
+        border: 1px solid #b9b9b9;
+        border-radius: 4px;
+        color: #ababab;
+        margin: 5px 0;
+        transition: color .3s;
+
+        &:hover {
+            color: @tiffany-hover;
+            border-color: @tiffany-hover;
+        }
+    }
+}
 .info-message,
 .info-photo {
     text-align: center;
@@ -219,19 +239,6 @@ main {
     transform: scale(1.2,1.2) rotateZ(45deg);
 
     cursor: pointer;
-}
-/* 项目经历 */
-.project {
-    padding: 50px 0;
-}
-.project > .wrapper {
-    margin: 30px auto;
-    border: 1px solid @gary-border;
-    padding: 15px 35px;
-    width: 75%;
-    line-height: 2;
-
-    box-shadow: 1px 2px 5px rgba(169, 169, 169, .18);
 }
 
 /*PC设备*/

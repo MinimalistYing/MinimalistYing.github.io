@@ -46,6 +46,9 @@
 			
 			<div class="memo-card">使用<code>String.prototype.length()</code>来判断字符串长度在某些特殊场景下存在问题，例如<code>'𝒜'.length === 2</code>因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码，这时候这个方法计算一个字符的长度是2，判断方法可见<a href="http://ife.baidu.com/note/detail/id/583">这篇Blog</a>
 			<div class="memo-time">2017/10/23</div></div>
+			
+			<div class="memo-card">在Javascript中<code>Object</code>是<code>truthy value</code>所以哪怕是<code>new Boolean(false)</code>也会在类型转化时被判断为true<pre>false && console.log(1) =&gt; false<br>new Boolean(false) && console.log(1) =&gt; 1 </pre>
+			<div class="memo-time">2017/8/2</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<code>0.1 + 0.2 !== 0.3</code>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
@@ -167,6 +170,19 @@
 		<div class="memo-col">
 			<div class="memo-card">在使用<pre>gulp.src(...).pipe(...).pipe(...)</pre>的过程中会发现当出错时控制台中报出的错误信息很难看懂,这是由于在Node.js中stream出错时会抛出error事件，而上述代码里没有写有关错误事件的处理函数，所以Node会默认的报出堆栈跟踪信息作为错误信息。如果采取如下捕获异常事件的方式来处理错误<pre>gulp.src().pipe().on('err', () =&gt; {})</pre>会使代码变得很复杂，推荐使用Pump的方式来进行处理<pre>var pump = require('pump')<br>pump([gulp.src(), uglify(), concat()], cb)</pre>
 			<div class="memo-time">2017/8/21</div></div>
+		</div>
+		
+		<!-- Webpack相关 -->
+		<div class="memo-anchor-target">Webpack<a class="fake-target" name="webpack">&nbsp;</a></div>
+		<div class="memo-col">
+			<div class="memo-card"> 在开启Webpack<code>devServer</code>遇到问题时可以路由至URL<code>/webpack-dev-server</code>来观察打包出来的bundle文件详情来Debug
+			<div class="memo-time">2017/10/27</div></div>
+		</div>
+		<div class="memo-col">
+			
+		</div>
+		<div class="memo-col">
+			
 		</div>
 		
 		<!-- jQuery相关 -->
@@ -291,6 +307,7 @@
 			<li><a href="#_css">CSS</a></li>
 			<li><a href="#_compatibility">兼容性</a></li>
 			<li><a href="#_gulp">Gulp</a></li>
+			<li><a href="#_webpack">Webpack</a></li>
 			<li><a href="#_jquery">jQuery</a></li>
 			<li><a href="#_react">React</a></li>
 			<li><a href="#_http">HTTP</a></li>
