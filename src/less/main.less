@@ -7,6 +7,7 @@
 @dark-pink: #ff90cd;
 @font-black: #333;
 @font-gray: #ABABAB;
+@font-title: #404040;
 
 /*html5*/
 article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
@@ -209,36 +210,28 @@ main {
 .info-message {
     vertical-align: top;
 }
-/* 工作技能 */
+
 .right {
     margin-left: 25%;
-}
-.skill {
-    padding: 50px 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.skill-badge {
-    border: 1px solid #ABABAB;
 
-    text-align: center;
-    transform: rotateZ(45deg);
-
-    transition: all .3s;
-
-    p {
-        transform: rotateZ(-45deg);
-        margin: 30px 0px;
+    .post {
+        width: 80%;
+        margin: 60px auto;
+        padding: 8px 30px;
+        background: @gray-bg;
     }
-}
-.skill-badge:hover {
-    color: white;
-    background-color: @tiffany-hover;
 
-    transform: scale(1.2,1.2) rotateZ(45deg);
+    .post-title {
+        a {
+            color: @font-title;
+            text-decoration: none;
+            transition: color .3s;
 
-    cursor: pointer;
+            &:hover {
+                color: @tiffany-hover;
+            }
+        }
+    }
 }
 
 /*PC设备*/
