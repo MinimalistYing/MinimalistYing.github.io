@@ -122,6 +122,9 @@
 
 			[- 当一个元素被设为 `display: flex` 时，它会被当作一个Flex Container，而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置 `float | clear | vertical-align` 的值都是无效的
 			#2017/8/16# -]
+			
+			[- 一种将全部元素reset为 `box-sizing: border-box` 的方法 ```html {  box-sizing: border-box;  }  *, *:before, *:after {  box-sizing: inherit;  }``` 可能会有更好的方法？详情可见<a href="https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/">这篇文章</a>
+			#2017/8/10# -]
 		</div>
 
 		<!-- 兼容性相关 -->
