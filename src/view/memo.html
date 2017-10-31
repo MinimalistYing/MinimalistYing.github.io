@@ -221,6 +221,9 @@
 		<div class="memo-col">
 			[- 如果确定一个Component再初始化后不需要重新render，可以在组件中声明 `shouldComponentUpdate (nextProps, nextState) {return false;}` 这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较 `nextProps` 和 `nextState` 中的指定值是否发生变化来实现。还可以通过继承React提供的 `React.PureComponent` 来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果 `props.obj` 中存储的是一个对象或者数组等就会失效
 			#2017/10/14# -]
+			
+			[- 关于React-Router中 `browserHisory` 和 `hashHistory` 的区别，前者的URL类似 `xx/xx` 后者是 `/#/xx` 由于HTTP协议的约定，URL中 `#` 后作为片段(frag)不会随请求发送至后台，所以不需要服务器进行特殊配置，而前者是借助浏览器下的 `history` API实现，在IE8/9下会导致跳页时Full Load，并且需要服务器配置接受所有请求都返回 `index.html`。优点时使得站点有清晰干净的URL，固推荐使用 `browserHistory` 
+			#2017/10/31# -]
 		</div>
 		<div class="memo-col">
 			[- 关于React中的Event Handlers传参数有一下俩种方式 `<button onClick={(e) => this.func(id, e)}>click</button>` 或者 `<button onClick={this.func.bind(this, id)}>click</button>` 第二种方式下的 `e` 会默认作为最后一个参数传递
