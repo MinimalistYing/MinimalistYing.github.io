@@ -71,7 +71,7 @@
 			[-  `Array.prototype.sort()` 可传入比较函数 `comparefn(a, b)` 来排序，希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
 			#2017/9/28# -]
 			
-			[- 使用Javascript时如果选择在行尾不加上 `;` 是比较危险的行为，例如 ```var arr = [1,2,3]  var b = arr  [2].toString()  console.info(b)``` 的结果可能会出人意料，自动加分号的结果是 `var arr = [1,2,3];var b = arr[2].toString();console.info(b);` 再第二行以 `(`  `[`  `+`  '-' 开头时都需要注意避免以上情况
+			[- 使用Javascript时如果选择在行尾不加上 `;` 是比较危险的行为，例如 ```var arr = [1,2,3]  var b = arr  [2].toString()  console.info(b)``` 的结果可能会出人意料，自动加分号的结果是 `var arr = [1,2,3];var b = arr[2].toString();console.info(b);` 再第二行以 `( [ + -` 开头时都需要注意避免以上情况
 			#2017/10/23# -]
 		</div>
 		<div class="memo-col">
@@ -84,10 +84,10 @@
 			[- Javascript中的假值(falsy values) ```false  null  undefined  空字符串''  0  NaN``` 其它值都为true
 			#2017/9/3# -]
 			
-			[- 在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，则会继续在其原型链上查找直至Object.prototype,如果都没有找到才会返回undefined
+			[- 在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，则会继续在其原型链上查找直至 `Object.prototype` ,如果都没有找到才会返回 `undefined` 
 			#2017/9/27# -]
 			
-			[- 判断是否是数组的方法，IE9+直接用原生的 `Array.isArray()` 如果要向下兼容的话 ```Object.prototype.toString.call(arg) === '[object Array]'``` Ps:jQuery的$.isArray()亦是采用这种方式
+			[- 判断是否是数组的方法，IE9+直接用原生的 `Array.isArray()` 如果要向下兼容的话 ```Object.prototype.toString.call(arg) === '[object Array]'``` Ps:jQuery的 `$.isArray()` 亦是采用这种方式
 			#2017/9/27# -]
 			
 			[- 关于 `String.prototype.split([separator[, limit]])`  ```'abc'.split() => ['abc']  'abc'.split('') => ['a','b','c']  'a,b'.split(/(,)/) => ["a", ",", "b"]  'abc'.split('').reverse().join('')// 字符串倒序``` 
@@ -105,9 +105,6 @@
 
 			[- 可以通过给锚点设置一个向上的负偏移量来实现调至锚点位置时不会将锚点至于页面最顶部(避免被顶部所固定的Header遮挡)，类似: ```a {  position: relative;  top: -66px;  }``` 
 			#2017/8/27# -]
-			
-			[- 关于实现背景透明但文字不透明的效果，首先考虑的是使用 `opacity` 但其子元素都会继承这个属性，且无法单独为其子元素设置一个值，所以不可行。如果只是背景色透明的话，使用 `rgba()` 来设置透明 `background-color` 是一种不错的方法，兼容至IE9。
-			#2017/11/1# -]
 		</div>
 		<div class="memo-col">
 			[-  `::selection` 可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
@@ -118,6 +115,9 @@
 			
 			[- 一种提高使用transform以及opacity来做过度效果性能的思路<a href="https://aerotwist.com/blog/flip-your-animations/">FLIP</a>
 			#2017/9/18# -]
+
+			[- 关于实现背景透明但文字不透明的效果，首先考虑的是使用 `opacity` 但其子元素都会继承这个属性，且无法单独为其子元素设置一个值，所以不可行。如果只是背景色透明的话，使用 `rgba()` 来设置透明 `background-color` 是一种不错的方法，兼容至IE9。
+			#2017/11/1# -]
 		</div>
 		<div class="memo-col">
 			[- 当一个 `display : inline-block` 元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它 `display : inline-block` 元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
