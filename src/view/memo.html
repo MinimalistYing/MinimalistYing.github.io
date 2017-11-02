@@ -231,6 +231,9 @@
 		<div class="memo-col">
 			[- 关于React中的Event Handlers传参数有一下俩种方式 `<button onClick={(e) => this.func(id, e)}>click</button>` 或者 `<button onClick={this.func.bind(this, id)}>click</button>` 第二种方式下的 `e` 会默认作为最后一个参数传递
 			#2017/10/19# -]
+			
+			[- 如果希望在React组件内部进行路由、页面跳转，可以借助React-Router提供的 `withRouter(comp)` 之后便可在组件内部通过 `this.props.router` 来进行跳转。但有时候我们希望在组件外部来跳转，这就需要借助history来实现 ```import {browserHistory} from 'react-router'  browserHistory.goBack()  browserHistory.push()``` 
+			#2017/11/2# -]
 		</div>
 
 		<!-- Http相关 -->
