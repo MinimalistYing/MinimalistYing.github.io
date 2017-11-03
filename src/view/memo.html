@@ -221,6 +221,9 @@
 			
 			[- 使用React-Router(3.x版本 其它版本估计也一样)，如果在 `<Router history={xxx}>` 上不配置 `history` 会报错 `Uncaught TypeError: Cannot read property 'getCurrentLocation' of undefined` 所以这个属性是SPA必配？
 			#2017/10/30# -]
+			
+			[- React-Router采用动态路由的形式时页面报错 `The root route must render a single element` 可能是因为React组件是采用ES6的 `export default` 导出，而React-Router是采用CommonJS来 `require` 所以需要在导出的组件后加上 `.default` 类似 `require('components/Comp')).default`   
+			#2017/11/3# -]
 		</div>
 		<div class="memo-col">
 			[- 如果确定一个Component再初始化后不需要重新render，可以在组件中声明 `shouldComponentUpdate (nextProps, nextState) {return false;}` 这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较 `nextProps` 和 `nextState` 中的指定值是否发生变化来实现。还可以通过继承React提供的 `React.PureComponent` 来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果 `props.obj` 中存储的是一个对象或者数组等就会失效
