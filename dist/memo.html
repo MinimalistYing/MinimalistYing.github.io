@@ -185,10 +185,12 @@
 			<div class="memo-time">2017/10/27</div></div>
 		</div>
 		<div class="memo-col">
-			
+			<div class="memo-card"> 在开发环境中可配置<code>devtool: 'cheap-module-eval-source-map'</code>来获得更快的编译速度，在生产环境中可配置<code>devtool: 'cheap-module-source-map'</code>以便于更好的排查线上问题
+			<div class="memo-time">2017/11/3</div></div>
 		</div>
 		<div class="memo-col">
-			
+			<div class="memo-card"> Webpack中的<code>url-loader</code>和<code>file-loader</code>都是用于打包一些图片字体之类的静态资源文件，区别在于<code>url-loader</code>会对一定大小限制内的图片进行Base64编码并采用DataUrl的形式嵌入页面或css，这些编码后的图片不会占用HTTP请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）
+			<div class="memo-time">2017/10/27</div></div>
 		</div>
 		
 		<!-- jQuery相关 -->
@@ -220,6 +222,9 @@
 			
 			<div class="memo-card">使用React-Router(3.x版本 其它版本估计也一样)，如果在<code>&lt;Router history={xxx}&gt;</code>上不配置<code>history</code>会报错<code>Uncaught TypeError: Cannot read property 'getCurrentLocation' of undefined</code>所以这个属性是SPA必配？
 			<div class="memo-time">2017/10/30</div></div>
+			
+			<div class="memo-card">React-Router采用动态路由的形式时页面报错<code>The root route must render a single element</code>可能是因为React组件是采用ES6的<code>export default</code>导出，而React-Router是采用CommonJS来<code>require</code>所以需要在导出的组件后加上<code>.default</code>类似<code>require('components/Comp')).default</code>  
+			<div class="memo-time">2017/11/3</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">如果确定一个Component再初始化后不需要重新render，可以在组件中声明<code>shouldComponentUpdate (nextProps, nextState) {return false;}</code>这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较<code>nextProps</code>和<code>nextState</code>中的指定值是否发生变化来实现。还可以通过继承React提供的<code>React.PureComponent</code>来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果<code>props.obj</code>中存储的是一个对象或者数组等就会失效
