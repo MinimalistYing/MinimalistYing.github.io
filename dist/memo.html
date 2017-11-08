@@ -15,6 +15,7 @@
 			<ul>
 				<li ><a href="../../index.html">Home</a></li>
 				<li class="selected"><a href="./memo.html">Memo</a></li>
+				<li ><a href="https://jsfiddle.net/user/MinimalistYing/fiddles/">CodeBase</a></li>
 				<li ><a href="https://github.com/MinimalistYing">Github</a></li>
 			</ul>
 		</nav>
@@ -118,6 +119,9 @@
 
 			<div class="memo-card">关于实现背景透明但文字不透明的效果，首先考虑的是使用<code>opacity</code>但其子元素都会继承这个属性，且无法单独为其子元素设置一个值，所以不可行。如果只是背景色透明的话，使用<code>rgba()</code>来设置透明<code>background-color</code>是一种不错的方法，兼容至IE9。
 			<div class="memo-time">2017/11/1</div></div>
+
+			<div class="memo-card"> 关于css实现水平垂直居中
+			<div class="memo-time">2017/11/8</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">当一个<code>display : inline-block</code>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<code>display : inline-block</code>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
