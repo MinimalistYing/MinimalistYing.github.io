@@ -311,6 +311,9 @@
 			
 			<div class="memo-card"><code>&lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;  &lt;meta charset=&quot;utf-8&quot;&gt;</code>在HTML中俩者都可用来表明页面所采用的字符集，各浏览器的兼容性良好，但后者更短建议采用后者
 			<div class="memo-time">2017/9/5</div></div>
+			
+			<div class="memo-card">匹配中文字符（简繁体都包含）的正则<code>/^[\u4e00-\u9fa5]+$/</code>暂时无法确认其是否完全正确
+			<div class="memo-time">2017/11/9</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">HTML5新增了<code>input</code>事件来监听文本框的输入变化，但在IE9下存在用户删除输入或剪切文本时不会触发该事件的Bug,并且IE8下没有该事件，需同时监听<code>propertychange</code>来实现兼容IE8
