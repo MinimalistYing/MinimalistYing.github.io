@@ -93,6 +93,9 @@
 			
 			[- 关于 `String.prototype.split([separator[, limit]])`  ```'abc'.split() => ['abc']  'abc'.split('') => ['a','b','c']  'a,b'.split(/(,)/) => ["a", ",", "b"]  'abc'.split('').reverse().join('')// 字符串倒序``` 
 			#2017/9/28# -]
+
+			[- Javascript的函数表达式 `var f = function (){ return 1 }` 函数声明 `function g(){ return 1 }` 在混合时 `var f = function g(){ return 1 }` 其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错，关于函数表达式以及函数声明的具体差别可见<a href="http://kangax.github.io/nfe/">这篇文章</a>
+			#2017/11/12# -]
 		</div>
 
 		<!-- CSS相关 -->

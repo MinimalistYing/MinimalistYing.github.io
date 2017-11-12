@@ -93,6 +93,9 @@
 			
 			<div class="memo-card">关于<code>String.prototype.split([separator[, limit]])</code><pre>'abc'.split() =&gt; ['abc']<br>'abc'.split('') =&gt; ['a','b','c']<br>'a,b'.split(/(,)/) =&gt; [&quot;a&quot;, &quot;,&quot;, &quot;b&quot;]<br>'abc'.split('').reverse().join('')// 字符串倒序</pre>
 			<div class="memo-time">2017/9/28</div></div>
+
+			<div class="memo-card">Javascript的函数表达式<code>var f = function (){ return 1 }</code>函数声明<code>function g(){ return 1 }</code>在混合时<code>var f = function g(){ return 1 }</code>其实也是函数表达式，所以此时的<code>g</code>在函数外部是不可见的，试图执行<code>g()</code>会报错，关于函数表达式以及函数声明的具体差别可见<a href="http://kangax.github.io/nfe/">这篇文章</a>
+			<div class="memo-time">2017/11/12</div></div>
 		</div>
 
 		<!-- CSS相关 -->
