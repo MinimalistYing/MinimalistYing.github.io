@@ -219,6 +219,9 @@
 		<div class="memo-col">
 			[- 使用 `$(dom).html('...')` 时需注意防范脚本注入攻击，如果传入的字符串中包含可由用户填写的字段需要先进行转义，更好的办法是尽量使用 `$(dom).text('...')` 
 			#2017/8/30# -]
+			
+			[- 关于 `$.trim()` IE9+应该已经实现了原生的 `String.prototype.trim()` 低版本浏览器可以使用jQuery的方式来实现Polyfill ```function( text ) {  return text == null ?  "" :  ( text + "" ).replace( /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "" );}``` 其正则中的 `\xA0` 代表全角空格 `\uFEFF` 代表BOM头
+			#2017/11/14# -]
 		</div>
 
 		<!-- React相关 -->
