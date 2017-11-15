@@ -123,8 +123,6 @@
 			<div class="memo-card">关于实现背景透明但文字不透明的效果，首先考虑的是使用<code>opacity</code>但其子元素都会继承这个属性，且无法单独为其子元素设置一个值，所以不可行。如果只是背景色透明的话，使用<code>rgba()</code>来设置透明<code>background-color</code>是一种不错的方法，兼容至IE9。
 			<div class="memo-time">2017/11/1</div></div>
 
-			<div class="memo-card"> 关于css实现水平垂直居中
-			<div class="memo-time">2017/11/8</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">当一个<code>display : inline-block</code>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<code>display : inline-block</code>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
@@ -219,6 +217,9 @@
 		<div class="memo-col">
 			<div class="memo-card">使用<code>$(dom).html('...')</code>时需注意防范脚本注入攻击，如果传入的字符串中包含可由用户填写的字段需要先进行转义，更好的办法是尽量使用<code>$(dom).text('...')</code>
 			<div class="memo-time">2017/8/30</div></div>
+			
+			<div class="memo-card">关于<code>$.trim()</code>IE9+应该已经实现了原生的<code>String.prototype.trim()</code>低版本浏览器可以使用jQuery的方式来实现Polyfill<pre>function( text ) {<br>return text == null ?<br>&quot;&quot; :<br>( text + &quot;&quot; ).replace( /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, &quot;&quot; );}</pre>其正则中的<code>\xA0</code>代表全角空格<code>\uFEFF</code>代表BOM头
+			<div class="memo-time">2017/11/14</div></div>
 		</div>
 
 		<!-- React相关 -->
@@ -260,7 +261,7 @@
 			<div class="memo-card">Web服务器也可以接受一个目录的URL请求，类似<code>/dir/</code>通过配置服务器可以指定不同的返回形式，可以返回一个错误，可以默认的去搜索该目录下的index.html并返回，可以扫描目录返回包含目录内容的html页面(通常这是不安全的，因为这样会把站点的目录结构暴露出来)
 			<div class="memo-time">2017/8/28</div></div>
 			
-			<div class="memo-card">HTTP常见状态码<pre>200 =&gt; 请求成功<br>301 =&gt; 资源永久迁移<br>302 =&gt; 资源临时迁移<br>303 =&gt;需要去另一个地址获取资源<br>304 =&gt; 资源未发生变化<br>400 =&gt; 请求异常<br>401 =&gt; 未授权<br>403 =&gt; 服务器拒绝请求<br>404 =&gt; 未找到<br>405 =&gt; 不支持的请求方法<br>408 =&gt; 请求超时<br>500 =&gt; 服务器错误<br>502 =&gt; 网关故障<br>504 =&gt; 网关超时</pre>
+			<div class="memo-card">HTTP常见状态码<pre>200 =&gt; 请求成功<br>301 =&gt; 资源永久迁移<br>302 =&gt; 资源临时迁移<br>303 =&gt;需要去另一个地址获取资源<br>304 =&gt; 资源未发生变化<br>400 =&gt; 请求异常<br>401 =&gt; 未授权<br>403 =&gt; 服务器拒绝请求<br>404 =&gt; 未找到<br>405 =&gt; 不支持的请求方法<br>408 =&gt; 请求超时<br>414 =&gt; 请求URL过长<br>500 =&gt; 服务器错误<br>502 =&gt; 网关故障<br>504 =&gt; 网关超时</pre>
 			<div class="memo-time">2017/9/19</div></div>
 		</div>
 		<div class="memo-col">
@@ -272,6 +273,9 @@
 			
 			<div class="memo-card">HTTP响应中的Date首部应该表示原始服务器最初产生这个对象的日期
 			<div class="memo-time">2017/9/5</div></div>
+			
+			<div class="memo-card">HTTP协议其实并未对url的长度做过多的限制，但各实际中各浏览器的实现都有着不同的长度限制，RFC2616建议不应超过255 bytes也就是2040bit，实际中是IE浏览器最为严格url最长为2083个字符。所以关于在get请求中传数组这种操作还需慎重考虑。
+			<div class="memo-time">2017/11/14</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">HTTP的版本号不会被当作小数来比较，而是每个数字都单独处理，所以假设将来有这么俩个版本HTTP/2.22和HTTP/2.3，前者的版本更高
@@ -327,6 +331,10 @@
 			
 			<div class="memo-card">关于HTML中的相对路径<code>./</code>是文档相对路径，也就是当前访问页面的路径<code>/</code>是基于站点根目录的相对路径，举例说明访问网址http://0.0.0.0/1/2/son.html<pre>./test.js =&gt; http://0.0.0.0/1/2/test.js<br>/test.js =&gt; http://0.0.0.0/test.js</pre>
 			<div class="memo-time">2017/9/13</div></div>
+			
+			<div class="memo-card">npm安装node-sass报错<code>%1 is not a valid Win32 application</code>看了看报错信息大概是说什么东西下载失败导致的，切换成淘宝镜像用cnmp安装就好了<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>
+			<div class="memo-time">2017/11/14</div></div>	
+			
 		</div>
 	</main>
 
