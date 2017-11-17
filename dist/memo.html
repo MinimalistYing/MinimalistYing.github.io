@@ -124,6 +124,9 @@
 			<div class="memo-card">关于实现背景透明但文字不透明的效果，首先考虑的是使用<code>opacity</code>但其子元素都会继承这个属性，且无法单独为其子元素设置一个值，所以不可行。如果只是背景色透明的话，使用<code>rgba()</code>来设置透明<code>background-color</code>是一种不错的方法，兼容至IE9。
 			<div class="memo-time">2017/11/1</div></div>
 
+			<div class="memo-card">关于 'box-sizing: content-box' 以及 'box-sizing: border-box' 前者其实是W3C提出，后者是早期IE6、7quirk mode下的盒模型实现。但后来人们发现其实后者更符合人的逻辑，所以加了这个属性。对于<code>content-box</code>盒子宽度等于<code>width</code>+<code>padding</code>+<code>border</code>对于<code>border-box</code>盒子宽度就等于所设的<code>width</code> 减去<code>padding</code>以及<code>border</code>才是真正展示内容的宽度
+			<div class="memo-time">2017/11/17</div></div>
+
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">当一个<code>display : inline-block</code>元素的overflow被设为visible以外的值时，它的baseline位置会被从默认的字符x的底线位置修改为下外边沿，与此同时同一包含块的其它<code>display : inline-block</code>元素会被迫向下偏移来和这个元素对齐，遵循IFC(Inline Formatting Contexts)原则
@@ -306,6 +309,9 @@
 			
 			<div class="memo-card">关于正则表达式量词(Regexp Quantifier)<pre>? =&gt; {0,1}<br>+ =&gt; {1,}<br>* =&gt; {0,}</pre>如果只有一个量词则为贪婪匹配，会尽可能的匹配更多结果。如果量词后附加后缀?则进行非贪婪匹配。
 			<div class="memo-time">2017/9/28</div></div>
+
+			<div class="memo-card">由于node有许多底层依赖包需要依靠c++,所以需要额外安装<code>node-gyp</code>提供跨平台的编译支持，安装之前需要先装好相应的python/c++等环境，根据官方文档<code>npm install --global --production windows-build-tools</code>即可（很多情况下的npm安装失败可能都是因为这个没装好）
+			<div class="memo-time">2017/11/17</div></div>	
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">关于采集站点的PV、UV数据，传统的做法是当页面load完成后像后台发送数据，当作一次PV<br>
