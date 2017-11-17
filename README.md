@@ -5,8 +5,8 @@
 * Experiment new tech.
 * CodeBase.
 * Hackerrank.
+* Blog.
 
 ## TODO
 
-* Blog.
 * Canvas.
