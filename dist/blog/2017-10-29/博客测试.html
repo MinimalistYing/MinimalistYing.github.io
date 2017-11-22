@@ -1,2 +1,212 @@
-<h1 id="-">博客测试</h1>
-<p>阿斯蒂芬sad个大傻瓜倒萨个大傻瓜倒萨个大傻撒旦法大赛啊</p>
+<h1 id="webpack-v3-8-1-">Webpack(v3.8.1)</h1>
+<pre><code>const path = require(&#39;path&#39;)
+const webpack = require(&#39;webpack&#39;)
+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+const pkg = require(path.join(__dirname, &#39;package.json&#39;))// package.json
+
+// 定义项目中的一些文件夹路径
+const APP_PATH = path.resolve(__dirname, &#39;src&#39;)
+
+let theme = {}
+// pkg.theme存的是项目中antd主题文件的路径
+// 这里是 ./antd-theme.js
+if (pkg.theme &amp;&amp; typeof(pkg.theme) === &#39;string&#39;) {
+  theme = require(path.resolve(__dirname, pkg.theme))
+}
+
+module.exports = {
+  entry: path.resolve(APP_PATH, &#39;index.jsx&#39;),
+  // 暂时本地开发环境的不配output好像影响不大
+  // 后期遇到问题再配
+  resolve: {
+    // 配置这个后引用node_modules中的依赖包不用加路径 直接import xx from (&#39;antd&#39;)即可
+    modules: [
+      &#39;node_modules&#39;
+    ],
+    //后缀 配了这个就可以在import时 import xx from (./test) 而不用 import xx from (./test.jsx)
+    extensions: [&#39;.js&#39;, &#39;.jsx&#39;, &#39;.json&#39;, &#39;.scss&#39;]
+  },
+  module: {
+    rules: [{
+      test: /\.js|\.jsx$/,
+      use: [
+        &#39;babel-loader&#39;,
+        &#39;eslint-loader&#39;
+      ],
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      use: [&#39;css-loader&#39;]
+    }, {
+      test: /\.less$/,
+      use: [{
+        loader: &#39;style-loader&#39;
+      },{
+        loader: &#39;css-loader&#39;
+      },{
+        loader: &#39;less-loader&#39;,
+        options: {
+          sourceMap: true,
+          modifyVars: theme // 用于自定义antd主题 覆盖其less变量
+        }
+      }],
+      include: path.resolve(__dirname, &#39;node_modules&#39;)
+    }, {
+      test: /\.scss$/,
+      use: [
+        &#39;style-loader&#39;,
+        &#39;css-loader&#39;,
+        &#39;sass-loader&#39;
+      ],
+      include: APP_PATH
+    }, {
+      // 字体文件之类的需要这个loader支持
+      test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+      use: [&#39;file-loader&#39;],
+      include: APP_PATH
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/,
+      use: [{
+        loader: &#39;url-loader&#39;,
+        options: {
+          limit: 8192// 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
+        }
+      }],
+      include: APP_PATH
+    }]
+  },
+  devServer: {
+    contentBase: &#39;./build&#39;,
+    historyApiFallback: true,
+    hot: true,// 开启HMR
+    inline: true,
+    compress: true,// 开启gzip
+    port: 8080
+  },
+  plugins: [
+    new webpack.NamedModulesPlugin(),// 用于确保多次build生成的bundle名称不变
+    new HtmlWebpackPlugin({
+      template: &#39;index.html&#39;// 以根目录下的index.html为模版
+    }),
+    new webpack.HotModuleReplacementPlugin()// HMR所需
+  ],
+  devtool: &#39;cheap-module-eval-source-map&#39;
+}
+</code></pre><p>生产环境</p>
+<pre><code>const path = require(&#39;path&#39;)
+const webpack = require(&#39;webpack&#39;)
+const ExtractTextPlugin = require(&#39;extract-text-webpack-plugin&#39;)
+const HtmlWebpackPlugin = require(&#39;html-webpack-plugin&#39;)
+const CleanWebpackPlugin = require(&#39;clean-webpack-plugin&#39;)
+const ROOT_PATH = path.resolve(__dirname)
+const APP_PATH = path.resolve(ROOT_PATH, &#39;src&#39;)
+
+const pkg = require(path.join(__dirname, &#39;package.json&#39;))// package.json
+let theme = {}
+// pkg.theme存的是项目中antd主题文件的路径
+// 这里是 ./antd-theme.js
+if (pkg.theme &amp;&amp; typeof(pkg.theme) === &#39;string&#39;) {
+  theme = require(path.resolve(__dirname, pkg.theme))
+}
+// 用于提取自己写的css
+const appExtract = new ExtractTextPlugin({filename: &#39;app.[contenthash].css&#39;, allChunks: true})
+// 用于提取依赖包的css(主要是Antd)
+const vendorExtract = new ExtractTextPlugin({filename: &#39;vendor.css&#39;, allChunks: true})
+
+module.exports = {
+  entry: {
+    app: path.resolve(APP_PATH, &#39;index.jsx&#39;),
+    vendor: [&#39;react&#39;, &#39;axios&#39;]
+  },
+  output: {
+    path: path.resolve(__dirname, &#39;build&#39;),
+    publicPath: &#39;/&#39;,
+    filename: &#39;[name].[chunkhash].js&#39;,
+    chunkFilename: &#39;[name].[chunkhash:5].chunk.js&#39;,
+  },
+  resolve: {
+    // 配置这个后引用node_modules中的依赖包不用加路径 直接import xx from (&#39;antd&#39;)即可
+    modules: [
+      &#39;node_modules&#39;
+    ],
+    //后缀 配了这个就可以在import时 import xx from (./test) 而不用 import xx from (./test.jsx)
+    extensions: [&#39;.js&#39;, &#39;.jsx&#39;, &#39;.json&#39;, &#39;.scss&#39;]
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    }),
+    // 与NamedModulesPlugin 但更适用于生成环境
+    new webpack.HashedModuleIdsPlugin(),
+    // 部分依赖包(React)会在非生产环境中包含一些提示、警告的代码来帮助开发者解决问题
+    // 在生产环境通过配置这个可以阻止生成这些代码 减小bundle的size
+    new webpack.DefinePlugin({ &#39;process.env.NODE_ENV&#39;: JSON.stringify(&#39;production&#39;) }),
+    // 变动频率小的外部依赖包
+    new webpack.optimize.CommonsChunkPlugin({
+      name: &#39;vendor&#39;
+    }),
+    // webpack的运行环境所需
+    new webpack.optimize.CommonsChunkPlugin({
+      name: &#39;runtime&#39;
+    }),
+    new HtmlWebpackPlugin({
+      template: &#39;index.html&#39;// 以根目录下的index.html为模版
+    }),
+    new CleanWebpackPlugin(&#39;build&#39;),
+    appExtract,
+    vendorExtract,
+  ],
+  module: {
+    rules: [{
+      test: /\.js|\.jsx$/,
+      use: [
+        &#39;babel-loader&#39;,
+        &#39;eslint-loader&#39;
+      ],
+      exclude: /node_modules/
+    }, {
+      test: /\.css$/,
+      use: vendorExtract.extract([&#39;css-loader&#39;])
+    }, {
+      test: /\.less$/,
+      use: vendorExtract.extract({
+        fallback: &#39;style-loader&#39;,
+        use: [{
+          loader: &#39;css-loader&#39;
+        },{
+          loader: &#39;less-loader&#39;,
+          options: {
+            sourceMap: true,
+            modifyVars: theme // 用于自定义antd主题 覆盖其less变量
+          }
+        }]
+      }),
+      include: path.resolve(__dirname, &#39;node_modules&#39;)
+    }, {
+      test: /\.scss$/,
+      use: appExtract.extract({
+        fallback: &#39;style-loader&#39;,
+        use: [&#39;css-loader&#39;,&#39;sass-loader&#39;]
+      }),
+      include: APP_PATH
+    }, {
+      // 字体文件之类的需要这个loader支持
+      test: /\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/,
+      use: [&#39;file-loader&#39;],
+      include: APP_PATH
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/,
+      use: [{
+        loader: &#39;url-loader&#39;,
+        options: {
+          outputPath: &#39;images/&#39;,// 将图片放入build/images/目录下
+          limit: 8192// 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
+        }
+      }],
+      include: APP_PATH
+    }]
+  }
+};
+</code></pre>

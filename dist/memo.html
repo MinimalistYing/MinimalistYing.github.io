@@ -51,6 +51,9 @@
 			
 			<div class="memo-card">在Javascript中<code>Object</code>是<code>truthy value</code>所以哪怕是<code>new Boolean(false)</code>也会在类型转化时被判断为true<pre>false && console.log(1) =&gt; false<br>new Boolean(false) && console.log(1) =&gt; 1 </pre>
 			<div class="memo-time">2017/8/2</div></div>
+			
+			<div class="memo-card">关于<code>Date</code>对象有几点需要注意<code>new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]])</code>使用这个构造函数时<code>month</code>参数0代表一月，11代表十二月，同理<code>dateObj.getMonth()</code>一月返回0，十二月返回11<code>dateObj.getDay()</code>0代表周日，6代表周一
+			<div class="memo-time">2017/11/21</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<code>0.1 + 0.2 !== 0.3</code>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
@@ -95,8 +98,11 @@
 			<div class="memo-card">关于<code>String.prototype.split([separator[, limit]])</code><pre>'abc'.split() =&gt; ['abc']<br>'abc'.split('') =&gt; ['a','b','c']<br>'a,b'.split(/(,)/) =&gt; [&quot;a&quot;, &quot;,&quot;, &quot;b&quot;]<br>'abc'.split('').reverse().join('')// 字符串倒序</pre>
 			<div class="memo-time">2017/9/28</div></div>
 
-			<div class="memo-card">Javascript的函数表达式<code>var f = function (){ return 1 }</code>函数声明<code>function g(){ return 1 }</code>在混合时<code>var f = function g(){ return 1 }</code>其实也是函数表达式，所以此时的<code>g</code>在函数外部是不可见的，试图执行<code>g()</code>会报错，关于函数表达式以及函数声明的具体差别可见<a href="http://kangax.github.io/nfe/">这篇文章</a>
+			<div class="memo-card">Javascript的函数表达式<code>var f = function (){ return 1 }</code>函数声明<code>function g(){ return 1 }</code>在混合时<code>var f = function g(){ return 1 }</code>其实也是函数表达式，所以此时的<code>g</code>在函数外部是不可见的，试图执行<code>g()</code>会报错，关于函数表达式以及函数声明的具体差别可见<a href="http://kangax.github.io/nfe/">这篇文章</a> Ps:函数申明会存在函数提升的情况而函数表达式不会
 			<div class="memo-time">2017/11/12</div></div>
+			
+			<div class="memo-card">关于<code>typeof</code>一共有六种可能结果<code>number/string/boolean/undefined/function/object</code>其中有一种较怪异的行为需注意<code>typeof null // 'object'</code>
+			<div class="memo-time">2017/11/22</div></div>
 		</div>
 
 		<!-- CSS相关 -->
@@ -242,7 +248,7 @@
 			<div class="memo-card">如果确定一个Component再初始化后不需要重新render，可以在组件中声明<code>shouldComponentUpdate (nextProps, nextState) {return false;}</code>这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较<code>nextProps</code>和<code>nextState</code>中的指定值是否发生变化来实现。还可以通过继承React提供的<code>React.PureComponent</code>来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果<code>props.obj</code>中存储的是一个对象或者数组等就会失效
 			<div class="memo-time">2017/10/14</div></div>
 			
-			<div class="memo-card">关于React-Router中<code>browserHisory</code>和<code>hashHistory</code>的区别，前者的URL类似<code>xx/xx</code>后者是<code>/&lt;div class=&quot;memo-time&quot;&gt;/xx</code>由于HTTP协议的约定，URL中<code>&lt;/div&gt;</code>后作为片段(frag)不会随请求发送至后台，所以不需要服务器进行特殊配置，而前者是借助浏览器下的<code>history</code>API实现，在IE8/9下会导致跳页时Full Load，并且需要服务器配置接受所有请求都返回 `index.html`。优点时使得站点有清晰干净的URL，并且服务器端渲染只能通过这种方式实现，固推荐使用<code>browserHistory</code>
+			<div class="memo-card">关于React-Router中<code>browserHisory</code>和<code>hashHistory</code>的区别，前者的URL类似<code>xx/xx</code>后者是<code>/&lt;div class=&quot;memo-time&quot;&gt;/xx</code>由于HTTP协议的约定，URL中<code>&lt;/div&gt;</code>后作为片段(frag)不会随请求发送至后台，所以不需要服务器进行特殊配置，而前者是借助浏览器下的<code>history</code>API实现，在IE8/9下会导致跳页时Full Load，并且需要服务器配置接受所有请求都返回<code>index.html</code>。优点时使得站点有清晰干净的URL，并且服务器端渲染只能通过这种方式实现，固推荐使用<code>browserHistory</code>
 			<div class="memo-time">2017/10/31</div></div>
 		</div>
 		<div class="memo-col">
