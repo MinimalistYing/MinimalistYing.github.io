@@ -100,6 +100,9 @@
 
 			[- Javascript的函数表达式 `var f = function (){ return 1 }` 函数声明 `function g(){ return 1 }` 在混合时 `var f = function g(){ return 1 }` 其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错，关于函数表达式以及函数声明的具体差别可见<a href="http://kangax.github.io/nfe/">这篇文章</a>
 			#2017/11/12# -]
+			
+			[- 关于 `typeof` 一共有六种可能结果 `number/string/boolean/undefined/function/object` 其中有一种较怪异的行为需注意 `typeof null // 'object'` 
+			#2017/11/22# -]
 		</div>
 
 		<!-- CSS相关 -->
