@@ -54,6 +54,9 @@
 			
 			[- 关于 `Date` 对象有几点需要注意 `new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]])` 使用这个构造函数时 `month` 参数0代表一月，11代表十二月，同理 `dateObj.getMonth()` 一月返回0，十二月返回11 `dateObj.getDay()` 0代表周日，6代表周一
 			#2017/11/21# -]
+
+			[- Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位，会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况，关于其它数字过大时存在的问题可见<a href="http://www.plqblog.com/views/article.php?id=29">这篇Blog</a>
+			#2017/11/23# -]
 		</div>
 		<div class="memo-col">
 			[- 在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
