@@ -270,6 +270,19 @@
 			[- 如果希望在React组件内部进行路由、页面跳转，可以借助React-Router提供的 `withRouter(comp)` 之后便可在组件内部通过 `this.props.router` 来进行跳转。但有时候我们希望在组件外部来跳转，这就需要借助history来实现 ```import {browserHistory} from 'react-router'  browserHistory.goBack()  browserHistory.push()``` 
 			#2017/11/2# -]
 		</div>
+			
+		<!-- Vue相关 -->
+		<div class="memo-anchor-target">Vue<a class="fake-target" name="vue">&nbsp;</a></div>
+		<div class="memo-col">
+			[- Vue中对进行双向绑定的数据需进行初始化(包括向组件中传递的数据)，否则会导致双向绑定失效
+			#2017/12/6# -]
+		</div>
+		<div class="memo-col">
+
+		</div>
+		<div class="memo-col">
+
+		</div>
 
 		<!-- Http相关 -->
 		<div class="memo-anchor-target">HyperText Transfer Protocol<a class="fake-target" name="http">&nbsp;</a></div>
@@ -376,6 +389,7 @@
 			<li><a href="#_webpack">Webpack</a></li>
 			<li><a href="#_jquery">jQuery</a></li>
 			<li><a href="#_react">React</a></li>
+			<li><a href="#_vue">Vue</a></li>
 			<li><a href="#_http">HTTP</a></li>
 			<li><a href="#_other">杂项</a></li>
 		</ul>
