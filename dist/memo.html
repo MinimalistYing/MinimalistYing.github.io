@@ -109,6 +109,9 @@
 			
 			<div class="memo-card">关于<code>typeof</code>一共有六种可能结果<code>number/string/boolean/undefined/function/object</code>其中有一种较怪异的行为需注意<code>typeof null // 'object'</code>
 			<div class="memo-time">2017/11/22</div></div>
+			
+			<div class="memo-card">获取浏览器当前滚动条位置可通过<code>window.scrollY||window.pageYOffset</code>前者不兼容IE,横向位置则通过<code>window.scrollX||window.pageXOffset</code>
+			<div class="memo-time">2017/12/29</div></div>
 		</div>
 
 		<!-- CSS相关 -->
@@ -152,6 +155,9 @@
 			
 			<div class="memo-card">一种将全部元素reset为<code>box-sizing: border-box</code>的方法<pre>html {<br>box-sizing: border-box;<br>}<br>*, *:before, *:after {<br>box-sizing: inherit;<br>}</pre>可能会有更好的方法？详情可见<a href="https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/">这篇文章</a>
 			<div class="memo-time">2017/8/10</div></div>
+			
+			<div class="memo-card"> 当<code>display: inline-block</code>的元素间有换行时，浏览器的渲染结果会带有间隙。这是由于浏览器会将这个换行符当作字符，所以会占有一个的字符大小的宽度。解决方法有很多，个人较喜欢 `font-size：0`。
+			<div class="memo-time">2017/12/20</div></div>
 		</div>
 
 		<!-- 兼容性相关 -->
@@ -207,6 +213,9 @@
 		<div class="memo-col">
 			<div class="memo-card"> 在开启Webpack<code>devServer</code>遇到问题时可以路由至URL<code>/webpack-dev-server</code>来观察打包出来的bundle文件详情来Debug
 			<div class="memo-time">2017/10/27</div></div>
+			
+			<div class="memo-card"> 关于webpack devServer 的<code>historyApiFallback</code>在使用 类似<code>vue-router</code>或<code>react-router</code>来开发SPA时，如果将模式设为history模式需要将此项设为<code>true</code>为了将404的页面请求重定向至index.html以显示相应的404错误提示页面
+			<div class="memo-time">2017/12/5</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card"> 在开发环境中可配置<code>devtool: 'cheap-module-eval-source-map'</code>来获得更快的编译速度，在生产环境中可配置<code>devtool: 'cheap-module-source-map'</code>以便于更好的排查线上问题
@@ -266,6 +275,19 @@
 			
 			<div class="memo-card">如果希望在React组件内部进行路由、页面跳转，可以借助React-Router提供的<code>withRouter(comp)</code>之后便可在组件内部通过<code>this.props.router</code>来进行跳转。但有时候我们希望在组件外部来跳转，这就需要借助history来实现<pre>import {browserHistory} from 'react-router'<br>browserHistory.goBack()<br>browserHistory.push()</pre>
 			<div class="memo-time">2017/11/2</div></div>
+		</div>
+			
+		<!-- Vue相关 -->
+		<div class="memo-anchor-target">Vue<a class="fake-target" name="vue">&nbsp;</a></div>
+		<div class="memo-col">
+			<div class="memo-card">Vue中对进行双向绑定的数据需进行初始化(包括向组件中传递的数据)，否则会导致双向绑定失效
+			<div class="memo-time">2017/12/6</div></div>
+		</div>
+		<div class="memo-col">
+
+		</div>
+		<div class="memo-col">
+
 		</div>
 
 		<!-- Http相关 -->
@@ -373,6 +395,7 @@
 			<li><a href="#_webpack">Webpack</a></li>
 			<li><a href="#_jquery">jQuery</a></li>
 			<li><a href="#_react">React</a></li>
+			<li><a href="#_vue">Vue</a></li>
 			<li><a href="#_http">HTTP</a></li>
 			<li><a href="#_other">杂项</a></li>
 		</ul>
