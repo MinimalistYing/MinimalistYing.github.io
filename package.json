@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack"
   },
   "repository": {
     "type": "git",
@@ -18,12 +18,22 @@
   },
   "homepage": "https://github.com/MinimalistYing/MinimalistYing.github.io#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.7",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^3.7.0",
     "gulp-less": "^3.3.2",
     "gulp-markdown": "^1.2.0",
     "gulp-plumber": "^1.1.0",
     "less": "^2.7.2",
-    "through-gulp": "^0.5.0"
+    "less-loader": "^4.0.5",
+    "style-loader": "^0.19.1",
+    "through-gulp": "^0.5.0",
+    "webpack": "^3.10.0"
+  },
+  "dependencies": {
+    "react": "^16.2.0"
   }
 }
