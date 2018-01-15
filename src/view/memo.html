@@ -220,6 +220,9 @@
 		<div class="memo-col">
 			[-  在开发环境中可配置 `devtool: 'cheap-module-eval-source-map'` 来获得更快的编译速度，在生产环境中可配置 `devtool: 'cheap-module-source-map'` 以便于更好的排查线上问题
 			#2017/11/3# -]
+			
+			[-  webpack配置中的 `optput.publicPath` 也会同时影响到webpack-dev-server去何处读取静态资源，如果配置错误会导致页面或静态资源无法加载，页面报错404或 `Cannot get /index.html` 
+			#2018/1/15# -]
 		</div>
 		<div class="memo-col">
 			[-  Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字体之类的静态资源文件，区别在于 `url-loader` 会对一定大小限制内的图片进行Base64编码并采用DataUrl的形式嵌入页面或css，这些编码后的图片不会占用HTTP请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）
