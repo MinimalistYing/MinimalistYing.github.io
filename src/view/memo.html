@@ -230,6 +230,9 @@
 		<div class="memo-col">
 			[-  Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字体之类的静态资源文件，区别在于 `url-loader` 会对一定大小限制内的图片进行Base64编码并采用DataUrl的形式嵌入页面或css，这些编码后的图片不会占用HTTP请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）
 			#2017/10/27# -]
+			
+			[-  通过webpack引入相关polyfill时要留意，polyfill需要确保在所有bundle之前引入，而webpack并不会确保主entry中的 `import xx from xx` 会按顺序引入，所以需要采取在entry中进行类似 `app: ['babel-polyfill', './app.js']` 这样的形式确保依赖顺序。详情可参见 `React` 的<a href="https://github.com/facebook/react/issues/8379">Issue</a>
+			#2018/1/16# -]
 		</div>
 		
 		<!-- jQuery相关 -->
