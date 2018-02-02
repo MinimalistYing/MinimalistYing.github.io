@@ -57,6 +57,9 @@
 
 			[- Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位，会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况，关于其它数字过大时存在的问题可见<a href="http://www.plqblog.com/views/article.php?id=29">这篇Blog</a>
 			#2017/11/23# -]
+			
+			[- ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'` 将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用，我们可以 `import 'xx.less'` 而不需要繁琐的 `import Style from 'xx.less'` 
+			#2018/2/2# -]
 		</div>
 		<div class="memo-col">
 			[- 在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
