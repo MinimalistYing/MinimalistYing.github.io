@@ -57,6 +57,9 @@
 
 			<div class="memo-card">Javascript中的整数在超过9007199254740992也就是<code>Math.pow(2, 53)</code>时精度无法精确至个位，会出现<code>Math.pow(2, 53) + 1 === Math.pow(2, 53)</code>的情况，关于其它数字过大时存在的问题可见<a href="http://www.plqblog.com/views/article.php?id=29">这篇Blog</a>
 			<div class="memo-time">2017/11/23</div></div>
+			
+			<div class="memo-card">ES6的<code>import</code>除了通常的<code>import xx from 'lib'</code>外，还可以采用<code>import 'lib'</code>将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用，我们可以<code>import 'xx.less'</code>而不需要繁琐的<code>import Style from 'xx.less'</code>
+			<div class="memo-time">2018/2/2</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，例如典型的<code>0.1 + 0.2 !== 0.3</code>在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
@@ -84,6 +87,9 @@
 
 			<div class="memo-card">小技巧，可以通过俩次位运算来将<code>string</code>形式的数字转为(效率比parseInt等高)<code>number</code>类似<code>~~'123'// 123</code>,Ps: 处理数字的上限是<code>Math.pow(2,31) - 1</code>对超出该值的数字无法正确转化
 			<div class="memo-time">2017/11/24</div></div>
+			
+			<div class="memo-card">通过<code>Element.requestFullscreen()</code>以及<code>Document.exitFullscreen()</code>可以将页面上的内容进行全屏展示以及取消全屏展示
+			<div class="memo-time">2018/1/16</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card">判断点击是否在某个DOM外部发生的思路，判断<code>event.srcElement(IE) || event.target(FF)</code>是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
@@ -128,6 +134,9 @@
 
 			<div class="memo-card"> 实现文字模糊效果<pre>{<br>color: transparent;<br>text-shadow: #111 0 0 5px; }</pre>
 			<div class="memo-time">2017/11/24</div></div>
+			
+			<div class="memo-card"> 通过CSS3的<code>vh(当前视窗高度百分比)</code><code>vw(当前视窗宽度百分比)</code><code>vmin</code><code>vmax</code>这几个熟悉来实现基于浏览器视窗高度的布局，例如全屏遮罩，左侧导航100%自适应当前视窗高度等 
+			<div class="memo-time">2018/1/17</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card"><code>::selection</code>可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
@@ -220,10 +229,16 @@
 		<div class="memo-col">
 			<div class="memo-card"> 在开发环境中可配置<code>devtool: 'cheap-module-eval-source-map'</code>来获得更快的编译速度，在生产环境中可配置<code>devtool: 'cheap-module-source-map'</code>以便于更好的排查线上问题
 			<div class="memo-time">2017/11/3</div></div>
+			
+			<div class="memo-card"> webpack配置中的<code>optput.publicPath</code>也会同时影响到webpack-dev-server去何处读取静态资源，如果配置错误会导致页面或静态资源无法加载，页面报错404或<code>Cannot get /index.html</code>
+			<div class="memo-time">2018/1/15</div></div>
 		</div>
 		<div class="memo-col">
 			<div class="memo-card"> Webpack中的<code>url-loader</code>和<code>file-loader</code>都是用于打包一些图片字体之类的静态资源文件，区别在于<code>url-loader</code>会对一定大小限制内的图片进行Base64编码并采用DataUrl的形式嵌入页面或css，这些编码后的图片不会占用HTTP请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）
 			<div class="memo-time">2017/10/27</div></div>
+			
+			<div class="memo-card"> 通过webpack引入相关polyfill时要留意，polyfill需要确保在所有bundle之前引入，而webpack并不会确保主entry中的<code>import xx from xx</code>会按顺序引入，所以需要采取在entry中进行类似<code>app: ['babel-polyfill', './app.js']</code>这样的形式确保依赖顺序。详情可参见<code>React</code>的<a href="https://github.com/facebook/react/issues/8379">Issue</a>
+			<div class="memo-time">2018/1/16</div></div>
 		</div>
 		
 		<!-- jQuery相关 -->
@@ -284,7 +299,8 @@
 			<div class="memo-time">2017/12/6</div></div>
 		</div>
 		<div class="memo-col">
-
+			<div class="memo-card">在Vue中使用Scoped Style时最好采用类选择器或Id选择器，这样会使与属性选择器连用(PostCSS实现Scoped Style的方式)时造成的性能损失最小
+			<div class="memo-time">2018/1/25</div></div>
 		</div>
 		<div class="memo-col">
 
@@ -330,6 +346,9 @@
 			
 			<div class="memo-card"><code>Cache-Control : no-store</code>禁止代理缓存<code>Cache-Control : no-cache  Pragma : no-cache// 兼容HTTP/1.0</code>允许缓存，但必须先与服务器进行新鲜度验证，之后才能将内容返回给客户端<code>Cache-Control : max-age:66,must-revalidate</code>允许缓存，并且只有在内容过期后才必须进行新鲜度验证（在缓存过期时即使服务器错误也不会将这个陈旧的缓存返回给客户端）
 			<div class="memo-time">2017/9/5</div></div>
+			
+			<div class="memo-card">通过在Response Header中配置<code>Strict-Transport-Security</code>可以实现将请求的页面强制重定向至HTTPS协议访问
+			<div class="memo-time">2018/1/31</div></div>
 		</div>
 
 		<!-- 其它没法归类的 -->
