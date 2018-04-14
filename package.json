@@ -24,6 +24,7 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.7",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-clean-css": "^3.7.0",
     "gulp-less": "^3.3.2",
     "gulp-markdown": "^1.2.0",

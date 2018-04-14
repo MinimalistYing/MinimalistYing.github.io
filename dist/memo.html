@@ -167,6 +167,9 @@
 			
 			<div class="memo-card"> 当<code>display: inline-block</code>的元素间有换行时，浏览器的渲染结果会带有间隙。这是由于浏览器会将这个换行符当作字符，所以会占有一个的字符大小的宽度。解决方法有很多，个人较喜欢 `font-size：0`。
 			<div class="memo-time">2017/12/20</div></div>
+			
+			<div class="memo-card"> 类似<code>input/img/iframe</code>等内部无法容纳其它内容的元素，无法利用伪元素<code>::after/::before</code>来实现特定样式
+			<div class="memo-time">2018/3/1</div></div>
 		</div>
 
 		<!-- 兼容性相关 -->
@@ -400,6 +403,9 @@
 			
 			<div class="memo-card">npm安装node-sass报错<code>%1 is not a valid Win32 application</code>看了看报错信息大概是说什么东西下载失败导致的，切换成淘宝镜像用cnmp安装就好了<code>npm install -g cnpm --registry=https://registry.npm.taobao.org</code>
 			<div class="memo-time">2017/11/14</div></div>	
+			
+			<div class="memo-card">页面上引用静态资源时的相对路径与绝对路径的区别，<code>src=&quot;xx.js&quot;</code>相对于当前页面的路径，<code>src=&quot;./xx.js&quot;</code>相对于当前页面的路径，<code>src=&quot;../xx.js&quot;</code>相对与当前页面的上级路径，<code>src=&quot;/xx.js&quot;</code>相对于根目录路径，<code>src=&quot;http//:xx.com/xx.js&quot;</code>绝对路径   
+			<div class="memo-time">2018/3/26</div></div>
 			
 		</div>
 	</main>
