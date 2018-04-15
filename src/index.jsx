@@ -7,13 +7,17 @@ import {
 	Link
 } from 'react-router-dom'
 
-const App = () => (
-	<Router>
+import Header from './components/Header/index.jsx'
 
-	</Router>
+const App = () => (
+	<div>
+		<Header />
+	</div>
 )
 
 ReactDOM.render(
-  <App />,
-  document.getElementById('app')
+	<Router>
+		<App />
+	</Router>,
+	document.getElementById('app')
 )
