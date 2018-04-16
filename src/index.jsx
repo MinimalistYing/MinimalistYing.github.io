@@ -8,10 +8,16 @@ import {
 } from 'react-router-dom'
 
 import Header from './components/Header/index.jsx'
+import Resume from './components/Resume/index.jsx'
+
+import './less/main.less'
 
 const App = () => (
 	<div>
 		<Header />
+		<main>
+			<Resume />
+		</main>
 	</div>
 )
 

@@ -7,9 +7,17 @@ module.exports = {
 		rules: [{
 			test: /.jsx$/,
 			use: ['babel-loader']
-		},{
+		}, {
 			test: /.less$/,
 			use: ['style-loader','css-loader','less-loader']
+		}, {
+			test: /.(jpe?g|png|gif|svg)$/,
+			use: [{
+				loader: 'url-loader',
+				options: {
+					limit: 8192 // 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
+				}
+			}]
 		}]
 	},
 	devtool: 'inline-source-map',

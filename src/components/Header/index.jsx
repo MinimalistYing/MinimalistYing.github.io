@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './style.less'
+
 class Header extends React.Component {
 	render() {
 		return (
