@@ -5,7 +5,7 @@ module.exports = {
 	entry: './src/index.jsx',
 	module: {
 		rules: [{
-			test: /.jsx$/,
+			test: /.(jsx|js)$/,
 			use: ['babel-loader']
 		}, {
 			test: /.less$/,
@@ -22,8 +22,10 @@ module.exports = {
 	},
 	devtool: 'inline-source-map',
 	devServer: {
-		contentBase: './dist',
-     	hot: true
+		historyApiFallback: true,
+		contentBase: false,
+     	hot: true,
+     	compress: true
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),
