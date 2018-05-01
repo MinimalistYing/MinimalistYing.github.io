@@ -37,8 +37,17 @@ header {
         display: inline-block;
         padding: 20px 15px;
         border-bottom: 2px solid transparent;
+    }
 
+    nav a {
+        text-decoration: none;
+
+        color: inherit;
         transition: background,color .3s,.3s ease-in;
+
+        &.active::after {
+            transform: scaleX(1.5);
+        }
 
         &::after {
             content: '';
@@ -52,10 +61,6 @@ header {
             transition: transform .3s;
         }
 
-        &.selected::after {
-            transform: scaleX(1.5);
-        }
-
         &:hover {
             cursor: pointer;
 
@@ -63,11 +68,5 @@ header {
                 transform: scaleX(1.5);
             }
         }
-    }
-
-    nav li > a {
-        text-decoration: none;
-
-        color: inherit;
     }
 }
