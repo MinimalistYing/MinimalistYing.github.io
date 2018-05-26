@@ -29,6 +29,9 @@ module.exports = {
 			use: [{
 				loader: 'url-loader',
 				options: {
+					name: '[hash].[ext]',
+					outputPath: 'images/',
+					publicPath: './dist/images',
 					limit: 8192 // 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
 				}
 			}]
