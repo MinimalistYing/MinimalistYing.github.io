@@ -6,12 +6,15 @@ module.exports = {
 	module: {
 		rules: [{
 			test: /.(jsx|js)$/,
+			exclude: /node_modules/,
 			use: ['babel-loader']
 		}, {
 			test: /.less$/,
+			exclude: /node_modules/,
 			use: ['style-loader','css-loader','less-loader']
 		}, {
 			test: /.(jpe?g|png|gif|svg)$/,
+			exclude: /node_modules/,
 			use: [{
 				loader: 'url-loader',
 				options: {

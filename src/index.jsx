@@ -17,11 +17,11 @@ import './less/main.less'
 const App = () => (
 	<div>
 		<Header />
-		<main>
+		<div>
 			<Resume />
 			<Route exact path="/" component={Blog} />
 			<Route exact path="/memo" component={Memos} />
-		</main>
+		</div>
 	</div>
 )
 

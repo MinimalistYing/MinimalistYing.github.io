@@ -1,2 +1,60 @@
 @import '../../less/color';
 
+.memo {
+	position: relative;
+	width: 80%;
+	background: #fff;
+    margin: 10px;
+	padding: 0 15px;
+	border: 1px solid @gary-border;
+	border-radius: 3px;
+	transition: all .3s;
+	line-height: 1.8;
+
+	&:hover {
+	    box-shadow: 0 0 20px #ddd;
+
+	    .memo-date {
+	        cursor: default;
+	        font-size: 14px;
+	        color: @tiffany-hover;
+	    }
+	}
+	pre {
+        white-space: normal;
+        word-break: break-word;
+        font-family: sans-serif;
+        background: #f6f6f6;
+        border-radius: 2px;
+        padding: 5px 10px; 
+        border-left: 3px solid #b9b9b9;
+    }
+    code {
+        background: #f6f6f6;
+        border-radius: 2px;
+        padding: 5px 10px;
+        word-break: break-all;
+        font-family:-webkit-pictograph,"Microsoft YaHei",Verdana,sans-serif;
+    }
+    a {
+        color: @deep-pink;
+        transition: color .3s;
+        &:link {
+            color: @deep-pink;
+        }
+        &:visited {
+            color: @dark-pink;
+        }
+        &:hover {
+            color: @deep-pink;
+        }
+    }
+    .memo-date {
+        position: absolute;
+        bottom: 2px;
+        right: 5px;
+        font-size: 12px;
+        color: #f6f6f6;
+        transition: color,font-size .3s,.3s ease-in-out;
+    }
+}

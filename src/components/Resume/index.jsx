@@ -6,7 +6,7 @@ import './style.less'
 class Resume extends React.Component {
 	render() {
 		return (
-			<div className="info-wrapper">
+			<aside className="info-wrapper">
 			    <div className="info">
 			        <div className="info-photo">
 			            <img src={Avatar} alt="my icon" />
@@ -31,7 +31,7 @@ class Resume extends React.Component {
 			            <p>二维火</p>
 			        </div>
 			    </div>
-			</div>
+			</aside>
 		)
 	}
 }
