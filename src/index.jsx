@@ -2,7 +2,7 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {
-	BrowserRouter as Router,
+	HashRouter as Router,
 	Route,
 	Link
 } from 'react-router-dom'
