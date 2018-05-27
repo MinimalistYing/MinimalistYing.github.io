@@ -9,11 +9,11 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		publicPath: './dist',
-		filename: '[name].[hash].bundle.js'
+		filename: '[name].[hash].js'
 	},
 	module: {
 		rules: [{
-			test: /.(jsx|js)$/,
+			test: /\.js|\.jsx$/,
 			exclude: /node_modules/,
 			use: ['babel-loader']
 		}, {
@@ -21,7 +21,18 @@ module.exports = {
 			exclude: /node_modules/,
 			use: ExtractTextPlugin.extract({
 				fallback: 'style-loader',
-				use: ['css-loader', 'less-loader']
+				use: [{
+		            loader: 'css-loader',
+		            options: {
+		                minimize: true,
+		                sourceMap: true
+		            }
+		        }, {
+		            loader: 'less-loader',
+		            options: {
+		                sourceMap: true
+		            }
+		        }]
 	        })
 		}, {
 			test: /.(jpe?g|png|gif|svg)$/,
@@ -37,7 +48,7 @@ module.exports = {
 			}]
 		}]
 	},
-	devtool: 'inline-source-map',
+	devtool: 'source-map',
 	plugins: [
 		new webpack.NamedModulesPlugin(),
 		new CleanWebpackPlugin(['dist']),
@@ -48,6 +59,12 @@ module.exports = {
 			template: './react-index.html',
 			filename: 'index.html',
 			favicon: 'favicon.ico'
+		}),
+		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+		new webpack.optimize.UglifyJsPlugin({
+			compress: {
+				warnings: false
+			}
 		})
 	]
 }

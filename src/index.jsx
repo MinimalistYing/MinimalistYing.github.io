@@ -10,7 +10,7 @@ import {
 import Header from './components/Header/index.jsx'
 import Resume from './components/Resume/index.jsx'
 import Memos from './components/Memos/index.jsx'
-import Blog from './components/Blog/index.jsx'
+import MyBlog from './components/Blog/index.jsx'
 
 import './less/main.less'
 
@@ -19,7 +19,7 @@ const App = () => (
 		<Header />
 		<div>
 			<Resume />
-			<Route exact path="/" component={Blog} />
+			<Route exact path="/" component={MyBlog} />
 			<Route exact path="/memo" component={Memos} />
 		</div>
 	</div>

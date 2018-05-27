@@ -1,13 +1,13 @@
 import React from 'react'
 
-class Blog extends React.Component {
+class MyBlog extends React.Component {
 	render() {
 		return (
 			<div className="blog">
-				blog
+				Test
 			</div>
 		)
 	}
 }
 
-export default Blog
+export default MyBlog
