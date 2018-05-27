@@ -9,7 +9,7 @@ class Memos extends React.Component {
 		return (
 			<main className="memos">
 				{
-					JavaScript.map(o => <Memo data={o} />)
+					JavaScript.map((o, index) => <Memo key={index} data={o} />)
 				}
 			</main>
 		)
