@@ -46,4 +46,46 @@ export default [{
 }, {
 	date: "2017/9/28",
 	content: "Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行，不安全并且效率低下，最好不要使用。具体可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)"
+}, {
+	date: "2017/9/28",
+	content: "`Array.prototype.sort()` 可传入比较函数 `comparefn(a, b)` 来排序，希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。"
+}, {
+	date: "2017/9/28",
+	content: "关于 `String.prototype.split([separator[, limit]])`  ```'abc'.split() => ['abc']  'abc'.split('') => ['a','b','c']  'a,b'.split(/(,)/) => ['a', ',', 'b']  'abc'.split('').reverse().join('')// 字符串倒序```"
+}, {
+	date: "2017/10/23",
+	content: "Javascript的变量名允许使用Unicode字符集中的所有字母和数字，所以类似 `var 变量 = 1` 也是合法的"
+}, {
+	date: "2017/10/23",
+	content: "使用Javascript时如果选择在行尾不加上 `;` 是比较危险的行为，例如 ```var arr = [1,2,3]  var b = arr  [2].toString()  console.info(b)``` 的结果可能会出人意料，自动加分号的结果是 `var arr = [1,2,3];var b = arr[2].toString();console.info(b);` 再第二行以 `( [ + -` 开头时都需要注意避免以上情况"
+}, {
+	date: "2017/10/23",
+	content: "使用 `String.prototype.length()` 来判断字符串长度在某些特殊场景下存在问题，例如 `'𝒜'.length === 2` 因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码，这时候这个方法计算一个字符的长度是2，判断方法可见[这篇Blog](http://ife.baidu.com/note/detail/id/583)"
+}, {
+	date: "2017/11/12",
+	content: "Javascript的函数表达式 `var f = function (){ return 1 }` 函数声明 `function g(){ return 1 }` 在混合时 `var f = function g(){ return 1 }` 其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错，关于函数表达式以及函数声明的具体差别可见[这篇文章](http://kangax.github.io/nfe/) Ps:函数申明会存在函数提升的情况而函数表达式不会"
+}, {
+	date: "2017/11/21",
+	content: "关于 `Date` 对象有几点需要注意 `new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]])` 使用这个构造函数时 `month` 参数0代表一月，11代表十二月，同理 `dateObj.getMonth()` 一月返回0，十二月返回11 `dateObj.getDay()` 0代表周日，6代表周一"
+}, {
+	date: "2017/11/22",
+	content: "关于 `typeof` 一共有六种可能结果 `number/string/boolean/undefined/function/object` 其中有一种较怪异的行为需注意 `typeof null // 'object'` "
+}, {
+	date: "2017/11/23",
+	content: "Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位，会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况，关于其它数字过大时存在的问题可见[这篇Blog](http://www.plqblog.com/views/article.php?id=29)"
+}, {
+	date: "2017/11/24",
+	content: "小技巧，可以通过俩次位运算来将 `string` 形式的数字转为(效率比parseInt等高) `number` 类似 `~~'123'// 123` ,Ps: 处理数字的上限是 `Math.pow(2,31) - 1` 对超出该值的数字无法正确转化"
+}, {
+	date: "2017/12/29",
+	content: "获取浏览器当前滚动条位置可通过 `window.scrollY||window.pageYOffset` 前者不兼容IE,横向位置则通过 `window.scrollX||window.pageXOffset` "
+}, {
+	date: "2018/1/16",
+	content: "通过 `Element.requestFullscreen()` 以及 `Document.exitFullscreen()` 可以将页面上的内容进行全屏展示以及取消全屏展示"
+}, {
+	date: "2018/2/2",
+	content: "在Javascript中 `Object` 是 `truthy value` 所以哪怕是 `new Boolean(false)` 也会在类型转化时被判断为true ```false && console.log(1) => false  new Boolean(false) && console.log(1) => 1 ```"
+}, {
+	date: "2018/2/2",
+	content: "ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'` 将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用，我们可以 `import 'xx.less'` 而不需要繁琐的 `import Style from 'xx.less'`"
 }]
