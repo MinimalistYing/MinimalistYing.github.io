@@ -56,30 +56,6 @@
 			#2017/9/11# -]
 		</div>
 		
-		<!-- Webpack相关 -->
-		<div class="memo-anchor-target">Webpack<a class="fake-target" name="webpack">&nbsp;</a></div>
-		<div class="memo-col">
-			[-  在开启Webpack `devServer` 遇到问题时可以路由至URL `/webpack-dev-server` 来观察打包出来的bundle文件详情来Debug
-			#2017/10/27# -]
-			
-			[-  关于webpack devServer 的 `historyApiFallback` 在使用 类似 `vue-router` 或 `react-router` 来开发SPA时，如果将模式设为history模式需要将此项设为 `true` 为了将404的页面请求重定向至index.html以显示相应的404错误提示页面
-			#2017/12/5# -]
-		</div>
-		<div class="memo-col">
-			[-  在开发环境中可配置 `devtool: 'cheap-module-eval-source-map'` 来获得更快的编译速度，在生产环境中可配置 `devtool: 'cheap-module-source-map'` 以便于更好的排查线上问题
-			#2017/11/3# -]
-			
-			[-  webpack配置中的 `optput.publicPath` 也会同时影响到webpack-dev-server去何处读取静态资源，如果配置错误会导致页面或静态资源无法加载，页面报错404或 `Cannot get /index.html` 
-			#2018/1/15# -]
-		</div>
-		<div class="memo-col">
-			[-  Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字体之类的静态资源文件，区别在于 `url-loader` 会对一定大小限制内的图片进行Base64编码并采用DataUrl的形式嵌入页面或css，这些编码后的图片不会占用HTTP请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）
-			#2017/10/27# -]
-			
-			[-  通过webpack引入相关polyfill时要留意，polyfill需要确保在所有bundle之前引入，而webpack并不会确保主entry中的 `import xx from xx` 会按顺序引入，所以需要采取在entry中进行类似 `app: ['babel-polyfill', './app.js']` 这样的形式确保依赖顺序。详情可参见 `React` 的<a href="https://github.com/facebook/react/issues/8379">Issue</a>
-			#2018/1/16# -]
-		</div>
-		
 		<!-- jQuery相关 -->
 		<div class="memo-anchor-target">jQuery<a class="fake-target" name="jquery">&nbsp;</a></div>
 		<div class="memo-col">
@@ -103,48 +79,6 @@
 			[- 关于 `$.trim()` IE9+应该已经实现了原生的 `String.prototype.trim()` 低版本浏览器可以使用jQuery的方式来实现Polyfill ```function( text ) {  return text == null ?  "" :  ( text + "" ).replace( /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, "" );}``` 其正则中的 `\xA0` 代表全角空格 `\uFEFF` 代表BOM头
 			#2017/11/14# -]
 		</div>
-
-		<!-- React相关 -->
-		<div class="memo-anchor-target">React<a class="fake-target" name="react">&nbsp;</a></div>
-		<div class="memo-col">
-			[- React组件中的HTML标签必须闭合，否则会编译报错，例如 `<img>` 必须写作 `<img/>` 
-			#2017/10/13# -]
-			
-			[- 使用React-Router(3.x版本 其它版本估计也一样)，如果在 `<Router history={xxx}>` 上不配置 `history` 会报错 `Uncaught TypeError: Cannot read property 'getCurrentLocation' of undefined` 所以这个属性是SPA必配？
-			#2017/10/30# -]
-			
-			[- React-Router采用动态路由的形式时页面报错 `The root route must render a single element` 可能是因为React组件是采用ES6的 `export default` 导出，而React-Router是采用CommonJS来 `require` 所以需要在导出的组件后加上 `.default` 类似 `require('components/Comp')).default`   
-			#2017/11/3# -]
-		</div>
-		<div class="memo-col">
-			[- 如果确定一个Component再初始化后不需要重新render，可以在组件中声明 `shouldComponentUpdate (nextProps, nextState) {return false;}` 这会使React跳过对该组件是否需要重绘的检查，提升性能。还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较 `nextProps` 和 `nextState` 中的指定值是否发生变化来实现。还可以通过继承React提供的 `React.PureComponent` 来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，如果 `props.obj` 中存储的是一个对象或者数组等就会失效
-			#2017/10/14# -]
-			
-			[- 关于React-Router中 `browserHisory` 和 `hashHistory` 的区别，前者的URL类似 `xx/xx` 后者是 `/#/xx` 由于HTTP协议的约定，URL中 `#` 后作为片段(frag)不会随请求发送至后台，所以不需要服务器进行特殊配置，而前者是借助浏览器下的 `history` API实现，在IE8/9下会导致跳页时Full Load，并且需要服务器配置接受所有请求都返回 `index.html` 。优点时使得站点有清晰干净的URL，并且服务器端渲染只能通过这种方式实现，固推荐使用 `browserHistory` 
-			#2017/10/31# -]
-		</div>
-		<div class="memo-col">
-			[- 关于React中的Event Handlers传参数有一下俩种方式 `<button onClick={(e) => this.func(id, e)}>click</button>` 或者 `<button onClick={this.func.bind(this, id)}>click</button>` 第二种方式下的 `e` 会默认作为最后一个参数传递
-			#2017/10/19# -]
-			
-			[- 如果希望在React组件内部进行路由、页面跳转，可以借助React-Router提供的 `withRouter(comp)` 之后便可在组件内部通过 `this.props.router` 来进行跳转。但有时候我们希望在组件外部来跳转，这就需要借助history来实现 ```import {browserHistory} from 'react-router'  browserHistory.goBack()  browserHistory.push()``` 
-			#2017/11/2# -]
-		</div>
-			
-		<!-- Vue相关 -->
-		<div class="memo-anchor-target">Vue<a class="fake-target" name="vue">&nbsp;</a></div>
-		<div class="memo-col">
-			[- Vue中对进行双向绑定的数据需进行初始化(包括向组件中传递的数据)，否则会导致双向绑定失效
-			#2017/12/6# -]
-		</div>
-		<div class="memo-col">
-			[- 在Vue中使用Scoped Style时最好采用类选择器或Id选择器，这样会使与属性选择器连用(PostCSS实现Scoped Style的方式)时造成的性能损失最小
-			#2018/1/25# -]
-		</div>
-		<div class="memo-col">
-
-		</div>
-
 		<!-- Http相关 -->
 		<div class="memo-anchor-target">HyperText Transfer Protocol<a class="fake-target" name="http">&nbsp;</a></div>
 		<div class="memo-col">
