@@ -6,6 +6,10 @@ import Css from '../../memos/css.js'
 import Gulp from '../../memos/gulp.js'
 import Vue from '../../memos/vue.js'
 import Webpack from '../../memos/webpack.js'
+import Jquery from '../../memos/jquery.js'
+import Http from '../../memos/http.js'
+import Compability from '../../memos/compability.js'
+import Other from '../../memos/other.js'
 
 import './index.less'
 
@@ -40,6 +44,30 @@ class Memos extends React.Component {
 				<section className="webpack memo-wrap">
 					{
 						Webpack.map((o, index) => <Memo key={index} data={o} />)
+					}
+				</section>
+
+				<section className="jquery memo-wrap">
+					{
+						Jquery.map((o, index) => <Memo key={index} data={o} />)
+					}
+				</section>
+
+				<section className="http memo-wrap">
+					{
+						Http.map((o, index) => <Memo key={index} data={o} />)
+					}
+				</section>
+
+				<section className="compability memo-wrap">
+					{
+						Compability.map((o, index) => <Memo key={index} data={o} />)
+					}
+				</section>
+
+				<section className="other memo-wrap">
+					{
+						Other.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 			</main>
