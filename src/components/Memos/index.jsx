@@ -3,7 +3,6 @@ import Memo from '../Memo/index.jsx'
 
 import JavaScript from '../../memos/js.js'
 import Css from '../../memos/css.js'
-import Gulp from '../../memos/gulp.js'
 import Vue from '../../memos/vue.js'
 import Webpack from '../../memos/webpack.js'
 import Jquery from '../../memos/jquery.js'
@@ -26,12 +25,6 @@ class Memos extends React.Component {
 				<section className="css memo-wrap">
 					{
 						Css.map((o, index) => <Memo key={index} data={o} />)
-					}
-				</section>
-
-				<section className="gulp memo-wrap">
-					{
-						Gulp.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
