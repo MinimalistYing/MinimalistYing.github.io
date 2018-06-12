@@ -88,4 +88,7 @@ export default [{
 }, {
 	date: "2018/2/2",
 	content: "ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'` 将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用，我们可以 `import 'xx.less'` 而不需要繁琐的 `import Style from 'xx.less'`"
+}, {
+	date: "2018/6/12",
+	content: "关于`encodeURI|decodeURI`以及`encodeURIComponent|decodeURIComponent`，俩者都是用于对URI进行编解码操作，区别在于前者默认接受的是一个完整的URL所以不会对所有的字符进行编解码，而后者会对所有需要被编解码的字符进行编解码，例如对`http://www.a.com?a=1+1`进行`encodeURI`不会发生任何变化而进行`encodeURIComponent`的结果是`http%3A%2F%2Fwww.a.com%3Fa%3D1%2B1`"
 }]
