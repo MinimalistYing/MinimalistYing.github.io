@@ -22,12 +22,11 @@ class Resume extends React.Component {
 			            <span className="skill-tag">正则</span>
 			        </div>
 			        <div className="info-message">
-			            <p>Age : 23</p>
+			            <p>Age : 24</p>
 			            <p>Front-End Developer</p>
 			            <p>E-mail : genius_ying@163.com</p>
 			            <p>南京邮电大学</p>
-			            <p>杭州三汇数字信息技术有限公司</p>
-			            <p>杭州数梦工场科技有限公司</p>
+			            <p>数梦工场</p>
 			            <p>二维火</p>
 			        </div>
 			    </div>
