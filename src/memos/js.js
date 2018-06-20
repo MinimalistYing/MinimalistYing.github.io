@@ -91,4 +91,7 @@ export default [{
 }, {
 	date: "2018/6/12",
 	content: "关于`encodeURI|decodeURI`以及`encodeURIComponent|decodeURIComponent`，俩者都是用于对URI进行编解码操作，区别在于前者默认接受的是一个完整的URL所以不会对所有的字符进行编解码，而后者会对所有需要被编解码的字符进行编解码，例如对`http://www.a.com?a=1+1`进行`encodeURI`不会发生任何变化而进行`encodeURIComponent`的结果是`http%3A%2F%2Fwww.a.com%3Fa%3D1%2B1`"
+}, {
+	date: "2018/6/20",
+	content: "关于 `location.href = 'xx' || location.assign('xx')` 与 `location.replace('xx')` 俩者的区别在于采用前者当前的地址会被计入History中而后者不会，所以通过后者跳转到新页面后无法通过后退返回，这点在实现某些中间页面跳转页面是会很有用"
 }]
