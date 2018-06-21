@@ -25,4 +25,7 @@ export default [{
 }, {
 	date: "2017/9/11",
 	content: "IE8下可采用 `filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=xxx,endColorstr=xxx);` 来兼容 `rgba()`"
+}, {
+	date: "2018/6/21",
+	content: "Andriod中调用WebView来访问H5页面时HTML5的DOMStorage也就是`localStorage|sessionStorage`默认是关闭的，需要通过`settings.setDomStorageEnabled(true)`来开启，未开启的话会碰到在H5中读取localStorage为null的问题"
 }]
