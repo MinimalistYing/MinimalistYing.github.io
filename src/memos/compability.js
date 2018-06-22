@@ -28,4 +28,7 @@ export default [{
 }, {
 	date: "2018/6/21",
 	content: "Andriod中调用WebView来访问H5页面时HTML5的DOMStorage也就是`localStorage|sessionStorage`默认是关闭的，需要通过`settings.setDomStorageEnabled(true)`来开启，未开启的话会碰到在H5中读取localStorage为null的问题"
+}, {
+	date: "2018/6/22",
+	content: "Andriod部分机型的WebView不支持通过`window.location.replace()`来实现无法返回的页面中转操作，因此建议优先考虑采用History API来实现相应功能`window.history.replaceState({}, title, url)`"
 }]
