@@ -31,4 +31,7 @@ export default [{
 }, {
 	date: "2018/6/22",
 	content: "Andriod部分机型的WebView不支持通过`window.location.replace()`来实现无法返回的页面中转操作，因此建议优先考虑采用History API来实现相应功能`window.history.replaceState({}, title, url)`"
+}, {
+	date: "2018/6/27",
+	content: "手机端的H5页面长按会弹出复制分享的菜单，如果想要禁用IOS可以通过`user-select:none;-webkit-touch-callout: none;`Andriod通过`window.oncontextmenu = e => e.preventDefault()`"
 }]
