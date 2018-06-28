@@ -34,4 +34,7 @@ export default [{
 }, {
 	date: "2018/6/27",
 	content: "手机端的H5页面长按会弹出复制分享的菜单，如果想要禁用IOS可以通过`user-select:none;-webkit-touch-callout: none;`Andriod通过`window.oncontextmenu = e => e.preventDefault()`"
+}, {
+	date: "2018/6/28",
+	content: "在联调Andriod WebView内嵌H5页面时发现一个问题，页面的`font-size|line-height`会随着系统字体大小的调整而缩放导致布局错位，比如设置一个div的`font-size: 14px`当手机字体设为超小时，通过Chrome inspect WebView可能会发现Computed Style中显示的实际`font-size`为14*0.86=12.04px 在Andriod端通过`webview.getSettings().setTextZoom(100)`可完美解决问题"
 }]
