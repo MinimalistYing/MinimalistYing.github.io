@@ -97,4 +97,7 @@ export default [{
 }, {
 	date: "2018/6/27",
 	content: "在使用ES6的Default Parameter时需要注意，调用函数时如果希望传入空参数应该传`undefined`而不是`null`例如`foo(undefined, 66)`"
+}, {
+	date: "2018/7/4",
+	content: "返回一个只能执行一次的函数`function once(fn) {let isCalled = false return () => {if (!isCalled) {isCalled = true fn.apply(this, arguments)}}`"
 }]
