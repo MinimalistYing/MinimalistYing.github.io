@@ -37,4 +37,7 @@ export default [{
 }, {
 	date: "2018/6/28",
 	content: "在联调Andriod WebView内嵌H5页面时发现一个问题，页面的`font-size|line-height`会随着系统字体大小的调整而缩放导致布局错位，比如设置一个div的`font-size: 14px`当手机字体设为超小时，通过Chrome inspect WebView可能会发现Computed Style中显示的实际`font-size`为14*0.86=12.04px 在Andriod端通过`webview.getSettings().setTextZoom(100)`可完美解决问题"
+}, {
+	date: "2018/7/6",
+	content: "部分Andriod 4.4.4版本的机型WebView不支持CSS3的`transform`加了前缀`-webkit-transform`也不行 但是手机自带的浏览器应该是支持带前缀的形式的，只是WebView中不支持，询问Andriod的同学得知WebView采用的浏览器内核和手机自带浏览器的内核还是有差别的"
 }]
