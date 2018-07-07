@@ -94,4 +94,10 @@ export default [{
 }, {
 	date: "2018/6/20",
 	content: "关于 `location.href = 'xx' || location.assign('xx')` 与 `location.replace('xx')` 俩者的区别在于采用前者当前的地址会被计入History中而后者不会，所以通过后者跳转到新页面后无法通过后退返回，这点在实现某些中间页面跳转页面是会很有用"
+}, {
+	date: "2018/6/27",
+	content: "在使用ES6的Default Parameter时需要注意，调用函数时如果希望传入空参数应该传`undefined`而不是`null`例如`foo(undefined, 66)`"
+}, {
+	date: "2018/7/4",
+	content: "返回一个只能执行一次的函数`function once(fn) {let isCalled = false return () => {if (!isCalled) {isCalled = true fn.apply(this, arguments)}}`"
 }]
