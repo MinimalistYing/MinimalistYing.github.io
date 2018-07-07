@@ -1,0 +1,31 @@
+@import '../../less/color';
+
+.my-md {
+	pre {
+		margin: 0;
+		padding: 0;
+	    color: #383a42;
+	    background: #fafafa;
+	}
+	code {
+	    display: block;
+	    overflow-x: auto;
+	    padding: 0.5em;
+	    color: #383a42;
+	    background: #fafafa;
+	}
+
+	a {
+	    color: @deep-pink;
+	    transition: color .3s;
+	    &:link {
+	        color: @deep-pink;
+	    }
+	    &:visited {
+	        color: @dark-pink;
+	    }
+	    &:hover {
+	        color: @deep-pink;
+	    }
+	}
+}

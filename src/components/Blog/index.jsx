@@ -4,7 +4,6 @@ class MyBlog extends React.Component {
 	render() {
 		return (
 			<div className="blog">
-				Test
 			</div>
 		)
 	}

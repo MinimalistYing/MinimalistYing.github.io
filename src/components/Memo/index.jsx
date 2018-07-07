@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
+import Markdown from '../Markdown/index.jsx'
 
 import './style.less'
 
@@ -8,7 +8,7 @@ class Memo extends React.Component {
 		return (
 			<div className="memo">
 				<div className="memo-content">
-					<ReactMarkdown source={this.props.data.content} />
+					<Markdown data={this.props.data.content} />
 				</div>
 				<span className="memo-date">{this.props.data.date}</span>
 			</div>
