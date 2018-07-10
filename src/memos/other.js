@@ -141,6 +141,7 @@ npm安装node-sass报错 \`%1 is not a valid Win32 application\` 看了看报错
 <meta http-equiv='Cache-Control' content='no-store'>
 \`\`\`
 通常会采用 \`no-cache\` 的策略，只有在服务器的资源发生变化时才去再重新拉取，否则返回304采用缓存的资源
+Ps: 这种方式好像不可靠，不能保证浏览器一定会按照这个规则来执行，最好还是去配置提供静态资源的服务端容器
 `
 }, {
 	date: `2017/8/21`,
