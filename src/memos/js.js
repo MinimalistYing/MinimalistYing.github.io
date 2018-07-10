@@ -307,4 +307,27 @@ function once(fn) {
 	}
 \`\`\`
 `
+}, {
+	date: `2018/7/10`,
+	content: `
+在使用ES6的Consise Methods时要注意
+```js
+const o = {
+	f() {
+		// ....
+		f() // Error: f is not a function
+	}
+}
+```
+其实等同于
+```js
+const o = {
+	f: function() {
+		// ...
+		f() // Error: f is not a function
+	}
+}
+```
+所以如果想要在函数`f()`通过`f()`来递归调用函数会导致报错，因为`f()`其实是一个匿名函数
+`
 }]
