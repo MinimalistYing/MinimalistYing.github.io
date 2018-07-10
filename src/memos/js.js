@@ -310,7 +310,7 @@ function once(fn) {
 }, {
 	date: `2018/7/10`,
 	content: `
-在使用ES6的Consise Methods时要注意
+在使用ES6的Concise Methods时要注意
 ```js
 const o = {
 	f() {
@@ -329,5 +329,25 @@ const o = {
 }
 ```
 所以如果想要在函数`f()`通过`f()`来递归调用函数会导致报错，因为`f()`其实是一个匿名函数
+`
+}, {
+	date: `2018/7/10`,
+	content: `
+关于ES6的Object super关键字
+```js
+const o1 = {
+	foo() { console.log(1) }
+}
+const o2 = {
+	foo() {
+		// 只能在Object concise methods 中使用
+		// 且只能以super.XXX这种形式调用
+		super.foo()
+		console.log(2)
+	}
+}
+Object.setPrototypeOf(o2, o1)
+o2.foo() // 1 2
+```
 `
 }]
