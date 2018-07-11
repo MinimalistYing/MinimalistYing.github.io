@@ -355,4 +355,23 @@ o2.foo() // 1 2
 	content: `
 箭头函数都是匿名的函数表达式(function expression)
 `
+}, {
+	date: `2018/7/11`,
+	content: `
+关于ES6 Symbol 提供了一种更优雅的方式来实现Magic String的功能，可以将其看做一种自动生成的全局唯一的字符串
+\`\`\`js
+const s = Symbol.for('some description text')
+console.log(s) // Symbol(some description text)
+s.toString() // Symbol(some description text)
+typeof s // symbol
+s instanceof Symbol // false
+Object instanceof Symbol // true
+Symbol.keyFor(s) // some description text
+const o = {
+	[s]: true
+}
+Object.getOwnPropertyNames(o) // []
+Object.getOwnPropertySymbols(o) // [Symbol(some description text)]
+\`\`\`
+`
 }]
