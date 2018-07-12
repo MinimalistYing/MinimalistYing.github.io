@@ -226,6 +226,7 @@ Ps:函数申明会存在函数提升的情况而函数表达式不会
 * undefined
 * function
 * object
+* symbol // ES6新增
 
 其中有一种较怪异的行为需注意\`typeof null // 'object'\`
 `
