@@ -111,7 +111,10 @@ window.history.replaceState({}, title, url)
 	content: `
 手机端的H5页面长按会弹出复制分享的菜单，如果想要禁用IOS可以通过
 \`\`\`css
-user-select:none;
+// 这个属性会导致IOS上的input能唤起浏览器键盘 但无法聚焦input框
+// 最终结果就是无法正常输入!!!
+// 感觉这种禁用需求应该直接予以否决
+user-select: none; 
 -webkit-touch-callout: none;
 \`\`\`
 Andriod通过
