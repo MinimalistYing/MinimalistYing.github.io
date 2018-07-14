@@ -1,8 +1,15 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 
 module.exports = {
 	entry: './src/index.jsx',
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, 'src/components/')
+		},
+		extensions: ['*', '.wasm', '.mjs', '.js', '.json', '.jsx']
+	},
 	module: {
 		rules: [{
 			test: /.(jsx|js)$/,

@@ -1,16 +1,21 @@
 import React from 'react'
-import Memo from '../Memo/index.jsx'
+import { Memo } from '@'
 
-import JavaScript from '../../memos/js.js'
-import Css from '../../memos/css.js'
-import Vue from '../../memos/vue.js'
-import Webpack from '../../memos/webpack.js'
-import Jquery from '../../memos/jquery.js'
-import Http from '../../memos/http.js'
-import Compability from '../../memos/compability.js'
-import Other from '../../memos/other.js'
+import memos from '../../memos'
 
 import './index.less'
+
+const {
+	compability,
+	css,
+	http,
+	jquery,
+	js,
+	other,
+	react,
+	vue,
+	webpack
+} = memos
 
 class Memos extends React.Component {
 	render() {
@@ -18,49 +23,55 @@ class Memos extends React.Component {
 			<main className="memos">
 				<section className="js memo-wrap">
 					{
-						JavaScript.map((o, index) => <Memo key={index} data={o} />)
+						js.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 				
 				<section className="css memo-wrap">
 					{
-						Css.map((o, index) => <Memo key={index} data={o} />)
+						css.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="vue memo-wrap">
 					{
-						Vue.map((o, index) => <Memo key={index} data={o} />)
+						vue.map((o, index) => <Memo key={index} data={o} />)
+					}
+				</section>
+
+				<section className="react memo-wrap">
+					{
+						react.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="webpack memo-wrap">
 					{
-						Webpack.map((o, index) => <Memo key={index} data={o} />)
+						webpack.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="jquery memo-wrap">
 					{
-						Jquery.map((o, index) => <Memo key={index} data={o} />)
+						jquery.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="http memo-wrap">
 					{
-						Http.map((o, index) => <Memo key={index} data={o} />)
+						http.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="compability memo-wrap">
 					{
-						Compability.map((o, index) => <Memo key={index} data={o} />)
+						compability.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 
 				<section className="other memo-wrap">
 					{
-						Other.map((o, index) => <Memo key={index} data={o} />)
+						other.map((o, index) => <Memo key={index} data={o} />)
 					}
 				</section>
 			</main>

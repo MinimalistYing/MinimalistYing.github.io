@@ -7,10 +7,12 @@ import {
 	Link
 } from 'react-router-dom'
 
-import Header from './components/Header/index.jsx'
-import Resume from './components/Resume/index.jsx'
-import Memos from './components/Memos/index.jsx'
-import MyBlog from './components/Blog/index.jsx'
+import {
+	Header,
+	Resume,
+	Memos,
+	MyBlog
+} from './components'
 
 import './less/main.less'
 

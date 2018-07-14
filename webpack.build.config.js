@@ -6,6 +6,12 @@ const path = require('path')
 
 module.exports = {
 	entry: './src/index.jsx',
+	resolve: {
+		alias: {
+			'@': path.resolve(__dirname, 'src/components/')
+		},
+		extensions: ['*', '.wasm', '.mjs', '.js', '.json', '.jsx']
+	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		publicPath: './dist',

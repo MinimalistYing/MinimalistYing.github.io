@@ -1,5 +1,5 @@
 import React from 'react'
-import Markdown from '../Markdown/index.jsx'
+import Markdown from '../Markdown'
 
 import './style.less'
 
