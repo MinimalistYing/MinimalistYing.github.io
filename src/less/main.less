@@ -21,7 +21,7 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     color:@white-background;
 }
 /*小屏*/
-@media all and (max-width: 720px) {
+@media all and (max-width: 1023px) {
     nav {
         display: none;
     }
@@ -36,7 +36,7 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
     }
 }
 /*大屏*/
-@media all and (min-width: 720px) {
+@media all and (min-width: 1024px) {
     nav {
         display: inline-block;
     }
@@ -44,6 +44,11 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
         margin: 25px;
         width: 80px;
         height: 80px;
+    }
+    main {
+        margin-top: 63px;
+        margin-left: 20%;
+        padding: 20px;
     }
 }
 body {
@@ -58,9 +63,6 @@ body {
 main {
     display: flex;
     flex-flow: row wrap;
-    margin-top: 63px;
-    margin-left: 20%;
-    padding: 20px;
     transition: margin-top .5s;
 }
 
@@ -115,6 +117,7 @@ main {
     .info-wrapper {
         position: static;
         border: none;
+        margin-top: 70px;
         width: 100%;
     }
     .right {
