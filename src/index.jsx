@@ -19,8 +19,8 @@ import './less/main.less'
 const App = () => (
 	<div>
 		<Header />
+		<Resume />
 		<div>
-			<Resume />
 			<Route exact path="/" component={MyBlog} />
 			<Route exact path="/memo" component={Memos} />
 		</div>
