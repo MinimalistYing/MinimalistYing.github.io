@@ -375,4 +375,13 @@ Object.getOwnPropertyNames(o) // []
 Object.getOwnPropertySymbols(o) // [Symbol(some description text)]
 \`\`\`
 `
+}, {
+	date: `2018/7/16`,
+	content: `
+关于ES6 Module
+* 基于文件，每个文件为一个Module，不可能一个文件中包含多个Module
+* 静态，不能动态的去修改一个Module对外export的API
+* 单例，所有的import都是指向同一实例
+* import和export只能出现在一个Module的最顶层，也就是说不能出现在任何块中或函数中
+`
 }]
