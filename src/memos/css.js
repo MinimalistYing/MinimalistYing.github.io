@@ -138,4 +138,14 @@ a {
 类似 \`input/img/iframe\` 等内部无法容纳其它内容的元素，
 无法利用伪元素 \`::after/::before\` 来实现特定样式
 `
+}, {
+	date: `2018/7/17`,
+	content: `
+可以通过mask属性来实现对一块区域的遮罩效果
+兼容性不佳，目前只有webkit内核支持
+Ps:知乎在内容收起时的渐变透明文字遮罩的实现方式
+```css
+-webkit-mask-image: linear-gradient(#1a1a1a calc(100% - 8rem),transparent calc(100% - 2.8rem));
+```
+`
 }]
