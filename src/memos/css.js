@@ -146,6 +146,7 @@ a {
 Ps:知乎在内容收起时的渐变透明文字遮罩的实现方式
 ```css
 -webkit-mask-image: linear-gradient(#1a1a1a calc(100% - 8rem),transparent calc(100% - 2.8rem));
+-webkit-mask-size: 100% 100%;
 ```
 `
 }]
