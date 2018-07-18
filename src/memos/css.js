@@ -3,9 +3,9 @@ export default [{
 	content: `
 为了实现隐藏一个元素的滚动条但仍可以在鼠标移入其中时进行滚动操作，
 可以通过将其用父元素包裹，并将父元素设为
-\`css
+\`\`\`css
 overflow: hidden;
-\`
+\`\`\`
 同时将其向右偏移或者增宽，这样可以使得其滚动条隐藏在父元素之下，类似
 \`\`\`html
 <div calss="wrapper" style="overflow: hidden; width: 200px">
@@ -144,9 +144,9 @@ a {
 可以通过mask属性来实现对一块区域的遮罩效果
 兼容性不佳，目前只有webkit内核支持
 Ps:知乎在内容收起时的渐变透明文字遮罩的实现方式
-```css
+\`\`\`css
 -webkit-mask-image: linear-gradient(#1a1a1a calc(100% - 8rem),transparent calc(100% - 2.8rem));
 -webkit-mask-size: 100% 100%;
-```
+\`\`\`
 `
 }]
