@@ -10,11 +10,17 @@ React组件中的HTML标签必须闭合，否则会编译报错，例如 \`<img>
 \`\`\`js
 shouldComponentUpdate (nextProps, nextState) {return false;}
 \`\`\`
-这会使React跳过对该组件是否需要重绘的检查，提升性能。
+这会使React跳过对该组件是否需要重绘的检查，并且跳过调用
+* componentWillUpdate()
+* render()
+* componentDidUpdate()
+获得性能上的提升。
 还有一种情况下，如果你希望只有在组件的部分属性发生变化时才检查，可以通过在上述方法中比较
 \`nextProps\` 和 \`nextState\` 中的指定值是否发生变化来实现。
-还可以通过继承React提供的 \`React.PureComponent\` 来方便的实现上述需求，这个方法的缺陷是只会进行浅比较，
-如果 \`props.obj\` 中存储的是一个对象或者数组等就会失效
+还可以通过继承React提供的 \`React.PureComponent\` 来方便的实现上述需求，
+PureComponent只会对属性进行浅比较，当属性的数据结构复杂，层级较深时比较可能会失败
+从而一直返回false导致组件不会发生更新
+就最近的经验来看，把一些展示型的组件设为PureComponent可以获得较为明显的性能提升
 `
 }, {
 	date: `2017/10/19`,
