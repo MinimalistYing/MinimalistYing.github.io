@@ -1,8 +1,7 @@
 import React from 'react'
 import { Memo } from '@'
 
-import memos from '../../memos'
-
+import * as memos from '../../memos'
 import './index.less'
 
 const {

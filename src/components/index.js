@@ -1,13 +1,5 @@
-import Header from './Header'
-import Resume from './Resume'
-import Memos from './Memos'
-import MyBlog from './Blog'
-import Memo from './Memo'
-
-export {
-	Header,
-	Resume,
-	Memos,
-	MyBlog,
-	Memo
-}
+export { default as Header } from './Header'
+export { default as Resume } from './Resume'
+export { default as Memos } from './Memos'
+export { default as MyBlog } from './Blog'
+export { default as Memo } from './Memo'

@@ -1,21 +1,9 @@
-import compability from './compability'
-import css from './css'
-import http from './http'
-import jquery from './jquery'
-import js from './js'
-import other from './other'
-import react from './react'
-import vue from './vue'
-import webpack from './webpack'
-
-export default {
-	compability,
-	css,
-	http,
-	jquery,
-	js,
-	other,
-	react,
-	vue,
-	webpack
-}
+export { default as compability } from './compability'
+export { default as css } from './css'
+export { default as http } from './http'
+export { default as jquery } from './jquery'
+export { default as js } from './js'
+export { default as other } from './other'
+export { default as react } from './react'
+export { default as vue } from './vue'
+export { default as webpack } from './webpack'
