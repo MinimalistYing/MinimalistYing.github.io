@@ -64,6 +64,9 @@ module.exports = {
 					limit: 8192 // 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
 				}
 			}]
+		}, {
+			test: /.md$/,
+			use: ['raw-loader']
 		}]
 	},
 	devtool: 'source-map',

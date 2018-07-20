@@ -23,6 +23,9 @@ module.exports = {
 			test: /.css$/,
 			use: ['style-loader','css-loader']
 		}, {
+			test: /.md$/,
+			use: ['raw-loader']
+		}, {
 			test: /.(jpe?g|png|gif|svg)$/,
 			exclude: /node_modules/,
 			use: [{
