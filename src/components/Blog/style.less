@@ -1,18 +1,35 @@
+@import '../../less/color';
+
 .blogs {
 	margin-top: 80px;
-	margin-left: 20%;
 	flex-flow: column wrap;
 	display: flex;
 	align-items: center;
 
 	.blog {
-		transition: all .5s;
+		transition: all .3s linear;
 		padding: 10px 20px;
-		border: 1px solid #e8e8e8;
+		border: 1px solid @gary-border;
 		width: 80%;
 
 		&:hover {
-			box-shadow: 0 0 6px #ddd;
+			box-shadow: 0 0 30px rgba(0,0,0,.1);
 		}
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.blogs {
+		margin-left: 0;
+	}
+
+	.blog {
+		overflow-x: scroll;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.blogs {
+		margin-left: 20%;
 	}
 }
