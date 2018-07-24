@@ -1,5 +1,2 @@
 export { default as Header } from './Header'
 export { default as Resume } from './Resume'
-export { default as Memos } from './Memos'
-export { default as MyBlog } from './Blog'
-export { default as Memo } from './Memo'

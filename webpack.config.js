@@ -11,6 +11,11 @@ module.exports = {
 		},
 		extensions: ['*', '.wasm', '.mjs', '.js', '.json', '.jsx']
 	},
+	output: {
+		path: path.resolve(__dirname, './dist'),
+		chunkFilename: '[name].[hash].bundle.js',
+		filename: '[name].[hash].js'
+	},
 	module: {
 		rules: [{
 			test: /.(jsx|js)$/,
