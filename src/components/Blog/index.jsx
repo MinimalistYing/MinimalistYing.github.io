@@ -1,13 +1,17 @@
 import React from 'react'
 import Markdown from '@/Markdown'
-import WebpackBaseConfig from '../../blogs/WebpackBaseConfig.md'
-import GulpPlugin from '../../blogs/GulpPlugin.md'
+import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
+import GulpPlugin from '@blog/GulpPlugin.md'
+import SymbolBlog from '@blog/Symbol.md'
+import IteratorBlog from '@blog/Iterator.md' 
 
 import './style.less'
 
 const blogs = [
 	WebpackBaseConfig,
-	GulpPlugin
+	GulpPlugin,
+	SymbolBlog,
+	IteratorBlog
 ]
 
 class MyBlog extends React.Component {
@@ -15,8 +19,8 @@ class MyBlog extends React.Component {
 		return (
 			<div className="blogs">
 				{
-					blogs.map(content => (
-						<div className="blog">
+					blogs.map((content, index) => (
+						<div className="blog" key={index}>
 							<Markdown data={content} />
 						</div>
 					))

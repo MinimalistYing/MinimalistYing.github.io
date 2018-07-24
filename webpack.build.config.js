@@ -8,7 +8,8 @@ module.exports = {
 	entry: './src/index.jsx',
 	resolve: {
 		alias: {
-			'@': path.resolve(__dirname, 'src/components/')
+			'@': path.resolve(__dirname, 'src/components/'),
+			'@blog': path.resolve(__dirname, 'src/blogs/')
 		},
 		extensions: ['*', '.wasm', '.mjs', '.js', '.json', '.jsx']
 	},
