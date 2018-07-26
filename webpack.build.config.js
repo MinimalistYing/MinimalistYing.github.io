@@ -1,10 +1,13 @@
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const path = require('path')
 
 module.exports = {
+	mode: 'production',
 	entry: './src/index.jsx',
 	resolve: {
 		alias: {
@@ -27,33 +30,31 @@ module.exports = {
 		}, {
 			test: /.less$/,
 			exclude: /node_modules/,
-			use: ExtractTextPlugin.extract({
-				fallback: 'style-loader',
-				use: [{
-		            loader: 'css-loader',
-		            options: {
-		                minimize: true,
-		                sourceMap: true
-		            }
-		        }, {
-		            loader: 'less-loader',
-		            options: {
-		                sourceMap: true
-		            }
-		        }]
-	        })
+			use: [{
+				loader: MiniCssExtractPlugin.loader
+			}, {
+	            loader: 'css-loader',
+	            options: {
+	                minimize: true,
+	                sourceMap: true
+	            }
+	        }, {
+	            loader: 'less-loader',
+	            options: {
+	                sourceMap: true
+	            }
+	        }]
 		}, {
 			test: /.css$/,
-			use: ExtractTextPlugin.extract({
-				fallback: 'style-loader',
-				use: [{
-		            loader: 'css-loader',
-		            options: {
-		                minimize: true,
-		                sourceMap: true
-		            }
-		        }]
-	        })
+			use: [{
+				loader: MiniCssExtractPlugin.loader
+			}, {
+	            loader: 'css-loader',
+	            options: {
+	                minimize: true,
+	                sourceMap: true
+	            }
+	        }]
 		}, {
 			test: /.(jpe?g|png|gif|svg)$/,
 			exclude: /node_modules/,
@@ -75,19 +76,27 @@ module.exports = {
 	plugins: [
 		new webpack.NamedModulesPlugin(),
 		new CleanWebpackPlugin(['dist']),
-		new ExtractTextPlugin({
-			filename: 'css/[name].[contenthash].css'
-		}),
 		new HtmlWebpackPlugin({
 			template: './react-index.html',
 			filename: 'index.html',
 			favicon: 'favicon.ico'
 		}),
-		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-		new webpack.optimize.UglifyJsPlugin({
-			compress: {
-				warnings: false
-			}
-		})
-	]
+		new MiniCssExtractPlugin({
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: "[name].[hash].css",
+			chunkFilename: "[id].[hash].css"
+		}),
+		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') })
+	],
+	optimization: {
+		minimizer: [
+			// 由于配置optimization会覆盖默认值 所以这里需要配一下UglifyJsPlugin
+			new UglifyJsPlugin({
+				cache: true,
+				parallel: true,
+			}),
+			new OptimizeCSSAssetsPlugin({})
+		]
+	}
 }
