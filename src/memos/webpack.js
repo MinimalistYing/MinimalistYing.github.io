@@ -46,4 +46,16 @@ app: ['babel-polyfill', './app.js']
 这样的形式确保依赖顺序。
 详情可参见 \`React\` 的[Issue](https://github.com/facebook/react/issues/8379)
 `
+}, {
+	date: `2018/7/27`,
+	content: `
+\`moment\`的国际化资源文件很大，所以在生产环境打包时要留意不要讲不必要的国际化文件也包含进来
+可以通过在webpack生产环境的配置文件中新增如下插件来解决这个问题
+\`\`\`js
+plugins: [
+	// 以下的配置会使打包出来的文件只包含简体以及繁体中文的国际化
+	new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn|zh-tw/)
+]
+\`\`\`
+`
 }]
