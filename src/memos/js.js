@@ -365,4 +365,11 @@ o2.foo() // 1 2
 * 单例，所有的import都是指向同一实例
 * import和export只能出现在一个Module的最顶层，也就是说不能出现在任何块中或函数中
 `
+}, {
+	date: `2018/7/27`,
+	content: `
+对比\`let o1 = {}\`以及\`let o2 = Object.create(null)\`可以发现
+在o2并没有从Object.prototype上继承任何属性\`o2.__proto__ === undefined\`，是一个干净的空对象
+通过\`{}\`创建对象等同于\`Object.create(Object.prototype)\`
+`
 }]
