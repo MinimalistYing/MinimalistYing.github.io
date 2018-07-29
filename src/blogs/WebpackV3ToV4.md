@@ -9,6 +9,7 @@
 4. 移除`webpack.optimize.UglifyJsPlugin`，现在webpack会在生产环境默认对js进行压缩
 5. 移除`extract-text-webpack-plugin`，v4推荐使用新的`mini-css-extract-plugin`来提取样式文件
 6. 引入`optimize-css-assets-webpack-plugin`以及`uglifyjs-webpack-plugin`，并在生产环境的配置文件下新增
+
 ```js
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")

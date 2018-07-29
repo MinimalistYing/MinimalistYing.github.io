@@ -3,7 +3,9 @@ import Markdown from '@/Markdown'
 import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
 import GulpPlugin from '@blog/GulpPlugin.md'
 import SymbolBlog from '@blog/Symbol.md'
-import IteratorBlog from '@blog/Iterator.md' 
+import IteratorBlog from '@blog/Iterator.md'
+import WebpackV3ToV4 from '@blog/WebpackV3ToV4.md'
+import Generator from '@blog/Generator.md'
 
 import './style.less'
 
@@ -11,7 +13,9 @@ const blogs = [
 	WebpackBaseConfig,
 	GulpPlugin,
 	SymbolBlog,
-	IteratorBlog
+	IteratorBlog,
+	WebpackV3ToV4,
+	Generator
 ]
 
 class MyBlog extends React.Component {
