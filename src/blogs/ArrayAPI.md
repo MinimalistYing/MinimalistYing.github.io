@@ -117,12 +117,16 @@ arr.indexOf(2) !== -1 // false
 * 不能实现自定义的匹配条件
 
 ES5中新增的`some()`解决了上述问题
+PS: 当我们不需要自定义匹配条件，想利用全等来比较时  
+可以采用ES7新增的更便捷的方法`Array.prototype.includes()`
 ```js
 const arr = [1, '2', {name: 'hello'}]
 arr.some(v => v == 2) // true
 arr.some(v => v.name === 'hello') // true
+
+arr.includes(1) // true
 ```
-大部分情况下这中方法都没有问题，但当我们想要直接获得正确匹配到的值  
+大部分情况下这种方法都没有问题，但当我们想要直接获得正确匹配到的值  
 这时候就可以借助ES6的`find()`
 ```js
 const arr = [1, '2', {name: 'hello'}]
