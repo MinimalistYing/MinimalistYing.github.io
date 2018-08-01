@@ -246,7 +246,7 @@ Javascript中的整数在超过9007199254740992也就是 \`Math.pow(2, 53)\` 时
 }, {
 	date: `2017/12/29`,
 	content: `
-获取浏览器当前滚动条位置可通过 \`window.scrollY||window.pageYOffset\` 前者不兼容IE,
+获取浏览器当前滚动条位置可通过 \`window.scrollY(Chrome Safari FF)||window.pageYOffset(IE9+)\` ,
 横向位置则通过 \`window.scrollX||window.pageXOffset\`
 `
 }, {
