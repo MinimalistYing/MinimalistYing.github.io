@@ -372,4 +372,14 @@ o2.foo() // 1 2
 在o2并没有从Object.prototype上继承任何属性\`o2.__proto__ === undefined\`，是一个干净的空对象
 通过\`{}\`创建对象等同于\`Object.create(Object.prototype)\`
 `
+}, {
+	date: `2018/8/2`,
+	content: `
+ES7移入了新的指数计算操作符\`**\`  
+可以用于替代以往使用的\`Math.pow()\`  
+\`\`\`js
+Math.pow(2, 3) // 4
+2 ** 3 //8
+\`\`\`
+`
 }]
