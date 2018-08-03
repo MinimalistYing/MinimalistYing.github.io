@@ -6,6 +6,10 @@ import SymbolBlog from '@blog/Symbol.md'
 import IteratorBlog from '@blog/Iterator.md'
 import WebpackV3ToV4 from '@blog/WebpackV3ToV4.md'
 import Generator from '@blog/Generator.md'
+import ArrayAPI from '@blog/ArrayAPI.md'
+import ObjectAPI from '@blog/ObjectAPI.md'
+import Collections from '@blog/Collections.md'
+import PromiseBlog from '@blog/Promise.md'
 
 import './style.less'
 
@@ -15,7 +19,11 @@ const blogs = [
 	SymbolBlog,
 	IteratorBlog,
 	WebpackV3ToV4,
-	Generator
+	Generator,
+	ArrayAPI,
+	ObjectAPI,
+	Collections,
+	PromiseBlog
 ]
 
 class MyBlog extends React.Component {
