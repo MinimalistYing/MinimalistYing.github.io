@@ -49,3 +49,14 @@ it.next('step 3')
 // {value: "finish", done: true}
 ```
 最后一次执行，`'step3'`被赋值给变量`b`，Generator执行完毕，finish作为返回值被抛出
+
+## `yield *`
+**yield delegation**可以把当前Generator的控制委派给另一个Iterator  
+```js
+function *foo() {
+	yield *[1, 2, 3]
+}
+for (v of foo()) {
+	console.log(v) // 1 2 3
+}
+```
