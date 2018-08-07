@@ -382,4 +382,17 @@ Math.pow(2, 3) // 4
 2 ** 3 //8
 \`\`\`
 `
+}, {
+	date: `2018/8/7`,
+	content: `
+可以借助**\**来实现跨行书写单行字符串  
+ES6的Template String也支持这种写法
+`\`\`\js
+const str = 'a\
+b\
+c'
+
+console.log(str) // => 'abc'
+`\`\`\
+`
 }]
