@@ -137,4 +137,12 @@ window.oncontextmenu = e => e.preventDefault()
 但是手机自带的浏览器应该是支持带前缀的形式的，只是WebView中不支持，
 询问Andriod的同学得知WebView采用的浏览器内核和手机自带浏览器的内核还是有差别的
 `
+}, {
+	date: "2018/8/13",
+	content: `
+在用Vue开发IOS WebView内嵌H5 SPA页面时碰到点击APP返回上一页时出现页面白屏的问题，  
+需要滑动一下页面，内容才会显示  
+具体问题以及解决方式可以参考[issue](https://github.com/vuejs/vue/issues/5533#issuecomment-343864468)  
+导致这个问题的主要原因应该还是在返回时仍去异步加载数据，最佳解决方式应该是缓存相应的异步请求数据
+`
 }]
