@@ -19,3 +19,46 @@ Redux通过以下三个原则来更好的管理应用的状态:
 而是依据Dispatch的不同Actions返回新的状态  
 
 ### Actions
+不同于直接去修改应用的状态，例如在react通过`this.setState()`  
+Redux推崇通过dispacth action来修改状态  
+Action是一个携带了操作类型以及具体改变数据的对象  
+```js
+const action = {
+	// 操作类型 用于描述该次操作的用意
+	// 通常由下划线分割的大写字符组成
+	// 当有很多action事建议将type提取成常量
+	type: 'ADD_PEOPLE',
+	// 具体操作的数据
+	people: {
+		name: 'a'
+	}
+}
+```
+以上Action中的数据是固定的，可以通过一个ActionCreator来动态的生成数据  
+```js
+const actionCreator = people => ({
+	type: 'ADD_PEOPLE',
+	people
+})
+```
+注意Action并不会真正的去改变状态，而是携带了待改变状态的相关信息  
+需要通过'store.dispatch(action)'将Action派发至Reducer中进行状态的改变  
+所以具体的状态改变逻辑应该在Reducer中去实现
+
+### Reducer
+Reducer用于定义根据收到的不同Action如何去改变应用的状态  
+Reducer应该是一个Pure function,意味着不应该在其中去改变参数  
+并且当入参相同时其返回值应该都是相同的  
+```js
+// 注意需要给我们应用设置一个初始化的initalState
+// 因为默认的Redux会将state初始化为undefined
+function reducer(state = initalState, action) {
+	switch(action.type) {
+		case 'ADD_PEOPLE':
+			return { ...state, ...{ people: action.people } }
+		// 在遇到意外的Action时需要将原先的state直接返回
+		default:
+			return state
+	}
+}
+```
