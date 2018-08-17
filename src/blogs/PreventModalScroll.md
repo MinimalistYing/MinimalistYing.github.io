@@ -40,4 +40,15 @@ document.body.removeEventListener('touchmove', preventScroll)
 如果模态框的内容区没有可滚动的元素，那么这个方案是可行的  
 如果有的话会发现内容区内的元素的滚动也被一并禁止了，该方案仍需改进
 
-## 终极方案
+## 进一步优化方案
+由于我们不想禁止掉所有元素的滚动，可以考虑在需要滚动的元素上加一个特定类  
+当触发事件的元素是该允许滚动的元素或者其子元素时，不去preventDefault
+```js
+function preventScroll(e) {
+	// 只有容器中类名包含scroll-able的元素以及子元素允许滚动
+	if (!e.path.find(dom => dom.classList && dom.classList.contains('scroll-able'))) {
+		e.preventDefault()
+		e.stopPropagation()
+	}
+}
+```
