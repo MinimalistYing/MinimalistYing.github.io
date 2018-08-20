@@ -145,4 +145,15 @@ window.oncontextmenu = e => e.preventDefault()
 具体问题以及解决方式可以参考[issue](https://github.com/vuejs/vue/issues/5533#issuecomment-343864468)  
 导致这个问题的主要原因应该还是在返回时仍去异步加载数据，最佳解决方式应该是缓存相应的异步请求数据
 `
+}, {
+	date: "2018/8/20",
+	content: `
+在各类Dom事件中可以通过
+\`\`\`js
+// e.path Chrome采用 非标准属性
+// e.composedPath() 标准属性 最新的 FF Chrome Safari都兼容
+const path = e.path || e.composedPath()
+\`\`\`
+去获取这个事件从触发事件的Dom节点开始到Window的Dom路径
+`
 }]
