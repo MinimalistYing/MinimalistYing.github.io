@@ -62,3 +62,13 @@ function reducer(state = initalState, action) {
 	}
 }
 ```
+
+### Store
+每一个应用都只能有一个唯一的Store，通过`createStore(reducers)`来生成  
+用于维护应用的所有State，以及提供一些静态方法用于改变、获取当前状态  
+```js
+store.getState() // 获取当前状态
+store.dispatch(action) // 提交action来改变当前状态
+const unsubscribe = store.subscribe(listener) // 监听事件
+unsubscribe() // 取消监听
+```
