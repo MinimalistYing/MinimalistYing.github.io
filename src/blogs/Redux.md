@@ -73,7 +73,7 @@ const unsubscribe = store.subscribe(listener) // 监听事件
 unsubscribe() // 取消监听
 ```
 
-## 进阶
+## 进阶以及源码(v4.0.0)
 
 ### Middleware
 Redux提供的中间件使开发者可以在每次`dispatch(action)`前后加上一些特定的逻辑  
@@ -149,3 +149,130 @@ export function isPlainObject(obj) {
 ```
 Ps: lodash.isPlainObject逻辑与上述代码基本一致  
 同样Redux的timdorr提的PR
+
+### index.js
+```js
+import createStore from './createStore'
+import combineReducers from './combineReducers'
+import bindActionCreators from './bindActionCreators'
+import applyMiddleware from './applyMiddleware'
+import compose from './compose'
+import warning from './utils/warning'
+import __DO_NOT_USE__ActionTypes from './utils/actionTypes'
+
+// 建立一个函数名为isCrushed的空函数
+function isCrushed() {}
+
+// 如果当前的环境不是生成环境但采用了压缩过后的代码则提示开发者
+// 因为压缩混淆后的代码会将函数改变为类似 function f() {} 以减小代码体积
+if (process.env.NODE_ENV !== 'production' && 
+	typeof isCrushed.name === 'string' &&
+	isCrushed.name !== 'isCrushed'
+) {
+	warning(''You are currently using minified code outside of NODE_ENV === "production". ' +
+      'This means that you are running a slower development build of Redux. ' +
+      'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' +
+      'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' +
+      'to ensure you have the correct code for your production build.'')
+}
+
+// 以下为Redux所有对外提供的API
+export {
+	createStore,
+	combineReducers,
+	bindActionCreators,
+	applyMiddleware,
+	compose,
+	__DO_NOT_USE__ActionTypes
+}
+```
+
+### compose.js
+在Redux的applyMiddleware中会用到，函数式编程中常间  
+可以将传入的函数从右至左依次执行  
+并且每个函数执行的结果会作为下一个函数的参数
+类似`compose(a, b, c)(arg)`执行起来同`a(b(c(arg)))`
+```js
+export function compose(...funcs) {
+	// 如果没有传入函数则直接返回一个会将第一个参数返回出来的函数
+	if (funcs.length === 0) {
+		return arg => arg
+	}
+	
+	// 如果只有一个函数则直接将该函数返回
+	if (funcs.lenth === 1) {
+		return funcs[0]
+	}
+	
+	// 关于Array.prototype.reduce 
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
+	return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+
+----------- 下面都是分析  --------------
+
+// 我们来试试funcs.reduce是如何来实现逻辑的
+const first = () => console.log(1)
+const second = () => console.log(2)
+const third = () => console.log(3)
+const funcs = [first, second, third]
+
+// 分解开来看
+// 第一次reduce相当于
+// (first, second) => (...args) => first(second(...args))
+// 其返回结果是
+// (...args) => first(second(...args))
+// 第二次reduce执行时的accumulator及第一次的返回结果
+// 所以 (accumulator, third) => (...args) => accumulator(third(...args))
+// 返回结果是 
+// (...args) => accumulator(third(...args))
+// 相当于
+// (...args) => first(second(third(...args))
+consr re = funcs.reduce((a, b) => (...args) => a(b(...args)))
+
+// 上述代码中有一个地方要理解一下
+// const test = (...args) => f(...args)
+// 在参数中的...其实起到的是收集的作用，会将我们调用时传入的所有参数放到args这个数组中
+// 而在func(...args)中的...起到的是解构的作用
+// 又会将args数组中的所有元素依次作为参数传到func这个函数中
+// 假设我们test(1, 2, 3)这样调用则其返回结果其实就是func(1, 2, 3)
+// 所以这种做法其实就是在我们不确定一个函数入参个数的情况下
+// 将所有入参原封不动的按照原有顺序传入到调用函数中
+// 按照老的方式其实就是借助arguments来实现
+// es6
+const test =(...args) => f(...args)
+// Babel编译后的等同代码
+var test = function test() {
+	return f.apply(undefined, arguments)
+}
+
+// 从上述分析可以得出 re其实就等同于
+// (...args) => first(second(third(...args))
+// 当我们调用re()就等同于
+// first(second(third())
+// 所以输出是 3 2 1
+re() // 3 2 1
+
+// 通过对传入函数的特殊处理 可以使这个过程变为正序
+// Redux的middleWare就是借助这种原理
+const a = next => arg => { console.log(arg); next('b'); }
+const b = next => arg => { console.log(arg); next('c'); }
+const c = next => arg => { console.log(arg); next('d'); }
+const d = arg => console.log(arg)
+
+// 'a' 'b' 'c' 'd'
+compose(a,b,c)(d)('a')
+// 继续分解来看一下 首先是compose(a, b, c)
+// 从上述分析得出的结论来看也就是等同于
+// (...args) => a(b(c(...args)))
+// 然后是compose(a,b,c)(d) 所以入参为函数d
+// 也就是等同于a(b(c(d)))
+// 第一步c(d) 返回 re1 = arg => {console.log(arg); d('d')}
+// 第二步b(c(d)) 也就是b(re1) 返回 re2 = arg => { console.log(arg); re1('c'); }
+// 第三步a(b(c(d))) 也牛市a(re2) 返回 re3 = arg => { console.log(arg); re2('b'); }
+// 所以compose(a,b,c)(d) 返回的就是 arg => { console.log(arg); re2('b'); }
+// 最后一步compose(a,b,c)(d)('a') 相当于
+// console.log('a'); re2('b')
+// 再把所有的re展开 其实就是
+// console.log('a'); console.log('b'); console.log('c'); console.log('d');
+```
