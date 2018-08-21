@@ -72,3 +72,80 @@ store.dispatch(action) // 提交action来改变当前状态
 const unsubscribe = store.subscribe(listener) // 监听事件
 unsubscribe() // 取消监听
 ```
+
+## 进阶
+
+### Middleware
+Redux提供的中间件使开发者可以在每次`dispatch(action)`前后加上一些特定的逻辑  
+例如logging/routing等，中间件的通用写法如下  
+```js
+const middleware = store => next => action => {
+	// 在dispatch前执行的逻辑
+	// ...
+	
+	const result = next(action)
+	
+	// ...
+	// 在dispatch完成后执行的逻辑
+	return result
+}
+```
+
+### utils/warning.js
+Redux通过该函数在运行时向控制台输出错误或提示信息方便开发者Debug
+```js
+export default function warning(message) {
+	// 为了增强程序的Robusty 只有当前运行的宿主环境存在console
+	// 并且console.error是函数才去调用 使得任何情况下都不会因为该函数报错
+	// 中断程序的正常运行
+	if (typeof console !== 'undefined' && typeof console.error === 'function') {
+		console.error(message)
+	}
+	
+	// 下面这段代码只有当我们打开浏览器的Console
+	// 并且开启break on all exceptions功能时
+	// 才会在每次报错或提示时暂停程序执行(相当在出错的那行打断点)
+	// 否则的话可以说相当于注释掉的代码 不会有任何作用
+	// 同样是为了方便开发者进行Debug
+	try {
+		throw new Error(message)
+	} catch (e) {}
+}
+```
+
+### utils/isPlainObject.js
+由于Redux中要求Action必须是Javascript中的Plain Object  
+所以这个工具函数用于判断一个对象是否满足该条件  
+会在`dispatch(action)`执行最开始处进行判断，如果传入的action不满足条件会抛出错误  
+Plain Object指的是直接通过`{}`或者`new Object()`生成，原型链上并没有其它对象的Object
+```js
+export function isPlainObject(obj) {
+	// 如果对象都不是当然也不是PlainObject
+	// 这里注意的是 obj === null 这个判断
+	// 因为在Js中 typeof null === 'object'
+	if (typeof obj !== 'object' || obj === null) return false
+	
+	// lodash中的isPlainObject多了这个逻辑
+	// 主要考虑到这个特殊情况 const o = Object.create(null)
+	// 此处的o应该也满足条件 isPlainObject(o) // => true
+	if (Object.getPrototypeOf(obj) === null) {
+		return true
+	}
+	
+	let proto = obj
+	// 因为 Object.getPrototypeOf(Object.prototype) === null
+	// 所以当循环结束时 proto 指向的其实就是Object.prototype
+	// 也就是说此时的proto === Object.prototype
+	while (Object.getPrototypeOf(proto) !== null) {
+		proto = Object.getPrototypeOf(proto)
+	}
+	
+	// 如果传入对象的prototype与Object.prototype一致
+	// 则认为该对象是Plain Object
+	// 所以最终的判断逻辑其实与obj.__proto__ === Object.prototype类似
+	// 上面的代码更多的是在考虑edge case
+	return Object.getPrototypeOf(obj) === proto
+}
+```
+Ps: lodash.isPlainObject逻辑与上述代码基本一致  
+同样Redux的timdorr提的PR
