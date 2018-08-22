@@ -169,11 +169,11 @@ if (process.env.NODE_ENV !== 'production' &&
 	typeof isCrushed.name === 'string' &&
 	isCrushed.name !== 'isCrushed'
 ) {
-	warning(''You are currently using minified code outside of NODE_ENV === "production". ' +
+	warning('You are currently using minified code outside of NODE_ENV === "production". ' +
       'This means that you are running a slower development build of Redux. ' +
       'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' +
       'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' +
-      'to ensure you have the correct code for your production build.'')
+      'to ensure you have the correct code for your production build.')
 }
 
 // 以下为Redux所有对外提供的API
@@ -275,4 +275,158 @@ compose(a,b,c)(d)('a')
 // console.log('a'); re2('b')
 // 再把所有的re展开 其实就是
 // console.log('a'); console.log('b'); console.log('c'); console.log('d');
+```
+
+### createStore.js
+Redux应用的主入口文件，对外提供了以下几个主要API  
+```js
+// reducer 必传 通常来讲是我们通过combineReducers将所有ruducer集成到一起后的主函数
+// preloaderState 可选 可以传入的应用初始状态
+// enhancer 可选 也就是applyMiddleWare()的返回结果
+export default function createStore(reducer, preloadedState, enhancer) {
+	// 由于初始化状态是可选的 所以这里考虑的是这么一种情况
+	// createStore(reducer, applyMiddleWare())
+	// 这样在不传入初始状态时就不用像createStore(reducer, null, applyMiddleWare())这样调用
+	if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+		enhancer = preloadedState
+		preloadedState = undefined
+	}
+	
+	// 有传入enhancer 也就是有使用中间件
+	if (typeof enhancer !== 'undefined') {
+		// applyMiddleWare()返回的应该是一个函数 否则需要报错
+		if (typeof enhancer !== 'function') {
+			throw new Error('Expected the enhancer to be a function.')
+		}
+		
+		// 有使用中间件的话 需要在applyMiddleWare去createStore
+		return enhancer(createStore)(reducer, preloaderState)
+	}
+	
+	// reducer也必须为函数
+	if (typeof reducer !== 'function') {
+		throw new Error('Expected the reducer to be a function.')
+	}
+	
+	// 利用闭包存储当前的Reducer
+	// 这样就稍后才可通过replaceReducer()方法替换掉当前使用的Reducer
+	let currentReducer = reducer
+	
+	// 同上 整个Redux应用的状态树都是利用闭包存储的
+	let currentState = preloadedState
+	
+	// 这里要注意 多存了一份当前监听事件函数的备份
+	let currentListeners = []
+	let nextListeners = currentListeners
+	
+	// 用于标识当前是否正在执行dispatch()操作
+	let isDispatching = false
+	
+	// 确保nextListeners存的是currentListeners的备份 而不是引用
+	function ensureCanMutateNextListeners() {
+		if (nextListeners === currentListeners) {
+			nextListeners = currentListeners.slice()
+		}
+	}
+	
+	// 简单的把当前闭包所存储的应用状态返回出去
+	function getState() {
+		// 正在执行dispatch操作时不能获取当前状态
+		// 因为当前状态可能会被正在执行的dispatch()操作改变
+		if (isDispatching) {
+			throw new Error('...')
+		}
+		
+		return currentState
+	}
+	
+	// 注册监听事件 在每次dispath时都会调用所有注册过的函数
+	function subscribe(listener) {
+		// 注册的listener只能是函数
+		if (typeof listener !== 'undefined') {
+			throw new Error('...')
+		}
+	
+		// 正在执行dispatch操作时不允许新注册监听事件
+		if (isDispatching) {
+			throw new Error('...')
+		}
+		
+		// 这里同样利用了闭包
+		// 每次调用都会有独立的isSubscribed状态
+		// 与每个listener一一对应
+		let isSubscribed = true
+		
+		ensureCanMutateNextListeners()
+		nextListeners.push(listener)
+		
+		return function unsubscribe(){
+			// 避免重复取消监听 例如
+			// const off = store.subscribe(...)
+			// off()
+			// off()
+			if (!isSubscribed) {
+				return
+			}
+			
+			// 正在执行dispatch操作时不允许取消监听
+			if (isDispatching) {
+				throw new Error('...')
+			}
+			
+			// 代表这个listener已经取消监听了
+			isSubscribed = false
+			
+			ensureCanMutateNextListeners()
+			// 这里也利用了闭包 先找到当前闭包存储的入参listerner在数组中的下标
+			const index = nextListeners.indexOf(listener)
+			// 移除数组中对应下标存储的元素
+			nextListeners.splice(index, 1)
+		}
+	}
+	
+	
+	function dispatch(action) {
+		// 在Redux中Action只能为plain object
+		if (!isPlainObject(action)) {
+			throw new Error('...')
+		}
+		
+		// Action的type不能为空
+		// 通常来说type都应该是一个用于描述当前行为的常量字符串
+		// 不知道这里为什么不限制type只能为string
+		if (typeof action.type === 'undefined') {
+			throw new Error('...')
+		}
+		
+		// 阻止开发者在reducer中去调用dispatch
+		if (isDispatching) {
+			throw new Error('...')
+		}
+		
+		try {
+			isDispatching = true
+			// currentReducer就是当前Redux正在使用的Reducer
+			// 将当前状态树和action传入 返回经reducer处理过后的新状态树
+			currentState = currentReducer(currentState, action)
+		} finally {
+			// 无论reducer处理过程中是否出错 都需要更改flag
+			// 代表本次dispatch操作结束 否则接下来redux就没法用了
+			isDispatching = false
+		}
+		
+		// 这里要注意执行顺序
+		// 每次dispatch都会将当前的currentListeners 指向 nextListeners
+		// 所以每次执行的其实都是最新的nextListeners当中存储的的监听事件
+		const listeners = (currentListeners = nextListeners)
+		for (let i = 0; i < listeners.length; i++) {
+			const listener = listeners[i]
+			listener()
+		}
+		
+		// 将传入的action原封不动返回
+		// 感觉基本来说不会用到这个函数的返回值
+		return action
+	}
+}
 ```
