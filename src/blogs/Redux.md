@@ -1,4 +1,4 @@
-# Redux入门
+# Redux从入门到放弃
 
 ## 基本概念
 前端应用日渐复杂，以往的JavaScipt+HTML+CSS三大件变得难以应对  
@@ -277,16 +277,51 @@ compose(a,b,c)(d)('a')
 // console.log('a'); console.log('b'); console.log('c'); console.log('d');
 ```
 
+### applyMiddleware
+对外提供引入中间件的接口
+```js
+export default function applyMiddleware(...middlewares) {
+	// 注意applyMiddleware是一个高阶函数
+	// 返回值是一个入参为createStore的函数
+	return createStore => (...args) => {
+		// 当需运用中间件时 createStore在此处真正执行
+		const store = createStore(...args)
+		
+		// 如果middleware在执行自己的逻辑过程中调用dispatch则抛出错误
+		let dispatch = () => { throw new Error('...') }
+		
+		// 只提供给中间件有限的API而不是全部store
+		const middlewareAPI = {
+			getState: store.getState,
+			dispatch: (...args) => dispatch(...args)
+		}
+		// 要注意此时如果在middleware中执行 middlewareAPI.dispatch() 会抛出错误
+		// 由于Redux规定middleware形如 store => next => action => {} 的函数
+		// 这样处理过后在chain中存放的便是形如 next => action => {} 的函数
+		const chain = middlewares.map(middleware => middleware(middlewareAPI))
+		// 这里的dispatch是已经实现了中间件逻辑后的dispatch方法
+		dispatch = compose(...chain)(store.dispatch)
+		
+		// 这里利用了解构会去重的特性
+		// 会将store.dispatch替换为包含中间件逻辑的新dispatch
+		return {
+			...store,
+			dispatch
+		}
+	}
+}
+```
+
 ### createStore.js
-Redux应用的主入口文件，对外提供了以下几个主要API  
+Redux应用的主入口文件  
 ```js
 // reducer 必传 通常来讲是我们通过combineReducers将所有ruducer集成到一起后的主函数
 // preloaderState 可选 可以传入的应用初始状态
-// enhancer 可选 也就是applyMiddleWare()的返回结果
+// enhancer 可选 也就是applyMiddleware()的返回结果
 export default function createStore(reducer, preloadedState, enhancer) {
 	// 由于初始化状态是可选的 所以这里考虑的是这么一种情况
-	// createStore(reducer, applyMiddleWare())
-	// 这样在不传入初始状态时就不用像createStore(reducer, null, applyMiddleWare())这样调用
+	// createStore(reducer, applyMiddleware())
+	// 这样在不传入初始状态时就不用像createStore(reducer, null, applyMiddleware())这样调用
 	if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
 		enhancer = preloadedState
 		preloadedState = undefined
@@ -294,12 +329,12 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	
 	// 有传入enhancer 也就是有使用中间件
 	if (typeof enhancer !== 'undefined') {
-		// applyMiddleWare()返回的应该是一个函数 否则需要报错
+		// applyMiddleware()返回的应该是一个函数 否则需要报错
 		if (typeof enhancer !== 'function') {
 			throw new Error('Expected the enhancer to be a function.')
 		}
 		
-		// 有使用中间件的话 需要在applyMiddleWare去createStore
+		// 有使用中间件的话 需要在applyMiddleware去createStore
 		return enhancer(createStore)(reducer, preloaderState)
 	}
 	
@@ -418,8 +453,15 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		// 这里要注意执行顺序
 		// 每次dispatch都会将当前的currentListeners 指向 nextListeners
 		// 所以每次执行的其实都是最新的nextListeners当中存储的的监听事件
+		// 这里就可以理解ensureCanMutateNextListeners()的用处
+		// 每次新增监听或取消监听时都要确保nextListeners是currentListener的拷贝
+		// 这样保证在dispatch过程中的currentListerner不会发生变化
+		// 例如如果我们在一个listener函数中去新subscribe或者unsubscribe
+		// 都不会立马生效 而是只有等到下一次dispatch才会生效
 		const listeners = (currentListeners = nextListeners)
 		for (let i = 0; i < listeners.length; i++) {
+			// 注意这里的用法 并没有直接像 listeners[i]()这样调用
+			// 因为这样的话listener中的this会指向listeners而不是window
 			const listener = listeners[i]
 			listener()
 		}
@@ -427,6 +469,31 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		// 将传入的action原封不动返回
 		// 感觉基本来说不会用到这个函数的返回值
 		return action
+	}
+	
+	// 替换当前正在使用的Reducer
+	function replaceReducer(nextReducer) {
+		// Reducer必须是函数
+		if (typeof nextReducer !== 'function') {
+			throw new Error('...')
+		}
+		
+		// 直接将闭包的存储指向新的Reducer
+		currentReducer = nextReducer
+		// dispatch一个REPLACE Action 来重新生成新的状态树
+		dispatch({ type: ActionTypes.REPLACE })
+	}
+	
+	// dispatch一个INIT Action 初始化生成Redux的状态树
+	dispatch({ type: ActionTypes.INIT })
+	
+	// 对外主要就提供了四个API
+	return {
+		dispatch,
+		subscribe,
+		getState,
+		replaceReducer,
+		[$$observable]: observable // 私有的 用于测试 这里不具体展开
 	}
 }
 ```
