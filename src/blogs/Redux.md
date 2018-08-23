@@ -529,3 +529,73 @@ const rootReducer = combineReducer({
 	b: reducerB
 })
 ```
+下面看看源码
+```js
+import ActionTypes from './utils/actionTypes'
+import warning from './utils/warning'
+import isPlainObject from './utils/isPlainObject'
+
+// 用于生成当有Reducer返回的state为undefined时的错误描述
+function getUndefinedStateErrorMessage(key, action) {
+	const actionType = action && action.type
+	const actionDescription =
+		(actionType && `action "${String(actionType)}"`)) || 'an action'
+	return '...'
+}
+
+// 用于生成在入参的key与state中的key有不一致时生成错误描述
+function getUnexpectedStateShapeWarningMessage() {}
+
+// 判断传入的reducer是否都合规 否则抛出错误
+function assertReducerShape(reducers) {
+	Object.keys.(reducers).forEach(key => {
+		const reducer = reducers[key]
+		// 用初始化的Action去生成默认的state
+		const initialState = reducer(undefined, { type: ActionTypes.INIT })
+		// 如果有reducer没有提供默认的state则抛出错误
+		// 所以如果即使当我们希望一个reducer默认不返回值时应该显示的返回null
+		if (initialState === undefined) {
+			throw new Error()
+		}
+		
+		// 当传一个未知type的action到reducer中时
+		// reducer也应该返回一个状态 通常来说是将传入的state 不错修改直接返回
+		if (typeof reducer(undefined, {
+			type: ActionTypes.PROBE_UNKNOWN_ACTION()
+		}) === 'undefined') {
+			throw new Error()
+		}
+	})
+}
+
+// 将多个子reducer组合返回一个root reducer函数
+export default function combineReducers(reducers) {
+	// 拿到入参对象的所有key
+	const reducerKeys = Object.keys(reducers)
+	const finalReducers = {}
+	
+	for (let i = 0; i < reducerKeys.length; i++) {
+		const key = reducerKeys[i]
+		
+		// 只有在开发环境下进行警告提示
+		if (process.env.NODE_ENV !== 'production') {
+			// 不是很理解这个判断
+			// 只有当入参对象的value中有undefined时才会警告
+			if (typeof reducers[key] === 'undefined') {
+				warning('...')
+			}
+			
+			// 这一步会过滤掉入参中value不是函数的部分
+			// 确保fianalReducers中的每个value都是一个函数
+			if (typeof reducers[key] === 'function') {
+				finalReducers[key] = reducers[key]
+			}
+		}
+		
+		if (typeof reducers[key] === 'function') {
+			finalReducers[key] = reducers[key]
+		}
+		const finalReducerKeys = Object.keys(finalReducers)
+	}
+}
+```
