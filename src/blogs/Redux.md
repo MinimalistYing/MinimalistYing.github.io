@@ -497,3 +497,35 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	}
 }
 ```
+
+### combineReducer.js
+由于在大型应用中我们需要管理一个复杂的状态树  
+如果将所有的Action处理逻辑写入一个Reducer中会很难维护  
+所以基本可以确定的是我们的项目中会有很多Reducer  
+而Redux的`createStore(reducer)`只接受一个RootReducer作为参数  
+所以这个时候就需要借助Redux提供的这个工具方法将所有的子Reducer合为最终的RootReducer
+其主要作用如下  
+```js
+// 应用的状态树
+const state = {
+	a: '',
+	b: ''
+}
+
+const reducerA = (a, action) => {}
+const reducerB = (b, action) => {}
+// 自己手动来生成RootReducer
+const rootReducer = (state, action) => {
+	return {
+		a: reducerA(state.a, action),
+		b: reducerB(state.b, action)
+	}
+}
+// 借助combineReducer
+// 入参中的key需要与state中的key相对应
+// 子Reducer的函数名可以任意 并无影响
+const rootReducer = combineReducer({
+	a: reducerA,
+	b: reducerB
+})
+```
