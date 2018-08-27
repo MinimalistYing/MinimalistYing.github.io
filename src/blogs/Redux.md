@@ -169,11 +169,7 @@ if (process.env.NODE_ENV !== 'production' &&
 	typeof isCrushed.name === 'string' &&
 	isCrushed.name !== 'isCrushed'
 ) {
-	warning('You are currently using minified code outside of NODE_ENV === "production". ' +
-      'This means that you are running a slower development build of Redux. ' +
-      'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' +
-      'or setting mode to production in webpack (https://webpack.js.org/concepts/mode/) ' +
-      'to ensure you have the correct code for your production build.')
+	warning('...')
 }
 
 // 以下为Redux所有对外提供的API
@@ -194,12 +190,12 @@ export {
 类似`compose(a, b, c)(arg)`执行起来同`a(b(c(arg)))`
 ```js
 export function compose(...funcs) {
-	// 如果没有传入函数则直接返回一个会将第一个参数返回出来的函数
+	// 如果没有传入任何参数 则直接返回一个会将第一个参数返回的函数
 	if (funcs.length === 0) {
 		return arg => arg
 	}
 	
-	// 如果只有一个函数则直接将该函数返回
+	// 如果参数只有一个函数则直接将该函数返回
 	if (funcs.lenth === 1) {
 		return funcs[0]
 	}
@@ -233,14 +229,14 @@ consr re = funcs.reduce((a, b) => (...args) => a(b(...args)))
 // 上述代码中有一个地方要理解一下
 // const test = (...args) => f(...args)
 // 在参数中的...其实起到的是收集的作用，会将我们调用时传入的所有参数放到args这个数组中
-// 而在func(...args)中的...起到的是解构的作用
-// 又会将args数组中的所有元素依次作为参数传到func这个函数中
-// 假设我们test(1, 2, 3)这样调用则其返回结果其实就是func(1, 2, 3)
+// 而在f(...args)中的...起到的是解构的作用
+// 又会将args数组中的所有元素依次作为参数传到f这个函数中
+// 假设我们test(1, 2, 3)这样调用则其返回结果其实就是f(1, 2, 3)
 // 所以这种做法其实就是在我们不确定一个函数入参个数的情况下
 // 将所有入参原封不动的按照原有顺序传入到调用函数中
 // 按照老的方式其实就是借助arguments来实现
 // es6
-const test =(...args) => f(...args)
+const test = (...args) => f(...args)
 // Babel编译后的等同代码
 var test = function test() {
 	return f.apply(undefined, arguments)
