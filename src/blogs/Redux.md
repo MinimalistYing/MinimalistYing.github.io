@@ -315,15 +315,15 @@ Redux应用的主入口文件
 // preloaderState 可选 可以传入的应用初始状态
 // enhancer 可选 也就是applyMiddleware()的返回结果
 export default function createStore(reducer, preloadedState, enhancer) {
-	// 由于初始化状态是可选的 所以这里考虑的是这么一种情况
+	// 由于preloadedState参数是可选的 所以这里考虑的是这么一种情况
 	// createStore(reducer, applyMiddleware())
-	// 这样在不传入初始状态时就不用像createStore(reducer, null, applyMiddleware())这样调用
+	// 这样在不传入preloadedState时就不用像createStore(reducer, null, applyMiddleware())这样调用
 	if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
 		enhancer = preloadedState
 		preloadedState = undefined
 	}
 	
-	// 有传入enhancer 也就是有使用中间件
+	// 有传入enhancer 也就是有使用中间件(applyMiddleware)
 	if (typeof enhancer !== 'undefined') {
 		// applyMiddleware()返回的应该是一个函数 否则需要报错
 		if (typeof enhancer !== 'function') {
@@ -331,6 +331,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		}
 		
 		// 有使用中间件的话 需要在applyMiddleware去createStore
+		// applyMiddleware()返回的是一个形如 createStore => (...args) => {} 的函数
+		// 所以这里会对enhancer(cerateStore)返回的结果再次传入参数(reducer, preloaderState)调用
 		return enhancer(createStore)(reducer, preloaderState)
 	}
 	
@@ -593,5 +595,50 @@ export default function combineReducers(reducers) {
 		}
 		const finalReducerKeys = Object.keys(finalReducers)
 	}
+}
+```
+
+### bindActionCreators.js
+在Redux中我们每次先通过ActionCreator去生成一个Action  
+然后再通过`dispatch(action)`来触发状态的改变  
+有时候我们想要把Redux的相关逻辑放到父组件中  
+然后将改变状态的函数传入子组件，这个时候就需要利用bindActionCreators  
+该函数可以将create action以及dispatch绑定在一起  
+这样每次通过绑定后的Creator去生成Action时会同时进行dispatch操作
+```js
+function bindActionCreator(actionCreator, dispatch) {
+	// 返回一个函数 执行会先Create Action  
+	// 然后dispatch这个生成的Action
+	return function () {
+		dispatch(actionCreator.apply(this, arguments))
+	}
+}
+
+export default bindActionCreators(actionCreators, dispatch) {
+	// 传入单个creator
+	// 直接返回绑定后的creator
+	if (typeof actionCreators === 'function') {
+		return bindActionCreator(actionCreators, dispatch)
+	}
+	
+	// 传入的actionCreators既不是函数也不是对象则抛出错误
+	if (typeof actionCreators !== 'object' || typeof actionCreators === null) {
+		throw new Error('')
+	}
+	
+	const keys = Object.keys(actionCreators)
+	// 用于存储绑定后的Creator
+	const boundActionCreators = {}
+	for (let i = 0; i < keys.length; i++) {
+		const key = keys[i]
+		const actionCreator = actionCreators[key]
+		// actionCreator必须是一个函数
+		if (typeof actionCreator === 'function') {
+			// 依次绑定每一个Creator
+			boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
+		}
+	}
+	// 将绑定后的结果返回
+	return boundActionCreators
 }
 ```
