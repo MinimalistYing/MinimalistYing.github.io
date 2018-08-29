@@ -395,4 +395,25 @@ c'
 console.log(str) // => 'abc'
 \`\`\`
 `
+}, {
+	date: `2018/8/10`,
+	content: `
+在WebView中动态设置title
+\`\`\`js
+setTimeout(() => {
+	// 利用iframe的onload事件刷新页面
+	document.title = 'xxxxxxxx'
+	const iframe = document.createElement('iframe')
+	iframe.style.visibility = 'hidden'
+	iframe.style.width = '1px'
+	iframe.style.height = '1px'
+	iframe.onload = () => {
+		setTimeout(() => {
+			document.body.removeChild(iframe)
+		}, 0)
+	}
+	document.body.appendChild(iframe)
+}, 0)
+\`\`\`
+`
 }]
