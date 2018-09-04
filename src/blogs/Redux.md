@@ -546,7 +546,7 @@ function getUnexpectedStateShapeWarningMessage() {}
 
 // 判断传入的reducer是否都合规 否则抛出错误
 function assertReducerShape(reducers) {
-	Object.keys.(reducers).forEach(key => {
+	Object.keys(reducers).forEach(key => {
 		const reducer = reducers[key]
 		// 用初始化的Action去生成默认的state
 		const initialState = reducer(undefined, { type: ActionTypes.INIT })
@@ -594,6 +594,51 @@ export default function combineReducers(reducers) {
 			finalReducers[key] = reducers[key]
 		}
 		const finalReducerKeys = Object.keys(finalReducers)
+		
+		let unexpectedKeyCache
+		if (process.env.NODE_ENV !== 'production') {
+			unexpectedKeyCache = {}
+		}
+		
+		let shapeAssertionError
+		try {
+			assertReducerShape(finalReducers)
+		} catch (e) {
+			shapeAssertionError = e
+		}
+		
+		return function combination(state = {}, action) {
+			// 当Reducer格式有误时 终止执行 抛出错误
+			if (shapeAssertionError) {
+				throw shapeAssertionError
+			}
+			
+			// 开发环境下给出错误提示
+			if (process.env.NODE_ENV !== 'production') {
+				const warningMessage = getUnexpectedStateShapeWarningMessage(...)
+				if (warningMessage) {
+					warning(warningMessage)
+				}
+			}
+			
+			let hasChanged = false
+			const nextState = {}
+			for (let i = 0; i < finalReducerKeys.length; i++) {
+				const key = finalReducerKeys[i]
+				const reducer = finalReducers[key]
+				const previouStateForKey = state[key]
+				const nextStateForKey = reducer(previousStateForKey, action)
+				// Reducer处理过后的状态不能返回为空
+				if (typeof nextStateForKey === 'undefined') {
+					throw new Error('...')
+				}
+				nextState[key] = nextStateForKey
+				// 判断经Reducer处理后的状态前后是否发生变化
+				hasChanged = hasChanged || nextStateForKey !== previousStateForKey
+			}
+			// 注意 对于Redux而言 整个状态树中只要有一处发生变化 则视为其有过变化
+			return hasChanged ? nextState : state
+		}
 	}
 }
 ```
