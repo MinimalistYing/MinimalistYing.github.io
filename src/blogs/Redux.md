@@ -25,8 +25,8 @@ Action是一个携带了操作类型以及具体改变数据的简单对象(Plai
 ```js
 const action = {
 	// 操作类型 用于描述该次操作的用意
-	// 通常由下划线分割的大写字符组成
-	// 当有很多action事建议将type提取成常量放到单独文件维护
+	// 通常由下划线分隔的大写字符组成
+	// 当有很多action时建议将type提取成常量放到单独文件维护
 	type: 'ADD_PEOPLE',
 	// 具体操作的数据
 	people: {
@@ -41,14 +41,14 @@ const actionCreator = people => ({
 	people
 })
 ```
-注意Action并不会真正的去改变状态，而是携带了待改变状态的相关信息  
-需要通过'store.dispatch(action)'将Action派发至Reducer中才能进行状态的改变  
+注意Action并不会真正的去改变状态，而只是携带了待改变状态的相关信息  
+需要通过'store.dispatch(action)'将Action派发至Reducer中才能进行状态的变更  
 所以具体的状态改变逻辑应该在Reducer中去实现
 
 ### Reducer
 Reducer用于定义根据收到的不同Action如何去改变应用的状态  
 Reducer应该是一个Pure function,意味着不应该在其中去改变参数  
-并且当入参相同时其返回值应该都是相同的  
+并且当入参相同时其返回值应该总是相同的  
 ```js
 // 注意需要给我们的应用设置一个初始化的initalState
 // 如果未指定 Redux会开发环境下给出警告
@@ -207,7 +207,7 @@ export default function applyMiddleware(...middlewares) {
 		dispatch = compose(...chain)(store.dispatch)
 		
 		// 这里利用了解构会去重的特性
-		// 会将store.dispatch替换为包含中间件逻辑的新dispatch
+		// 会将store.dispatch覆盖为包含中间件逻辑的新dispatch
 		return {
 			...store,
 			dispatch
@@ -222,15 +222,15 @@ Redux通过该函数在开发环境下向控制台输出错误或提示信息方
 export default function warning(message) {
 	// 为了增强程序的Robusty 只有当前运行的宿主环境存在console
 	// 并且console.error是函数才去调用 使得任何情况下都不会因为该函数报错
-	// 从而导致程序终止允许
+	// 从而导致程序终止运行
 	if (typeof console !== 'undefined' && typeof console.error === 'function') {
 		console.error(message)
 	}
 	
 	// 下面这段代码只有当我们打开浏览器的Console
-	// 并且开启break on all exceptions功能时
+	// 并开启break on all exceptions功能时
 	// 才会在每次报错或提示时暂停程序执行(相当在出错的那行打断点)
-	// 否则的话可以说相当于注释掉的代码 不会有任何作用
+	// 否则的话不会有任何作用
 	// 同样是为了方便开发者进行Debug
 	try {
 		throw new Error(message)
