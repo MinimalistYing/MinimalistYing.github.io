@@ -22,3 +22,52 @@ ReactDOM.render(
 	document.getElementById('root')
 )
 ```
+
+## 阅读源码看到的小技巧
+React-Redux 默认通过以下方法来比较组件的Props是否相等  
+如果不等则意味着组件需要进行重绘
+```js
+// 通过hasOwn.call(xx, xx)
+// 相较于xx.hasOwnProperty(xx) 更简洁？
+const hasOwn = Object.prototype.hasOwnProperty
+
+// Object.is()的Polyfill
+function is(x, y) {
+	if (x === y) {
+		// Object.is(0, -0) => false
+		return x !== 0 || y !== 0 || 1 / x === 1 / y 
+	} else {
+		// Object.is(NaN, NaN) => true
+		return x !== x && y !== y
+	}
+}
+
+export default function shallowEqual(a, b) {
+	if (is(a, b)) return true
+	
+	// 如果a或者b不是object 并且Object.is(a, b) => false
+	// 则认为a和b不等
+	if (typeof a !== 'object' || a === null ||
+		typeof b !== 'object' || b === null
+	) {
+		return false
+	}
+	
+	const keysA = Object.keys(a)
+	const keysB = Object.keys(b)
+	
+	// 在a和b都是object的情况下
+	// 如果a与b的所有key值相同 并且与之对应的value都满足Object.is(v1, v2) => true
+	// 则也认为a和b相等
+	if (keysA.length !== keysB.length) return false
+	for (let i = 0; i < keysA.length; i++) {
+		if (!hasOwn.call(b, keysA[i]) ||
+			!is(objA[keysA[i]], objB[keysA[i]])
+		) {
+			return false
+		}
+	}
+	
+	return true
+}
+```
