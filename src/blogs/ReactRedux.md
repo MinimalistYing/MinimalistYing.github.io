@@ -150,3 +150,21 @@ MyComponent.propTypes = {
 	xx: PropTypes.any.isRequired
 }
 ```
+
+*********
+
+React 的高阶组件(HOC)并不会自动将被包裹组件的静态方法自动继承到新返回的组件中  
+会导致以下问题
+```js
+WrappedComponent.staticMethod = () => {}
+
+const EnhancedComponent = HOC(WrappedComponent)
+EnhancedComponent.staticMethod // => undefined
+```
+可以借助[hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics)来解决这个问题
+```js
+import hoistNonReactStatic from 'hoist-non-react-statics'
+
+const EnhancedComponent = hoistNonReactStatic(HOC(WrappedComponent), WrappedComponent)
+EnhancedComponent.staticMethod // => () => {}
+```
