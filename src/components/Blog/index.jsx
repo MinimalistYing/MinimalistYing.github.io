@@ -10,6 +10,9 @@ import ArrayAPI from '@blog/ArrayAPI.md'
 import ObjectAPI from '@blog/ObjectAPI.md'
 import Collections from '@blog/Collections.md'
 import PromiseBlog from '@blog/Promise.md'
+import PreventModalScroll from '@blog/PreventModalScroll.md'
+import Redux from '@blog/Redux.md'
+import ReactRedux from '@blog/ReactRedux.md'
 
 import './style.less'
 
@@ -23,7 +26,10 @@ const blogs = [
 	ArrayAPI,
 	ObjectAPI,
 	Collections,
-	PromiseBlog
+	PromiseBlog,
+	PreventModalScroll,
+	Redux,
+	ReactRedux
 ]
 
 class MyBlog extends React.Component {
