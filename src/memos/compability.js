@@ -175,4 +175,13 @@ function getPath(e) {
 \`\`\`
 去获取这个事件从触发事件的Dom节点开始到Window的Dom路径
 `
+}, {
+	date: "2018/9/14",
+	content: `
+HTML中的类名/ID等都建议以字母开头  
+虽然有少部分浏览器兼容数字或下划线开头  
+但还是有不少浏览器不支持以数字或下划线开头的CSS选择器  
+并且通过\`document.querySelector()\`查找节点时  
+部分浏览器会报错\`Failed to execute 'querySelector' on 'Document': xxx is not a valid selector.\`
+`
 }]
