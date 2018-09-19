@@ -416,4 +416,13 @@ setTimeout(() => {
 }, 0)
 \`\`\`
 `
+}, {
+	date: `2018/9/19`,
+	content: `
+关于\`Object.keys()\`以及\`Object.getOwnPropertyNames()\`的区别  
+相同的是俩者都不会列出从原型上继承的属性key值  
+区别在于前者只会列出所有可枚举属性的key值，而后者会列出所有属性的key值，包括不可枚举的  
+所谓不可枚举的属性，即是通过类似  
+\`Object.defineProperty(o, 'a', { enumerable: false, value: 0 })\`定义的属性
+`
 }]
