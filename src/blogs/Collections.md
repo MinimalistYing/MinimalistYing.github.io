@@ -1,7 +1,7 @@
 # New Collections In ES6
 
 ## Map
-以往当我们需要一种键/值对形式的数据结构时通常考虑采用原生的Object
+以往当我们需要一种键/值对形式的数据结构时通常使用的是原生的Object
 ```js
 const o = {}
 o[1] = 1
@@ -62,14 +62,14 @@ const copy1 = new Map(map) // 推荐 更简洁
 
 ## WeakMap
 WeakMap的大部分行为与Map一致，主要区别在于WeakMap对内存分配机制的特殊处理  
-WeakMap只接受把Object作为Key，并且当作为Key的对象被GC回收后  
+WeakMap的Key只能是Object，并且当作为Key的Object被GC回收后  
 其存储在WeakMap中的Entry也会随之被销毁  
-WeakMap相比Map只提供了`set()` `get()` `delete()` `has()` 四个有限的API  
+WeakMap相较Map而言只提供了`set()` `get()` `delete()` `has()` 四个有限的API  
 尤其适用于需要把不受我们控制的对象(例如DOM对象)作为Key值的情况
 
 ## Set
-ES6新增的Set用于存储一系列不允许重复的值  
-其判断是否重复的机制与`Object.is()`几乎相同，除了Set会认为0与-0相等
+ES6新增的Set用于存储一系列不重复的值  
+其判断是否重复的规则除了Set会认为+0等与-0外都与`Object.is()`相同
 ```js
 const set = new Set()
 const x = { a: 1 }
@@ -100,5 +100,5 @@ console.log(unique) // [1, 2, 3, 4, "4"]
 ```
 
 ## WeakSet
-同WeakMap类似，WeakSet只接受Object作为值  
-并且当对象被GC后WeakSet也会将其从集合中删除
+同WeakMap类似，WeakSet中存储的值只能是Object
+并且当Object被GC后WeakSet也会自动将其从集合中删除
