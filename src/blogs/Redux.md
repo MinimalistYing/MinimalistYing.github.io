@@ -2,25 +2,28 @@
 
 ## 基本概念
 前端应用日渐复杂，传统的JavaScipt+HTML+CSS三大件变得难以应对  
-近几年出现的各类MVVM框架(React/Vue/Angular)将开发者从频繁地修改Dom操作解脱出来  
-随之而来碰到的问题是在复杂单页应用(SPA)中对状态的管理  
-各个组件有各自的状态，当一个组件的状态发生变更，同时也可能需要去触发另外一个组件状态的变更  
-当这种耦合关系越来越多的时候，我们会发现很难去寻找状态变更的原由，也更可能的会不小心改变本该不变的状态  
-Redux提供了一种更加规范的应用状态管理解决方案，当然代价是引入更冗余的语法(boilerplate)  
+近几年出现的各类MVVM框架(React/Vue/Angular)使我们可以开发管理更复杂的单页应用(SPA)  
+随之而来碰到的问题是对应用中各种状态的管理  
+每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更  
+当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原有  
+并且当组件层级过深时，一层层的在组件间传递props也显得颇为繁琐  
+Redux的出现给开发者提供了一种更加规范的管理前端应用状态的解决方案  
+当然相应的代价是需要引入更冗余的语法(boilerplate)  
 Redux通过以下三个原则来更好的管理应用的状态:  
-* Single source of truth: 通过Redux管理的状态对于一个应用来说是唯一的  
-存储在Redux的store中
+* Single source of truth: Redux应用中的状态应该是全局唯一的  
+也就是说每个Redux应用应该只有一个全局唯一的Store
 * State is read-only: Store中存储的状态不能被直接修改  
 只能通过Dispatch Action来进行应用状态的变更  
-这样通过一些工具开发者可以很清楚的看到状态发生变更的时机以及每次发生的变化  
+这样通过一些工具开发者可以很清楚的看到状态发生变更的时机以及每次所发生的改变  
 甚至进行Time Travel来回到某个Action执行前的状态  
 亦或是再次重新提交这个Action来观察其行为对应用的影响  
-* Changes are made with pure functions: Reducer不会直接去修改Store中的状态  
+* Changes are made with pure functions: Reducer只能是Pure Function  
+不能在其中直接修改Store中存储的值  
 而是依据Dispatch的不同Actions返回新的状态  
 
 ### Actions
 不同于直接去修改应用的状态，例如react中的`this.setState()`  
-Redux推崇通过dispacth action来修改状态  
+Redux推崇通过Dispacth Action来修改状态  
 Action是一个携带了操作类型以及具体改变数据的简单对象(Plain Object)  
 ```js
 const action = {
@@ -43,7 +46,7 @@ const actionCreator = people => ({
 ```
 注意Action并不会真正的去改变状态，而只是携带了待改变状态的相关信息  
 需要通过'store.dispatch(action)'将Action派发至Reducer中才能进行状态的变更  
-所以具体的状态改变逻辑应该在Reducer中去实现
+所以具体的状态改变逻辑应该在Reducer中实现
 
 ### Reducer
 Reducer用于定义根据收到的不同Action如何去改变应用的状态  
@@ -64,7 +67,8 @@ function reducer(state = initalState, action) {
 ```
 
 ### Store
-每一个应用都只能有一个唯一的Store，通过`createStore(reducers)`来生成  
+每一个应用都只能有一个唯一的Store  
+通过`createStore(reducers)`来生成  
 用于维护应用的所有State，以及提供一些静态方法用于改变、获取当前状态  
 ```js
 store.getState() // 获取当前状态
@@ -77,7 +81,7 @@ unsubscribe() // 取消监听
 
 ### Middleware
 Redux提供的中间件使开发者可以在每次`dispatch(action)`前后加上一些特定的逻辑  
-例如logging/routing等，中间件的通用写法如下  
+例如logging/routing等，中间件的通用形式如下  
 ```js
 const middleware = store => next => action => {
 	// 在dispatch前执行的逻辑
@@ -132,7 +136,7 @@ const funcs = [first, second, third]
 // (...args) => accumulator(third(...args))
 // 相当于
 // (...args) => first(second(third(...args))
-consr re = funcs.reduce((a, b) => (...args) => a(b(...args)))
+const re = funcs.reduce((a, b) => (...args) => a(b(...args)))
 
 // 上述代码中有一个地方要理解一下
 // const test = (...args) => f(...args)
@@ -145,7 +149,7 @@ consr re = funcs.reduce((a, b) => (...args) => a(b(...args)))
 // 按照老的方式其实就是借助arguments来实现
 // es6
 const test = (...args) => f(...args)
-// Babel编译后的等同代码
+// Babel编译后
 var test = function test() {
 	return f.apply(undefined, arguments)
 }
@@ -173,11 +177,11 @@ compose(a,b,c)(d)('a')
 // 也就是等同于a(b(c(d)))
 // 第一步c(d) 返回 re1 = arg => {console.log(arg); d('d')}
 // 第二步b(c(d)) 也就是b(re1) 返回 re2 = arg => { console.log(arg); re1('c'); }
-// 第三步a(b(c(d))) 也牛市a(re2) 返回 re3 = arg => { console.log(arg); re2('b'); }
+// 第三步a(b(c(d))) 也就是a(re2) 返回 re3 = arg => { console.log(arg); re2('b'); }
 // 所以compose(a,b,c)(d) 返回的就是 arg => { console.log(arg); re2('b'); }
 // 最后一步compose(a,b,c)(d)('a') 相当于
 // console.log('a'); re2('b')
-// 再把所有的re展开 其实就是
+// 再把所有的结果展开
 // console.log('a'); console.log('b'); console.log('c'); console.log('d');
 ```
 
@@ -272,8 +276,8 @@ export function isPlainObject(obj) {
 	return Object.getPrototypeOf(obj) === proto
 }
 ```
-Ps: lodash.isPlainObject逻辑与上述代码基本一致  
-同样Redux的timdorr提的PR
+Ps: `lodash.isPlainObject`逻辑与上述代码基本一致  
+同样是Redux的timdorr提的PR
 
 ### index.js
 ```js
@@ -376,7 +380,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	// 注册监听事件 在每次dispath时都会调用所有注册过的函数
 	function subscribe(listener) {
 		// 注册的listener只能是函数
-		if (typeof listener !== 'undefined') {
+		if (typeof listener !== 'function') {
 			throw new Error('...')
 		}
 	
@@ -498,8 +502,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
 ### combineReducer.js
 由于在大型应用中我们需要管理一个复杂的状态树  
-如果将所有的Action处理逻辑写入一个Reducer中会很难维护  
-所以基本可以确定的是我们的项目中会有很多Reducer  
+如果将所有的Action处理逻辑写在同一个Reducer中会很难维护  
+所以大多数情况下我们的项目中会有很多个不同的Reducer文件  
 而Redux的`createStore(reducer)`只接受一个RootReducer作为参数  
 所以这个时候就需要借助Redux提供的这个工具方法将所有的子Reducer合为最终的RootReducer
 其主要作用如下  
@@ -648,7 +652,7 @@ export default function combineReducers(reducers) {
 然后再通过`dispatch(action)`来触发状态的改变  
 有时候我们想要把Redux的相关逻辑放到父组件中  
 然后将改变状态的函数传入子组件，这个时候就需要利用bindActionCreators  
-该函数可以将create action以及dispatch绑定在一起  
+该函数可以将create action以及dispatch这俩步操作绑定在一起  
 这样每次通过绑定后的Creator去生成Action时会同时进行dispatch操作
 ```js
 function bindActionCreator(actionCreator, dispatch) {
