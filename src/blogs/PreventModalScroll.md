@@ -12,7 +12,7 @@
 // 弹出
 document.body.style.overflow = 'hidden'
 // 关闭
-documeng.body.style.overflow = 'initial'
+document.body.style.overflow = 'initial'
 ```
 修改`<body>`的样式使得滚动条消失，Bootstrap的Modal采取的就是这种方式  
 缺点在于滚动条消失会导致页面向右偏移约20px，以填充滚动条消失的空白  
@@ -37,8 +37,8 @@ document.body.addEventListener('touchmove', preventScroll, { passive: false })
 document.body.removeEventListener('mousewheel', preventScroll)
 document.body.removeEventListener('touchmove', preventScroll)
 ```
-如果模态框的内容区没有可滚动的元素，那么这个方案是可行的  
-如果有的话会发现内容区内的元素的滚动也被一并禁止了，该方案仍需改进
+如果模态框的内容区中没有可滚动的元素，那么这个方案是可行的  
+如果有的话会发现内容区中元素的滚动也被一并禁止了
 
 ## 进一步优化方案
 由于我们不想禁止掉所有元素的滚动，可以考虑在需要滚动的元素上加一个特定类  
