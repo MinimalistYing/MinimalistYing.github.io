@@ -196,3 +196,14 @@ main()
 ```
 可以看到，相较于`Promise.then(...).then(...)`  
 这种方式让异步程序的执行过程更加一目了然
+需要注意的一点是`await`只能出现在`async`函数中
+也就是说直接出现在最外层代码中的`const res = await fetch('xxx')`是错误的
+除此之外，`await`也可以和`Promise.all()`一起使用
+```js
+async function test() {
+	const allRes = await Promise.all([
+		fetch('aaa'),
+		fetch('bbb')
+	])
+}
+```
