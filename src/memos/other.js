@@ -185,4 +185,11 @@ var pump = require('pump')
 pump([gulp.src(), uglify(), concat()], cb)
 \`\`\`
 `
+}, {
+	date: `2018/10/29`,
+	content: `
+当页面有大量图片需要展示时可以考虑采用Google提出的[webp](https://developers.google.com/speed/webp/)来进行优化  
+由于兼容性还欠佳所以仍需要做一些降级工作，在浏览器不支持时降级为其它图片格式
+相关细节可以看[这篇Blog](https://aotu.io/notes/2016/06/23/explore-something-of-webp/index.html)
+`
 }]
