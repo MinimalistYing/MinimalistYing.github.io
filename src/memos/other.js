@@ -192,4 +192,12 @@ pump([gulp.src(), uglify(), concat()], cb)
 由于兼容性还欠佳所以仍需要做一些降级工作，在浏览器不支持时降级为其它图片格式
 相关细节可以看[这篇Blog](https://aotu.io/notes/2016/06/23/explore-something-of-webp/index.html)
 `
+}, {
+	date: `2018/11/4`,
+	content: `
+算法题中经常出现要求输出modulo 10^9+7后的结果  
+是因为当数字过大时，程序需要特定的算法才能精确的计算  
+而通过模计算，可以使得不需要实现大数计算的算法便可比较结果的正确性
+[Stackoverflow](https://stackoverflow.com/questions/25689186/what-is-the-significance-of-modulo-1097-used-in-codechef-and-spoj-problems)
+`
 }]
