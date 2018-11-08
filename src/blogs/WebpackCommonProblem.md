@@ -143,4 +143,40 @@ module.exports = {
 ```
 之后只要照常引用 `import Vue from 'vue'` 则会正确引入 Full(Runtime + Compiler) 版本
 
+### ES6 代码未正确经过Babel编译
+[参考文档](https://github.com/vuejs/babel-plugin-transform-vue-jsx)  
+Ps: 基于 Babel V7
+解决方案
+```
+npm install
+  babel-plugin-syntax-jsx
+  babel-plugin-transform-vue-jsx
+  babel-helper-vue-jsx-merge-props
+  babel-preset-env
+  --save-dev
+```
+
+```js
+// babel.config.js
+module.exports = function (api) {
+	api.cache(true)
+	return {
+		presets: ['env'],
+		plugins: ['transform-vue-jsx']
+	}
+}
+
+// webpack.config.js
+module.exports = {
+	// ...
+	module: {
+		rules: [{
+			test: /.js$/,
+			use: 'babel-loader'
+		}]
+	}
+	// ...
+}
+```
+
 ## React
