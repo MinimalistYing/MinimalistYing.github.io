@@ -75,6 +75,33 @@ module.exports = {
 	// ...
 }
 ```
+凭以上配置虽然页面能正常访问，但会发现样式并不会生效
+```
+npm i style-loader --save-dev
+```
+```js
+// webpack.config.js
+module.exports = {
+	// ...
+	module: {
+		rules: [{
+			test: /.css$/,
+			use: [
+				'style-loader',
+				'css-loader'
+			]
+		}]
+	}
+	// ...
+}
+```
+[Style Loader](https://webpack.js.org/loaders/style-loader/)  
+[Css Loader](https://webpack.js.org/loaders/css-loader/)  
+Css Loader 的作用是使我们可以在 Js 文件中通过 `import style from 'xxx.css'` 来告诉 webpack 这个文件对样式的依赖  
+这样当打包这个 Css 文件时也会将 xxx.css 算入其中  
+当这样并不能使样式文件被浏览器正确加载  
+Style Loader 正是启到将依赖的样式文件通过在页面上插入 `<style>` 标签的形式注入到页面中  
+所以简单来讲 不做其他特殊配置的话 一定要同时使用这俩个 Loader 才能使得样式正确加载
 
 ### 未正确配置项目所使用的 Vue 文件
 错误信息
@@ -145,7 +172,7 @@ module.exports = {
 
 ### ES6 代码未正确经过Babel编译
 [参考文档](https://github.com/vuejs/babel-plugin-transform-vue-jsx)  
-Ps: 基于 Babel V7
+Ps: 基于 Babel V7  
 解决方案
 ```
 npm install
