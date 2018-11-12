@@ -8,7 +8,8 @@ Ps: 基于 Webpack V4
 ```
 ERROR in ./src/component/App.vue
 Module Error (from ./node_modules/vue-loader/lib/index.js):
-vue-loader was used without the corresponding plugin. Make sure to include VueLoaderPlugin in your webpack config.
+vue-loader was used without the corresponding plugin.
+Make sure to include VueLoaderPlugin in your webpack config.
 ```
 [参考文档](https://vue-loader.vuejs.org/guide/#manual-configuration)  
 解决方案
@@ -202,6 +203,42 @@ module.exports = {
 			use: 'babel-loader'
 		}]
 	}
+	// ...
+}
+```
+
+### HMR未启用
+错误信息
+```
+// 如果在 devServer 中开启了 hot 确并未配置 HotModuleReplacementPlugin 
+// 浏览器控制台会出现如下报错
+Uncaught Error: [HMR] Hot Module Replacement is disabled.
+    at eval (webpack:///(:9000/webpack)/hot/dev-server.js?:7:8)
+    at Object../node_modules/webpack/hot/dev-server.js (main.js:485)
+    at __webpack_require__ (main.js:20)
+    at eval (webpack:///multi_(:9000/webpack)-dev-server/client?:2:1)
+    at Object.0 (main.js:578)
+    at __webpack_require__ (main.js:20)
+    at main.js:84
+    at main.js:87
+```
+
+[参考文档](https://webpack.js.org/guides/hot-module-replacement/)  
+解决方案
+```js
+// webpack.dev.config.js
+const webpack = require('webpack')
+
+module.exports = {
+	// ...
+	devServer: {
+		// ...
+		hot: true
+	},
+	plugins: [
+		// ...
+		new webpack.HotModuleReplacementPlugin()
+	]
 	// ...
 }
 ```
