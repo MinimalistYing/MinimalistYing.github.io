@@ -3,7 +3,8 @@
 半年没关注，最近突然发现Webpack的版本已经升到4.16.2了，为了紧跟潮流的步伐，决定将项目中使用的3.10.0来个升级
 
 ## 步骤
-1. 安装`webpack`以及`webpack-cli`
+1. 安装`webpack`以及`webpack-cli` Ps: V4 开始将 CLI 抽离到了独立的 `webpack-cli` 项目中维护  
+所以现在需要分别安装俩个依赖
 2. 将项目中所有用到的`loader`以及`plugin`升级到最新
 3. 配置文件里新增 `mode: 'development'` or `mode: 'production'`
 4. 移除`webpack.optimize.UglifyJsPlugin`，现在webpack会在生产环境默认对js进行压缩
