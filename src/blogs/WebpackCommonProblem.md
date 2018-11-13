@@ -164,6 +164,8 @@ module.exports = {
 	resolve: {
 		alias: {
 			'vue$': 'vue/dist/vue.esm.js' // 'vue/dist/vue.common.js' for webpack 1
+			// Ps: 最后的 $ 意味着完全匹配 也就是说只有在 import xx from 'vue' 时这条规则才会生效
+			// import xx from 'vue/xx.js' 并不会触发以上规则
 		}
 	}
 	// ...
