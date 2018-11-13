@@ -246,3 +246,16 @@ module.exports = {
 ```
 
 ## React
+
+
+## 优化
+
+### 关于 `optimization.moduleIds`
+Webpack V4 新引入的这条配置其功能相当于之前的 `xxxModuleIdsPlugin`  
+一共有 `natural/named/hashed/size/total-size` 这五个可选值  
+默认为 `false` 即以一个自增的数字作为 moduleId  
+首先要理解在 Webpack 中 module 的含义就是我们在代码里每一处 `import xx from 'xx'` 中的 xx 模块  
+moduleId 即是 Webpack 在打包过程中赋予每一个模块的唯一 Id  
+个人认为在开发环境下将其设为 `named` 也就是每个模块的文件路径作为 Id 可以方便 Debug  
+在生产环境下将其设为 `hashed` 避免每次改动都导致所有模块的 Id 发生变化
+
