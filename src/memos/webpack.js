@@ -13,12 +13,6 @@ Webpack中的 \`url-loader\` 和 \`file-loader\` 都是用于打包一些图片�
 更适用于处理一些项目中多处用到的小图片（1kb以下）
 `
 }, {
-	date: `2017/11/3`,
-	content: `
-在开发环境中可配置 \`devtool: 'cheap-module-eval-source-map'\` 来获得更快的编译速度，
-在生产环境中可配置 \`devtool: 'cheap-module-source-map'\` 以便于更好的排查线上问题
-`
-}, {
 	date: `2017/12/5`,
 	content: `
 关于webpack devServer 的 \`historyApiFallback\` 在使用 类似 \`vue-router\` 或 \`react-router\` 来开发SPA时，
