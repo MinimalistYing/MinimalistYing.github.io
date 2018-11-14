@@ -74,3 +74,27 @@ Webpack 中可以通过这项配置来决定具体使用何种 Source Map
 当然碰到具体问题时可以进行调整  
 要记住 Source Map 的终极目的是为了方便开发者定位问题  
 所以只要能帮助我们找到问题的配置就是好配置
+
+Ps: Webpack V4 中，当 mode 设为 'production' 时  
+默认使用的 `uglifyjs-webpack-plugin` 会默认设置 `sourceMap: true`  
+当我们手动去新配置 `uglifyjs-webpack-plugin` 时会覆盖掉默认配置  
+所以要注意像如下配置一样加上 `sourceMap: true` 否则 Souce Map 会不生效
+```js
+// webpack.prod.config.js
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
+
+module.exports = {
+	// ...
+	mode: 'production',
+	optimization: {
+		minimizer: [
+			new UglifyJsPlugin({
+				// ...
+				sourceMap: true // 注意这里!!!!!!
+				// ...
+			})
+		]
+	}
+	// ...
+}
+```
