@@ -259,3 +259,12 @@ moduleId 即是 Webpack 在打包过程中赋予每一个模块的唯一 Id
 个人认为在开发环境下将其设为 `named` 也就是每个模块的文件路径作为 Id 可以方便 Debug  
 在生产环境下将其设为 `hashed` 避免每次改动都导致所有模块的 Id 发生变化
 
+### 启用 Tree Shaking
+Webpack 提供了 Tree Shaking 的功能  
+帮助我们在打包的过程把无用的代码块移除，进一步减小包的体积  
+在V4中要正确启用这个功能需要确保下列这几点
+* 使用 ES6 的 `import` 以及 `export` 来管理 Module
+* `mode` 设为 `production`
+* 在 `package.json` 中加入 `"sideEffects": false` 或者 `"sideEffects": ["*.css"]` 避免不小心移除样式文件
+* 如果有使用 `@babel/preset-env` 注意在 .babelrc 中将其默认的配置 `"modules": "commonjs"` 
+改为 `"modules": false` 也就是说不让 Babel 转义源码中的 ES6 Module 语法
