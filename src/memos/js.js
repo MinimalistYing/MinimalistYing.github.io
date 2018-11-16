@@ -425,4 +425,10 @@ setTimeout(() => {
 所谓不可枚举的属性，即是通过类似  
 \`Object.defineProperty(o, 'a', { enumerable: false, value: 0 })\`定义的属性
 `
+}, {
+	date: `2018/11/16`,
+	content: `
+Javascript 中一共有五种原始类型(primitive type)  
+string/boolean/number/null/undefined
+`
 }]
