@@ -13,6 +13,9 @@ import PromiseBlog from '@blog/Promise.md'
 import PreventModalScroll from '@blog/PreventModalScroll.md'
 import Redux from '@blog/Redux.md'
 import ReactRedux from '@blog/ReactRedux.md'
+import BinaryTreeTraversal from '@blog/BinaryTreeTraversal.md'
+import SourceMapAndWebpack from '@blog/SourceMapAndWebpack.md'
+import WebpackCommonProblem from '@blog/WebpackCommonProblem.md'
 
 import './style.less'
 
@@ -29,7 +32,10 @@ const blogs = [
 	PromiseBlog,
 	PreventModalScroll,
 	Redux,
-	ReactRedux
+	ReactRedux,
+	BinaryTreeTraversal,
+	SourceMapAndWebpack,
+	WebpackCommonProblem
 ]
 
 class MyBlog extends React.Component {
