@@ -245,6 +245,32 @@ module.exports = {
 }
 ```
 
+### CSS 中通过 `url(xxx)` 引入的的图片路径不正确
+当我们通过配置使得输出的静态文件放到不同目录下时很容易碰到这个问题  
+例如我们将打包后的文件分别放到js/css/images三个目录下  
+这时如果没有特意配置过的话被 `url-loader` 处理过后的图片引用路径通常会变为 `images/xxx.png`  
+如果是在根目录下的 HTML 中的文件下这样访问图片不会有问题  
+但如果是在 CSS 中的  `url(images/xxx.png)` 则会出现找不到图片的问题  
+因为这种形式的 URL 是一种相对路径  
+而 CSS 文件时放在 css 目录下的，而这个路径下并没有 images 文件夹  
+所以当然找不到正确的图片  
+这时可通过配置 `url-loader` 的 `publicPath` 为相对服务器根目录的相对路径来解决  
+关于 `publicPath` 有如下这些[配置方式](https://webpack.js.org/configuration/output/#output-publicpath)  
+```js
+module.exports = {
+	//...
+	output: {
+		// One of the below
+		publicPath: 'https://cdn.example.com/assets/', // CDN (always HTTPS)
+		publicPath: '//cdn.example.com/assets/', // CDN (same protocol)
+		publicPath: '/assets/', // server-relative
+		publicPath: 'assets/', // relative to HTML page
+		publicPath: '../assets/', // relative to HTML page
+		publicPath: '', // relative to HTML page (same directory)
+	}
+}
+```
+
 ## React
 
 
