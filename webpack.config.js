@@ -49,7 +49,8 @@ module.exports = {
 		historyApiFallback: true,
 		contentBase: false,
      	hot: true,
-     	compress: true
+     	compress: true,
+     	open: true
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),

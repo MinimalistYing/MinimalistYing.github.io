@@ -11,7 +11,6 @@ import Loadable from 'react-loadable'
 
 import {
 	Header,
-	Resume,
 } from './components'
 
 import './less/main.less'
@@ -28,13 +27,18 @@ const Memos = Loadable({
 	loading: Loading
 })
 
+const MessageDemo = Loadable({
+	loader: () => import('./components/VanillaAntdDemo'),
+	loading: Loading
+})
+
 const App = () => (
 	<div>
 		<Header />
-		<Resume />
 		<Switch>
 			<Route exact path="/" component={Blog} />
 			<Route exact path="/memo" component={Memos} />
+			<Route exact path="/messagedemo" component={MessageDemo} />
 		</Switch>
 	</div>
 )
