@@ -428,7 +428,7 @@ setTimeout(() => {
 }, {
 	date: `2018/11/16`,
 	content: `
-Javascript 中一共有五种原始类型(primitive type)  
-string/boolean/number/null/undefined
+Javascript 中一共有六种种原始类型(primitive type)  
+string/boolean/number/null/undefined/symbol(ES6 新增)
 `
 }]
