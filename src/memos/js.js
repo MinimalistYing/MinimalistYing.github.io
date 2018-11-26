@@ -431,4 +431,9 @@ setTimeout(() => {
 Javascript 中一共有六种种原始类型(primitive type)  
 string/boolean/number/null/undefined/symbol(ES6 新增)
 `
+}, {
+	date: `2018/11/26`,
+	content: `
+严格模式下函数中的\`arguments\`会被禁用
+`
 }]
