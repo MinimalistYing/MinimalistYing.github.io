@@ -19,8 +19,8 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		publicPath: './dist/',
-		filename: '[name].[hash].js',
-		chunkFilename: '[name].[hash].bundle.js',
+		filename: '[name].[contenthash].js',
+		chunkFilename: '[name].[contenthash].bundle.js',
 	},
 	module: {
 		rules: [{
@@ -61,7 +61,7 @@ module.exports = {
 			use: [{
 				loader: 'url-loader',
 				options: {
-					name: '[hash].[ext]',
+					name: '[path][name].[ext]',
 					outputPath: 'images/',
 					publicPath: './dist/images',
 					limit: 8192 // 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面
@@ -72,7 +72,6 @@ module.exports = {
 			use: ['raw-loader']
 		}]
 	},
-	devtool: 'source-map',
 	plugins: [
 		new webpack.NamedModulesPlugin(),
 		new CleanWebpackPlugin(['dist']),
@@ -84,8 +83,8 @@ module.exports = {
 		new MiniCssExtractPlugin({
 			// Options similar to the same options in webpackOptions.output
 			// both options are optional
-			filename: "[name].[hash].css",
-			chunkFilename: "[id].[hash].css"
+			filename: "[name].[contenthash].css",
+			chunkFilename: "[id].[contenthash].css"
 		}),
 		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') })
 	],

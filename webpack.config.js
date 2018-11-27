@@ -14,8 +14,8 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		chunkFilename: '[name].[hash].bundle.js',
-		filename: '[name].[hash].js'
+		chunkFilename: '[name].[contenthash].bundle.js',
+		filename: '[name].[contenthash].js'
 	},
 	module: {
 		rules: [{
@@ -44,7 +44,7 @@ module.exports = {
 			}]
 		}]
 	},
-	devtool: 'eval-source-map',
+	devtool: 'cheap-module-eval-source-map',
 	devServer: {
 		historyApiFallback: true,
 		contentBase: false,
