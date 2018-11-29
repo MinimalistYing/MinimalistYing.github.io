@@ -46,28 +46,31 @@ document.cookie = 'test=; max-age=0; domain=xx.com; path=/'
 navigator.cookieEnabled
 ```
 由于 Cookie 涉及到用户的隐私，用户可以手动禁止浏览器使用 Cookie  
-绝大多数浏览器都可以通过上述代码来获得用户是否禁用　Cookie
+绝大多数浏览器都可以通过上述代码来判断用户是否禁用 Cookie  
+Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等都无法正常访问  
+应该现在大多数用户都不会去禁用 Cookie
 
 ### 关于 Cookies 的属性
 * domain  
 指定 Cookie 存储在哪个域名下 默认为当前服务器的域名  
-当然也遵循同源策略 例如在 `son.a.com` 默认的 domain 为 `son.a.com`  
-我们可以设置 Cookie 存储在 `a.com` 下  
-这样在访问 `another.a.com` 时也可以获取到该 Cookie  
-但是不能设置 Cookie 的 domain 为 `b.com`
+当然也遵循同源策略 例如在 `www.son.a.com` 页面下    
+我们可以设置 Cookie 的 domain 为 `a.com`  
+这样在 `www.another.a.com` 页面也可以获取到该 Cookie  
+但是不能在该页面设置 domain 为 `b.com` 的 Cookie
 * path  
 指定 Cookie 存储在哪个路径下 默认为当前 URI 中的路径  
-例如在 `a.com/path` 下默认的 path 为 `/path`  
-也就是说当我们访问 `a.com/path` `a.com/path/son` 时都可以获取这个 Cookie  
-但是当我们访问 `a.com/another` 时便无法得到这个 Cookie  
+例如在 `www.a.com/page/one.html` 我们按默认属性设置了一个Cookie  
+那么在 `www.a.com/page/two.html` `www.a.com/page/son/three.html`  
+这些页面下都可以获取这个 Cookie  
+但是在 `www.a.com/another/four.html` 页面上便无法得到这个 Cookie  
 可以将 path 设为 `/` 使得访问当前域名下所有路径的网页都能拿到设置的 Cookie
 * max-age 最大存储时间 以秒为单位 默认当浏览器 Session 结束时清除
 * expires 存储失效的 GMT 时间 默认当浏览器 Session 结束时便清除
 * secure 包含该属性的 Cookie 只能通过 HTTPS 传输
 * httponly  
-包含该属性的 Cookie 只会在 Request Headers 中出现  
 只能在服务端进行设置  
-前端无法通过 `document.cookie` 查看修改
+包含该属性的 Cookie 只会在 Request Headers 中出现  
+并且前端无法通过 `document.cookie` 查看修改
 
 ### 关于 Cookies 中的保留字符
 由于 `;` `,` 在 Cookie 中有特殊含义  
@@ -81,10 +84,10 @@ navigator.cookieEnabled
 * 服务端也可以直接操作 Cookie
 
 缺点：
-* 容量有限，规范只要求最低提供 4kb 的存储空间，嘴个域名最少
-* 每次请求都会携带，如果存放了大量不必要的数据很显然会影响性能
+* 容量有限，规范只要求每个域名下最低提供 4kb 的存储空间
+* 每次请求都会携带，如果存放了大量不必要的数据很显然会影响页面性能
 * 不安全，永远不要在 Cookie 中存放用户的敏感数据
-* 前端 API 不友好
+* 前端 API 不友好，CRUD 都是通过 `document.cookie` 进行，没有提供相关操作的方法
 
 ### 最新协议
 [Cookies 协议](https://tools.ietf.org/html/rfc6265#section-5.2.1)
