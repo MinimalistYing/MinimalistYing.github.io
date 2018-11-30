@@ -136,6 +136,7 @@ WebStorage 还提供了事件机制，用于监听存储发生的变化
 当打开俩个窗口访问同域网站，如果在其中一个窗口中修改了存储数据  
 在另一个窗口中可以通过如下代码监听到存储改变的事件  
 ```js
+// 会被 setItem() removeItem() clear() 触发
 window.addEventListener('storage', e => {
 	/**
 		e: {
@@ -146,6 +147,7 @@ window.addEventListener('storage', e => {
 			...
 		}
 	*/
+	// 当事件是由 clear() 触发时 key/newVlue/oldValue 都为 null
 })
 ```
 要注意的是这个事件只有在本地存储真的发生变化时才会触发  
