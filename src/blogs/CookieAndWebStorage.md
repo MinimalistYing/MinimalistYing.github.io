@@ -13,7 +13,7 @@
 Cookies 其实就是网站存储在客户端的一些数据  
 这些数据会自动的被加到网站发起的每个 HTTP 请求的 Request Header 中  
 通常情况下服务端和客户端都可以对 Cookies 进行 CRUD 操作  
-[Cookies 协议](https://tools.ietf.org/html/rfc6265#section-5.2.1)
+[点这里查看 Cookies 协议](https://tools.ietf.org/html/rfc6265#section-5.2.1)
 
 ### 如何在前端新增 Cookie
 ```js
@@ -92,13 +92,13 @@ Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等都无法正常访问
 * 不安全，永远不要在 Cookie 中存放用户的敏感数据
 * 前端 API 不友好，CRUD 都是通过 `document.cookie` 进行，没有提供相关操作的方法
 
-### WebStorage
+# WebStorage
 
 ## WebStorage 是什么
 WebStorage 是 HTML5 新增的客户端存储机制  
 分为 `LocalStorage` 以及 `SessionStorage`  
 IE8+ 以及各现代浏览器对其都有良好的支持  
-[WebStorage 规范](https://html.spec.whatwg.org/multipage/webstorage.html#storage)
+[点这里查看 WebStorage 规范](https://html.spec.whatwg.org/multipage/webstorage.html#storage)
 
 ## LocalStorage
 永久存储（除非浏览器缓存被清除）在当前域下，遵循同源策略  
