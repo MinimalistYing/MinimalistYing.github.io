@@ -436,4 +436,15 @@ string/boolean/number/null/undefined/symbol(ES6 新增)
 	content: `
 严格模式下函数中的\`arguments\`会被禁用
 `
+}, {
+	date: `2018/11/26`,
+	content: `
+IE10+ 以及各现代浏览器提供了原生的方法 \`btoa\` 以及 \`atob\` 支持对字符串进行 Base64 编解码  
+\`\`\`js
+// Binary to ASCII 编码
+window.btoa('a') // "YQ=="
+// ASCII to Binary 解码
+window.atob('YQ==') // "a"
+\`\`\`
+`
 }]
