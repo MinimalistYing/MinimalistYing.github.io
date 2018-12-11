@@ -16,6 +16,9 @@ import ReactRedux from '@blog/ReactRedux.md'
 import BinaryTreeTraversal from '@blog/BinaryTreeTraversal.md'
 import SourceMapAndWebpack from '@blog/SourceMapAndWebpack.md'
 import WebpackCommonProblem from '@blog/WebpackCommonProblem.md'
+import CrossOrigin from '@blog/CrossOrigin.md'
+import Npm from '@blog/Npm.md'
+import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
 
 import './style.less'
 
@@ -35,7 +38,10 @@ const blogs = [
 	ReactRedux,
 	BinaryTreeTraversal,
 	SourceMapAndWebpack,
-	WebpackCommonProblem
+	WebpackCommonProblem,
+	CrossOrigin,
+	Npm,
+	CookieAndWebStorage,
 ]
 
 class MyBlog extends React.Component {
