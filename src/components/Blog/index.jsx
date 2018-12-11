@@ -19,6 +19,7 @@ import WebpackCommonProblem from '@blog/WebpackCommonProblem.md'
 import CrossOrigin from '@blog/CrossOrigin.md'
 import Npm from '@blog/Npm.md'
 import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
+import XSSCSRF from '@blog/XSS&CSRF.md'
 
 import './style.less'
 
@@ -42,6 +43,7 @@ const blogs = [
 	CrossOrigin,
 	Npm,
 	CookieAndWebStorage,
+	XSSCSRF
 ]
 
 class MyBlog extends React.Component {
