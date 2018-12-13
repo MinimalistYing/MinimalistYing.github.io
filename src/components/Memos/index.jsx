@@ -15,15 +15,15 @@ const {
 	webpack
 } = memos
 const all = [
-	...compability,
-	...css,
-	...http,
-	...jquery,
-	...js,
-	...other,
-	...react,
-	...vue,
-	...webpack
+	...compability.split('---'),
+	...css.split('---'),
+	...http.split('---'),
+	...jquery.split('---'),
+	...js.split('---'),
+	...other.split('---'),
+	...react.split('---'),
+	...vue.split('---'),
+	...webpack.split('---'),
 ]
 
 class Memos extends React.Component {
