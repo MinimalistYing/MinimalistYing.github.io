@@ -43,10 +43,29 @@ request.open('POST', 'http://www.xx.com/api', true)
 request.setRequestHeader('Content-Type', 'application/json')
 
 // 4. 设置监听请求的回调函数
+// readyState 共有五个可能值
+// XMLHttpRequest.UNSENT 0 请求还未 open()
+// XMLHttpRequest.OPEND 1 请求已经 open()
+// XMLHttpRequest.HEADERS_RECEIVED 2 收到响应头
+// XMLHttpRequest.LOADING 3 收到响应体
+// XMLHttpRequest.DONE 4 请求完成
+// 理论上来说最合适的方式是通过 request.readyState === XMLHttpRequest.DONE 来判断请求是否完成
+// 但是由于 IE8 并不兼容 所以大多是情况下我们会通过 request.readyState === 4 来判断
 request.onreadystatechange = () => {
 	if (request.readyState === 4) { // 响应已收到
 		if (request.status === 200) {
 			// 请求正确
+			// 还可以通过 request.getAllResponseHeaders() 获取所有响应头
+			// 不过该方法返回的是包含所有响应头的字符串 需要转化才能获得键值对
+			const type = request.getResponseHeader('Content-Type')
+			if (type === 'text/plain') {
+				return request.reponseText
+			} else if (type === 'application/json') {
+				return JSON.parse(request.response)
+			} else if (type === 'application/xml') {
+				// 应该用不到 暂时未碰到过以 XML 来作为数据交换格式的
+				return request.reponseXML
+			}
 		} else {
 			// 请求错误
 		}
@@ -59,6 +78,24 @@ request.onreadystatechange = () => {
 // 如果不需要传递 Request Body 可以 request.send(null)
 request.send(JSON.stringify(data))
 ```
+除上述简单的请求响应过程外， XHR 还提供了更多的监听事件
+```js
+// 在主动调用 request.abort() 或者其余方式导致请求被丢弃的情况下触发
+request.onabort = () => {}
+// 当请求时长超过了 request.timeout 设置的时间时触发
+request.ontimeout = () => {}
+// 当发生 NetWork Error（Ps: 类似 DNS 解析错误/CORS 跨域失败） 时触发
+request.onerror = () => {}
+// 请求完成时触发（Ps: 不考虑兼容性的情况下可以用这个取代监听 readystatechange ?）
+request.onload = () => {}
+
+// 规范要求一个请求在完成时必定且只能触发上述事件中的一个
+```
+
+当发起一个跨域请求并且希望其携带上 Cookie 时，需要额外进行如下设置
+```js
+request.withCredentials = true
+```
 
 每个 `XMLHttpRequest` 的实例化对象代表了一对 request/reponse ，如果反复利用同一个对象会导致先前的请求被 abort  
 由于 HTTP 协议对一个请求有着（方法 / URL => 请求头 => 请求体）的先后顺序要求  
@@ -68,4 +105,31 @@ request.send(JSON.stringify(data))
 Uncaught DOMException: Failed to execute 'setRequestHeader' on 'XMLHttpRequest': The object's state must be OPENED.
 ```
 
-## Fetch API
+当我们想利用 XHR 来上传文件时情况会更加复杂一点  
+首先要提的是早期的 XHR 并不支持文件上传，只能利用 `<form>` 表单加 `<input type="file">` 来实现  
+IE10+ 才开始支持通过 XHR2 以及 `FromData` 来实现文件上传
+```js
+const data = new FromData()
+const dom = document.querySelector('input[type="file"]')
+data.append('filename', dom.files[0].name)
+data.append('file', dom.files[0])
+
+// 监听上传进度
+// 同理 下载时可以直接通过 request.onprogress 来监听进度
+request.upload.onprogress = e => {
+	if (e.lengthComputable) { // 如果支持统计内容长度
+		console.log(`进度${e.loaded/e.total}`)
+	}
+}
+// 上传完成
+request.upload.onload = () => {}
+// 利用 FormData 上传数据时 Content-Type 会被默认设为 multipart/form-data
+request.send(data)
+```
+
+## 总结
+通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美  
+开发者使用起来显然也很麻烦，所以才出现了 jQuery 中的 `$.ajax()` 以及时下比较流行的 `axios` 等框架对其的封装  
+除开这些框架外更令人期待的是浏览器原生支持的 Fetch API 的出现  
+虽然目前的兼容性堪忧但是 Fetch 作为 *A modern replacement for XMLHttpRequest.*  
+相信在不久的将来会给我们带来更多方便
