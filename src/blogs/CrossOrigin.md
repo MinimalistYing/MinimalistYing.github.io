@@ -88,4 +88,4 @@ xhr.withCredentials = true
 * Access-Control-Allow-Methods （预校验请求返回 告知浏览器所有服务端支持的请求类型）
 * Access-Control-Allow-Crendentials （可选 当需要传递 Cookie 时设为 true）
 * Access-Control-Max-Age (预校验请求返回  告知浏览器在一段时间内缓存 不必再次发起预校验请求)
-* Access-Control-Expose-Headers （前端能通过 `xhr.getResponseHeader()` 获取到哪些请求头的具体指）
+* Access-Control-Expose-Headers （前端能通过 `xhr.getResponseHeader()` 获取到哪些请求头的具体值）
