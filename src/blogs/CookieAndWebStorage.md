@@ -1,4 +1,4 @@
-# Cookies 和 WebStorage
+# Cookie 和 WebStorage
 
 ## 为什么需要客户端存储
 * 记录用户登录状态，当用户下次访问时不必重新登录
@@ -7,13 +7,13 @@
 
 恰当的利用客户端存储可以很好的优化用户体验
 
-## Cookies
+## Cookie
 
-### Cookies 是什么
-Cookies 其实就是网站存储在客户端的一些数据  
+### Cookie 是什么
+Cookie 其实就是网站存储在客户端的一些数据  
 这些数据会自动的被加到网站发起的每个 HTTP 请求的 Request Header 中  
 通常情况下服务端和客户端都可以对 Cookies 进行 CRUD 操作  
-[点这里查看 Cookies 协议](https://tools.ietf.org/html/rfc6265#section-5.2.1)
+[点这里查看 Cookie 协议](https://tools.ietf.org/html/rfc6265#section-5.2.1)
 
 ### 如何在前端新增 Cookie
 ```js
@@ -166,7 +166,7 @@ Ps:（由于 SessionStorage 是基于浏览器窗口存储，所以只有当使�
 
 
 ## 其它注意事项
-* 不管是 Cookies 还是 WebStorage 都是与浏览器相关的  
+* 不管是 Cookie 还是 WebStorage 都是与浏览器相关的  
 也就意味着在 Chrome 浏览器中存储的数据，当用户切换为 FireFox 浏览时就无法获取  
 当然这应该是小概率事件，毕竟大多数人习惯于使用同一种浏览器
 * 当浏览器设置 Cookie 失败时并不会报错，这个过程是静默的  
