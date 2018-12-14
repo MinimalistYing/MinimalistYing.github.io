@@ -78,3 +78,9 @@ Webpack 中 `resolve.extensions` 的默认值为 `['.wasm', '.mjs', '.js', '.jso
 当我们自定义这个值时，会把默认规则覆盖  
 为了确保默认值仍可使用，可以把默认值也加入新定义的规则中  
 例如  `['.vue', '.wasm', '.mjs', '.js', '.json']` 
+
+---
+
+`UslifyJs` 不支持压缩 ES6 的代码，所以当我们想不经过 `Babel` 编译直接压缩混淆 ES6 代码时  
+需要使用 [TerserWebpackPlugin](https://webpack.js.org/plugins/terser-webpack-plugin/)  
+而不是通常用的 [UglifyjsWebpackPlugin](https://webpack.js.org/plugins/uglifyjs-webpack-plugin/)
