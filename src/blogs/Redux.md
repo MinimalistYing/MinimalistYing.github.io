@@ -1,35 +1,35 @@
 # Redux从入门到放弃
 
 ## 基本概念
-前端应用日渐复杂，传统的JavaScipt+HTML+CSS三大件变得难以应对  
-近几年出现的各类MVVM框架(React/Vue/Angular)使我们可以开发管理更复杂的单页应用(SPA)  
+前端应用日渐复杂，传统的 JavaScipt / HTML / CSS 三大件变得难以应对  
+近几年出现的各类MVVM框架(React / Vue / Angular)使我们可以开发管理更复杂的单页应用( SPA )  
 随之而来碰到的问题是对应用中各种状态的管理  
 每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更  
-当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原有  
+当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原由  
 并且当组件层级过深时，一层层的在组件间传递props也显得颇为繁琐  
-Redux的出现给开发者提供了一种更加规范的管理前端应用状态的解决方案  
-当然相应的代价是需要引入更冗余的语法(boilerplate)  
-Redux通过以下三个原则来更好的管理应用的状态:  
-* Single source of truth: Redux应用中的状态应该是全局唯一的  
-也就是说每个Redux应用应该只有一个全局唯一的Store
-* State is read-only: Store中存储的状态不能被直接修改  
+Redux 的出现给开发者提供了一种更优雅的管理前端应用状态的解决方案  
+当然相应的代价是需要引入一些冗余的语法( boilerplate )  
+Redux 主要通过以下三个原则来更好的管理应用的状态:  
+* Single source of truth: Redux 应用中的状态应该是全局唯一的  
+也就是说每个Redux应用应该只有一个全局唯一的 Store
+* State is read-only: Store 中存储的状态不能被直接修改  
 只能通过Dispatch Action来进行应用状态的变更  
 这样通过一些工具开发者可以很清楚的看到状态发生变更的时机以及每次所发生的改变  
-甚至进行Time Travel来回到某个Action执行前的状态  
-亦或是再次重新提交这个Action来观察其行为对应用的影响  
-* Changes are made with pure functions: Reducer只能是Pure Function  
-不能在其中直接修改Store中存储的值  
-而是依据Dispatch的不同Actions返回新的状态  
+甚至进行 Time Travel 来回到某个 Action 执行前的状态  
+亦或是再次重新提交这个 Action 来观察其行为对应用的影响  
+* Changes are made with pure functions: Reducer 只能是 Pure Function  
+不能在其中直接修改 Store 中存储的值  
+而是依据 Dispatch 的不同 Actions 返回新的状态  
 
 ### Actions
-不同于直接去修改应用的状态，例如react中的`this.setState()`  
-Redux推崇通过Dispacth Action来修改状态  
-Action是一个携带了操作类型以及具体改变数据的简单对象(Plain Object)  
+不同于直接去修改应用的状态，例如 React 中的`this.setState()`  
+Redux 推崇通过 Dispacth Action 来修改状态  
+Action 是一个携带了操作类型以及具体改变数据的简单对象( Plain Object )  
 ```js
 const action = {
 	// 操作类型 用于描述该次操作的用意
 	// 通常由下划线分隔的大写字符组成
-	// 当有很多action时建议将type提取成常量放到单独文件维护
+	// 当有很多 action 时建议将 type 提取成常量放到单独文件维护
 	type: 'ADD_PEOPLE',
 	// 具体操作的数据
 	people: {
@@ -37,29 +37,29 @@ const action = {
 	}
 }
 ```
-以上Action中的数据是固定的，可以通过一个ActionCreator来根据参数动态的生成数据  
+以上 Action 中的数据是固定的，可以通过一个 ActionCreator 来根据参数动态的生成数据  
 ```js
 const actionCreator = people => ({
 	type: 'ADD_PEOPLE',
 	people
 })
 ```
-注意Action并不会真正的去改变状态，而只是携带了待改变状态的相关信息  
-需要通过'store.dispatch(action)'将Action派发至Reducer中才能进行状态的变更  
-所以具体的状态改变逻辑应该在Reducer中实现
+注意 Action 并不会真正的去改变状态，而只是携带了待改变状态的相关信息  
+需要通过 'store.dispatch(action)' 将 Action 派发至 Reducer 中才能进行状态的变更  
+所以具体的状态改变逻辑应该在 Reducer 中实现
 
 ### Reducer
-Reducer用于定义根据收到的不同Action如何去改变应用的状态  
-Reducer应该是一个Pure function,意味着不应该在其中去改变参数  
+Reducer 用于定义根据收到的不同 Action 如何去改变应用的状态  
+Reducer 应该是一个 Pure function ,意味着不应该在其中去改变参数  
 并且当入参相同时其返回值应该总是相同的  
 ```js
-// 注意需要给我们的应用设置一个初始化的initalState
-// 如果未指定 Redux会开发环境下给出警告
+// 注意需要给我们的应用设置一个初始化的 initalState
+// 如果未指定 Redux 会开发环境下给出警告
 function reducer(state = initalState, action) {
 	switch(action.type) {
 		case 'ADD_PEOPLE':
 			return { ...state, ...{ people: action.people } }
-		// 在遇到未知的Action时需要将原先的state直接返回
+		// 在遇到未知的 Action 时需要将原先的 state 直接返回
 		default:
 			return state
 	}
@@ -67,9 +67,9 @@ function reducer(state = initalState, action) {
 ```
 
 ### Store
-每一个应用都只能有一个唯一的Store  
-通过`createStore(reducers)`来生成  
-用于维护应用的所有State，以及提供一些静态方法用于改变、获取当前状态  
+每一个应用都只能有一个唯一的 Store  
+通过 `createStore(reducers)` 来生成  
+用于维护应用的所有 State ，以及提供一些静态方法用于改变、获取当前状态  
 ```js
 store.getState() // 获取当前状态
 store.dispatch(action) // 提交action来改变当前状态
@@ -80,8 +80,8 @@ unsubscribe() // 取消监听
 ## 进阶以及源码(v4.0.0)
 
 ### Middleware
-Redux提供的中间件使开发者可以在每次`dispatch(action)`前后加上一些特定的逻辑  
-例如logging/routing等，中间件的通用形式如下  
+Redux 的中间件使开发者可以在每次 `dispatch(action)` 前后加上一些特定的逻辑  
+例如 logging/routing 等，中间件的通用形式如下  
 ```js
 const middleware = store => next => action => {
 	// 在dispatch前执行的逻辑
@@ -96,10 +96,10 @@ const middleware = store => next => action => {
 ```
 
 ### compose.js
-在Redux的applyMiddleware中会用到，函数式编程中常见  
+在 Redux 的 applyMiddleware 中会用到，函数式编程中常见  
 可以将传入的函数从右至左依次执行  
 并且每个函数执行的结果会作为下一个函数的参数
-类似`compose(a, b, c)(arg)`执行起来同`a(b(c(arg)))`
+类似 `compose(a, b, c)(arg)` 执行起来同 `a(b(c(arg)))`
 ```js
 export function compose(...funcs) {
 	// 如果没有传入任何参数 则直接返回一个会将第一个参数返回的函数
@@ -112,25 +112,25 @@ export function compose(...funcs) {
 		return funcs[0]
 	}
 	
-	// 关于Array.prototype.reduce 
+	// 关于 Array.prototype.reduce 
 	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
 	return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
 
 ----------- 下面都是分析  --------------
 
-// 我们来试试funcs.reduce是如何来实现逻辑的
+// 我们来试试 funcs.reduce 是如何来实现逻辑的
 const first = () => console.log(1)
 const second = () => console.log(2)
 const third = () => console.log(3)
 const funcs = [first, second, third]
 
 // 分解开来看
-// 第一次reduce相当于
+// 第一次 reduce 相当于
 // (first, second) => (...args) => first(second(...args))
 // 其返回结果是
 // (...args) => first(second(...args))
-// 第二次reduce执行时的accumulator及第一次的返回结果
+// 第二次 reduce 执行时的 accumulator 及第一次的返回结果
 // 所以 (accumulator, third) => (...args) => accumulator(third(...args))
 // 返回结果是 
 // (...args) => accumulator(third(...args))
@@ -141,28 +141,28 @@ const re = funcs.reduce((a, b) => (...args) => a(b(...args)))
 // 上述代码中有一个地方要理解一下
 // const test = (...args) => f(...args)
 // 在参数中的...其实起到的是收集的作用，会将我们调用时传入的所有参数放到args这个数组中
-// 而在f(...args)中的...起到的是解构的作用
-// 又会将args数组中的所有元素依次作为参数传到f这个函数中
-// 假设我们test(1, 2, 3)这样调用则其返回结果其实就是f(1, 2, 3)
+// 而在 f(...args) 中的...起到的是解构的作用
+// 又会将 args 数组中的所有元素依次作为参数传到f这个函数中
+// 假设我们 test(1, 2, 3) 这样调用则其返回结果其实就是 f(1, 2, 3)
 // 所以这种做法其实就是在我们不确定一个函数入参个数的情况下
 // 将所有入参原封不动的按照原有顺序传入到调用函数中
-// 按照老的方式其实就是借助arguments来实现
+// 按照老的方式其实就是借助 arguments 来实现
 // es6
 const test = (...args) => f(...args)
-// Babel编译后
+// Babel 编译后
 var test = function test() {
 	return f.apply(undefined, arguments)
 }
 
-// 从上述分析可以得出 re其实就等同于
+// 从上述分析可以得出 re 其实就等同于
 // (...args) => first(second(third(...args))
-// 当我们调用re()就等同于
+// 当我们调用 re() 就等同于
 // first(second(third())
 // 所以输出是 3 2 1
 re() // 3 2 1
 
 // 通过对传入函数的特殊处理 可以使这个过程变为正序
-// Redux的middleWare就是借助这种原理
+// Redux 的 middleWare 就是借助这种原理
 const a = next => arg => { console.log(arg); next('b'); }
 const b = next => arg => { console.log(arg); next('c'); }
 const c = next => arg => { console.log(arg); next('d'); }
@@ -189,29 +189,29 @@ compose(a,b,c)(d)('a')
 对外提供应用中间件的接口
 ```js
 export default function applyMiddleware(...middlewares) {
-	// 注意applyMiddleware是一个高阶函数
-	// 返回值是一个入参为createStore的函数
+	// 注意 applyMiddleware 是一个高阶函数
+	// 返回值是一个入参为 createStore 的函数
 	return createStore => (...args) => {
-		// 当需运用中间件时 createStore在此处真正执行
+		// 当需运用中间件时 createStore 在此处真正执行
 		const store = createStore(...args)
 		
-		// 如果middleware在执行自己的逻辑过程中调用dispatch则抛出错误
+		// 如果 middleware 在执行自己的逻辑过程中调用 dispatch 则抛出错误
 		let dispatch = () => { throw new Error('...') }
 		
-		// 只提供给中间件有限的API而不是全部store
+		// 只提供给中间件有限的 API 而不是全部 store
 		const middlewareAPI = {
 			getState: store.getState,
 			dispatch: (...args) => dispatch(...args)
 		}
-		// 要注意此时如果在middleware中执行 middlewareAPI.dispatch() 会抛出错误
-		// 由于Redux规定middleware形如 store => next => action => {} 的函数
-		// 这样处理过后在chain中存放的便是形如 next => action => {} 的函数
+		// 要注意此时如果在 middleware 中执行 middlewareAPI.dispatch() 会抛出错误
+		// 由于 Redux 规定 middleware 形如 store => next => action => {} 的函数
+		// 这样处理过后在 chain 中存放的便是形如 next => action => {} 的函数
 		const chain = middlewares.map(middleware => middleware(middlewareAPI))
-		// 这里的dispatch是已经实现了中间件逻辑后的dispatch方法
+		// 这里的 dispatch 是已经实现了中间件逻辑后的 dispatch 方法
 		dispatch = compose(...chain)(store.dispatch)
 		
 		// 这里利用了解构会去重的特性
-		// 会将store.dispatch覆盖为包含中间件逻辑的新dispatch
+		// 会将 store.dispatch 覆盖为包含中间件逻辑的新 dispatch
 		return {
 			...store,
 			dispatch
@@ -221,21 +221,21 @@ export default function applyMiddleware(...middlewares) {
 ```
 
 ### utils/warning.js
-Redux通过该函数在开发环境下向控制台输出错误或提示信息方便开发者Debug
+Redux 通过该函数在开发环境下输出错误或提示信息方便开发者 Debug
 ```js
 export default function warning(message) {
-	// 为了增强程序的Robusty 只有当前运行的宿主环境存在console
-	// 并且console.error是函数才去调用 使得任何情况下都不会因为该函数报错
+	// 为了增强程序的 Robusty 只有当前运行的宿主环境存在 console
+	// 并且 console.error 是函数才去调用 使得任何情况下都不会因为该函数报错
 	// 从而导致程序终止运行
 	if (typeof console !== 'undefined' && typeof console.error === 'function') {
 		console.error(message)
 	}
 	
-	// 下面这段代码只有当我们打开浏览器的Console
-	// 并开启break on all exceptions功能时
+	// 下面这段代码只有当我们打开浏览器的 Console
+	// 并开启 break on all exceptions 功能时
 	// 才会在每次报错或提示时暂停程序执行(相当在出错的那行打断点)
 	// 否则的话不会有任何作用
-	// 同样是为了方便开发者进行Debug
+	// 同样是为了方便开发者进行 Debug
 	try {
 		throw new Error(message)
 	} catch (e) {}
@@ -243,10 +243,10 @@ export default function warning(message) {
 ```
 
 ### utils/isPlainObject.js
-由于Redux中要求Action必须是Javascript中的Plain Object  
+由于 Redux 中要求 Action 必须是 Javascript 中的 Plain Object  
 所以这个工具函数用于判断一个对象是否满足该条件  
-会在`dispatch(action)`执行最开始处进行判断，如果传入的action不满足条件会抛出错误  
-所谓的Plain Object指的是直接通过`{}`或者`new Object()`生成，原型链上并没有其它对象的Object
+会在 `dispatch(action)` 执行最开始处进行判断，如果传入的action不满足条件会抛出错误  
+所谓的 Plain Object 指的是直接通过 `{}` 或者 `new Object()` 生成，原型链上并没有其它对象的 Object
 ```js
 export function isPlainObject(obj) {
 	// 如果对象都不是当然也不是PlainObject
@@ -254,7 +254,7 @@ export function isPlainObject(obj) {
 	// 因为在Js中 typeof null === 'object'
 	if (typeof obj !== 'object' || obj === null) return false
 	
-	// lodash中的isPlainObject多了这个逻辑
+	// lodash 中的 isPlainObject 多了这个逻辑
 	// 主要考虑到这个特殊情况 const o = Object.create(null)
 	// 此处的o应该也满足条件 isPlainObject(o) // => true
 	if (Object.getPrototypeOf(obj) === null) {
@@ -264,20 +264,20 @@ export function isPlainObject(obj) {
 	let proto = obj
 	// 因为 Object.getPrototypeOf(Object.prototype) === null
 	// 所以当循环结束时 proto 指向的其实就是Object.prototype
-	// 也就是说此时的proto === Object.prototype
+	// 也就是说此时的 proto === Object.prototype
 	while (Object.getPrototypeOf(proto) !== null) {
 		proto = Object.getPrototypeOf(proto)
 	}
 	
-	// 如果传入对象的prototype与Object.prototype一致
-	// 则认为该对象是Plain Object
-	// 所以最终的判断逻辑其实与obj.__proto__ === Object.prototype类似
-	// 上面的代码更多的是在考虑edge case
+	// 如果传入对象的 prototype 与 Object.prototype 一致
+	// 则认为该对象是 Plain Object
+	// 所以最终的判断逻辑其实与 obj.__proto__ === Object.prototype 类似
+	// 上面的代码更多的是在考虑 edge case
 	return Object.getPrototypeOf(obj) === proto
 }
 ```
-Ps: `lodash.isPlainObject`逻辑与上述代码基本一致  
-同样是Redux的timdorr提的PR
+Ps: `lodash.isPlainObject` 逻辑与上述代码基本一致  
+同样是 Redux 的 timdorr 提的 PR
 
 ### index.js
 ```js
@@ -289,7 +289,7 @@ import compose from './compose'
 import warning from './utils/warning'
 import __DO_NOT_USE__ActionTypes from './utils/actionTypes'
 
-// 建立一个函数名为isCrushed的空函数
+// 建立一个函数名为 isCrushed 的空函数
 function isCrushed() {}
 
 // 如果当前的环境不是生成环境但采用了压缩过后的代码则提示开发者
@@ -301,7 +301,7 @@ if (process.env.NODE_ENV !== 'production' &&
 	warning('...')
 }
 
-// 以下为Redux所有对外提供的API
+// 以下为 Redux 所有对外提供的 API
 export {
 	createStore,
 	combineReducers,
@@ -313,53 +313,53 @@ export {
 ```
 
 ### createStore.js
-Redux应用的主入口文件  
+Redux 应用的主入口文件  
 ```js
-// reducer 必传 通常来讲是我们通过combineReducers将所有ruducer集成到一起后的主函数
+// reducer 必传 通常来讲是我们通过 combineReducers 将所有 ruducer 集成到一起后的主函数
 // preloaderState 可选 可以传入的应用初始状态
-// enhancer 可选 也就是applyMiddleware()的返回结果
+// enhancer 可选 也就是 applyMiddleware() 的返回结果
 export default function createStore(reducer, preloadedState, enhancer) {
-	// 由于preloadedState参数是可选的 所以这里考虑的是这么一种情况
+	// 由于 preloadedState 参数是可选的 所以这里考虑的是这么一种情况
 	// createStore(reducer, applyMiddleware())
-	// 这样在不传入preloadedState时就不用像createStore(reducer, null, applyMiddleware())这样调用
+	// 这样在不传入 preloadedState 时就不用像 createStore(reducer, null, applyMiddleware()) 这样调用
 	if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
 		enhancer = preloadedState
 		preloadedState = undefined
 	}
 	
-	// 有传入enhancer 也就是有使用中间件(applyMiddleware)
+	// 有传入 enhancer 也就是有使用中间件(applyMiddleware)
 	if (typeof enhancer !== 'undefined') {
-		// applyMiddleware()返回的应该是一个函数 否则需要报错
+		// applyMiddleware() 返回的应该是一个函数 否则需要报错
 		if (typeof enhancer !== 'function') {
 			throw new Error('Expected the enhancer to be a function.')
 		}
 		
-		// 有使用中间件的话 需要在applyMiddleware去createStore
-		// applyMiddleware()返回的是一个形如 createStore => (...args) => {} 的函数
+		// 有使用中间件的话 需要在 applyMiddleware 去 createStore
+		// applyMiddleware() 返回的是一个形如 createStore => (...args) => {} 的函数
 		// 所以这里会对enhancer(cerateStore)返回的结果再次传入参数(reducer, preloaderState)调用
 		return enhancer(createStore)(reducer, preloaderState)
 	}
 	
-	// reducer也必须为函数
+	// reducer 也必须为函数
 	if (typeof reducer !== 'function') {
 		throw new Error('Expected the reducer to be a function.')
 	}
 	
-	// 利用闭包存储当前的Reducer
-	// 这样就稍后才可通过replaceReducer()方法替换掉当前使用的Reducer
+	// 利用闭包存储当前的 Reducer
+	// 这样就稍后才可通过 replaceReducer() 方法替换掉当前使用的 Reducer
 	let currentReducer = reducer
 	
-	// 同上 整个Redux应用的状态树都是利用闭包存储的
+	// 同上 整个 Redux 应用的状态树都是利用闭包存储的
 	let currentState = preloadedState
 	
 	// 这里要注意 多存了一份当前监听事件函数的备份
 	let currentListeners = []
 	let nextListeners = currentListeners
 	
-	// 用于标识当前是否正在执行dispatch()操作
+	// 用于标识当前是否正在执行 dispatch() 操作
 	let isDispatching = false
 	
-	// 确保nextListeners存的是currentListeners的备份 而不是引用
+	// 确保 nextListeners 存的是 currentListeners 的备份 而不是引用
 	function ensureCanMutateNextListeners() {
 		if (nextListeners === currentListeners) {
 			nextListeners = currentListeners.slice()
@@ -368,8 +368,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	
 	// 简单的把当前闭包所存储的应用状态返回出去
 	function getState() {
-		// 正在执行dispatch操作时不能获取当前状态
-		// 因为当前状态可能会被正在执行的dispatch()操作改变
+		// 正在执行 dispatch 操作时不能获取当前状态
+		// 因为当前状态可能会被正在执行的 dispatch() 操作改变
 		if (isDispatching) {
 			throw new Error('...')
 		}
@@ -377,7 +377,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		return currentState
 	}
 	
-	// 注册监听事件 在每次dispath时都会调用所有注册过的函数
+	// 注册监听事件 在每次 dispath 时都会调用所有注册过的函数
 	function subscribe(listener) {
 		// 注册的listener只能是函数
 		if (typeof listener !== 'function') {
@@ -390,8 +390,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		}
 		
 		// 这里同样利用了闭包
-		// 每次调用都会有独立的isSubscribed状态
-		// 与每个listener一一对应
+		// 每次调用都会有独立的 isSubscribed 状态
+		// 与每个 listener 一一对应
 		let isSubscribed = true
 		
 		ensureCanMutateNextListeners()
@@ -406,16 +406,16 @@ export default function createStore(reducer, preloadedState, enhancer) {
 				return
 			}
 			
-			// 正在执行dispatch操作时不允许取消监听
+			// 正在执行 dispatch 操作时不允许取消监听
 			if (isDispatching) {
 				throw new Error('...')
 			}
 			
-			// 代表这个listener已经取消监听了
+			// 代表这个 listener 已经取消监听了
 			isSubscribed = false
 			
 			ensureCanMutateNextListeners()
-			// 这里也利用了闭包 先找到当前闭包存储的入参listerner在数组中的下标
+			// 这里也利用了闭包 先找到当前闭包存储的入参 listerner 在数组中的下标
 			const index = nextListeners.indexOf(listener)
 			// 移除数组中对应下标存储的元素
 			nextListeners.splice(index, 1)
@@ -424,72 +424,72 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	
 	
 	function dispatch(action) {
-		// 在Redux中Action只能为plain object
+		// 在 Redux 中 Action 只能为 plain object
 		if (!isPlainObject(action)) {
 			throw new Error('...')
 		}
 		
-		// Action的type不能为空
-		// 通常来说type都应该是一个用于描述当前行为的常量字符串
-		// 不知道这里为什么不限制type只能为string
+		// Action 的 type 不能为空
+		// 通常来说 type 都应该是一个用于描述当前行为的常量字符串
+		// 不知道这里为什么不限制 type 只能为 string
 		if (typeof action.type === 'undefined') {
 			throw new Error('...')
 		}
 		
-		// 阻止开发者在reducer中去调用dispatch
+		// 阻止开发者在 reducer 中去调用 dispatch
 		if (isDispatching) {
 			throw new Error('...')
 		}
 		
 		try {
 			isDispatching = true
-			// currentReducer就是当前Redux正在使用的Reducer
-			// 将当前状态树和action传入 返回经reducer处理过后的新状态树
+			// currentReducer 就是当前 Redux 正在使用的 Reducer
+			// 将当前状态树和 action 传入 返回经 reducer 处理过后的新状态树
 			currentState = currentReducer(currentState, action)
 		} finally {
-			// 无论reducer处理过程中是否出错 都需要更改flag
-			// 代表本次dispatch操作结束 否则接下来redux就没法用了
+			// 无论 reducer 处理过程中是否出错 都需要更改 flag
+			// 代表本次 dispatch 操作结束 否则接下来 redux 就没法用了
 			isDispatching = false
 		}
 		
 		// 这里要注意执行顺序
-		// 每次dispatch都会将当前的currentListeners 指向 nextListeners
-		// 所以每次执行的其实都是最新的nextListeners当中存储的的监听事件
-		// 这里就可以理解ensureCanMutateNextListeners()的用处
-		// 每次新增监听或取消监听时都要确保nextListeners是currentListener的拷贝
-		// 这样保证在dispatch过程中的currentListerner不会发生变化
-		// 例如如果我们在一个listener函数中去新subscribe或者unsubscribe
-		// 都不会立马生效 而是只有等到下一次dispatch才会生效
+		// 每次 dispatch 都会将当前的 currentListeners 指向 nextListeners
+		// 所以每次执行的其实都是最新的 nextListeners 当中存储的的监听事件
+		// 这里就可以理解 ensureCanMutateNextListeners() 的用处
+		// 每次新增监听或取消监听时都要确保 nextListeners 是 currentListener 的拷贝
+		// 这样保证在 dispatch 过程中的 currentListerner 不会发生变化
+		// 例如如果我们在一个 listener 函数中去新 subscribe 或者 unsubscribe
+		// 都不会立马生效 而是只有等到下一次 dispatch 才会生效
 		const listeners = (currentListeners = nextListeners)
 		for (let i = 0; i < listeners.length; i++) {
-			// 注意这里的用法 并没有直接像 listeners[i]()这样调用
-			// 因为这样的话listener中的this会指向listeners而不是window
+			// 注意这里的用法 并没有直接像 listeners[i]() 这样调用
+			// 因为这样的话 listener 中的 this 会指向 listeners 而不是 window
 			const listener = listeners[i]
 			listener()
 		}
 		
-		// 将传入的action原封不动返回
+		// 将传入的 action 原封不动返回
 		// 感觉基本来说不会用到这个函数的返回值
 		return action
 	}
 	
-	// 替换当前正在使用的Reducer
+	// 替换当前正在使用的 Reducer
 	function replaceReducer(nextReducer) {
-		// Reducer必须是函数
+		// Reducer 必须是函数
 		if (typeof nextReducer !== 'function') {
 			throw new Error('...')
 		}
 		
-		// 直接将闭包的存储指向新的Reducer
+		// 直接将闭包的存储指向新的 Reducer
 		currentReducer = nextReducer
-		// dispatch一个REPLACE Action 来重新生成新的状态树
+		// dispatch 一个 REPLACE Action 来重新生成新的状态树
 		dispatch({ type: ActionTypes.REPLACE })
 	}
 	
-	// dispatch一个INIT Action 初始化生成Redux的状态树
+	// dispatch 一个 INIT Action 初始化生成Redux的状态树
 	dispatch({ type: ActionTypes.INIT })
 	
-	// 对外主要就提供了四个API
+	// 对外主要就提供了四个 API
 	return {
 		dispatch,
 		subscribe,
@@ -502,10 +502,10 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
 ### combineReducer.js
 由于在大型应用中我们需要管理一个复杂的状态树  
-如果将所有的Action处理逻辑写在同一个Reducer中会很难维护  
-所以大多数情况下我们的项目中会有很多个不同的Reducer文件  
-而Redux的`createStore(reducer)`只接受一个RootReducer作为参数  
-所以这个时候就需要借助Redux提供的这个工具方法将所有的子Reducer合为最终的RootReducer
+如果将所有的 Action 处理逻辑写在同一个 Reducer 中会很难维护  
+所以大多数情况下我们的项目中会有很多个不同的 Reducer 文件  
+而 Redux 的 `createStore(reducer)` 只接受一个 RootReducer 作为参数  
+所以这个时候就需要借助 Redux 提供的这个工具方法将所有的子 Reducer 合为最终的 RootReducer
 其主要作用如下  
 ```js
 // 应用的状态树
@@ -516,16 +516,16 @@ const state = {
 
 const reducerA = (a, action) => {}
 const reducerB = (b, action) => {}
-// 自己手动来生成RootReducer
+// 自己手动来生成 RootReducer
 const rootReducer = (state, action) => {
 	return {
 		a: reducerA(state.a, action),
 		b: reducerB(state.b, action)
 	}
 }
-// 借助combineReducer
-// 入参中的key需要与state中的key相对应
-// 子Reducer的函数名可以任意 并无影响
+// 借助 combineReducer
+// 入参中的 key 需要与 state 中的 key 相对应
+// 子 Reducer 的函数名可以任意 并无影响
 const rootReducer = combineReducer({
 	a: reducerA,
 	b: reducerB
@@ -537,7 +537,7 @@ import ActionTypes from './utils/actionTypes'
 import warning from './utils/warning'
 import isPlainObject from './utils/isPlainObject'
 
-// 用于生成当有Reducer返回的state为undefined时的错误描述
+// 用于生成当有 Reducer 返回的 state 为 undefined 时的错误描述
 function getUndefinedStateErrorMessage(key, action) {
 	const actionType = action && action.type
 	const actionDescription =
@@ -545,23 +545,23 @@ function getUndefinedStateErrorMessage(key, action) {
 	return '...'
 }
 
-// 用于生成在入参的key与state中的key有不一致时生成错误描述
+// 用于生成在入参的 key 与 state 中的 key 有不一致时生成错误描述
 function getUnexpectedStateShapeWarningMessage() {}
 
-// 判断传入的reducer是否都合规 否则抛出错误
+// 判断传入的 reducer 是否都合规 否则抛出错误
 function assertReducerShape(reducers) {
 	Object.keys(reducers).forEach(key => {
 		const reducer = reducers[key]
-		// 用初始化的Action去生成默认的state
+		// 用初始化的 Action 去生成默认的 state
 		const initialState = reducer(undefined, { type: ActionTypes.INIT })
-		// 如果有reducer没有提供默认的state则抛出错误
-		// 所以如果即使当我们希望一个reducer默认不返回值时应该显示的返回null
+		// 如果有 reducer 没有提供默认的 state 则抛出错误
+		// 所以如果即使当我们希望一个 reducer 默认不返回值时应该显示的返回null
 		if (initialState === undefined) {
 			throw new Error()
 		}
 		
-		// 当传一个未知type的action到reducer中时
-		// reducer也应该返回一个状态 通常来说是将传入的state 不错修改直接返回
+		// 当传一个未知 type 的 action 到 reducer 中时
+		// reducer 也应该返回一个状态 通常来说是将传入的 state 不错修改直接返回
 		if (typeof reducer(undefined, {
 			type: ActionTypes.PROBE_UNKNOWN_ACTION()
 		}) === 'undefined') {
@@ -570,9 +570,9 @@ function assertReducerShape(reducers) {
 	})
 }
 
-// 将多个子reducer组合返回一个root reducer函数
+// 将多个子 reducer 组合返回一个 root reducer 函数
 export default function combineReducers(reducers) {
-	// 拿到入参对象的所有key
+	// 拿到入参对象的所有 key
 	const reducerKeys = Object.keys(reducers)
 	const finalReducers = {}
 	
@@ -582,13 +582,13 @@ export default function combineReducers(reducers) {
 		// 只有在开发环境下进行警告提示
 		if (process.env.NODE_ENV !== 'production') {
 			// 不是很理解这个判断
-			// 只有当入参对象的value中有undefined时才会警告
+			// 只有当入参对象的 value 中有 undefined 时才会警告
 			if (typeof reducers[key] === 'undefined') {
 				warning('...')
 			}
 			
-			// 这一步会过滤掉入参中value不是函数的部分
-			// 确保fianalReducers中的每个value都是一个函数
+			// 这一步会过滤掉入参中 value 不是函数的部分
+			// 确保 fianalReducers 中的每个 value 都是一个函数
 			if (typeof reducers[key] === 'function') {
 				finalReducers[key] = reducers[key]
 			}
@@ -612,7 +612,7 @@ export default function combineReducers(reducers) {
 		}
 		
 		return function combination(state = {}, action) {
-			// 当Reducer格式有误时 终止执行 抛出错误
+			// 当 Reducer 格式有误时 终止执行 抛出错误
 			if (shapeAssertionError) {
 				throw shapeAssertionError
 			}
@@ -632,15 +632,15 @@ export default function combineReducers(reducers) {
 				const reducer = finalReducers[key]
 				const previouStateForKey = state[key]
 				const nextStateForKey = reducer(previousStateForKey, action)
-				// Reducer处理过后的状态不能返回为空
+				// Reducer 处理过后的状态不能返回为空
 				if (typeof nextStateForKey === 'undefined') {
 					throw new Error('...')
 				}
 				nextState[key] = nextStateForKey
-				// 判断经Reducer处理后的状态前后是否发生变化
+				// 判断经 Reducer 处理后的状态前后是否发生变化
 				hasChanged = hasChanged || nextStateForKey !== previousStateForKey
 			}
-			// 注意 对于Redux而言 整个状态树中只要有一处发生变化 则视为其有过变化
+			// 注意 对于 Redux 而言 整个状态树中只要有一处发生变化 则视为其有过变化
 			return hasChanged ? nextState : state
 		}
 	}
@@ -648,42 +648,42 @@ export default function combineReducers(reducers) {
 ```
 
 ### bindActionCreators.js
-在Redux中我们每次先通过ActionCreator去生成一个Action  
-然后再通过`dispatch(action)`来触发状态的改变  
-有时候我们想要把Redux的相关逻辑放到父组件中  
-然后将改变状态的函数传入子组件，这个时候就需要利用bindActionCreators  
-该函数可以将create action以及dispatch这俩步操作绑定在一起  
-这样每次通过绑定后的Creator去生成Action时会同时进行dispatch操作
+在 Redux 中我们每次先通过 ActionCreator 去生成一个 Action  
+然后再通过 `dispatch(action)` 来触发状态的改变  
+有时候我们想要把 Redux 的相关逻辑放到父组件中  
+然后将改变状态的函数传入子组件，这个时候就需要利用 bindActionCreators  
+该函数可以将 create action 以及 dispatch 这俩步操作绑定在一起  
+这样每次通过绑定后的 Creator 去生成 Action 时会同时进行 dispatch 操作
 ```js
 function bindActionCreator(actionCreator, dispatch) {
-	// 返回一个函数 执行会先Create Action  
-	// 然后dispatch这个生成的Action
+	// 返回一个函数 执行会先 Create Action  
+	// 然后 dispatch 这个生成的 Action
 	return function () {
 		dispatch(actionCreator.apply(this, arguments))
 	}
 }
 
 export default bindActionCreators(actionCreators, dispatch) {
-	// 传入单个creator
-	// 直接返回绑定后的creator
+	// 传入单个 Creator
+	// 直接返回绑定后的 Creator
 	if (typeof actionCreators === 'function') {
 		return bindActionCreator(actionCreators, dispatch)
 	}
 	
-	// 传入的actionCreators既不是函数也不是对象则抛出错误
+	// 传入的 actionCreators 既不是函数也不是对象则抛出错误
 	if (typeof actionCreators !== 'object' || typeof actionCreators === null) {
 		throw new Error('')
 	}
 	
 	const keys = Object.keys(actionCreators)
-	// 用于存储绑定后的Creator
+	// 用于存储绑定后的 Creator
 	const boundActionCreators = {}
 	for (let i = 0; i < keys.length; i++) {
 		const key = keys[i]
 		const actionCreator = actionCreators[key]
-		// actionCreator必须是一个函数
+		// actionCreator 必须是一个函数
 		if (typeof actionCreator === 'function') {
-			// 依次绑定每一个Creator
+			// 依次绑定每一个 Creator
 			boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
 		}
 	}
