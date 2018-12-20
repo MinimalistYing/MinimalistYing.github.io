@@ -51,6 +51,6 @@
     "react-loadable": "^5.4.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "vanilla-antd-message": "0.0.6"
+    "vanilla-antd-message": "0.0.8"
   }
 }
