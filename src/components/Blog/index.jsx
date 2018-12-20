@@ -20,10 +20,12 @@ import CrossOrigin from '@blog/CrossOrigin.md'
 import Npm from '@blog/Npm.md'
 import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
 import XSSCSRF from '@blog/XSS&CSRF.md'
+import Ajax from '@blog/Ajax.md'
 
 import './style.less'
 
 const blogs = [
+	Ajax,
 	XSSCSRF,
 	CookieAndWebStorage,
 	Npm,
