@@ -136,3 +136,14 @@ Ps:知乎在内容收起时的渐变透明文字遮罩的实现方式
 在Less 1.x和2.x的版本中会默认的对calc中的数值进行计算，从而导致一些意外的结果，例如  
 `height: calc(100vh - 20px)`经less编译后的结果是80vh，很明显与我们想要的不符  
 为了避免这个问题需要采用`height: calc(~"100vh - 20px")`这样的写法(Ps: Less 3.x版本已修复这个问题)
+
+---
+
+CSS 中如下几个伪类选择器中 n 的值不止支持数字类型还支持关键字 (odd / even) 以及公式 (an + b)
+* nth-child(n)
+* nth-last-child(n)
+* nth-of-type(n)
+* nth-last-of-type(n)
+
+例如 `p:nth-child(even)` 可以选择所有父元素中下标为偶数的 `<p>` 元素  
+又例如 `p:nth-child(3n+1)` 可以选择所有父元素中下标为 3 的倍数加 1 的 `<p>` 元素
