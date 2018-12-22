@@ -18,9 +18,7 @@ class Header extends React.Component {
 			           	</li>
 			            <li><a href="https://jsfiddle.net/user/MinimalistYing/fiddles/" target="_blank">CodeBase</a></li>
 			            <li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li>
-			            {/*
-			            <li><a href="https://www.hackerrank.com/MinimalistYing" target="_blank">HackerRank</a></li>
-			            */}
+			            <li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li>
 			            <li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li>
 			        </ul>
 			    </nav>
