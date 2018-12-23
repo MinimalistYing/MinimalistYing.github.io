@@ -399,3 +399,352 @@ window.btoa('a') // "YQ=="
 // ASCII to Binary 解码
 window.atob('YQ==') // "a"
 ```
+
+---
+
+Javascript `catch` 块中申明的变量具有块级作用域（小技巧 应该不会用到）
+```js
+try {
+	throw undefined
+} catch(a) {// 这里的a具有块级作用域
+	a = 1
+  console.log(a)
+}
+console.log(a)// Uncaught ReferenceError: a is not defined
+```
+
+---
+
+关于 Closure 的几个代码片段
+
+```js
+// var let const 不会影响Closure
+function foo() {
+	var a = 1
+	let b = 2
+	const c = 3
+	function bar() {
+		console.log(a, b, c)
+	}
+  
+	return bar
+}
+
+foo()()
+
+// Arrow Function不会影响Closure
+var foo = () => {
+	var a = 1
+	let b = 2
+	const c = 3
+	return () => console.log(a, b, c)
+}
+
+foo()()
+
+// setTimeout会创建一个Closure
+function wait(message) {
+	setTimeout(() => {
+		console.log(message)
+	}, 1000)
+}
+
+wait('hi')
+```
+
+---
+
+在条件语句中申明函数会出现的情况
+
+```js
+// 不建议使用这种形式
+// 估计许多语法校验工具会视这种写法为错误写法
+
+// 按照ES6的  Block-Scoped Function
+// 理论上调用a()和b()时应该报错
+if (true) {
+	function a(){
+		console.log('1')
+	}
+} else {
+	function a(){
+		console.log('2')
+	}
+} 
+a() // 1
+
+if (false) {
+	function b(){
+		console.log('1')
+	}
+} else {
+	function b(){
+		console.log('2')
+	}
+} 
+b() // 2
+```
+
+---
+
+一种特殊的数组去重方法，不考虑兼容性的话最好直接使用 `Array.from(new Set(originArr))` 
+
+```js
+// 该方法有个缺陷
+// 不能兼容一些特殊情况 因为JSON.stringify()方法有一些特例
+function unique(arr) {
+	let obj = {}
+  
+  arr.map(item => {
+  	let key = JSON.stringify(item) + typeof item // 避免基本类型 类似 1与'1' stringify后作为key相同
+    
+    obj[key] = item// 利用JS对象的key不能重复的特性
+  })
+  
+  console.log(Object.values(obj))// 打印结果数组
+}
+// 注意以下特例
+unique([undefined,'undefined',null,'null',NaN,'NaN',Infinity,'Infinity',-Infinity,'-Infinity'])
+// 无法进行深度比较 也就无法区分 [1,2,3] 和 [1,2,3] 类似这样的引用类型
+function uniqueBySet(arr) {
+	console.log(Array.from(new Set(arr)))
+}
+
+let test1 = [1,'1',1,true,true,'true']
+unique(test1)
+uniqueBySet(test1)
+let test2 = [[1,2,3], [1,2,3], {a : 1}, {a : '1'}, {b : 1}, {b : 1}]
+unique(test2)
+uniqueBySet(test2)
+let test3 = [undefined, 'undefined', undefined, null, 'null']
+unique(test3)
+uniqueBySet(test3)
+let a = {a : 1}
+let test4 = [a , a,  {a:1}]
+unique(test4)
+uniqueBySet(test4)
+```
+
+---
+
+一些有关 Javascript 变量提升的实例
+
+```js
+(function() {
+  var a = b = 1;// var 声明的是a 导致b其实是一个全局变量
+})();
+
+console.log(b)// 1
+console.log(typeof a)//undefined 注意 如果直接试图使用a变量会抛出错误 但在typeof操作符后就不会
+console.log(a)// Uncaught ReferenceError: a is not defined
+
+
+(function() {
+	'use strict'// 严格模式下不加var声明会直接报错
+	var a = b = 1;// Uncaught ReferenceError: b is not defined
+})();
+
+
+// 函数声明会提升 函数表达式不会
+(function test() {
+   console.log(a);// undefined
+   console.log(foo());// 2
+   console.log(bar());// Uncaught TypeError: bar is not a function
+   var a = 1;
+   function foo() {// 函数声明
+      return 2;
+   }
+   var bar = function () {// 函数表达式
+   		return 2;
+   }
+})()
+
+
+/*
+相当于
+var a
+function a(){ return 1 }
+a=123
+console.log(a)
+*/
+var a=123;
+function a(){ return 1 }
+console.log(a);//123 
+
+
+/*
+相当于
+var a
+function a(){ return 1 }
+a()
+*/
+function a(){ return 1 }
+var a;
+a();// 1
+
+/**
+const和let不会申明提升？
+*/
+typeof a; var a=1;
+typeof a; const a=1; //Uncaught ReferenceError: a is not defined
+typeof a; let a=1; //Uncaught ReferenceError: a is not defined
+
+
+```
+
+---
+
+利用解构实现交换俩个变量的值，并且无需中间变量
+```js
+var x = 1, y = 2;
+[ y, x ] = [ x, y ];
+```
+
+---
+
+利用Function.prototype更快捷的创建一个空函数
+
+```js
+var cb = Function.prototype; // 相当于 var cb = function(){}
+```
+
+---
+
+关于函数参数同时采用解构以及默认参数时的细微不同
+
+```js
+function test( { x = 1 } = {}, { y } = { y: 1 }) {
+	console.log(x,y)
+}
+test() // 1,1
+test({}, {}) // 1,undefined
+```
+
+---
+
+在 ES6 的对象方法中使用 `super` 
+```js
+// 注意只能在采用简写的函数中使用且只能用super,xx()的形式不能用super()的形式
+var parent = {
+	foo() {
+  	console.log('parent')
+  }
+}
+
+var son = {
+	foo() {
+  	super.foo()
+    console.log('son')
+  }
+}
+
+Object.setPrototypeOf(son, parent)
+son.foo() // parent son
+```
+
+---
+
+JavaScript 实现大数相加
+```js
+/**
+*	在JS中超出Math.pow(2,53) 也就是 9007199254740992 的整数会失去精度
+* 	包括通过parseInt()无法正确转化 在console中无法直接输出等 只能通过字符串的形式进行操作或传输
+**/
+// 入参 字符串形式的大数a和b
+function sum(a, b) {
+	a = a.split('')
+  b = b.split('')
+  let c = 0
+  let result = ''
+  while (a.length || b.length || c > 0) {
+  	c += ~~a.pop() + ~~b.pop() //各位对应相加 结果可能是0~18
+    result = c%10 + result
+    c = c>9 ? ~~(c/10) : 0 // 处理可能的进位
+  }
+  
+  return result.replace(/^0+/,'') // 处理以0开头的数字
+}
+
+console.log(sum('9007199254740992', '1007199254740992'))
+```
+
+---
+
+关于 ES6 新引入的 Regexp Sticky Mode (适用于匹配一串以一定规则重复的字符串)
+```js
+var reg = /foo/
+var regSticky = /foo/y
+var str = '***foo***'
+
+reg.test(str) // true
+reg.lastIndex = 4
+reg.test(str) // true
+
+regSticky.test(str) // false
+regSticky.lastIndex = 3 // 只有在lastIndex处完全匹配 才算做匹配成功
+regSticky.test(str) // true
+console.log(regSticky.lastIndex) // 6 匹配成功会将lastIndex移动至匹配结果后紧接着的index
+regSticky.test(str) // false
+console.log(regSticky.lastIndex) // 0 匹配失败会将lastIndex重置为0
+```
+
+---
+
+Iterator 实现斐波那契数列
+```js
+const febonacci = {
+	[Symbol.iterator]() {
+  	let a = 1
+    let b = 1
+    return {
+    	next() {
+      	const value = b
+        let done = b >= 1000 // 超过1000结束迭代
+        b = a
+        a = value + a       
+        
+        return {
+        	value,
+          done
+        }
+      },
+      return() {
+      	console.log('Stop iterate')
+      	return { done: true }
+      }
+    }
+  }
+}
+
+for (let i of febonacci) {
+	console.log(i)
+  if (i > 500) {
+  	break;
+  }
+}
+```
+
+---
+
+JavaScript 实现数组乱序
+```js
+const arr = [1,2,3,4,5,6,7,8,9,10]
+
+// 错误的方法 以下代码并不能做到真正乱序
+// 由于Array.sort()内部的实现方式导致
+// Array.prototype.sort(comparefn)
+// Calling comparefn(a,b) always returns the same value v when given a specific pair of values a and b as its two arguments.
+arr.sort(() => Math.random() - 0.5)
+
+// 进阶班 保证对于相同的a,b arr.sort()比较产生的结果相同
+const random = arr.map(Math.random);
+arr.sort((a, b) => random[a] - random[b]);
+
+// Fisher–Yates shuffle
+let i = arr.length
+while(i) {
+	const random = Math.floor(Math.random()*i);
+  i--;
+  [arr[i], arr[random]] = [arr[random], arr[i]]
+}
+```
