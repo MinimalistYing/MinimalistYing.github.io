@@ -748,3 +748,41 @@ while(i) {
   [arr[i], arr[random]] = [arr[random], arr[i]]
 }
 ```
+
+---
+
+最新的 ES 提案在 `Class` 内可以通过 `#` 申明私有属性
+```js
+class Foo {
+	#foo = 5
+	#bar = 6
+	test() {
+		console.log(this.#foo, this.#bar)
+	}
+}
+```
+
+---
+
+给定一组数 `1 2 3 4 5 6 7 8 9` 在其间隔处任意加上 `+ - * / 空白` 五种操作符  
+列出其所有计算结果为 `100` 的组合
+```js
+const num = [2, 3, 4, 5, 6, 7, 8, 9]
+const operators = ['', '+', '-' , '*', '/']
+
+function recursive(t, i) {
+	let str
+	for (let operator of operators) {
+		str = t + operator + num[i]
+		if (i >= 7) {
+			if (eval(str) === 100) console.log(str, eval(str))
+		} else {
+			recursive(str, i+1)
+		}
+	}
+}
+
+// 以 1 为起始进行递归
+recursive('1', 0)
+
+```
