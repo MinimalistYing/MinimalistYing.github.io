@@ -60,3 +60,63 @@ React-Router采用动态路由的形式时页面报错 `The root route must rend
 可能是因为React组件是采用ES6的 `export default` 导出，
 而React-Router是采用CommonJS来 `require` 所以需要在导出的组件后加上 `.default` 
 类似 `require('components/Comp')).default`
+
+---
+
+初学者在 React 中处理事件时会碰到 `this` 指向为 `undefined` 的问题
+```js
+class Button extends React.Component {
+	handleClick() {
+		console.log(this)
+	}
+	
+	render () {
+		return <button onClick="this.handleClick"></button>
+	}
+}
+```
+如果在页面上点击上述组件会发现打印出来的是 `undefined`  
+当我们想要在函数中通过 `this.setState()` 去改变组件状态时会报错  
+解决这个问题可以通过下面三种方式
+```js
+class Button extends React.Component {
+	constructor() {
+		// 借助 Function.prototype.bind
+		this.handleClick = this.handleClick.bind(this)
+	}
+	handleClick() {
+		console.log(this)
+	}
+	
+	render() {
+		return <button onClick={this.handleClick}></button>
+	}
+}
+```
+```js
+class Button extends React.Component {
+	// 使用 public class fields syntax 来声明函数
+	handleClick = () => {
+		console.log(this)
+	}
+	
+	render() {
+		return <button onClick={this.handleClick}></button>
+	}
+}
+```
+```js
+class Button extends React.Component {
+	handleClick() {
+		console.log(this)
+	}
+	
+	// 借助箭头函数
+	// 这种方式的缺点是每次 Button 组件的重绘都需要生成一个新函数
+	// 当这个函数被当作 props 传入子组件时 可能会导致不必要的重绘
+	// 所以更推荐采用先前的俩种方式
+	render() {
+		return <button onClick={e => this.handleClick(e)}></button>
+	}
+}
+```
