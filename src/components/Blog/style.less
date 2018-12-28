@@ -20,6 +20,29 @@
 	}
 }
 
+.blogs-category {
+	position: fixed;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 220px;
+	max-height: 100vh;
+	background: #333;
+	color: #fff;
+	list-style-type: none;
+	padding: 80px 20px;
+	margin: 0;
+
+    li {
+    	cursor: pointer;
+    	margin: 6px 0;
+
+    	&:hover {
+    		color: #ace4df;
+    	}
+    }
+}
+
 @media screen and (max-width: 1024px) {
 	.blogs {
 		margin-left: 0;
@@ -28,8 +51,15 @@
 	.blog {
 		overflow-x: scroll;
 	}
+
+	.blogs-category {
+		display: none;
+	}
 }
 
 @media screen and (min-width: 1024px) {
-
+	.blogs {
+		align-items: flex-end;
+	    padding-right: 15vw;
+	}
 }

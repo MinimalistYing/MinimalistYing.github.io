@@ -49,6 +49,26 @@ const blogs = [
 ]
 
 class MyBlog extends React.Component {
+	constructor() {
+		super()
+		this.state = {
+			categories: []
+		}
+	}
+
+	componentDidMount() {
+		const titles = document.querySelectorAll('h1')
+		const categories = Array.from(titles).map(title => {
+			return {
+				name: title.innerText,
+				scroll: title.offsetTop
+			}
+		})
+		this.setState({
+			categories
+		})
+	}
+
 	render() {
 		return (
 			<div className="blogs">
@@ -59,6 +79,13 @@ class MyBlog extends React.Component {
 						</div>
 					))
 				}
+				<ul className="blogs-category">
+					{
+						this.state.categories.map((item, index) => (
+							<li key={index} onClick={() => window.scrollTo(0, item.scroll - 80)}>{item.name}</li>
+						))
+					}
+				</ul>
 			</div>
 		)
 	}
