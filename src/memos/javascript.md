@@ -786,3 +786,27 @@ function recursive(t, i) {
 recursive('1', 0)
 
 ```
+
+---
+
+关于 JavaScript 中的 Timer `setTimeout` 以及 `setInterval`
+* 每次调用会返回一个自增的 ID 用于传入 `clearTimeout` 以及`clearInterval` 来清除计时器
+* 由于 JavacScript 是单线程的，所以这俩个函数并不能确保一定会在指定时间到达后立即执行  
+```js
+// 输出必定会在 100ms 的时间后
+// 因为线程被循环阻塞
+console.time('执行间隔')
+setTimeout(() => console.timeEnd('执行间隔'), 100)
+
+for (let i=0; i<1000000000; i++){}
+```
+* 不传入延时参数时默认为 0ms，哪怕延时 0ms 也是异步，只有主线程空闲时才执行
+```js
+// 输出顺序为 2 1
+// 并不会按正常执行顺序输出
+setTimeout(() => console.log(1))
+
+console.log(2)
+```
+
+Ps: 还有一个 IE 专属的 `setImmediate` 可以理解为 `setTimeout(0)` 的替代，在此不做展开
