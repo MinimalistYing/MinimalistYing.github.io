@@ -793,7 +793,7 @@ recursive('1', 0)
 * 每次调用会返回一个自增的 ID 用于传入 `clearTimeout` 以及`clearInterval` 来清除计时器
 * 由于 JavacScript 是单线程的，所以这俩个函数并不能确保一定会在指定时间到达后立即执行  
 ```js
-// 输出必定会在 100ms 的时间后
+// 超出 100ms 一段时间后才会输出
 // 因为线程被循环阻塞
 console.time('执行间隔')
 setTimeout(() => console.timeEnd('执行间隔'), 100)
@@ -807,6 +807,19 @@ for (let i=0; i<1000000000; i++){}
 setTimeout(() => console.log(1))
 
 console.log(2)
+```
+* `setInterval` 所指的间隔并不是指多长时间执行一次，而是多长时间将该函数放到执行队列中一次  
+所以当传入其中的函数执行时间超过所设的间隔时间时，函数真实的执行间隔可能为 0ms
+```js
+let i = 0;
+const start = Date.now();
+const timer = setInterval(() => {
+    i++;
+    i === 5 && clearInterval(timer);
+    console.log(`第${i}次开始`, Date.now() - start);
+    for(let i = 0; i < 100000000; i++) {}
+    console.log(`第${i}次结束`, Date.now() - start);
+}, 100);
 ```
 
 Ps: 还有一个 IE 专属的 `setImmediate` 可以理解为 `setTimeout(0)` 的替代，在此不做展开
