@@ -21,10 +21,16 @@ import Npm from '@blog/Npm.md'
 import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
 import XSSCSRF from '@blog/XSS&CSRF.md'
 import Ajax from '@blog/Ajax.md'
+import BinaryTreeType from '@blog/BinaryTreeType.md'
+import ArraySort from '@blog/ArraySort.md'
+import WhyPreflight from '@blog/WhyPreflight.md'
 
 import './style.less'
 
 const blogs = [
+	WhyPreflight,
+	ArraySort,
+	BinaryTreeType,
 	Ajax,
 	XSSCSRF,
 	CookieAndWebStorage,
