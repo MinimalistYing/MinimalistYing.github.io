@@ -383,8 +383,8 @@ setTimeout(() => {
 
 ---
 
-Javascript 中一共有六种种原始类型(primitive type)  
-string/boolean/number/null/undefined/symbol(ES6 新增)
+Javascript 中一共有六种种原始类型( primitive type )  
+string/boolean/number/null/undefined/symbol( ES6 新增 )
 
 ---
 
@@ -402,7 +402,7 @@ window.atob('YQ==') // "a"
 
 ---
 
-Javascript `catch` 块中申明的变量具有块级作用域（小技巧 应该不会用到）
+Javascript `catch` 块中申明的变量具有块级作用域（小技巧 应该用不到）
 ```js
 try {
 	throw undefined
@@ -792,6 +792,7 @@ recursive('1', 0)
 关于 JavaScript 中的 Timer `setTimeout` 以及 `setInterval`
 * 每次调用会返回一个自增的 ID 用于传入 `clearTimeout` 以及`clearInterval` 来清除计时器
 * 由于 JavacScript 是单线程的，所以这俩个函数并不能确保一定会在指定时间到达后立即执行  
+
 ```js
 // 超出 100ms 一段时间后才会输出
 // 因为线程被循环阻塞
@@ -801,6 +802,7 @@ setTimeout(() => console.timeEnd('执行间隔'), 100)
 for (let i=0; i<1000000000; i++){}
 ```
 * 不传入延时参数时默认为 0ms，哪怕延时 0ms 也是异步，只有主线程空闲时才执行
+
 ```js
 // 输出顺序为 2 1
 // 并不会按正常执行顺序输出
@@ -810,6 +812,7 @@ console.log(2)
 ```
 * `setInterval` 所指的间隔并不是指多长时间执行一次，而是多长时间将该函数放到执行队列中一次  
 所以当传入其中的函数执行时间超过所设的间隔时间时，函数真实的执行间隔可能为 0ms
+
 ```js
 let i = 0;
 const start = Date.now();
