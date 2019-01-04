@@ -823,3 +823,21 @@ const timer = setInterval(() => {
 ```
 
 Ps: 还有一个 IE 专属的 `setImmediate` 可以理解为 `setTimeout(0)` 的替代，在此不做展开
+
+---
+
+项目中开发接入支付宝跳转流程时碰到了一个问题  
+需要通过 Ajax 向后台请求跳转 URL 并通过 `window.open()` 在新窗口中打开  
+由于浏览器限制只允许在 Dom 事件处理函数中通过 `window.open()` 来打开新页面  
+所以如果直接在请求成功的回调函数中进行操作会发现打开新窗口的操作被浏览器拦截  
+需要用户确认允许该页面弹窗才能正常跳转  
+该问题的最终解决方案如下
+```js
+function onClick() {
+	// 先在点击事件中打开原项目的中转页
+	const newWindow = window.open('redirect.html', '_blank')
+	axios.post('xxx')
+	.then(url => newWindow.location.href = url) // 请求成功 将新页面的地址修改为后台返回的 URL
+	.catch(err => newWindow.close()) // 请求失败 关闭新开的窗口
+}
+```
