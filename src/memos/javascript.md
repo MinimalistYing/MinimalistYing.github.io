@@ -841,3 +841,19 @@ function onClick() {
 	.catch(err => newWindow.close()) // 请求失败 关闭新开的窗口
 }
 ```
+
+---
+如何判断一个函数是正常被调用还是通过 `new` 当作构造函数调用
+```js
+function Foo() {
+	// 严格模式下 this 为 undefined
+	if (this === window || typeof this === undefined) {
+		console.log('普通调用')
+	}
+	
+	// 构造函数中的 this 指向新创建的实例
+	if (this instanceof Foo) {
+		console.log('构造函数调用')
+	}	
+}
+```
