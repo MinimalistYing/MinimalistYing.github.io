@@ -1,4 +1,5 @@
 import React from 'react'
+import Scroll from 'iscroll'
 import Markdown from '@/Markdown'
 import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
 import GulpPlugin from '@blog/GulpPlugin.md'
@@ -73,6 +74,12 @@ class MyBlog extends React.Component {
 		this.setState({
 			categories
 		})
+
+		setTimeout(() => new Scroll(document.getElementById('category'), {
+			mouseWheel: true,
+			scrollbars: true,
+			fadeScrollbars: true
+		}))
 	}
 
 	render() {
@@ -85,13 +92,15 @@ class MyBlog extends React.Component {
 						</div>
 					))
 				}
-				<ul className="blogs-category">
-					{
-						this.state.categories.map((item, index) => (
-							<li key={index} onClick={() => window.scrollTo(0, item.scroll - 80)}>{item.name}</li>
-						))
-					}
-				</ul>
+				<div id="category"className="category-box">
+					<ul className="blogs-category">
+						{
+							this.state.categories.map((item, index) => (
+								<li key={index} onClick={() => window.scrollTo(0, item.scroll - 80)}>{item.name}</li>
+							))
+						}
+					</ul>
+				</div>
 			</div>
 		)
 	}

@@ -26,6 +26,9 @@ const all = [
 	...webpack.split('---'),
 ]
 
+// 按照字数从多到少排列
+all.sort((a, b) => a.length - b.length)
+
 class Memos extends React.Component {
 	render() {
 		return (
