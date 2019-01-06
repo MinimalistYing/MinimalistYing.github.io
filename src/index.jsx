@@ -11,11 +11,10 @@ import Loadable from 'react-loadable'
 
 import {
 	Header,
+	Loading
 } from './components'
 
 import './less/main.less'
-
-const Loading = () => <div>Loading...</div>
 
 const Blog = Loadable({
 	loader: () => import('./components/Blog'),

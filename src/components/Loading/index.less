@@ -1,0 +1,47 @@
+.loading-box {
+	width: 60vw;
+	height: 100vh;
+	margin-top: 100px;
+	margin-left: 50%;
+	transform: translateX(-50%);
+	background: white;
+    padding: 20px;
+    border: 1px solid #ebedf0;
+
+	.skeleton-content {
+	    display: block;
+	    vertical-align: top;
+	    width: 100%;
+	}
+
+	.skeleton-title {
+	    margin-top: 16px;
+	    height: 16px;
+	    background: #f2f2f2;
+	    width: 38%;
+	}
+
+	.skeleton-paragraph {
+	    margin-top: 24px;
+	    padding-left: 0;
+
+	    li {
+	    	width: 100%;
+	    }
+
+	    li:nth-child(6n) {
+	    	width: 60%;
+	    	margin-bottom: 22px;
+	    }
+	}
+
+	.skeleton-paragraph > li {
+	    height: 16px;
+	    background: #f2f2f2;
+	    list-style: none;
+	}
+
+	.skeleton-paragraph > li + li {
+	    margin-top: 16px;
+	}
+}
