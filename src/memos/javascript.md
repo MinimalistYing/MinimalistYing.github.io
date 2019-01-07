@@ -848,6 +848,7 @@ function onClick() {
 ```
 
 ---
+
 如何判断一个函数是正常被调用还是通过 `new` 当作构造函数调用
 ```js
 function Foo() {
@@ -861,4 +862,13 @@ function Foo() {
 		console.log('构造函数调用')
 	}	
 }
+```
+
+---
+
+```js
+// 因为都是构造函数？
+typepf Object // => function
+typeof Array // => function
+typeof Symbol // => function
 ```
