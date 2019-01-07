@@ -1,8 +1,9 @@
-判断一个值是否为 `NaN` 一定要通过 `isNaN()` 而不是通过等号比较，因为 `NaN !== NaN`
+判断一个值是否为 `NaN` 一定要通过 `isNaN()` 而不是通过等号比较  
+因为 `NaN !== NaN`
 
 ---
 
-在Javascript中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数，
+在 Javascript 中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数  
 例如典型的 `0.1 + 0.2 !== 0.3` 在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题
 
 ---
@@ -20,7 +21,7 @@ overflow-y: scroll
 
 ---
 
-在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') === 22` 
+在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') === 22`  
 而你可能期望的结果是 `parseInt('0x16') === 0` 所以显示的指定进制才能做到真正的结果可控 
 ```js
 parseInt('0x16', 16) === 22
@@ -29,14 +30,14 @@ parseInt('0x16', 10) === 0
 
 ---
 
-实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数，
-或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑，
-改变完成后再将原有函数绑定回元素上注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时，
+实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数  
+或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑  
+改变完成后再将原有函数绑定回元素上注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时  
 需要将解绑和绑定操作放在延时函数中执行，避免反复多次的绑定事件和解绑事件消耗过多资源，导致浏览器卡顿
 
 ---
 
-判断点击是否在某个DOM外部发生的思路，判断 `event.srcElement(IE) || event.target(FF)` 
+判断点击是否在某个DOM外部发生的思路，判断 `event.srcElement(IE) || event.target(FF)`  
 是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
 
 ---
@@ -47,7 +48,7 @@ const replacement = (match, $1, $2, offset, string) =>{}
 // 其中的replacement可以是一个回调函数
 String.replace(reg, replacement)
 ```
-通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能，
+通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能  
 具体参数意义以及接口可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
 
 ---
@@ -61,7 +62,7 @@ String.replace(reg, replacement)
 
 ---
 
-Javascript中的假值(falsy values)
+Javascript中的假值( falsy values )
 * false
 * null
 * undefined
@@ -69,7 +70,7 @@ Javascript中的假值(falsy values)
 * 0
 * NaN
 
-其它值都为true
+其它值都为 true
 
 ---
 
@@ -112,7 +113,7 @@ arr.length = 1
 
 ---
 
-在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性，
+在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性  
 则会继续在其原型链上查找直至 `Object.prototype` ,如果都没有找到才会返回 `undefined`
 
 ---
@@ -125,14 +126,14 @@ Ps:jQuery的 `$.isArray()` 亦是采用这种方式
 
 ---
 
-Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行，
-不安全并且效率低下，最好不要使用。
+Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行  
+不安全并且效率低下，最好不要使用  
 具体可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)
 
 ---
 
-`Array.prototype.sort()` 可传入比较函数 `comparefn(a, b)` 来排序，希望a排在前该函数需返回一个负数，
-反之返回正数，俩者相等则返回0。
+`Array.prototype.sort()` 可传入比较函数 `comparefn(a, b)` 来排序  
+希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
 
 ---
 
@@ -169,7 +170,7 @@ console.info(b);
 ---
 
 使用 `String.prototype.length()` 来判断字符串长度在某些特殊场景下存在问题，例如 `'𝒜'.length === 2` 
-因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码，
+因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码  
 这时候这个方法计算一个字符的长度是2，判断方法可见[这篇Blog](http://ife.baidu.com/note/detail/id/583)
 
 ---
@@ -182,8 +183,8 @@ var f = function g(){ return 1 }
 // 函数声明
 function g(){ return 1 }
 ```
-在混合时其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错，
-关于函数表达式以及函数声明的具体差别可见[这篇文章](http://kangax.github.io/nfe/) 
+在混合时其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错  
+关于函数表达式以及函数声明的具体差别可见[这篇文章](http://kangax.github.io/nfe/)  
 Ps:函数申明会存在函数提升的情况而函数表达式不会
 
 ---
@@ -207,29 +208,29 @@ Ps:函数申明会存在函数提升的情况而函数表达式不会
 
 ---
 
-Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位，
-会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况，
+Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位  
+会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况  
 关于其它数字过大时存在的问题可见[这篇Blog](http://www.plqblog.com/views/article.php?id=29)
 
 ---
 
-小技巧，可以通过俩次位运算来将 `string` 形式的数字转为(效率比parseInt等高) `number` 
+小技巧，可以通过俩次位运算来将 `string` 形式的数字转为(效率比parseInt等高) `number`   
 类似 `~~'123'// 123` ,Ps: 处理数字的上限是 `Math.pow(2,31) - 1` 对超出该值的数字无法正确转化
 
 ---
 
-获取浏览器当前滚动条位置可通过 `window.scrollY(Chrome Safari FF)||window.pageYOffset(IE9+)` ,
+获取浏览器当前滚动条位置可通过 `window.scrollY(Chrome Safari FF)||window.pageYOffset(IE9+)`   
 横向位置则通过 `window.scrollX||window.pageXOffset`
 
 ---
 
-通过 `Element.requestFullscreen()` 以及 `Document.exitFullscreen()` 
+通过 `Element.requestFullscreen()` 以及 `Document.exitFullscreen()`   
 可以将页面上的内容进行全屏展示以及取消全屏展示
 
 ---
 
-在Javascript中 `Object` 是 `truthy value` 所以哪怕是 `new Boolean(false)` 
-也会在类型转化时被判断为true
+在Javascript中 `Object` 是 `truthy value`  
+所以哪怕是 `new Boolean(false)` 也会在类型转化时被判断为true
 ```js
 false && console.log(1) // false
 new Boolean(false) && console.log(1) // 1
@@ -237,15 +238,15 @@ new Boolean(false) && console.log(1) // 1
 
 ---
 
-ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'` 
-将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用，
+ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'`   
+将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用  
 我们可以 `import 'xx.less'` 而不需要繁琐的 `import Style from 'xx.less'`
 
 ---
 
-关于`encodeURI|decodeURI`以及`encodeURIComponent|decodeURIComponent`，俩者都是用于对URI进行编解码操作，
-区别在于前者默认接受的是一个完整的URL所以不会对所有的字符进行编解码，
-而后者会对所有需要被编解码的字符进行编解码，例如对`http://www.a.com?a=1+1`进行`encodeURI`
+关于`encodeURI|decodeURI`以及`encodeURIComponent|decodeURIComponent`，俩者都是用于对URI进行编解码操作  
+区别在于前者默认接受的是一个完整的URL所以不会对所有的字符进行编解码  
+而后者会对所有需要被编解码的字符进行编解码，例如对`http://www.a.com?a=1+1`进行`encodeURI`  
 不会发生任何变化而进行`encodeURIComponent`的结果是`http%3A%2F%2Fwww.a.com%3Fa%3D1%2B1`
 
 ---
@@ -256,8 +257,9 @@ ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `im
 
 ---
 
-在使用ES6的Default Parameter时需要注意，调用函数时如果希望传入空参数应该传`undefined`而不是`null`
-例如`foo(undefined, 66)`
+在使用ES6的Default Parameter时需要注意  
+调用函数时如果希望传入空参数应该传 `undefined` 而不是 `null`  
+例如 `foo(undefined, 66)`
 
 ---
 
@@ -328,8 +330,8 @@ o2.foo() // 1 2
 
 ---
 
-对比`let o1 = {}`以及`let o2 = Object.create(null)`可以发现
-在o2并没有从Object.prototype上继承任何属性`o2.__proto__ === undefined`，是一个干净的空对象
+对比`let o1 = {}`以及`let o2 = Object.create(null)`可以发现  
+在o2并没有从Object.prototype上继承任何属性`o2.__proto__ === undefined`，是一个干净的空对象  
 通过`{}`创建对象等同于`Object.create(Object.prototype)`
 
 ---
