@@ -202,3 +202,18 @@ HTML5 新引入了 `defer` 以及 `async` 来优化这个过程
 * 开发者需要更深入的去学习理解自己的专精技能  
 并且对其充满自信，总有一些方面那些更有经验的开发者也没有你理解的透彻
 
+---
+
+Sublime 安装问题以及解决
+### There are no packages available for install  
+修改 Package Control 设置，增加
+```
+"channels":
+    [
+        "http://cst.stu.126.net/u/json/cms/channel_v3.json"
+    ]
+```
+
+### 无法安装 Package Control 
+下载 Package Control.sublime-package 放入 Sublime Installed Package 目录下
+
