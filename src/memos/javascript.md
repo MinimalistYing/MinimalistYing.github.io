@@ -872,3 +872,13 @@ typepf Object // => function
 typeof Array // => function
 typeof Symbol // => function
 ```
+
+---
+
+判断一个变量是否为数字
+```js
+// 排除 NaN +Infinity -Infinity
+function isNumber(a) {
+	return typeof a === 'number' && Number.isFinite(a)
+}
+```
