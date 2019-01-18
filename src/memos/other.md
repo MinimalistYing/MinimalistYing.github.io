@@ -217,3 +217,13 @@ Sublime 安装问题以及解决
 ### 无法安装 Package Control 
 下载 Package Control.sublime-package 放入 Sublime Installed Package 目录下
 
+---
+
+可以通过
+```html
+<noscript>
+	<p>抱歉 禁用 Javascript 会导致应用不能正常工作</p>
+</noscript>
+```
+在用户浏览器不支持 Javascript 或者用户手动禁用 Javascript 时展示相关提示信息
+
