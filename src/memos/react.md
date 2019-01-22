@@ -120,3 +120,20 @@ class Button extends React.Component {
 	}
 }
 ```
+
+---
+
+在 HTML 中一个带有初始值的输入框可以简单写作 `<input value="hello" />`  
+但在 React 中由于推崇使用 Controlled Component  
+```js
+ReactDOM.render(<input value="hello" />, document.getElementById('root'))
+```
+会发现上述代码生成的输入框虽然正确设置了初始值但是用户无法对其进行修改  
+要修复这个问题需要加上
+```js
+setTimeout(() => {
+	ReactDOM.render(<input value={null} />, document.getElementById('root'))
+}, 1000)
+```
+也就是在一段时延后将其 value 修改为 `null`  
+当然最好的方式还是直接使用 Controlled Component
