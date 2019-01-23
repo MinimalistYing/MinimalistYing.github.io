@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import React from 'react'
+import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import {
 	HashRouter as Router,
@@ -7,7 +7,6 @@ import {
 	Link,
 	Switch
 } from 'react-router-dom'
-import Loadable from 'react-loadable'
 
 import {
 	Header,
@@ -16,29 +15,20 @@ import {
 
 import './less/main.less'
 
-const Blog = Loadable({
-	loader: () => import('./components/Blog'),
-	loading: Loading
-})
-
-const Memos = Loadable({
-	loader: () => import('./components/Memos'),
-	loading: Loading
-})
-
-const MessageDemo = Loadable({
-	loader: () => import('./components/VanillaAntdDemo'),
-	loading: Loading
-})
+const Blog = React.lazy(() => import('./components/Blog'))
+const Memos = React.lazy(() => import('./components/Memos'))
+const MessageDemo = React.lazy(() => import('./components/VanillaAntdDemo'))
 
 const App = () => (
 	<div>
 		<Header />
-		<Switch>
-			<Route exact path="/" component={Blog} />
-			<Route exact path="/memo" component={Memos} />
-			<Route exact path="/messagedemo" component={MessageDemo} />
-		</Switch>
+		<Suspense fallback={<Loading />}>
+			<Switch>
+				<Route exact path="/" component={Blog} />
+				<Route exact path="/memo" component={Memos} />
+				<Route exact path="/messagedemo" component={MessageDemo} />
+			</Switch>
+		</Suspense>
 	</div>
 )
 
