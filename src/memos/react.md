@@ -141,9 +141,11 @@ setTimeout(() => {
 ---
 
 由于 React Component 只允许有一个根结点  
-所以当碰到当我们当组件由一个列表组成时需要在最外层加上一个额外当 `<div>`  
+所以当碰到当我们当组件由一个列表组成时需要在最外层加上一个额外的 `<div>`  
 ```js
-function Comp() {
+function Columns() {
+	// 如果该组件嵌套在 <tr> 中 => <tr><Columns /></tr>
+	// 会导致最终生成的 HTML 不符合标准 => <tr><div><td></td><td></td></div></tr>
 	return (
 		<div>
 			<td></td>
@@ -152,9 +154,9 @@ function Comp() {
 	)
 }
 ```
-现在我们可以借助 `React.Fragment` 来避免绘制多余的节点
+现在我们可以借助 `React.Fragment` 来解决这个问题
 ```js
-function Comp() {
+function Columns() {
 	return (
 		<React.Fragment>
 			<td></td>
