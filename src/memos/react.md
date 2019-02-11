@@ -137,3 +137,31 @@ setTimeout(() => {
 ```
 也就是在一段时延后将其 value 修改为 `null`  
 当然最好的方式还是直接使用 Controlled Component
+
+---
+
+由于 React Component 只允许有一个根结点  
+所以当碰到当我们当组件由一个列表组成时需要在最外层加上一个额外的 `<div>`  
+```js
+function Columns() {
+	// 如果该组件嵌套在 <tr> 中 => <tr><Columns /></tr>
+	// 会导致最终生成的 HTML 不符合标准 => <tr><div><td></td><td></td></div></tr>
+	return (
+		<div>
+			<td></td>
+			<td></td>
+		</div>
+	)
+}
+```
+现在我们可以借助 `React.Fragment` 来解决这个问题
+```js
+function Columns() {
+	return (
+		<React.Fragment>
+			<td></td>
+			<td></td>
+		</React.Fragment>
+	)
+}
+```
