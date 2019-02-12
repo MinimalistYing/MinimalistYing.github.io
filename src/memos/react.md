@@ -165,3 +165,25 @@ function Columns() {
 	)
 }
 ```
+
+---
+
+关于 React 中的组件名称为何需要以大写字母开头  
+因为如下 JSX
+```js
+<Button />
+```
+经 Babel 编译后生成
+```js
+// 所以要求 Button 必须在作用域中可见
+React.creatElement(Button, null)
+```
+而
+```js
+<button />
+```
+编译后生成的是
+```js
+// 直接生成 <button>  标签
+React.creatElement('button', null)
+```
