@@ -195,3 +195,8 @@ React.creatElement('button', null)
 <input defaultValue="默认值" />
 ```
 因为直接设置 `value` 会导致输入框的值无法修改，因为 React 当每次 Render 都会根据 `value` 重新设置输入框的值  
+
+---
+
+`<input type="file" />` 只能是 Uncontrolled Component  
+因为在前端文件只能通过用户交互来选择，不能在程序中控制
