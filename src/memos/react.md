@@ -187,3 +187,11 @@ React.creatElement(Button, null)
 // 直接生成 <button>  标签
 React.creatElement('button', null)
 ```
+
+---
+
+当使用 Uncontrolled Component 时，如果想要指定一个输入框当默认值需要采用 `defaultValue`  
+```js
+<input defaultValue="默认值" />
+```
+因为直接设置 `value` 会导致输入框的值无法修改，因为 React 当每次 Render 都会根据 `value` 重新设置输入框的值  
