@@ -200,3 +200,16 @@ React.creatElement('button', null)
 
 `<input type="file" />` 只能是 Uncontrolled Component  
 因为在前端文件只能通过用户交互来选择，不能在程序中控制
+
+---
+
+JSX 其实仅仅是一种方便我们写 React App 的语法糖，经过 Babel 编译最后的产出仍是 Vanilla Javascript
+```js
+const App = <div className="app">Hello World</div>
+```
+如让 JSX 编译后其实就是
+```js
+const App = React.creatElement('div', {
+	className: 'app'
+}, 'Hello World')
+```
