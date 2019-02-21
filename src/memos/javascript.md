@@ -882,3 +882,9 @@ function isNumber(a) {
 	return typeof a === 'number' && Number.isFinite(a)
 }
 ```
+
+---
+
+使用 Fetch API 可以通过 `res.ok === true` 来判断请求是否成功  
+相当于 `res.status >= 200 && res.status < 300`
+
