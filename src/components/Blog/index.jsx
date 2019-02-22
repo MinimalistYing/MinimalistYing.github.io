@@ -92,7 +92,7 @@ class MyBlog extends React.Component {
 						</div>
 					))
 				}
-				<div id="category"className="category-box">
+				<div id="category" className="category-box">
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
