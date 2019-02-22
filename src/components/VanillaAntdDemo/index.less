@@ -1,10 +1,17 @@
 .message-demo {
-	display: flex;
+		display: flex;
     flex-flow: row;
     justify-content: space-around;
     align-items: center;
     height: 100vh;
-    padding: 0;
+		padding: 0;
+		background: #fff;
+
+	.btn-box {
+		display: flex;
+		flex-direction: column;
+		box-shadow: 0 3px 12px #ddd;
+	}
 
 	button {
 		cursor: pointer;
@@ -16,41 +23,50 @@
 		transition: all .3s;
 		outline: 0;
 		height: 60px;
+		margin: 15px;
 	}
 
 	.info-btn {
-		border-color: #1890ff;
+		color: #fff;
+		background: #1890ff;
 
 		&:hover {
-			color: #fff;
-			background: #1890ff;
+			color: #000;
+			background: #fff;
+			border-color: #1890ff;
 		}
 	}
 
 	.success-btn {
-		border-color: #52c41a;
+		color: #fff;
+		background: #52c41a;
 
 		&:hover {
-			color: #fff;
-			background: #52c41a;
+			color: #000;
+			background: #fff;
+			border-color: #52c41a;
 		}
 	}
 
 	.error-btn {
-		border-color: #f5222d;
+		color: #fff;
+		background: #f5222d;
 
 		&:hover {
-			color: #fff;
-			background: #f5222d;
+			color: #000;
+			background: #fff;
+			border-color: #f5222d;
 		}
 	}
 
 	.warn-btn {
-		border-color: #faad14;
+		color: #fff;
+		background: #faad14;
 
 		&:hover {
-			color: #fff;
-			background: #faad14;
+			color: #000;
+			background: #fff;
+			border-color: #faad14;
 		}
 	}
 }

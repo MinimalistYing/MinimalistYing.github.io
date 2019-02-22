@@ -25,10 +25,12 @@ import Ajax from '@blog/Ajax.md'
 import BinaryTreeType from '@blog/BinaryTreeType.md'
 import ArraySort from '@blog/ArraySort.md'
 import WhyPreflight from '@blog/WhyPreflight.md'
+import VueVsReact from '@blog/VueVsReact.md'
 
 import './style.less'
 
 const blogs = [
+	VueVsReact,
 	WhyPreflight,
 	ArraySort,
 	BinaryTreeType,
@@ -52,7 +54,7 @@ const blogs = [
 	IteratorBlog,
 	SymbolBlog,
 	GulpPlugin,
-	WebpackBaseConfig,
+	WebpackBaseConfig
 ]
 
 class MyBlog extends React.Component {
