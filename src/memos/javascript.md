@@ -888,3 +888,7 @@ function isNumber(a) {
 使用 Fetch API 可以通过 `res.ok === true` 来判断请求是否成功  
 相当于 `res.status >= 200 && res.status < 300`
 
+---
+
+使用 Fetch API 时 `mode` 设为 `no-cors|same-origin` 会导致请求不会发出  
+浏览器会报错 `failed to fetch` 并且在 network 中也看不到请求的相关信息
