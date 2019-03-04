@@ -26,10 +26,12 @@ import BinaryTreeType from '@blog/BinaryTreeType.md'
 import ArraySort from '@blog/ArraySort.md'
 import WhyPreflight from '@blog/WhyPreflight.md'
 import VueVsReact from '@blog/VueVsReact.md'
+import Axios from '@blog/Axios.md'
 
 import './style.less'
 
 const blogs = [
+	Axios,
 	VueVsReact,
 	WhyPreflight,
 	ArraySort,
