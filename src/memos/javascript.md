@@ -892,3 +892,26 @@ function isNumber(a) {
 
 使用 Fetch API 时 `mode` 设为 `no-cors|same-origin` 会导致请求不会发出  
 浏览器会报错 `failed to fetch` 并且在 network 中也看不到请求的相关信息
+
+---
+
+关于在 Promise 中使用 `return Promise.reject()` 以及 `return new Error()` 的不同
+```js
+Promise.resolve('a')
+.then(res => {
+  if (Math.random() > 0.5) {
+    return res
+  } else {
+    return Promise.reject('error')
+    // return new Error('error')
+  }
+}, err => {
+  console.error(err + '1 reject')
+}).then(res => {
+	// 使用 return new Error() 会执行
+  console.log(res + '2 fulfill')
+}, err => {
+	// 使用 return Promise.reject() 会执行
+  console.error(err + '2 reject')
+})
+```
