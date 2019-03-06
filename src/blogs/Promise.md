@@ -1,8 +1,8 @@
 # Promise In ES6
 
 ## 序
-以往我们通常用回调函数来处理异步编程
-类似下例中嵌套过深的回调函数会使程序的可读性很差（也就是人们通常说的 Callback Hell）  
+以往我们通常用回调函数来处理异步编程  
+但类似下例中嵌套过深的回调会使程序的可读性很差（也就是人们通常说的 Callback Hell）  
 ```js
 function foo(cb) {
 	asyncFunc1(() => {
@@ -16,9 +16,9 @@ function foo(cb) {
 	})
 }
 ```
-ES6 新引入的 `Promise` 为开发者提供了一种更优雅的方式来处理异步编程
+`Promise` 的出现为开发者提供了一种更优雅的方式来处理异步编程
 
-## 如何构造一个最基础的 `Promise`
+## 如何构造一个 `Promise`
 ```js
 const p = new Promise((resolve, reject) => {
 	const rand = Math.random()
@@ -38,52 +38,24 @@ p.then(res => console.log(res))
 // 同上
 p.then(res => console.log(res), err => console.log(err))
 ```
-一个 `Promise` 最终只会有俩个状态 **fulfilled** 或者 **rejected**  
+一个 `Promise` 最终只会有俩种状态 **fulfilled** 或 **rejected**  
 前者可以在 `then()` 的第一个参数中获得处理完成的结果  
 后者可以在 `then()` 的第二个参数或者 `catch()` 中获得处理失败的原因  
-每一个 `Promise` 只会被 resolve(fulfill 或者 reject)一次  
+每一个 `Promise` 只会被 resolve(fulfill 或 reject)一次  
 并且一旦当 `Promise` 执行完毕，它就成为了一个不可变的值  
 
-## 为什么说 `Promise` 更加优雅
+## 为什么说 `Promise` 更优雅
+`Promise` 支持链式调用  
+我们将上例中重写一遍 高下立判
 ```js
-function asyncFunc1() {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve('1 done')
-		}, 3000)
-	})
-}
-
-function asyncFunc2() {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve('2 done')
-		}, 3000)
-	})
-}
-
-function asyncFunc3() {
-	return new Promise((resolve, reject) => {
-		setTimeout(() => {
-			resolve('3 done')
-		}, 3000)
-	})
-}
-
 asyncFunc1().then(res => {
-	console.log(res)
 	return asyncFunc2()
 }).then(res => {
-	console.log(res)
 	return asyncFunc3()
 }).then(res => {
 	console.log(res)
 })
-// 3s后 "1 done"
-// 再3s后 "2 done"
-// 再3s后 "3 done"
 ```
-通过上例可以看出，正确的使用 `Promise` 可以使得我们程序中的异步流程更为清晰  
 
 ## Promise API
 

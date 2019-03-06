@@ -1,13 +1,13 @@
 # Webpack V3 升级至 V4
 ## 序
-半年没关注，最近突然发现Webpack的版本已经升到4.16.2了，为了紧跟潮流的步伐，决定将项目中使用的3.10.0来个升级
+半年没关注，最近突然发现 Webpack 的版本已经升到 4.16.2 了，为了紧跟潮流的步伐，决定将项目中使用的 3.10.0 来个升级
 
 ## 步骤
 1. 安装`webpack`以及`webpack-cli` Ps: V4 开始将 CLI 抽离到了独立的 `webpack-cli` 项目中维护  
 所以现在需要分别安装俩个依赖
 2. 将项目中所有用到的`loader`以及`plugin`升级到最新
 3. 配置文件里新增 `mode: 'development'` or `mode: 'production'`
-4. 移除`webpack.optimize.UglifyJsPlugin`，现在webpack会在生产环境默认对js进行压缩
+4. 移除`webpack.optimize.UglifyJsPlugin`，现在 webpack 会在生产环境默认对代码进行压缩
 5. 移除`extract-text-webpack-plugin`，v4推荐使用新的`mini-css-extract-plugin`来提取样式文件
 6. 引入`optimize-css-assets-webpack-plugin`以及`uglifyjs-webpack-plugin`，并在生产环境的配置文件下新增
 

@@ -1,5 +1,5 @@
 # Symbols in ES6
-`Symbol`是ES6中(时隔多年)新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一字符串** 的机制，它的真实值在代码中直接获得
+`Symbol`是 ES6 (时隔多年) 新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一字符串** 的机制，它的真实值在代码中无法直接获得
 
 ## 如何生成 Symbol
 ```js
@@ -15,24 +15,22 @@ const b = Symbol('some description text')
 // 可以不必在外部作用域中专门维护一个变量用于存储生成的 Symbol
 const c = Symbol.for('my Symbol')
 
-// 由于不管如何 Symbol 都是全局存在的
-// 为了尽量避免可能发生的冲突 可以在描述性文字中添加相应的前缀
+// 由于 Symbol 全局存在
+// 为了尽量避免命名冲突 可以在描述中添加前缀
 const d = Symbol.for('prefix.Symbol')
 ```
 
 ## 如何判断一个值是否为 Symbol
 ```js
-const a = Symbol()
+const sym = Symbol()
 // 推荐方式
-typeof a === 'symbol'// true
+typeof sym === 'symbol'// true
 
-// 其余方式
-a instanceof Symbol // false
-Object(a) instanceof Symbol // true
-Object(a).valueOf() === a // true
+// 并不是一种类与实例化对象的关系 无法通过以下方法判断
+sym instanceof Symbol // false
 ```
 
-## 如何获取 Symbol 的描述字符串
+## 如何获取 Symbol 的描述
 ```js
 const a = Symbol('desc a')
 const b = Symbol.for('desc b')
@@ -44,9 +42,9 @@ a.toString() // Symbol(desc a)
 b.toString() // Symbol(desc b)
 ```
 通过上述对比，个人感觉用 `Symbol.for()` 来生成 `Symbol` 好像更加合适  
-不仅可以避免使用不必要的变量污染作用域，并且能更方便的获得其描述
+不仅可以少声明一个变量，并且能更方便的获得其描述
 
-## Symbol 的用途
+## Symbol 的使用场景
 借助 `Symbol` 来实现单例模式
 ```js
 const Instance = Symbol.for('instance')
@@ -62,8 +60,8 @@ const b = singleton()
 a === b // true
 ```
 
-如果将上例中的 Symbol 替换成一个不规则字符串（Magic String）对逻辑的实现并无影响  
-所以从这个角度看来，Symbol的出现更多的是对代码或者说程序层面上的提升，而不是函数性的提升
+如果将上例中的 Symbol 替换成任意一个 Magic String 对逻辑的实现并无影响  
+所以从个人经验来看 暂时还未碰到有必须要使用 Symbol 的场景  
 
 ```js
 const o = {
@@ -79,15 +77,15 @@ for (let key in o ){
 ```
 
 可以看到，虽然 Symbol 作为对象的 key 不会被当作普通的键值被遍历  
-但是还是可以通过 `Object.getOwnPropertySymbols()` 来获得  
-所以并不能试图通过 Symbol 把对象的部分属性隐藏(作为私有属性)
+但还是可以通过 `Object.getOwnPropertySymbols()` 来获得  
+所以通过 Symbol 并不能实现私有属性的需求
 
 ## Built-in Symbols
-个人感觉 ES6 自身提供的 Built-in Symbols 才是最常见的 `Symbol` 使用方式，例如 `Symbol.iterator`:
+个人认为 ES6 自身提供的 Built-in Symbols 可能才是最常见的使用方式，例如 `Symbol.iterator`:
 ```js
 const arr = [1, 2, 3]
 arr[Symbol.iterator] // native function
 const it = arr[Symbol.iterator]() // 获得数组的 Iterator
 ```
-值得一提的是这些内部的 Symbol 并不是像我们自定义的那样注册到全局库中  
-而是作为 Symbol 构造函数的静态属性供开发者调用
+值得一提的是这些内部的 Symbol 并不是像自定义的那样注册到全局库中  
+而是作为 Symbol 构造函数的静态属性存在
