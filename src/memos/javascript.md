@@ -915,3 +915,12 @@ Promise.resolve('a')
   console.error(err + '2 reject')
 })
 ```
+
+---
+
+通过代码判断文件是否被压缩
+```js
+// 学习自 Redux
+function isCrushed() {}
+if (isCrushed.name === 'isCrushed') console.log('not minified')
+```

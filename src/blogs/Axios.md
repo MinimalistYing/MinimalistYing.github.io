@@ -1,28 +1,26 @@
 # Axios 源码解析
 Axios 是一个发送 Ajax 请求的类库  
-提供了类似 jQuery `$.ajax()` Angular `$http` 的服务  
-本文不会对所有源码一行一行进行细致解析  
-而是针对其提供的特性对其部分核心代码进行相应分析
+类似于 jQuery `$.ajax()` 以及 Angular `$http`   
+本文会针对其提供的特性对部分核心代码进行分析
 
 ## Feature
-首先罗列一下 Axios 在对 `xhr` 封装的基础上提供的一些便利特性
+首先罗列一下 Axios 在对 `xhr` 进行封装的基础上提供的一些高级特性
 * `Promise` API
-* `Interceptor` 在请求前后进行一些通用操作（例如对错误的处理）
-* `transformData` 对请求参数以及响应数据做统一处理
-* `axios.defaults` 提供全局的默认设置
-* 同时支持 `axios.get() | axios.put()` 以及类似 Fetch API `axios(url, config)` 的调用形式
+* 支持通过 `Interceptor` 在请求前后进行一些公共业务操作（例如对错误的处理）
+* 支持通过 `transformData` 对请求参数以及响应结果做统一处理
+* 支持通过 `axios.defaults` 进行全局的默认配置
+* 支持通过 `axios.get() | axios.put()` 以及类似 Fetch API `axios(url, config)` 的调用形式
 * 支持统一设置请求的 `BaseURL`
 
 ## Axios 如何支持多种调用形式
 ```js
 // lib/axios.js
 // ...
-
 function createInstance(defaultConfig) {
   var context = new Axios(defaultConfig);
   // 使函数 `Axios.prototype.request` 内部的 this 指向上面通过构造函数实例化的 context 对象
   // 注意这里的 instance 其实仍是一个函数
-  // 之所以这样做是为了可以像 axios(url, config) 这样来调用
+  // 之所以这样做是为了可以像 axios(url, config) 这样直接调用
   var instance = bind(Axios.prototype.request, context);
 
   // 将 Axios.prototype 上定义的函数的 this 指向 context 并复制到 instance 上
@@ -37,12 +35,12 @@ function createInstance(defaultConfig) {
 
 // 默认情况下 我们通过 import axios from 'axios' 引入的就是该对象
 // 更准确的说就是 createInstance 函数返回的 instance 函数
-// 也就是重新 bind 过 this 后的 Axios.prototype.request 函数
+// 也就是重新 bind 过 this 后的 Axios.prototype.request
 var axios = createInstance(defaults);
 
 // ...
 ```
-在 axios 中，不管我们采取何种形式区调用，最终发起请求的都是 `Axios.prototype.request` 
+在 axios 中，不管我们采取何种形式调用，最终发起请求的都是 `Axios.prototype.request` 
 ```js
 // lib/core/Axios.js
 // ...
@@ -86,14 +84,15 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = function dispatchRequest(config) {
   // ...
 
-  // 如果设置的 baseURL 并且传入的请求地址是相对路径  
-  // 则用 baseURL 与传入的地址拼接后生成最终的请求路径
+  // 如果设置有 baseURL 并且传入的请求地址是相对路径  
+  // 则用 baseURL 与传入的地址拼接后作为最终的请求路径
   // 通过 /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url) 来判断是否为绝对路径
   if (config.baseURL && !isAbsoluteURL(config.url)) {
     // axios 会移除 BaseURL 末尾的 / 以及相对路径开头的 / 来进行拼接
-    // 所以 axios('/xxx') 以及 axios('xxx') 都会发起相同的请求
+    // 所以 axios('/xxx') 和 axios('xxx') 其实是一样的
     config.url = combineURLs(config.baseURL, config.url);
   }
+
   // ...
 };
 ```
@@ -131,7 +130,7 @@ function Axios(instanceConfig) {
   // 每个 Axios 的实例都包含了俩类拦截器 
   // this.interceptors.request 以及 this.interceptors.response
   // InterceptorManager 用于管理所有的拦截器 也就是维护一个数组
-  // 数组中的每个元素是一个类似 { fulfill: ()=>{}, reject: () => {}} 的对象
+  // 数组中的元素是一个类似 { fulfill: ()=>{}, reject: () => {}} 的对象
   // 包含 Promise 处理成功函数以及失败函数
   this.interceptors = {
     request: new InterceptorManager(),
@@ -153,7 +152,7 @@ Axios.prototype.request = function request(config) {
     chain.push(interceptor.fulfilled, interceptor.rejected);
   });
 
-  // 此时的 chain 是一个按序处理 Promise 的函数
+  // 此时的 chain 是一个包含了 Promise resolve reject 函数的数组
   // 形如 [reqFulfill, reqReject, dispatchRequest, undefined. resFulfill, resReject]
   // 以下代码其实就是为了形成一个链式的流程 类似
   // Promise(config).then(reqFulfill, reqReject)
@@ -174,29 +173,19 @@ Axios.prototype.request = function request(config) {
 module.exports = function dispatchRequest(config) {
   // ...
   // 请求发出前 transform request data
-  config.data = transformData(
-    config.data,
-    config.headers,
-    config.transformRequest
-  );
+  config.data = transformData(...);
 
   // ...
   // 请求完成后 transform response data
   return adapter(config).then(function onAdapterResolution(response) {
-    response.data = transformData(
-      response.data,
-      response.headers,
-      config.transformResponse
-    );
+    // 请求成功 也就是 validateStatus 返回 true 默认响应码 200 - 300 为 true
+    response.data = transformData(...);
 
     return response;
   }, function onAdapterRejection(reason) {
+    // 请求失败
     if (reason && reason.response) {
-      reason.response.data = transformData(
-        reason.response.data,
-        reason.response.headers,
-        config.transformResponse
-      );
+      reason.response.data = transformData(...);
     }
 
     return Promise.reject(reason);
@@ -213,7 +202,7 @@ var DEFAULT_CONTENT_TYPE = {
 };
 
 var defaults = {
-  // 默认会根据请求 request data 的类型来适配请头中的 Content-Type
+  // 默认会根据请求参数的类型来适配请头中的 Content-Type
   // 并且转化发起请求的数据格式
   transformRequest: [function transformRequest(data, headers) {
     normalizeHeaderName(headers, 'Accept');
@@ -234,7 +223,7 @@ var defaults = {
       setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
       return data.toString();
     }
-    if (utils.isObject(data)) {
+    if (utils.isObject(data)) { // 对象转为 json 字符串
       setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
       return JSON.stringify(data);
     }
@@ -268,12 +257,11 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 ```
 
 ## Axios 发起一个请求的流程
-1. `axios(config)` 开始
-2. `Axios.prototype.request(config)`
-3. Request Inteceptors 处理配置/请求头等
-4. `dispatchRequest(config)`
-5. `config.data = transformRequest(...)` 处理请求参数
+1. `axios(config) | axios(url, config) | axios.get(url, config)` 启动一个请求
+2. 内部最终通过 `Axios.prototype.request(config)` 函数来启动请求
+3. 经过 Request Inteceptors 处理配置 / 请求头等
+4. 在 `dispatchRequest(config)` 中通过 `config.data = transformRequest(...)` 处理请求参数
 6. 在 `xhrAdapter` 中实例化 `XMLHttpRequest` 对象 发送 Ajax 请求
-7. `response.data = transformResponse(...)` 不管请求成功还是失败 处理请求返回数据
-8. Response Inteceptors 处理错误/响应头等
-9. `axios(config).then(res => {}).catch(err => {})` 请求完成 处理业务逻辑
+7. 收到响应后 不管请求成功还是失败，通过 `response.data = transformResponse(...)` 处理请求返回数据
+8. 经过 Response Inteceptors 处理错误 / 响应头等
+9. 请求完成 `axios(config).then(res => {}).catch(err => {})` 在 `then` 或 `catch` 块中处理业务逻辑

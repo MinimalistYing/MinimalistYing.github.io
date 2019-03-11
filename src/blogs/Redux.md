@@ -1,4 +1,4 @@
-# Redux从入门到放弃
+# Redux 从入门到放弃
 
 ## 基本概念
 前端应用日渐复杂，传统的 JavaScipt / HTML / CSS 三大件变得难以应对  
@@ -6,23 +6,19 @@
 随之而来碰到的问题是对应用中各种状态的管理  
 每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更  
 当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原由  
-并且当组件层级过深时，一层层的在组件间传递props也显得颇为繁琐  
+并且当组件层级过深时，一层层的在组件间传递 props 也显得颇为繁琐  
 Redux 的出现给开发者提供了一种更优雅的管理前端应用状态的解决方案  
 当然相应的代价是需要引入一些冗余的语法( boilerplate )  
-Redux 主要通过以下三个原则来更好的管理应用的状态:  
-* Single source of truth: Redux 应用中的状态应该是全局唯一的  
-也就是说每个Redux应用应该只有一个全局唯一的 Store
-* State is read-only: Store 中存储的状态不能被直接修改  
-只能通过Dispatch Action来进行应用状态的变更  
+Redux 的核心是以下三个原则:  
+* Single source of truth: 每个 Redux App 应该只有一个全局唯一的 Store
+* State is read-only: Store 中存储的状态只能通过 Dispatch Action 来进行修改  
 这样通过一些工具开发者可以很清楚的看到状态发生变更的时机以及每次所发生的改变  
 甚至进行 Time Travel 来回到某个 Action 执行前的状态  
 亦或是再次重新提交这个 Action 来观察其行为对应用的影响  
-* Changes are made with pure functions: Reducer 只能是 Pure Function  
-不能在其中直接修改 Store 中存储的值  
-而是依据 Dispatch 的不同 Actions 返回新的状态  
+* Changes are made with pure functions: Reducer 是 Pure Function  
 
 ### Actions
-不同于直接去修改应用的状态，例如 React 中的`this.setState()`  
+不同于直接去修改应用的状态，例如 React 中的 `this.setState()`  
 Redux 推崇通过 Dispacth Action 来修改状态  
 Action 是一个携带了操作类型以及具体改变数据的简单对象( Plain Object )  
 ```js
@@ -37,20 +33,18 @@ const action = {
 	}
 }
 ```
-以上 Action 中的数据是固定的，可以通过一个 ActionCreator 来根据参数动态的生成数据  
+以上 Action 中的数据是固定的，可以通过一个 ActionCreator 来根据参数动态的生成 Action  
 ```js
 const actionCreator = people => ({
 	type: 'ADD_PEOPLE',
 	people
 })
 ```
-注意 Action 并不会真正的去改变状态，而只是携带了待改变状态的相关信息  
-需要通过 'store.dispatch(action)' 将 Action 派发至 Reducer 中才能进行状态的变更  
-所以具体的状态改变逻辑应该在 Reducer 中实现
+注意最终还是需要通过 'store.dispatch(action)' 将 Action 派发至 Reducer 中才能进行状态的变更  
 
 ### Reducer
 Reducer 用于定义根据收到的不同 Action 如何去改变应用的状态  
-Reducer 应该是一个 Pure function ,意味着不应该在其中去改变参数  
+Reducer 应该是一个 Pure Function , 意味着不应该在其中修改参数  
 并且当入参相同时其返回值应该总是相同的  
 ```js
 // 注意需要给我们的应用设置一个初始化的 initalState
@@ -78,6 +72,8 @@ unsubscribe() // 取消监听
 ```
 
 ## 进阶以及源码(v4.0.0)
+为了看起来更加精简，本文仅仅会对一些核心代码进行分析  
+所以展示的只是不完整的代码片段，例如一些校验性质的代码就会被省略
 
 ### Middleware
 Redux 的中间件使开发者可以在每次 `dispatch(action)` 前后加上一些特定的逻辑  
@@ -281,13 +277,7 @@ Ps: `lodash.isPlainObject` 逻辑与上述代码基本一致
 
 ### index.js
 ```js
-import createStore from './createStore'
-import combineReducers from './combineReducers'
-import bindActionCreators from './bindActionCreators'
-import applyMiddleware from './applyMiddleware'
-import compose from './compose'
-import warning from './utils/warning'
-import __DO_NOT_USE__ActionTypes from './utils/actionTypes'
+// ...
 
 // 建立一个函数名为 isCrushed 的空函数
 function isCrushed() {}
@@ -340,11 +330,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		return enhancer(createStore)(reducer, preloaderState)
 	}
 	
-	// reducer 也必须为函数
-	if (typeof reducer !== 'function') {
-		throw new Error('Expected the reducer to be a function.')
-	}
-	
 	// 利用闭包存储当前的 Reducer
 	// 这样就稍后才可通过 replaceReducer() 方法替换掉当前使用的 Reducer
 	let currentReducer = reducer
@@ -379,11 +364,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	
 	// 注册监听事件 在每次 dispath 时都会调用所有注册过的函数
 	function subscribe(listener) {
-		// 注册的listener只能是函数
-		if (typeof listener !== 'function') {
-			throw new Error('...')
-		}
-	
 		// 正在执行dispatch操作时不允许新注册监听事件
 		if (isDispatching) {
 			throw new Error('...')
@@ -422,20 +402,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 		}
 	}
 	
-	
 	function dispatch(action) {
-		// 在 Redux 中 Action 只能为 plain object
-		if (!isPlainObject(action)) {
-			throw new Error('...')
-		}
-		
-		// Action 的 type 不能为空
-		// 通常来说 type 都应该是一个用于描述当前行为的常量字符串
-		// 不知道这里为什么不限制 type 只能为 string
-		if (typeof action.type === 'undefined') {
-			throw new Error('...')
-		}
-		
 		// 阻止开发者在 reducer 中去调用 dispatch
 		if (isDispatching) {
 			throw new Error('...')
@@ -474,12 +441,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	}
 	
 	// 替换当前正在使用的 Reducer
-	function replaceReducer(nextReducer) {
-		// Reducer 必须是函数
-		if (typeof nextReducer !== 'function') {
-			throw new Error('...')
-		}
-		
+	function replaceReducer(nextReducer) {	
 		// 直接将闭包的存储指向新的 Reducer
 		currentReducer = nextReducer
 		// dispatch 一个 REPLACE Action 来重新生成新的状态树
@@ -533,20 +495,7 @@ const rootReducer = combineReducer({
 ```
 下面看看源码
 ```js
-import ActionTypes from './utils/actionTypes'
-import warning from './utils/warning'
-import isPlainObject from './utils/isPlainObject'
-
-// 用于生成当有 Reducer 返回的 state 为 undefined 时的错误描述
-function getUndefinedStateErrorMessage(key, action) {
-	const actionType = action && action.type
-	const actionDescription =
-		(actionType && `action "${String(actionType)}"`)) || 'an action'
-	return '...'
-}
-
-// 用于生成在入参的 key 与 state 中的 key 有不一致时生成错误描述
-function getUnexpectedStateShapeWarningMessage() {}
+// ...
 
 // 判断传入的 reducer 是否都合规 否则抛出错误
 function assertReducerShape(reducers) {
@@ -651,9 +600,8 @@ export default function combineReducers(reducers) {
 在 Redux 中我们每次先通过 ActionCreator 去生成一个 Action  
 然后再通过 `dispatch(action)` 来触发状态的改变  
 有时候我们想要把 Redux 的相关逻辑放到父组件中  
-然后将改变状态的函数传入子组件，这个时候就需要利用 bindActionCreators  
-该函数可以将 create action 以及 dispatch 这俩步操作绑定在一起  
-这样每次通过绑定后的 Creator 去生成 Action 时会同时进行 dispatch 操作
+然后将改变状态的函数传入子组件，这个时候就可以用到 bindActionCreators  
+该函数可以将 create action 以及 dispatch action 这俩步操作绑定在一起  
 ```js
 function bindActionCreator(actionCreator, dispatch) {
 	// 返回一个函数 执行会先 Create Action  
@@ -668,11 +616,6 @@ export default bindActionCreators(actionCreators, dispatch) {
 	// 直接返回绑定后的 Creator
 	if (typeof actionCreators === 'function') {
 		return bindActionCreator(actionCreators, dispatch)
-	}
-	
-	// 传入的 actionCreators 既不是函数也不是对象则抛出错误
-	if (typeof actionCreators !== 'object' || typeof actionCreators === null) {
-		throw new Error('')
 	}
 	
 	const keys = Object.keys(actionCreators)
