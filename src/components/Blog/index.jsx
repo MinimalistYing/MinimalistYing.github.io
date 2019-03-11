@@ -18,7 +18,6 @@ import BinaryTreeTraversal from '@blog/BinaryTreeTraversal.md'
 import SourceMapAndWebpack from '@blog/SourceMapAndWebpack.md'
 import WebpackCommonProblem from '@blog/WebpackCommonProblem.md'
 import CrossOrigin from '@blog/CrossOrigin.md'
-import Npm from '@blog/Npm.md'
 import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
 import XSSCSRF from '@blog/XSS&CSRF.md'
 import Ajax from '@blog/Ajax.md'
@@ -39,7 +38,6 @@ const blogs = [
 	Ajax,
 	XSSCSRF,
 	CookieAndWebStorage,
-	Npm,
 	CrossOrigin,
 	WebpackCommonProblem,
 	SourceMapAndWebpack,
