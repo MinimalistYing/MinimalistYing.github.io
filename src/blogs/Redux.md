@@ -130,7 +130,7 @@ const funcs = [first, second, third]
 // 所以 (accumulator, third) => (...args) => accumulator(third(...args))
 // 返回结果是 
 // (...args) => accumulator(third(...args))
-// 相当于
+// 将 accumulator 替换后就相当于
 // (...args) => first(second(third(...args))
 const re = funcs.reduce((a, b) => (...args) => a(b(...args)))
 
@@ -191,9 +191,6 @@ export default function applyMiddleware(...middlewares) {
 		// 当需运用中间件时 createStore 在此处真正执行
 		const store = createStore(...args)
 		
-		// 如果 middleware 在执行自己的逻辑过程中调用 dispatch 则抛出错误
-		let dispatch = () => { throw new Error('...') }
-		
 		// 只提供给中间件有限的 API 而不是全部 store
 		const middlewareAPI = {
 			getState: store.getState,
@@ -213,28 +210,6 @@ export default function applyMiddleware(...middlewares) {
 			dispatch
 		}
 	}
-}
-```
-
-### utils/warning.js
-Redux 通过该函数在开发环境下输出错误或提示信息方便开发者 Debug
-```js
-export default function warning(message) {
-	// 为了增强程序的 Robusty 只有当前运行的宿主环境存在 console
-	// 并且 console.error 是函数才去调用 使得任何情况下都不会因为该函数报错
-	// 从而导致程序终止运行
-	if (typeof console !== 'undefined' && typeof console.error === 'function') {
-		console.error(message)
-	}
-	
-	// 下面这段代码只有当我们打开浏览器的 Console
-	// 并开启 break on all exceptions 功能时
-	// 才会在每次报错或提示时暂停程序执行(相当在出错的那行打断点)
-	// 否则的话不会有任何作用
-	// 同样是为了方便开发者进行 Debug
-	try {
-		throw new Error(message)
-	} catch (e) {}
 }
 ```
 
@@ -269,6 +244,8 @@ export function isPlainObject(obj) {
 	// 则认为该对象是 Plain Object
 	// 所以最终的判断逻辑其实与 obj.__proto__ === Object.prototype 类似
 	// 上面的代码更多的是在考虑 edge case
+	// 至于这里为什么不使用 Object.getPrototypeOf(obj) === Object.prototype
+	// 可以戳这里 https://github.com/reduxjs/redux/pull/2599#issuecomment-342849867
 	return Object.getPrototypeOf(obj) === proto
 }
 ```
@@ -497,28 +474,6 @@ const rootReducer = combineReducer({
 ```js
 // ...
 
-// 判断传入的 reducer 是否都合规 否则抛出错误
-function assertReducerShape(reducers) {
-	Object.keys(reducers).forEach(key => {
-		const reducer = reducers[key]
-		// 用初始化的 Action 去生成默认的 state
-		const initialState = reducer(undefined, { type: ActionTypes.INIT })
-		// 如果有 reducer 没有提供默认的 state 则抛出错误
-		// 所以如果即使当我们希望一个 reducer 默认不返回值时应该显示的返回null
-		if (initialState === undefined) {
-			throw new Error()
-		}
-		
-		// 当传一个未知 type 的 action 到 reducer 中时
-		// reducer 也应该返回一个状态 通常来说是将传入的 state 不错修改直接返回
-		if (typeof reducer(undefined, {
-			type: ActionTypes.PROBE_UNKNOWN_ACTION()
-		}) === 'undefined') {
-			throw new Error()
-		}
-	})
-}
-
 // 将多个子 reducer 组合返回一个 root reducer 函数
 export default function combineReducers(reducers) {
 	// 拿到入参对象的所有 key
@@ -527,81 +482,39 @@ export default function combineReducers(reducers) {
 	
 	for (let i = 0; i < reducerKeys.length; i++) {
 		const key = reducerKeys[i]
-		
-		// 只有在开发环境下进行警告提示
-		if (process.env.NODE_ENV !== 'production') {
-			// 不是很理解这个判断
-			// 只有当入参对象的 value 中有 undefined 时才会警告
-			if (typeof reducers[key] === 'undefined') {
-				warning('...')
-			}
-			
-			// 这一步会过滤掉入参中 value 不是函数的部分
-			// 确保 fianalReducers 中的每个 value 都是一个函数
-			if (typeof reducers[key] === 'function') {
-				finalReducers[key] = reducers[key]
-			}
-		}
-		
+	
+		// 确保 fianalReducers 中的每个 value 都是一个函数
 		if (typeof reducers[key] === 'function') {
 			finalReducers[key] = reducers[key]
 		}
-		const finalReducerKeys = Object.keys(finalReducers)
+	}
+	const finalReducerKeys = Object.keys(finalReducers)
 		
-		let unexpectedKeyCache
-		if (process.env.NODE_ENV !== 'production') {
-			unexpectedKeyCache = {}
-		}
-		
-		let shapeAssertionError
-		try {
-			assertReducerShape(finalReducers)
-		} catch (e) {
-			shapeAssertionError = e
-		}
-		
-		return function combination(state = {}, action) {
-			// 当 Reducer 格式有误时 终止执行 抛出错误
-			if (shapeAssertionError) {
-				throw shapeAssertionError
+	return function combination(state = {}, action) {
+		let hasChanged = false
+		const nextState = {}
+		for (let i = 0; i < finalReducerKeys.length; i++) {
+			const key = finalReducerKeys[i]
+			const reducer = finalReducers[key]
+			const previouStateForKey = state[key]
+			const nextStateForKey = reducer(previousStateForKey, action)
+			// Reducer 处理过后的状态不能返回为空
+			if (typeof nextStateForKey === 'undefined') {
+				throw new Error('...')
 			}
-			
-			// 开发环境下给出错误提示
-			if (process.env.NODE_ENV !== 'production') {
-				const warningMessage = getUnexpectedStateShapeWarningMessage(...)
-				if (warningMessage) {
-					warning(warningMessage)
-				}
-			}
-			
-			let hasChanged = false
-			const nextState = {}
-			for (let i = 0; i < finalReducerKeys.length; i++) {
-				const key = finalReducerKeys[i]
-				const reducer = finalReducers[key]
-				const previouStateForKey = state[key]
-				const nextStateForKey = reducer(previousStateForKey, action)
-				// Reducer 处理过后的状态不能返回为空
-				if (typeof nextStateForKey === 'undefined') {
-					throw new Error('...')
-				}
-				nextState[key] = nextStateForKey
-				// 判断经 Reducer 处理后的状态前后是否发生变化
-				hasChanged = hasChanged || nextStateForKey !== previousStateForKey
-			}
-			// 注意 对于 Redux 而言 整个状态树中只要有一处发生变化 则视为其有过变化
-			return hasChanged ? nextState : state
+			nextState[key] = nextStateForKey
+			// 判断经 Reducer 处理后的状态前后是否发生变化
+			hasChanged = hasChanged || nextStateForKey !== previousStateForKey
 		}
+		// 注意 对于 Redux 而言 整个状态树中只要有一处发生变化 则视为其有过变化
+		return hasChanged ? nextState : state
 	}
 }
 ```
 
 ### bindActionCreators.js
-在 Redux 中我们每次先通过 ActionCreator 去生成一个 Action  
-然后再通过 `dispatch(action)` 来触发状态的改变  
-有时候我们想要把 Redux 的相关逻辑放到父组件中  
-然后将改变状态的函数传入子组件，这个时候就可以用到 bindActionCreators  
-该函数可以将 create action 以及 dispatch action 这俩步操作绑定在一起  
+在 Redux 中我们需要先生成 `Action` 然后再将其 `dispatch` 至 `Reducer` 来触发状态的改变  
+如果你觉得分俩步操作过于繁琐就可以通过 `bindActionCreators` 将这俩步操作绑定在一起  
 ```js
 function bindActionCreator(actionCreator, dispatch) {
 	// 返回一个函数 执行会先 Create Action  
@@ -624,7 +537,6 @@ export default bindActionCreators(actionCreators, dispatch) {
 	for (let i = 0; i < keys.length; i++) {
 		const key = keys[i]
 		const actionCreator = actionCreators[key]
-		// actionCreator 必须是一个函数
 		if (typeof actionCreator === 'function') {
 			// 依次绑定每一个 Creator
 			boundActionCreators[key] = bindActionCreator(actionCreator, dispatch)
