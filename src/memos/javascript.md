@@ -924,3 +924,42 @@ Promise.resolve('a')
 function isCrushed() {}
 if (isCrushed.name === 'isCrushed') console.log('not minified')
 ```
+
+---
+
+```js
+const listeners = []
+listeners.push(function() {
+  console.log(this)
+})
+listeners.push(function() {
+  console.log(this)
+})
+
+for (let i = 0; i < listeners.length; i++) {
+	const listener = listeners[i]
+	listener() // 指向 window
+}
+
+for (let i = 0; i < listeners.length; i++) {
+	listeners[i]() // 指向 listeners 数组
+}
+
+for (let listener of listeners) {
+	listener() // 指向 window
+}
+```
+理解这个问题关键在于认识到数组在 Javascript 中其实只是一种特殊的对象
+
+---
+
+Iframe 内嵌的子页面与父页面间可以通过 postMessage 来相互通信
+```js
+// 子页面发送
+window.parent.postMessage('你好 爸爸', '*')
+// 父页面发送
+document.getElementsByTagName("iframe")[0].contentWindow.postMessage('你好 儿子', '*')
+// 接受页面
+window.addEventListener('message', e => console.log(e))
+```
+有安全方面顾虑的话最好把 * 改为特定的域名

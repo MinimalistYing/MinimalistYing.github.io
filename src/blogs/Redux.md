@@ -1,8 +1,7 @@
 # Redux 从入门到放弃
 
 ## 基本概念
-前端应用日渐复杂，传统的 JavaScipt / HTML / CSS 三大件变得难以应对  
-近几年出现的各类MVVM框架(React / Vue / Angular)使我们可以开发管理更复杂的单页应用( SPA )  
+当我们通过各类MVVM框架(React / Vue / Angular)开发复杂的单页应用(SPA)时  
 随之而来碰到的问题是对应用中各种状态的管理  
 每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更  
 当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原由  
@@ -20,7 +19,7 @@ Redux 的核心是以下三个原则:
 ### Actions
 不同于直接去修改应用的状态，例如 React 中的 `this.setState()`  
 Redux 推崇通过 Dispacth Action 来修改状态  
-Action 是一个携带了操作类型以及具体改变数据的简单对象( Plain Object )  
+Action 是一个携带了操作类型以及具体数据的简单对象( Plain Object )  
 ```js
 const action = {
 	// 操作类型 用于描述该次操作的用意
@@ -33,18 +32,18 @@ const action = {
 	}
 }
 ```
-以上 Action 中的数据是固定的，可以通过一个 ActionCreator 来根据参数动态的生成 Action  
+以上 Action 中的数据是固定的，可以实现一个 ActionCreator 来根据参数动态的生成 Action  
 ```js
 const actionCreator = people => ({
 	type: 'ADD_PEOPLE',
 	people
 })
 ```
-注意最终还是需要通过 'store.dispatch(action)' 将 Action 派发至 Reducer 中才能进行状态的变更  
+注意最终还是需要通过 `store.dispatch(action)` 将 Action 派发至 Reducer 中才能进行应用状态的变更  
 
 ### Reducer
-Reducer 用于定义根据收到的不同 Action 如何去改变应用的状态  
-Reducer 应该是一个 Pure Function , 意味着不应该在其中修改参数  
+Reducer 用于定义如何根据收到的不同 Action 去改变应用的状态  
+Reducer 应该是一个 Pure Function , 意味着不应该在其中进行由副作用的操作  
 并且当入参相同时其返回值应该总是相同的  
 ```js
 // 注意需要给我们的应用设置一个初始化的 initalState
@@ -77,7 +76,7 @@ unsubscribe() // 取消监听
 
 ### Middleware
 Redux 的中间件使开发者可以在每次 `dispatch(action)` 前后加上一些特定的逻辑  
-例如 logging/routing 等，中间件的通用形式如下  
+例如 logging/routing 等，中间件的写法如下  
 ```js
 const middleware = store => next => action => {
 	// 在dispatch前执行的逻辑
@@ -94,8 +93,8 @@ const middleware = store => next => action => {
 ### compose.js
 在 Redux 的 applyMiddleware 中会用到，函数式编程中常见  
 可以将传入的函数从右至左依次执行  
-并且每个函数执行的结果会作为下一个函数的参数
-类似 `compose(a, b, c)(arg)` 执行起来同 `a(b(c(arg)))`
+并且每个函数执行的结果会作为下一个函数的参数  
+例如 `compose(a, b, c)(arg)` 执行起来同 `a(b(c(arg)))`
 ```js
 export function compose(...funcs) {
 	// 如果没有传入任何参数 则直接返回一个会将第一个参数返回的函数
@@ -214,11 +213,10 @@ export default function applyMiddleware(...middlewares) {
 ```
 
 ### utils/isPlainObject.js
-由于 Redux 中要求 Action 必须是 Javascript 中的 Plain Object  
-所以这个工具函数用于判断一个对象是否满足该条件  
-会在 `dispatch(action)` 执行最开始处进行判断，如果传入的action不满足条件会抛出错误  
+该工具函数用于判断一个 Action 是不是 Plain Object    
 所谓的 Plain Object 指的是直接通过 `{}` 或者 `new Object()` 生成，原型链上并没有其它对象的 Object
 ```js
+// 大体上就相当于 Object.getPrototypeOf(obj) === Object.prototype
 export function isPlainObject(obj) {
 	// 如果对象都不是当然也不是PlainObject
 	// 这里注意的是 obj === null 这个判断
@@ -250,7 +248,7 @@ export function isPlainObject(obj) {
 }
 ```
 Ps: `lodash.isPlainObject` 逻辑与上述代码基本一致  
-同样是 Redux 的 timdorr 提的 PR
+同样是 Redux 的开发者 *timdorr* 提的 PR
 
 ### index.js
 ```js
@@ -280,7 +278,7 @@ export {
 ```
 
 ### createStore.js
-Redux 应用的主入口文件  
+Redux 应用的主入口  
 ```js
 // reducer 必传 通常来讲是我们通过 combineReducers 将所有 ruducer 集成到一起后的主函数
 // preloaderState 可选 可以传入的应用初始状态
@@ -295,12 +293,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
 	}
 	
 	// 有传入 enhancer 也就是有使用中间件(applyMiddleware)
-	if (typeof enhancer !== 'undefined') {
-		// applyMiddleware() 返回的应该是一个函数 否则需要报错
-		if (typeof enhancer !== 'function') {
-			throw new Error('Expected the enhancer to be a function.')
-		}
-		
+	if (typeof enhancer !== 'undefined') {		
 		// 有使用中间件的话 需要在 applyMiddleware 去 createStore
 		// applyMiddleware() 返回的是一个形如 createStore => (...args) => {} 的函数
 		// 所以这里会对enhancer(cerateStore)返回的结果再次传入参数(reducer, preloaderState)调用
