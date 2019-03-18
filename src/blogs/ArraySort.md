@@ -1,4 +1,4 @@
-# `Array.prototype.sort()`在使用默认CompareFn时的问题
+# Array.prototype.sort() 在使用默认CompareFn时的问题
 
 ## 起因
 在LeetCode上碰到一道算法题，需要先将数组中的数字从小到大进行排序  

@@ -61,22 +61,14 @@ class MyBlog extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			categories: []
+			categories: blogs.map(content => ({
+				name: content.slice(2, content.indexOf('\n'))
+			})),
+			nowReading: 0
 		}
 	}
 
 	componentDidMount() {
-		const titles = document.querySelectorAll('h1')
-		const categories = Array.from(titles).map(title => {
-			return {
-				name: title.innerText,
-				scroll: title.offsetTop
-			}
-		})
-		this.setState({
-			categories
-		})
-
 		setTimeout(() => new Scroll(document.getElementById('category'), {
 			mouseWheel: true,
 			scrollbars: true,
@@ -88,8 +80,8 @@ class MyBlog extends React.Component {
 		return (
 			<div className="blogs">
 				{
-					blogs.map((content, index) => (
-						<div className="blog" key={index}>
+					blogs.map((content, i) => (
+						i === this.state.nowReading && <div className='blog' key={i}>
 							<Markdown data={content} />
 						</div>
 					))
@@ -98,7 +90,7 @@ class MyBlog extends React.Component {
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
-								<li key={index} onClick={() => window.scrollTo(0, item.scroll - 80)}>{item.name}</li>
+								<li key={index} onClick={() => this.setState({ nowReading: index })}>{item.name}</li>
 							))
 						}
 					</ul>
