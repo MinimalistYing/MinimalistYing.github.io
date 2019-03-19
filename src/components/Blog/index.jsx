@@ -70,15 +70,16 @@ class MyBlog extends React.Component {
 	}
 
 	componentDidMount() {
-		setTimeout(() => new Scroll(document.getElementById('category'), {
-			mouseWheel: true,
-			scrollbars: true,
-			fadeScrollbars: true
-		}))
+		if (window.innerWidth >= 1024) {
+			setTimeout(() => new Scroll(document.getElementById('category'), {
+				mouseWheel: true,
+				scrollbars: true,
+				fadeScrollbars: true
+			}))
+		}
 	}
 
 	switch = index => {
-		window.alert(index)
 		this.setState({
 			moveout: true
 		})

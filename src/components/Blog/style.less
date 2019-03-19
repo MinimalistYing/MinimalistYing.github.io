@@ -41,6 +41,7 @@
 	overflow-y: hidden;
 	transition: all .3s;
 	border-radius: 5px;
+	z-index: 99;
 
 	&:hover {
 		box-shadow: 0 0 12px #ddd;
@@ -79,6 +80,7 @@
 		opacity: 0;
 		transition: all .3s;
 		transform: translateY(-100%);
+		overflow-y: scroll;
 
 		&.show {
 			opacity: 1;
