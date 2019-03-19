@@ -14,6 +14,11 @@
 		left: 13vw;
 		transform: translateZ(90deg);
 		opacity: 1;
+		animation: blog-show .6s ease;
+
+		&.out {
+			animation: blog-hide .6s ease;
+		}
 
 		&:hover {
 			box-shadow: 0 0 30px rgba(0,0,0,.1);
@@ -35,7 +40,6 @@
 	background: #fff;
 	overflow-y: hidden;
 	transition: all .3s;
-	border: 1px solid #ddd;
 	border-radius: 5px;
 
 	&:hover {
@@ -67,10 +71,92 @@
 	}
 
 	.category-box {
-		display: none;
+		top: 60px;
+		left: 0;
+		right: 0;
+		width: 100vw;
+		box-shadow: 0 0 6px #ddd;
+		opacity: 0;
+		transition: all .3s;
+		transform: translateY(-100%);
+
+		&.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
 	}
 }
 
 @media screen and (min-width: 1024px) {
+	.category-toggle {
+		display: none;
+	}
+}
 
+@keyframes blog-show {
+	from {
+		opacity: 0;
+		transform: rotateY(90deg);
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes blog-hide {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+		transform: rotateY(90deg);
+	}
+}
+
+.category-toggle {
+	position: fixed;
+	top: 30px;
+	right: 10px;
+	width: 25px;
+	height: 3px;
+	z-index: 999;
+	background: #ace4df;
+	border-radius: 5px;
+	transition: all .3s;
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: -10px;
+		width: 25px;
+		height: 3px;
+		background: #ace4df;
+		border-radius: 5px;
+		transition: all .3s;
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -10px;
+		width: 25px;
+		height: 3px;
+		background: #ace4df;
+		border-radius: 5px;
+		transition: all .3s;
+	}
+
+	&.show {
+		background: transparent;
+		&::before {
+			top: 0;
+			transform: rotate(45deg);
+		}
+		&::after {
+			bottom: 0;
+			transform: rotate(-45deg);
+		}
+	}
 }

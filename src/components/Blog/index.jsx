@@ -64,7 +64,8 @@ class MyBlog extends React.Component {
 			categories: blogs.map(content => ({
 				name: content.slice(2, content.indexOf('\n'))
 			})),
-			nowReading: 0
+			nowReading: 0,
+			showCategory: false
 		}
 	}
 
@@ -76,25 +77,38 @@ class MyBlog extends React.Component {
 		}))
 	}
 
+	switch = index => {
+		this.setState({
+			moveout: true
+		})
+		setTimeout(() => {
+			this.setState({
+				nowReading: index,
+				moveout: false
+			})
+		}, 500)
+	}
+
 	render() {
 		return (
 			<div className="blogs">
 				{
 					blogs.map((content, i) => (
-						i === this.state.nowReading && <div className='blog' key={i}>
+						i === this.state.nowReading && <div className={this.state.moveout ? 'blog out' : 'blog'} key={i}>
 							<Markdown data={content} />
 						</div>
 					))
 				}
-				<div id="category" className="category-box">
+				<div id="category" className={this.state.showCategory ? 'category-box show' : 'category-box'}>
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
-								<li key={index} onClick={() => this.setState({ nowReading: index })}>{item.name}</li>
+								<li key={index} onClick={() => this.switch(index)}>{item.name}</li>
 							))
 						}
 					</ul>
 				</div>
+				<div className={this.state.showCategory ? 'category-toggle show' : 'category-toggle'} onClick={() => this.setState(prev => ({ showCategory: !prev.showCategory }))}></div>
 			</div>
 		)
 	}
