@@ -78,6 +78,7 @@ class MyBlog extends React.Component {
 	}
 
 	switch = index => {
+		window.alert(index)
 		this.setState({
 			moveout: true
 		})
