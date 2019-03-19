@@ -104,7 +104,7 @@ class MyBlog extends React.Component {
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
-								<li key={index} onClick={() => this.switch(index)}>{item.name}</li>
+								<li key={index} onClick={() => this.switch(index)} onTouchEnd={() => this.switch(index)}>{item.name}</li>
 							))
 						}
 					</ul>
