@@ -80,15 +80,21 @@ class MyBlog extends React.Component {
 	}
 
 	switch = index => {
-		this.setState({
-			moveout: true
-		})
-		setTimeout(() => {
+		if (window.innerWidth >= 1024) {
 			this.setState({
-				nowReading: index,
-				moveout: false
+				moveout: true
 			})
-		}, 500)
+			setTimeout(() => {
+				this.setState({
+					nowReading: index,
+					moveout: false
+				})
+			}, 500)
+		} else {
+			this.setState({
+				nowReading: index
+			})
+		}
 	}
 
 	render() {
@@ -105,7 +111,7 @@ class MyBlog extends React.Component {
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
-								<li key={index} onClick={() => this.switch(index)} onTouchEnd={() => this.switch(index)}>{item.name}</li>
+								<li key={index} onClick={() => this.switch(index)}>{item.name}</li>
 							))
 						}
 					</ul>

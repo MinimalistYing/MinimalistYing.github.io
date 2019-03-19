@@ -14,11 +14,6 @@
 		left: 13vw;
 		transform: translateZ(90deg);
 		opacity: 1;
-		animation: blog-show .6s ease;
-
-		&.out {
-			animation: blog-hide .6s ease;
-		}
 
 		&:hover {
 			box-shadow: 0 0 30px rgba(0,0,0,.1);
@@ -70,6 +65,11 @@
 	.blog {
 		overflow-x: scroll;
 	}
+	
+	.blogs .blog {
+		width: 76vw;
+		left: 6vw;
+	}
 
 	.category-box {
 		top: 60px;
@@ -92,6 +92,13 @@
 @media screen and (min-width: 1024px) {
 	.category-toggle {
 		display: none;
+	}
+	.blog {
+		animation: blog-show .6s ease;
+
+		&.out {
+			animation: blog-hide .6s ease;
+		}
 	}
 }
 
