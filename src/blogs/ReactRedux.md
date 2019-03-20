@@ -1,16 +1,13 @@
 # React-Redux 从入门到后悔
 
 ## 序
-Redux作为一个简单的用于管理应用状态的工具，可以与任何其它的前端框架共用  
+Redux 作为一个简单的用于管理应用状态的工具，可以与任何其它的前端框架共用  
 当然，尤其适用于数据驱动视图的框架(Vue/React/Angular)  
-为了避免让我们自己将Redux的Store一层一层往子组件传递  
-然后在一遍遍通过subscribe来监听Store的变化并去修改组件的状态  
-React-Redux利用高阶组件(HOC)  
-将上述逻辑封装到了`<Provider>`以及`connect()`俩个简单的API中  
-当开发者想在React中使用Redux时，React-Redux将会是必不可少的帮手
+React-Redux 利用高阶组件(HOC) / Context  
+将 React UI 的更新与 Redux Store 的变化绑定在了一起
 
 ## How to use
-首先，用Redux提供的`<Provider>`包裹根组件
+首先，用 `<Provider>` 包裹根组件
 ```js
 // 新建Redux的Store
 const store = createStore(reducers)
@@ -26,7 +23,7 @@ ReactDOM.render(
 ```js
 connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])(Comp)
 ```
-这样就能得到注入Redux后的新组件  
+这样就能得到注入 Redux 后的新组件  
 如果不传入`mapStateToProps`，则不会在该组件中去监听`store`的变化  
 如果不传入`mapDispatchToProps`，则默认只将`dipatch`注入组件  
 ```js
@@ -35,11 +32,6 @@ export default connect()(Comp)
 将`dispatch`注入组件  
 这样在组件中就可以通过`this.props.dispatch(action)`来修改Redux的`store`  
 但不会去监听`store`的变化
-```js
-export default connect(state => state)(Comp)
-```
-监听所有`store`的的变化，并注入`dispatch`  
-不建议这么做，会降低程序的效率
 ```js
 const mapStateToProps = (state, ownProps) => {
 	return { all: state.total + ownProps.total }
@@ -58,8 +50,7 @@ const mapDispatchToProps = dispatch => {
 }
 export default connect(null, mapDispatchToProps)(Comp)
 ```
-不监听`store`  
-在组件中可以通过调用`this.props.addTodo('xx')`来改变应用状态
+不监听 `store` 在组件中可以通过调用`this.props.addTodo('xx')`来改变应用状态
 
 ## 源码中学习到的小技巧
 React-Redux 默认通过以下方法来比较组件的Props是否相等  
