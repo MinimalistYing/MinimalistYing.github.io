@@ -26,10 +26,12 @@ import ArraySort from '@blog/ArraySort.md'
 import WhyPreflight from '@blog/WhyPreflight.md'
 import VueVsReact from '@blog/VueVsReact.md'
 import Axios from '@blog/Axios.md'
+import Cascading from '@blog/Cascading.md'
 
 import './style.less'
 
 const blogs = [
+	Cascading,
 	Axios,
 	VueVsReact,
 	WhyPreflight,
