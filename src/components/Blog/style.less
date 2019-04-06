@@ -7,14 +7,14 @@
 	.blog {
 		position: absolute;
 		top: 0;
-		transition: all .5s linear;
+		transition: box-shadow .5s linear;
 		padding: 10px 20px;
 		margin-bottom: 20px;
 		background: #fff;
 		width: 62vw;
 		left: 13vw;
-		transform: translateZ(90deg);
 		opacity: 1;
+		transform-origin: 0 0;
 
 		&:hover {
 			box-shadow: 0 0 30px rgba(0,0,0,.1);
@@ -95,10 +95,10 @@
 		display: none;
 	}
 	.blog {
-		animation: blog-show .6s ease;
+		animation: blog-show .6s ease-in-out;
 
 		&.out {
-			animation: blog-hide .6s ease;
+			animation: blog-hide .6s ease-in-out;
 		}
 	}
 }
@@ -106,7 +106,7 @@
 @keyframes blog-show {
 	from {
 		opacity: 0;
-		transform: rotateY(90deg);
+		transform: rotateY(-180deg);
 	}
 
 	to {
@@ -121,7 +121,7 @@
 
 	to {
 		opacity: 0;
-		transform: rotateY(90deg);
+		transform: rotateY(180deg);
 	}
 }
 
