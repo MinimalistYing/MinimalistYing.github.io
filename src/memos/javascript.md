@@ -696,33 +696,33 @@ Iterator 实现斐波那契数列
 ```js
 const febonacci = {
 	[Symbol.iterator]() {
-  	let a = 1
-    let b = 1
-    return {
-    	next() {
-      	const value = b
-        let done = b >= 1000 // 超过1000结束迭代
-        b = a
-        a = value + a       
-        
-        return {
-        	value,
-          done
-        }
-      },
-      return() {
-      	console.log('Stop iterate')
-      	return { done: true }
-      }
-    }
-  }
+		let a = 1
+		let b = 1
+		return {
+			next() {
+				const value = b
+				let done = b >= 1000 // 超过1000结束迭代
+				b = a
+				a = value + a       
+
+				return {
+					value,
+					done
+				}
+			},
+			return() {
+				console.log('Stop iterate')
+				return { done: true }
+			}
+		}
+	}
 }
 
 for (let i of febonacci) {
 	console.log(i)
-  if (i > 500) {
-  	break;
-  }
+	if (i > 500) {
+		break;
+	}
 }
 ```
 
