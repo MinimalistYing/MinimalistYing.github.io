@@ -963,3 +963,16 @@ document.getElementsByTagName("iframe")[0].contentWindow.postMessage('你好 儿
 window.addEventListener('message', e => console.log(e))
 ```
 有安全方面顾虑的话最好把 * 改为特定的域名
+
+---
+
+`void` 操作符会计算其后的表达式并返回 `undefined`  
+我们会在一些代码中看到开发者使用 `void 0` 代替 `undefined`  
+因为再早期的 Javascript (ES5 之前)中 `undefined` 是一个变量，所以可能会在程序执行过程中被修改  
+为了避免这个语言设计上的错误，所以开发者会使用 `void 0`  
+此外还可以利用 `void` 来执行 IIFE 例如  
+```js
+void function() {
+	console.log(123)
+}()
+```
