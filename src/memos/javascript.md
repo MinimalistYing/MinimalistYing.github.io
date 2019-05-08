@@ -980,3 +980,25 @@ void function() {
 	console.log(123)
 }()
 ```
+
+---
+
+如何通过函数模拟 `new` 操作符？Javascript 中 `new` 到底做了什么？
+```js
+function fakeNew (construct, ...params) {
+	const o = Object.create(construct.prototype)
+	construct.apply(o, params)
+	return o
+}
+
+// test
+function Foo (name, age) {
+	this.name = name
+	this.age = age
+}
+Foo.prototype.hello = function () {
+	console.log(`Hello ${this.name} ${this.age}`)
+}
+
+const a = fakeNew(Foo, 'a', 18)
+```
