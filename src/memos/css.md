@@ -205,3 +205,19 @@ p {
 哪怕是 0 特殊性仍然会覆盖掉没有特殊性的样式  
 所以不建议使用通配符来设定页面的样式
 
+---
+
+为什么说使用无单位的数字来设置 `line-height` 最好  
+```html
+<div style="font-size: 12px; line-height: 1.5em; width: 60px;">
+	<p style="font-size: 40px;">段落内容</p>
+<div>
+
+<div style="font-size: 12px; line-height: 1.5; width: 60px;">
+	<p style="font-size: 40px;">段落内容</p>
+<div>
+```
+上述代码中的俩个 `div` 样式差别仅在于 `line-height`。  
+但是可以发现第一个段落中的文字会重叠在一起，因为当使用带单位的值时子元素继承的 `line-height` 是计算值而不是比例。所以第一个段落的实际计算行高为 `18px(12px * 1.5em)` 而字体大小为 `40px`，第二个段落的行高为 `60px(40px * 1.5)` 字体大小与第一段相同。
+所以第一段中的文字会发生重叠，为了避免这种问题通常建议使用无单位的数字来设置 `line-height`。  
+Ps: `line-height` 的值最好不要设置小于 1.5 ，这样才能保持文本良好的可读性
