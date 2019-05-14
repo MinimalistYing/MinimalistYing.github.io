@@ -987,8 +987,9 @@ void function() {
 ```js
 function fakeNew (construct, ...params) {
 	const o = Object.create(construct.prototype)
-	construct.apply(o, params)
-	return o
+	const re = construct.apply(o, params)
+	// 当构造函数中会返回一个引用类型的值时 最终 new 操作符返回的是这个值 而不是新构造的对象
+	return (typeof re === 'object' || typeof re === 'function') ? re : o
 }
 
 // test
