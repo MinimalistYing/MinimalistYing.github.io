@@ -277,6 +277,7 @@ function once(fn) {
 			fn.apply(this, arguments)
 		}
 	}
+}
 ```
 
 ---

@@ -221,3 +221,19 @@ p {
 但是可以发现第一个段落中的文字会重叠在一起，因为当使用带单位的值时子元素继承的 `line-height` 是计算值而不是比例。所以第一个段落的实际计算行高为 `18px(12px * 1.5em)` 而字体大小为 `40px`，第二个段落的行高为 `60px(40px * 1.5)` 字体大小与第一段相同。
 所以第一段中的文字会发生重叠，为了避免这种问题通常建议使用无单位的数字来设置 `line-height`。  
 Ps: `line-height` 的值最好不要设置小于 1.5 ，这样才能保持文本良好的可读性
+
+---
+
+现在 CSS 提供了原生的全局变量支持(IE 不兼容)
+```
+:root {
+	--somecolor: #666;
+	--someshadow: #ddd 0 0 6px;
+}
+
+div {
+	background: var(--somecolor);
+	box-shadow: var(--someshadow);
+	color: var(--none, red); /* 支持设置默认值 */
+}
+```
