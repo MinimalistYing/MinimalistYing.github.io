@@ -213,3 +213,8 @@ const App = React.creatElement('div', {
 	className: 'app'
 }, 'Hello World')
 ```
+
+---
+
+AntD 表格组件 `columns` 的 `filteredValue` 字段只接受字符串数组  
+要注意把其它类型的 ID 转为字符串后再传入，否则会导致筛选项的多选框回填出现问题
