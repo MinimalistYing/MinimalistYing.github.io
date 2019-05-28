@@ -28,10 +28,12 @@ import VueVsReact from '@blog/VueVsReact.md'
 import Axios from '@blog/Axios.md'
 import Cascading from '@blog/Cascading.md'
 import LowDesireSociety from '@blog/LowDesireSociety.md'
+import Frameworks from '@blog/Frameworks.md'
 
 import './style.less'
 
 const blogs = [
+	Frameworks,
 	LowDesireSociety,
 	Cascading,
 	Axios,
