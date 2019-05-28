@@ -1004,3 +1004,11 @@ Foo.prototype.hello = function () {
 
 const a = fakeNew(Foo, 'a', 18)
 ```
+
+---
+
+想用 Unicode 动态生成字符时，如果试图通过 `const str = '\u' + '0000'` 会报错  
+```
+Invalid Unicode escape sequence
+```
+需要通过 `String.fromCodePoint()` 来实现
