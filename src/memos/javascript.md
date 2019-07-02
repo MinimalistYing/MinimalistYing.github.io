@@ -1012,3 +1012,18 @@ const a = fakeNew(Foo, 'a', 18)
 Invalid Unicode escape sequence
 ```
 需要通过 `String.fromCodePoint()` 来实现
+
+---
+
+考虑如下一种比较情景
+```js
+if (value === 'a' || value === 'b' || value === 'c')
+```
+如果都是字符串的话，可以运用正则使得比较更加优雅
+```js
+if (/^a|b|c$/.test(value))
+```
+如果是变量，可以运用数组来比较
+```js
+if ([foo, bar, zoo].includes(value))
+```
