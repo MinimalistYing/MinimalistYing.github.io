@@ -1,7 +1,7 @@
 # Axios 源码解析
 Axios 是一个发送 Ajax 请求的类库  
-类似于 jQuery `$.ajax()` 以及 Angular `$http`   
-本文会针对其提供的特性对部分核心代码进行分析
+类似于 jQuery 的 `$.ajax()` 以及 Angular 的 `$http`   
+本文仅会针对其提供的特性对部分核心代码进行分析
 
 ## Feature
 首先罗列一下 Axios 在对 `xhr` 进行封装的基础上提供的一些高级特性
@@ -9,8 +9,9 @@ Axios 是一个发送 Ajax 请求的类库
 * 支持通过 `Interceptor` 在请求前后进行一些公共业务操作（例如对错误的处理）
 * 支持通过 `transformData` 对请求参数以及响应结果做统一处理
 * 支持通过 `axios.defaults` 进行全局的默认配置
-* 支持通过 `axios.get() | axios.put()` 以及类似 Fetch API `axios(url, config)` 的调用形式
+* 支持通过 `axios.get() | axios.put()` 以及类似 Fetch API 的 `axios(url, config)` 进行调用
 * 支持统一设置请求的 `BaseURL`
+* 支持从服务端（node.js）或者客户端（Browser）发起请求
 
 ## Axios 如何支持多种调用形式
 ```js
@@ -258,10 +259,10 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 ## Axios 发起一个请求的流程
 1. `axios(config) | axios(url, config) | axios.get(url, config)` 启动一个请求
-2. 内部最终通过 `Axios.prototype.request(config)` 函数来启动请求
+2. 内部最终通过 `Axios.prototype.request(config)` 函数来发送请求
 3. 经过 Request Inteceptors 处理配置 / 请求头等
 4. 在 `dispatchRequest(config)` 中通过 `config.data = transformRequest(...)` 处理请求参数
-6. 在 `xhrAdapter` 中实例化 `XMLHttpRequest` 对象 发送 Ajax 请求
-7. 收到响应后 不管请求成功还是失败，通过 `response.data = transformResponse(...)` 处理请求返回数据
-8. 经过 Response Inteceptors 处理错误 / 响应头等
-9. 请求完成 `axios(config).then(res => {}).catch(err => {})` 在 `then` 或 `catch` 块中处理业务逻辑
+5. 在 `xhrAdapter` 中实例化 `XMLHttpRequest` 对象，发送 Ajax 请求
+6. 收到响应后 不管请求成功还是失败，通过 `response.data = transformResponse(...)` 处理请求返回数据
+7. 经过 Response Inteceptors 处理错误 / 响应头等
+8. 请求完成 `axios(config).then(res => {}).catch(err => {})` 在 `then` 或 `catch` 块中处理业务逻辑
