@@ -4,8 +4,8 @@
 在 Web 发展之初，客户端与服务端通常仅通过 `<form>` 表单进行数据交互  
 当表单被提交时页面会进行刷新，服务器端可能会根据提交的数据返回不同的 HTML  
 随着 Web Application 的功能愈加复杂，每次交互都需要刷新页面显然对用户来说体验很糟糕  
-这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据 
-在浏览器中主要通过下面介绍的 `XMLHttpRequest` 对象来发起 Ajax 请求  
+这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 可以在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据  
+ 在浏览器中主要通过下面介绍的 `XMLHttpRequest` 对象来发起 Ajax 请求  
 (Ps: 名称中的 XML 其实很有误导性，只是因为该技术诞生之初时 XML 很火爆  
 大家可能本来认为 XML 会发展成为通用的数据交换格式，没想到现在 JSON 异军突起成为最流行的轻量格式，由此亦可见科技进步之快)
 
@@ -107,9 +107,9 @@ Uncaught DOMException: Failed to execute 'setRequestHeader' on 'XMLHttpRequest':
 
 当我们想利用 XHR 来上传文件时情况会更加复杂一点  
 首先要提的是早期的 XHR 并不支持文件上传，只能利用 `<form>` 表单加 `<input type="file">` 来实现  
-IE10+ 才开始支持通过 XHR2 以及 `FromData` 来实现文件上传
+IE10+ 才开始支持通过 XHR2 以及 `FormData` 来实现文件上传
 ```js
-const data = new FromData()
+const data = new FormData()
 const dom = document.querySelector('input[type="file"]')
 data.append('filename', dom.files[0].name)
 data.append('file', dom.files[0])
@@ -129,7 +129,7 @@ request.send(data)
 
 ## 总结
 通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美  
-开发者使用起来显然也很麻烦，所以才出现了 jQuery 中的 `$.ajax()` 以及时下比较流行的 `axios` 等框架对其的封装  
+开发者使用起来也很麻烦，所以才出现了 jQuery 中的 `$.ajax()` 以及时下比较流行的 `axios` 等框架对其的封装  
 除开这些框架外更令人期待的是浏览器原生支持的 Fetch API  
 虽然目前的兼容性堪忧但是 Fetch 作为 *A modern replacement for XMLHttpRequest.*  
-相信在不久的将来会给我们带来更多方便
+相信在不久的将来我们就可以抛弃 XHR 了

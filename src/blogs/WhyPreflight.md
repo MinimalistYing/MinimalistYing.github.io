@@ -3,7 +3,7 @@
 校验通过后才会正式将携带参数的请求发送给服务器  
 平时谈论的大多是什么情况下会需要预校验  
 不知道大家有没有仔细考虑过浏览器为什么会这么做？  
-不这么做会不会导致什么问题？
+不这么做又会导致什么问题？
 
 下面先来看看 [W3C 协议](https://www.w3.org/TR/cors/#preflight-request) 中的说法：
 > To protect resources against cross-origin requests that could not originate from certain user agents  
@@ -27,6 +27,8 @@ before this specification existed a preflight request is made to ensure that the
 服务器接受到了如上的 `DELETE` 请求，由于并未设置过 CORS  
 也就是说服务器会默认浏览器发来的请求都是满足同源策略的  
 便直接将该请求当作普通请求进行处理  
+虽然浏览器端虽然可能会发现响应中并没有 CORS 相关端响应头而抛出跨域错误  
+但是服务端实际上已经将请求接受
 在这种情况下浏览器的同源策略就不攻自破了
 
 ## 预检验请求为什么能解决这个问题 

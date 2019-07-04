@@ -128,7 +128,7 @@ module.exports = function xhrAdapter(config) {
 // ...
 function Axios(instanceConfig) {
   this.defaults = instanceConfig;
-  // 每个 Axios 的实例都包含了俩类拦截器 
+  // 每个 Axios 的实例都包含了俩个拦截器 
   // this.interceptors.request 以及 this.interceptors.response
   // InterceptorManager 用于管理所有的拦截器 也就是维护一个数组
   // 数组中的元素是一个类似 { fulfill: ()=>{}, reject: () => {}} 的对象
