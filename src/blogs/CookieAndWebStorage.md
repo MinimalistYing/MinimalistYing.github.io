@@ -49,7 +49,7 @@ document.cookie = 'test=; max-age=0; domain=xx.com; path=/'
 ```js
 navigator.cookieEnabled
 ```
-Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等都无法正常访问  
+Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等网站都无法正常访问  
 感觉现在大多数用户都不会去禁用 Cookie，不然会有一堆网站访问不了
 
 ### 关于 Cookie 的属性

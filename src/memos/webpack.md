@@ -40,7 +40,7 @@ app: ['babel-polyfill', './app.js']
 ```js
 plugins: [
 	// 以下的配置会使打包出来的文件只包含简体以及繁体中文的国际化
-	new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /zh-cn|zh-tw/)
+	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|zh-tw/)
 ]
 ```
 
