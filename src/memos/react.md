@@ -115,8 +115,34 @@ class Button extends React.Component {
 	// 这种方式的缺点是每次 Button 组件的重绘都需要生成一个新函数
 	// 当这个函数被当作 props 传入子组件时 可能会导致不必要的重绘
 	// 所以更推荐采用先前的俩种方式
+	// 但是当需要传递多余参数当时候可能不得不采用这种这种形式
+	// 下面会给出当碰到渲染长列表的性能问题时如何进行优化
 	render() {
 		return <button onClick={e => this.handleClick(e)}></button>
+	}
+}
+
+class Alphabet extends React.Component {
+	state = {
+		num: null
+	}
+	// 通过将数据存放到 HTML 的 data-num 属性中来避免使用箭头函数引起的性能问题
+	handleClick = e => {
+		this.setState({
+			num: e.target.dataset.num
+		})
+	}
+
+	render() {
+		return (
+			<ul>
+				{[1,2,3].map(num =>
+					<li key={num} data-num={num} onClick={this.handleClick}>
+						{num}
+					</li>
+				)}
+			</ul>
+		)
 	}
 }
 ```
@@ -162,6 +188,17 @@ function Columns() {
 			<td></td>
 			<td></td>
 		</React.Fragment>
+	)
+}
+```
+如果不需要像 Fragment 传递 Props 或者 key, 可以采用简
+```js
+function Columns() {
+	return (
+		<>
+			<td></td>
+			<td></td>
+		</>
 	)
 }
 ```
