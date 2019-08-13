@@ -237,3 +237,7 @@ div {
 	color: var(--none, red); /* 支持设置默认值 */
 }
 ```
+
+---
+
+`z-index` 属性只有设置在定位元素也就是 `position` 不是 `static` 的元素上才会生效
