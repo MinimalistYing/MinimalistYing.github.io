@@ -19,27 +19,25 @@ const Blog = React.lazy(() => import('./components/Blog'))
 const Memos = React.lazy(() => import('./components/Memos'))
 const MessageDemo = React.lazy(() => import('./components/VanillaAntdDemo'))
 
-document.addEventListener('DOMContentLoaded', function () {
-	const App = () => (
-		<div>
-			<Header />
-			<Suspense fallback={<Loading />}>
-				<Switch>
-					<Route exact path="/" component={Blog} />
-					<Route exact path="/index.html" component={Blog} />
-					<Route exact path="/memo.html" component={Memos} />
-					<Route exact path="/messagedemo.html" component={MessageDemo} />
-				</Switch>
-			</Suspense>
-		</div>
-	)
+const App = () => (
+	<div>
+		<Header />
+		<Suspense fallback={<Loading />}>
+			<Switch>
+				<Route exact path="/" component={Blog} />
+				<Route exact path="/index.html" component={Blog} />
+				<Route exact path="/memo.html" component={Memos} />
+				<Route exact path="/messagedemo.html" component={MessageDemo} />
+			</Switch>
+		</Suspense>
+	</div>
+)
 
-	// your code
-	ReactDOM.render(
-		<Router>
-			<App />
-		</Router>,
-		document.getElementById('app')
-	)
-})
+// your code
+ReactDOM.render(
+	<Router>
+		<App />
+	</Router>,
+	document.getElementById('app')
+)
 
