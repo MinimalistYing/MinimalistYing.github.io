@@ -12,9 +12,6 @@ import {
 	Header,
 	Loading
 } from './components'
-// import Blog from './components/Blog'
-// import Memos from './components/Memos'
-// import MessageDemo from './components/VanillaAntdDemo'
 
 import './less/main.less'
 
@@ -22,14 +19,13 @@ const Blog = React.lazy(() => import('./components/Blog'))
 const Memos = React.lazy(() => import('./components/Memos'))
 const MessageDemo = React.lazy(() => import('./components/VanillaAntdDemo'))
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
 	const App = () => (
 		<div>
 			<Header />
 			<Suspense fallback={<Loading />}>
 				<Switch>
+					<Route exact path="/" component={Blog} />
 					<Route exact path="/index.html" component={Blog} />
 					<Route exact path="/memo.html" component={Memos} />
 					<Route exact path="/messagedemo.html" component={MessageDemo} />
