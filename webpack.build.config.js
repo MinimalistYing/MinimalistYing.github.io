@@ -4,6 +4,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const path = require('path')
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, './dist'),
-		publicPath: './dist/',
+		// publicPath: './dist/',
 		filename: '[name].[contenthash].js',
 		chunkFilename: '[name].[contenthash].bundle.js',
 	},
@@ -86,7 +87,22 @@ module.exports = {
 			filename: "[name].[contenthash].css",
 			chunkFilename: "[id].[contenthash].css"
 		}),
-		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') })
+		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+		new PrerenderSPAPlugin({
+      // Required - The path to the webpack-outputted app to prerender.
+      staticDir: path.join(__dirname, 'dist'),
+      // Required - Routes to render.
+			routes: [ '/index.html', '/memo.html', '/messagedemo.html' ],
+			postProcess(context) {
+				// Remove /index.html from the output path if the dir name ends with a .html file extension.
+				// For example: /dist/dir/special.html/index.html -> /dist/dir/special.html
+				if (context.route.endsWith('.html')) {
+					context.outputPath = path.join(__dirname, 'dist', context.route)
+				}
+			
+				return context
+			}
+    })
 	],
 	optimization: {
 		minimizer: [

@@ -12,10 +12,10 @@ class Header extends React.Component {
 			    <nav>
 			        <ul>
 			            <li>
-			            	<NavLink to="/" exact>博客</NavLink>
+			            	<NavLink to="/index.html" exact>博客</NavLink>
 			            </li>
 			            <li>
-			            	<NavLink to="/memo" exact>备忘</NavLink>
+			            	<NavLink to="/memo.html" exact>备忘</NavLink>
 			           	</li>
 			            <li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li>
 			            <li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li>

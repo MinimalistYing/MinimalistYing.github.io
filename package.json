@@ -48,6 +48,7 @@
     "iscroll": "^5.2.0",
     "marked": "^0.4.0",
     "natives": "^1.1.6",
+    "prerender-spa-plugin": "^3.4.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^4.3.1",
