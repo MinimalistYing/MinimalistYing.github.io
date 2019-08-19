@@ -1,0 +1,232 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="webpack-v3-8-1-">Webpack(v3.8.1)</h1>
+<pre><code><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(path.join(__dirname, <span class="hljs-string">'package.json'</span>))<span class="hljs-comment">// package.json</span>
+
+<span class="hljs-comment">// 定义项目中的一些文件夹路径</span>
+<span class="hljs-keyword">const</span> APP_PATH = path.resolve(__dirname, <span class="hljs-string">'src'</span>)
+
+<span class="hljs-keyword">let</span> theme = {}
+<span class="hljs-comment">// pkg.theme存的是项目中antd主题文件的路径</span>
+<span class="hljs-comment">// 这里是 ./antd-theme.js</span>
+<span class="hljs-keyword">if</span> (pkg.theme &amp;&amp; <span class="hljs-keyword">typeof</span>(pkg.theme) === <span class="hljs-string">'string'</span>) {
+  theme = <span class="hljs-built_in">require</span>(path.resolve(__dirname, pkg.theme))
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: path.resolve(APP_PATH, <span class="hljs-string">'index.jsx'</span>),
+  <span class="hljs-comment">// 暂时本地开发环境的不配output好像影响不大</span>
+  <span class="hljs-comment">// 后期遇到问题再配</span>
+  resolve: {
+    <span class="hljs-comment">// 配置这个后引用node_modules中的依赖包不用加路径 直接import xx from ('antd')即可</span>
+    modules: [
+      <span class="hljs-string">'node_modules'</span>
+    ],
+    <span class="hljs-comment">//后缀 配了这个就可以在import时 import xx from (./test) 而不用 import xx from (./test.jsx)</span>
+    extensions: [<span class="hljs-string">'.js'</span>, <span class="hljs-string">'.jsx'</span>, <span class="hljs-string">'.json'</span>, <span class="hljs-string">'.scss'</span>]
+  },
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [{
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js|\.jsx$/</span>,
+      <span class="hljs-attr">use</span>: [
+        <span class="hljs-string">'babel-loader'</span>,
+        <span class="hljs-string">'eslint-loader'</span>
+      ],
+      <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/</span>
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+      <span class="hljs-attr">use</span>: [<span class="hljs-string">'css-loader'</span>]
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.less$/</span>,
+      <span class="hljs-attr">use</span>: [{
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">'style-loader'</span>
+      },{
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">'css-loader'</span>
+      },{
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">'less-loader'</span>,
+        <span class="hljs-attr">options</span>: {
+          <span class="hljs-attr">sourceMap</span>: <span class="hljs-literal">true</span>,
+          <span class="hljs-attr">modifyVars</span>: theme <span class="hljs-comment">// 用于自定义antd主题 覆盖其less变量</span>
+        }
+      }],
+      <span class="hljs-attr">include</span>: path.resolve(__dirname, <span class="hljs-string">'node_modules'</span>)
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.scss$/</span>,
+      <span class="hljs-attr">use</span>: [
+        <span class="hljs-string">'style-loader'</span>,
+        <span class="hljs-string">'css-loader'</span>,
+        <span class="hljs-string">'sass-loader'</span>
+      ],
+      <span class="hljs-attr">include</span>: APP_PATH
+    }, {
+      <span class="hljs-comment">// 字体文件之类的需要这个loader支持</span>
+      test: <span class="hljs-regexp">/\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/</span>,
+      <span class="hljs-attr">use</span>: [<span class="hljs-string">'file-loader'</span>],
+      <span class="hljs-attr">include</span>: APP_PATH
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(jpe?g|png|gif|svg)$/</span>,
+      <span class="hljs-attr">use</span>: [{
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">'url-loader'</span>,
+        <span class="hljs-attr">options</span>: {
+          <span class="hljs-attr">limit</span>: <span class="hljs-number">8192</span><span class="hljs-comment">// 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面</span>
+        }
+      }],
+      <span class="hljs-attr">include</span>: APP_PATH
+    }]
+  },
+  <span class="hljs-attr">devServer</span>: {
+    <span class="hljs-attr">contentBase</span>: <span class="hljs-string">'./build'</span>,
+    <span class="hljs-attr">historyApiFallback</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">hot</span>: <span class="hljs-literal">true</span>,<span class="hljs-comment">// 开启HMR</span>
+    inline: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">compress</span>: <span class="hljs-literal">true</span>,<span class="hljs-comment">// 开启gzip</span>
+    port: <span class="hljs-number">8080</span>
+  },
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> webpack.NamedModulesPlugin(),<span class="hljs-comment">// 用于确保多次build生成的bundle名称不变</span>
+    <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+      <span class="hljs-attr">template</span>: <span class="hljs-string">'index.html'</span><span class="hljs-comment">// 以根目录下的index.html为模版</span>
+    }),
+    <span class="hljs-keyword">new</span> webpack.HotModuleReplacementPlugin()<span class="hljs-comment">// HMR所需</span>
+  ],
+  <span class="hljs-attr">devtool</span>: <span class="hljs-string">'cheap-module-eval-source-map'</span>
+}
+</code></pre><p>生产环境</p>
+<pre><code><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">'path'</span>)
+<span class="hljs-keyword">const</span> webpack = <span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>)
+<span class="hljs-keyword">const</span> ExtractTextPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'extract-text-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> HtmlWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'html-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> CleanWebpackPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">'clean-webpack-plugin'</span>)
+<span class="hljs-keyword">const</span> ROOT_PATH = path.resolve(__dirname)
+<span class="hljs-keyword">const</span> APP_PATH = path.resolve(ROOT_PATH, <span class="hljs-string">'src'</span>)
+
+<span class="hljs-keyword">const</span> pkg = <span class="hljs-built_in">require</span>(path.join(__dirname, <span class="hljs-string">'package.json'</span>))<span class="hljs-comment">// package.json</span>
+<span class="hljs-keyword">let</span> theme = {}
+<span class="hljs-comment">// pkg.theme存的是项目中antd主题文件的路径</span>
+<span class="hljs-comment">// 这里是 ./antd-theme.js</span>
+<span class="hljs-keyword">if</span> (pkg.theme &amp;&amp; <span class="hljs-keyword">typeof</span>(pkg.theme) === <span class="hljs-string">'string'</span>) {
+  theme = <span class="hljs-built_in">require</span>(path.resolve(__dirname, pkg.theme))
+}
+<span class="hljs-comment">// 用于提取自己写的css</span>
+<span class="hljs-keyword">const</span> appExtract = <span class="hljs-keyword">new</span> ExtractTextPlugin({<span class="hljs-attr">filename</span>: <span class="hljs-string">'app.[contenthash].css'</span>, <span class="hljs-attr">allChunks</span>: <span class="hljs-literal">true</span>})
+<span class="hljs-comment">// 用于提取依赖包的css(主要是Antd)</span>
+<span class="hljs-keyword">const</span> vendorExtract = <span class="hljs-keyword">new</span> ExtractTextPlugin({<span class="hljs-attr">filename</span>: <span class="hljs-string">'vendor.css'</span>, <span class="hljs-attr">allChunks</span>: <span class="hljs-literal">true</span>})
+
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">entry</span>: {
+    <span class="hljs-attr">app</span>: path.resolve(APP_PATH, <span class="hljs-string">'index.jsx'</span>),
+    <span class="hljs-attr">vendor</span>: [<span class="hljs-string">'react'</span>, <span class="hljs-string">'axios'</span>]
+  },
+  <span class="hljs-attr">output</span>: {
+    <span class="hljs-attr">path</span>: path.resolve(__dirname, <span class="hljs-string">'build'</span>),
+    <span class="hljs-attr">publicPath</span>: <span class="hljs-string">'/'</span>,
+    <span class="hljs-attr">filename</span>: <span class="hljs-string">'[name].[chunkhash].js'</span>,
+    <span class="hljs-attr">chunkFilename</span>: <span class="hljs-string">'[name].[chunkhash:5].chunk.js'</span>,
+  },
+  <span class="hljs-attr">resolve</span>: {
+    <span class="hljs-comment">// 配置这个后引用node_modules中的依赖包不用加路径 直接import xx from ('antd')即可</span>
+    modules: [
+      <span class="hljs-string">'node_modules'</span>
+    ],
+    <span class="hljs-comment">//后缀 配了这个就可以在import时 import xx from (./test) 而不用 import xx from (./test.jsx)</span>
+    extensions: [<span class="hljs-string">'.js'</span>, <span class="hljs-string">'.jsx'</span>, <span class="hljs-string">'.json'</span>, <span class="hljs-string">'.scss'</span>]
+  },
+  <span class="hljs-attr">plugins</span>: [
+    <span class="hljs-keyword">new</span> webpack.optimize.UglifyJsPlugin({
+      <span class="hljs-attr">compress</span>: {
+        <span class="hljs-attr">warnings</span>: <span class="hljs-literal">false</span>
+      }
+    }),
+    <span class="hljs-comment">// 与NamedModulesPlugin 但更适用于生成环境</span>
+    <span class="hljs-keyword">new</span> webpack.HashedModuleIdsPlugin(),
+    <span class="hljs-comment">// 部分依赖包(React)会在非生产环境中包含一些提示、警告的代码来帮助开发者解决问题</span>
+    <span class="hljs-comment">// 在生产环境通过配置这个可以阻止生成这些代码 减小bundle的size</span>
+    <span class="hljs-keyword">new</span> webpack.DefinePlugin({ <span class="hljs-string">'process.env.NODE_ENV'</span>: <span class="hljs-built_in">JSON</span>.stringify(<span class="hljs-string">'production'</span>) }),
+    <span class="hljs-comment">// 变动频率小的外部依赖包</span>
+    <span class="hljs-keyword">new</span> webpack.optimize.CommonsChunkPlugin({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'vendor'</span>
+    }),
+    <span class="hljs-comment">// webpack的运行环境所需</span>
+    <span class="hljs-keyword">new</span> webpack.optimize.CommonsChunkPlugin({
+      <span class="hljs-attr">name</span>: <span class="hljs-string">'runtime'</span>
+    }),
+    <span class="hljs-keyword">new</span> HtmlWebpackPlugin({
+      <span class="hljs-attr">template</span>: <span class="hljs-string">'index.html'</span><span class="hljs-comment">// 以根目录下的index.html为模版</span>
+    }),
+    <span class="hljs-keyword">new</span> CleanWebpackPlugin(<span class="hljs-string">'build'</span>),
+    appExtract,
+    vendorExtract,
+  ],
+  <span class="hljs-attr">module</span>: {
+    <span class="hljs-attr">rules</span>: [{
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.js|\.jsx$/</span>,
+      <span class="hljs-attr">use</span>: [
+        <span class="hljs-string">'babel-loader'</span>,
+        <span class="hljs-string">'eslint-loader'</span>
+      ],
+      <span class="hljs-attr">exclude</span>: <span class="hljs-regexp">/node_modules/</span>
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>,
+      <span class="hljs-attr">use</span>: vendorExtract.extract([<span class="hljs-string">'css-loader'</span>])
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.less$/</span>,
+      <span class="hljs-attr">use</span>: vendorExtract.extract({
+        <span class="hljs-attr">fallback</span>: <span class="hljs-string">'style-loader'</span>,
+        <span class="hljs-attr">use</span>: [{
+          <span class="hljs-attr">loader</span>: <span class="hljs-string">'css-loader'</span>
+        },{
+          <span class="hljs-attr">loader</span>: <span class="hljs-string">'less-loader'</span>,
+          <span class="hljs-attr">options</span>: {
+            <span class="hljs-attr">sourceMap</span>: <span class="hljs-literal">true</span>,
+            <span class="hljs-attr">modifyVars</span>: theme <span class="hljs-comment">// 用于自定义antd主题 覆盖其less变量</span>
+          }
+        }]
+      }),
+      <span class="hljs-attr">include</span>: path.resolve(__dirname, <span class="hljs-string">'node_modules'</span>)
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.scss$/</span>,
+      <span class="hljs-attr">use</span>: appExtract.extract({
+        <span class="hljs-attr">fallback</span>: <span class="hljs-string">'style-loader'</span>,
+        <span class="hljs-attr">use</span>: [<span class="hljs-string">'css-loader'</span>,<span class="hljs-string">'sass-loader'</span>]
+      }),
+      <span class="hljs-attr">include</span>: APP_PATH
+    }, {
+      <span class="hljs-comment">// 字体文件之类的需要这个loader支持</span>
+      test: <span class="hljs-regexp">/\.(eot|woff|woff2|svg|ttf)([\?]?.*)$/</span>,
+      <span class="hljs-attr">use</span>: [<span class="hljs-string">'file-loader'</span>],
+      <span class="hljs-attr">include</span>: APP_PATH
+    }, {
+      <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.(jpe?g|png|gif|svg)$/</span>,
+      <span class="hljs-attr">use</span>: [{
+        <span class="hljs-attr">loader</span>: <span class="hljs-string">'url-loader'</span>,
+        <span class="hljs-attr">options</span>: {
+          <span class="hljs-attr">outputPath</span>: <span class="hljs-string">'images/'</span>,<span class="hljs-comment">// 将图片放入build/images/目录下</span>
+          limit: <span class="hljs-number">8192</span><span class="hljs-comment">// 小于1kb的图片采用base64编码 并以DATAUrl的形式嵌入页面</span>
+        }
+      }],
+      <span class="hljs-attr">include</span>: APP_PATH
+    }]
+  }
+};
+</code></pre></div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="selected">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

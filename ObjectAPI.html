@@ -1,0 +1,84 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h2 id="object-s-new-api-in-es6">Object's New API In ES6</h2>
+<h3 id="object-is-">Object.is()</h3>
+<p>该方法用于比较俩个值是否相等，基本的比较逻辑与 <code>===</code> 一致但是更加严格</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> x = <span class="hljs-literal">NaN</span>
+<span class="hljs-keyword">const</span> y = <span class="hljs-number">0</span>
+<span class="hljs-keyword">const</span> z = <span class="hljs-number">-0</span>
+
+x === x <span class="hljs-comment">// false</span>
+<span class="hljs-built_in">Object</span>.is(x, x) <span class="hljs-comment">// true</span>
+y === z <span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Object</span>.is(y, z) <span class="hljs-comment">// false</span></code></pre>
+<p>当不需要考虑这几种特殊情况时，直接用 <code>===</code> 比较更方便</p>
+<h3 id="object-getownpropertysymbols-">Object.getOwnPropertySymbols()</h3>
+<p>ES6 新增的 <code>Symbol</code> 可以作为对象上的特殊属性使用<br>有时我们可能希望只获得一个对象上的所有 <code>Symbol</code> 属性，排除其他普通属性<br>这个时候就可以借助该方法</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> o = {
+    <span class="hljs-attr">foo</span>: <span class="hljs-string">'hello'</span>,
+    [ <span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'bar'</span>) ]: <span class="hljs-string">'world'</span>
+}
+
+<span class="hljs-keyword">const</span> symbols = <span class="hljs-built_in">Object</span>.getOwnPropertySymbols(o) <span class="hljs-comment">// [Symbol(bar)]</span>
+o[symbols[<span class="hljs-number">0</span>]] <span class="hljs-comment">// 'world'</span></code></pre>
+<h3 id="object-setprototypeof-">Object.setPrototypeOf()</h3>
+<p>该方法提供了一种更优雅的方式来修改一个对象的原型</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> o1 = {
+    <span class="hljs-attr">bar</span>: <span class="hljs-number">1</span>
+}
+<span class="hljs-keyword">const</span> o2 = {
+    <span class="hljs-attr">foo</span>: <span class="hljs-number">2</span>
+}
+
+<span class="hljs-built_in">Object</span>.setPrototypeOf(o1, o2)
+o1.foo <span class="hljs-comment">// 2</span>
+o1.__proto__ === o2 <span class="hljs-comment">// true</span>
+
+<span class="hljs-comment">// 将o1设置为无原型对象 类似 const o = Object.create(null)</span>
+<span class="hljs-comment">// 这种做法通常是为了获得一个纯净的对象来作为 Map 使用</span>
+<span class="hljs-comment">// 现在ES6新增了原生的 Map 结构 可以考虑避免使用这种技巧</span>
+<span class="hljs-built_in">Object</span>.setPrototypeOf(o1, <span class="hljs-literal">null</span>)
+o1.__proto__ <span class="hljs-comment">// undefined</span></code></pre>
+<h3 id="object-assign-">Object.assign()</h3>
+<p>由于 React / Vue / Angular 等数据驱动的前端框架的流行<br>这个方法在平常项目中使用频率很高，用于将一系列对象中的值复制到目标对象中<br>并且会对各对象相同 key 的 (enumerable) 值按先后顺序进行覆盖</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> o1 = { <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> }
+<span class="hljs-keyword">let</span> o2 = { <span class="hljs-attr">b</span>: <span class="hljs-number">2</span> }
+
+<span class="hljs-built_in">Object</span>.assign({}, o1, o2) <span class="hljs-comment">// { a: 1, b: 2 }</span>
+
+<span class="hljs-built_in">Object</span>.defineProperty(o2, <span class="hljs-string">'c'</span>, {
+    <span class="hljs-attr">value</span>: <span class="hljs-number">3</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">false</span>
+})
+
+<span class="hljs-built_in">Object</span>.defineProperty(o2, <span class="hljs-string">'d'</span>, {
+    <span class="hljs-attr">value</span>: <span class="hljs-number">4</span>,
+    <span class="hljs-attr">enumerable</span>: <span class="hljs-literal">true</span>
+})
+
+<span class="hljs-comment">// 可以看到 enumerable 为 false 的属性不会被拷贝</span>
+<span class="hljs-built_in">Object</span>.assign({}, o1, o2) <span class="hljs-comment">// { a: 1, b: 2, d: 4}</span>
+
+o2[<span class="hljs-built_in">Symbol</span>(<span class="hljs-string">'bar'</span>)] = <span class="hljs-number">5</span>
+<span class="hljs-comment">// Symbol 属性也会被拷贝</span>
+<span class="hljs-built_in">Object</span>.assign({}, o1, o2) <span class="hljs-comment">// { a: 1, b: 2, d: 4, Symbol(bar): 5}</span></code></pre>
+<p>值得注意的是，该方法的拷贝过程是浅拷贝<br>类似于对每个属性进行 <code>target = src</code> 的赋值<br>所以碰到数组、对象之类的复杂数据结构时要多加小心</p>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class="selected"> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

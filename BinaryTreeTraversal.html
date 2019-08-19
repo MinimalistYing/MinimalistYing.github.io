@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-">二叉树的遍历</h1>
+<p>所谓树的遍历即是按特定的顺序访问树中所有的节点<br>以下面这颗二叉树为例，我们来研究一下最常见的三种二叉树遍历方式  </p>
+<pre><code>       1
+     /   \
+    3     2
+   / \     \  
+  5   7     9 </code></pre><h2 id="-nlr">前序遍历 NLR</h2>
+<p>根-&gt;左子树-&gt;右子树<br>访问节点值的操作在继续遍历左子树和右子树之前进行，所以叫前序<br>上例中的二叉树前序遍历结果 <code>135729</code></p>
+<h2 id="-lnr">中序遍历 LNR</h2>
+<p>左子树-&gt;根-&gt;右子树<br>访问节点值的操作在遍历左子树之后遍历右子树之前进行，所以叫中序<br>上例中的二叉树中序遍历结果 <code>537129</code></p>
+<h2 id="-lrn">后续遍历 LRN</h2>
+<p>左子树-&gt;右子树-&gt;根<br>访问节点值的操作在遍历左子树和右子树之后进行，所以叫后序<br>上例中的二叉树后序遍历结果 <code>573921</code></p>
+<h2 id="-">代码实现</h2>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">traverse</span>(<span class="hljs-params">node</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(node.value) <span class="hljs-comment">// 前序</span>
+
+    <span class="hljs-keyword">if</span> (node.left) {
+        traverse(node.left)
+    }
+
+    <span class="hljs-built_in">console</span>.log(node.value) <span class="hljs-comment">// 中序</span>
+
+    <span class="hljs-keyword">if</span> (node.right) {
+        traverse(node.right)
+    }
+
+    <span class="hljs-built_in">console</span>.log(node.value) <span class="hljs-comment">// 后序</span>
+}</code></pre>
+<h2 id="-">总结</h2>
+<p>其实类似上述的遍历方式应该一共有6种，包括NLR/NRL/LNR/RNL/LRN/RLN<br>但由于其中存在俩俩对称<br>所以通常只说先遍历左子树的前/中/后序遍历(NLR/LNR/LRN)这三种遍历方式<br>从代码实现中不难看出，对于这三种方式我们对树节点的递归过程是一致的<br>区别仅在于我们在递归中何时去访问具体的节点值<br>所以这三种遍历方式中的前/中/后其实指的正是我们是在遍历之前、之中还是之后去访问具体的节点值</p>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="selected">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

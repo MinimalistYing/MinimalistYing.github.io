@@ -1,0 +1,57 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-gulpplugin">如何编写一个自己的GulpPlugin</h1>
+<pre><code><span class="hljs-keyword">const</span> through = <span class="hljs-built_in">require</span>(<span class="hljs-string">"through-gulp"</span>),
+    fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">"fs"</span>)
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">myPlugin</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> through(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">file, encoding, callback</span>) </span>{
+        <span class="hljs-keyword">let</span> result, origin
+
+        <span class="hljs-comment">// 传入的文件为空</span>
+        <span class="hljs-keyword">if</span> (file.isNull()) {
+            <span class="hljs-keyword">throw</span> <span class="hljs-string">"Please Check Files!"</span>
+        }
+
+        <span class="hljs-comment">// buffer对象可以直接操作</span>
+        <span class="hljs-keyword">if</span> (file.isBuffer()) {
+            <span class="hljs-comment">//拿到单个文件buffer             </span>
+            file.contents = <span class="hljs-keyword">new</span> Buffer(file.contents.toString(<span class="hljs-string">"utf-8"</span>),<span class="hljs-string">"utf-8"</span>)
+        }
+
+        <span class="hljs-comment">// stream流是不能操作的,可以通过fs.readFileSync</span>
+        <span class="hljs-keyword">if</span> (file.isStream()) {
+            <span class="hljs-comment">// 同步读取</span>
+            file.contents = <span class="hljs-keyword">new</span> Buffer(s.readFileSync(file.path).toString(<span class="hljs-string">"utf-8"</span>),<span class="hljs-string">"utf-8"</span>)
+        }
+
+        origin = file.contents.toString(<span class="hljs-string">"utf-8"</span>) <span class="hljs-comment">// 转化为字符串</span>
+        result = doYourPluginWork(origin) <span class="hljs-comment">// 处理源文件 实现插件的逻辑</span>
+        file.contents = <span class="hljs-keyword">new</span> Buffer(result) <span class="hljs-comment">// 将源文件的内容替换为插件处理完之后的内容</span>
+
+        <span class="hljs-keyword">this</span>.push(file)
+        callback() <span class="hljs-comment">// 声明文件已处理完毕</span>
+    }, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">callback</span>) </span>{
+        callback() <span class="hljs-comment">// 声明文件已处理完毕</span>
+    })
+}
+
+<span class="hljs-built_in">module</span>.exports = myPlugin</code></pre></div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="selected">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

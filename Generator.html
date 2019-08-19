@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="generator-in-es6">Generator in ES6</h1>
+<h2 id="-">序</h2>
+<p>Generator 不同于一般的函数，它可以在执行过程中被暂停然后在稍后的任意时刻恢复执行，并且在过程中可以与外界双向传递数据</p>
+<h2 id="-generator">如何写一个简单的 Generator</h2>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'hello'</span>
+}
+
+<span class="hljs-keyword">const</span> it = foo()
+it.next() <span class="hljs-comment">// { value: 'hello', done: true}</span></code></pre>
+<p>与普通函数的不同的是调用一个 Generator 并不会立即执行函数体，而是返回一个 Iterator 来控制该函数的执行</p>
+<h2 id="-generator">如何写一个有意义的 Generator</h2>
+<p>Generator 最大的用途在于暂停函数逻辑的执行，需要借助 ES6 新增的关键字 <code>yield</code> 来实现</p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">const</span> a = <span class="hljs-keyword">yield</span> <span class="hljs-string">'hello'</span>
+    <span class="hljs-built_in">console</span>.log(a)
+
+    <span class="hljs-keyword">const</span> b = <span class="hljs-keyword">yield</span> <span class="hljs-string">'world'</span>
+    <span class="hljs-built_in">console</span>.log(b)
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'finish'</span>
+}</code></pre>
+<p>下面来依次执行上述 Generator，看看每一步的结果</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> it = foo() <span class="hljs-comment">// 获得 Generator 返回的 Iterator</span>
+it.next(<span class="hljs-string">'step 1'</span>)
+<span class="hljs-comment">// {value: "hello", done: false}</span></code></pre>
+<p>初次执行，代码会停在 <code>const a = yield 'hello'</code> 处，<code>'hello'</code> 作为返回值被抛到函数外</p>
+<p>需要注意的是此时 <code>next()</code>  中的参数还未真正传入函数，因为 <strong>yield</strong> 将自身替换为外部传入值的时机是在代码恢复执行时</p>
+<pre><code class="language-js">it.next(<span class="hljs-string">'step 2'</span>)
+<span class="hljs-comment">// 'step 2'</span>
+<span class="hljs-comment">// {value: "world", done: false}</span></code></pre>
+<p>第二次执行，代码会停在 <code>const b = yield 'world'</code> 处，我们在 <code>next()</code> 中传入的 <code>'step2'</code> 被赋值给变量 <code>a</code></p>
+<p>可以看做 <code>yield 'hello'</code> 被替换成了 <code>'step2'</code> ，<code>'world'</code> 作为返回值被抛出</p>
+<pre><code class="language-js">it.next(<span class="hljs-string">'step 3'</span>)
+<span class="hljs-comment">// 'step 3'</span>
+<span class="hljs-comment">// {value: "finish", done: true}</span></code></pre>
+<p>最后一次执行，<code>'step3'</code> 被赋值给变量 <code>b</code> ，Generator 执行完毕，<code>'finish'</code> 作为返回值被抛出</p>
+<h2 id="yield-"><code>yield *</code></h2>
+<p><strong>yield delegation</strong> 可以把当前 Generator 的控制委派给另一个 Iterator  </p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> *<span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">yield</span> *[<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+}
+<span class="hljs-keyword">for</span> (v <span class="hljs-keyword">of</span> foo()) {
+    <span class="hljs-built_in">console</span>.log(v) <span class="hljs-comment">// 1 2 3</span>
+}</code></pre>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="selected">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

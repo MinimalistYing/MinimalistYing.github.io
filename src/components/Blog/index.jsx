@@ -1,76 +1,21 @@
 import React from 'react'
 import Scroll from 'iscroll'
+import {
+	withRouter
+} from 'react-router-dom'
 import Markdown from '@/Markdown'
-import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
-import GulpPlugin from '@blog/GulpPlugin.md'
-import SymbolBlog from '@blog/Symbol.md'
-import IteratorBlog from '@blog/Iterator.md'
-import WebpackV3ToV4 from '@blog/WebpackV3ToV4.md'
-import Generator from '@blog/Generator.md'
-import ArrayAPI from '@blog/ArrayAPI.md'
-import ObjectAPI from '@blog/ObjectAPI.md'
-import Collections from '@blog/Collections.md'
-import PromiseBlog from '@blog/Promise.md'
-import PreventModalScroll from '@blog/PreventModalScroll.md'
-import Redux from '@blog/Redux.md'
-import ReactRedux from '@blog/ReactRedux.md'
-import BinaryTreeTraversal from '@blog/BinaryTreeTraversal.md'
-import SourceMapAndWebpack from '@blog/SourceMapAndWebpack.md'
-import WebpackCommonProblem from '@blog/WebpackCommonProblem.md'
-import CrossOrigin from '@blog/CrossOrigin.md'
-import CookieAndWebStorage from '@blog/CookieAndWebStorage.md'
-import XSSCSRF from '@blog/XSS&CSRF.md'
-import Ajax from '@blog/Ajax.md'
-import BinaryTreeType from '@blog/BinaryTreeType.md'
-import ArraySort from '@blog/ArraySort.md'
-import WhyPreflight from '@blog/WhyPreflight.md'
-import VueVsReact from '@blog/VueVsReact.md'
-import Axios from '@blog/Axios.md'
-import Cascading from '@blog/Cascading.md'
-import LowDesireSociety from '@blog/LowDesireSociety.md'
-import Frameworks from '@blog/Frameworks.md'
+import blogs, { category } from '@blog'
 
 import './style.less'
-
-const blogs = [
-	Frameworks,
-	LowDesireSociety,
-	Cascading,
-	Axios,
-	VueVsReact,
-	WhyPreflight,
-	ArraySort,
-	BinaryTreeType,
-	Ajax,
-	XSSCSRF,
-	CookieAndWebStorage,
-	CrossOrigin,
-	WebpackCommonProblem,
-	SourceMapAndWebpack,
-	BinaryTreeTraversal,
-	ReactRedux,
-	Redux,
-	PreventModalScroll,
-	PromiseBlog,
-	Collections,
-	ObjectAPI,
-	ArrayAPI,
-	Generator,
-	WebpackV3ToV4,
-	IteratorBlog,
-	SymbolBlog,
-	GulpPlugin,
-	WebpackBaseConfig
-]
 
 class MyBlog extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			categories: blogs.map(content => ({
-				name: content.slice(2, content.indexOf('\n'))
+			categories: category.map(key => ({
+				name: blogs[key].slice(2, blogs[key].indexOf('\n')),
+				key
 			})),
-			nowReading: 0,
 			showCategory: false
 		}
 	}
@@ -85,39 +30,25 @@ class MyBlog extends React.Component {
 		}
 	}
 
-	switch = index => {
-		if (window.innerWidth >= 1024) {
-			this.setState({
-				moveout: true
-			})
-			setTimeout(() => {
-				this.setState({
-					nowReading: index,
-					moveout: false
-				})
-			}, 500)
-		} else {
-			this.setState({
-				nowReading: index
-			})
-		}
+	switch = key => {
+		this.props.history.push(`${key}.html`)
 	}
 
 	render() {
 		return (
-			<div className="blogs">
-				{
-					blogs.map((content, i) => (
-						i === this.state.nowReading && <div className={this.state.moveout ? 'blog out' : 'blog'} key={i}>
-							<Markdown data={content} />
-						</div>
-					))
-				}
+			<div className='blogs'>
+				<div className='blog'>
+					<Markdown data={this.props.content} />
+				</div>
 				<div id="category" className={this.state.showCategory ? 'category-box show' : 'category-box'}>
 					<ul className="blogs-category">
 						{
 							this.state.categories.map((item, index) => (
-								<li key={index} onClick={() => this.switch(index)}>{item.name}</li>
+								<li
+									key={item.key}
+									className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
+									onClick={() => this.switch(item.key)}
+								>{item.name}</li>
 							))
 						}
 					</ul>
@@ -128,4 +59,4 @@ class MyBlog extends React.Component {
 	}
 }
 
-export default MyBlog
+export default withRouter(MyBlog)

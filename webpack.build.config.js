@@ -6,6 +6,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const path = require('path')
+const category = require('./src/blogs/category.js')
 
 module.exports = {
 	mode: 'production',
@@ -92,7 +93,7 @@ module.exports = {
       // Required - The path to the webpack-outputted app to prerender.
       staticDir: path.join(__dirname, 'dist'),
       // Required - Routes to render.
-			routes: [ '/index.html', '/memo.html', '/messagedemo.html' ],
+			routes: [ '/index.html', '/memo.html', '/messagedemo.html' ].concat(category.map(item => `/${item}.html`)),
 			postProcess(context) {
 				// Remove /index.html from the output path if the dir name ends with a .html file extension.
 				// For example: /dist/dir/special.html/index.html -> /dist/dir/special.html

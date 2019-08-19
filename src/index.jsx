@@ -7,6 +7,7 @@ import {
 	Link,
 	Switch
 } from 'react-router-dom'
+import blogs, { category } from '@blog'
 
 import {
 	Header,
@@ -24,8 +25,11 @@ const App = () => (
 		<Header />
 		<Suspense fallback={<Loading />}>
 			<Switch>
-				<Route exact path="/" component={Blog} />
-				<Route exact path="/index.html" component={Blog} />
+				<Route exact path="/" render={props => <Blog {...props} content={blogs[category[0]]} />} />
+				<Route exact path="/index.html" render={props => <Blog {...props} content={blogs[category[0]]} />} />
+				{
+					Object.keys(blogs).map(key => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} content={blogs[key]} />} />)
+				}
 				<Route exact path="/memo.html" component={Memos} />
 				<Route exact path="/messagedemo.html" component={MessageDemo} />
 			</Switch>

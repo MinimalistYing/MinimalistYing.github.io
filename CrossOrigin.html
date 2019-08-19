@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-">关于跨域</h1>
+<h2 id="-">什么叫跨域?</h2>
+<p>提到跨域首要要说的就是浏览器的同源策略（Same origin policy）<br>在浏览器中无法通过 JavaScript 获取不同域下的 Cookie/LocalStorage/IndexDB<br>无法操纵或读取不同域页面下的 DOM（例如无法获取通过 iframe 内嵌页面的 DOM）<br>无法向不同域的服务器发起 AJAX 请求<br>所谓的同域指的是域名/协议/端口号完全一致<br>就算父域名相同子域名不同也算跨域<br>例如从 <code>http://www.a.xx.com</code> 向 <code>http://www.b.xx.com</code> 发起请求也算跨域请求<br>当我们通过 XHR 向不同域的地址发起请求时就会碰到跨域问题<br>这时候如果接收请求的服务器未经过特殊配置，通常我们会在控制台中看到如下错误信息  </p>
+<pre><code>XMLHttpRequest cannot load xxx.
+No <span class="hljs-string">'Access-Control-Allow-Origin'</span> header is present on the requested resource.
+Origin <span class="hljs-string">'xxx'</span> is therefore not allowed access.</code></pre><h2 id="-">为什么浏览器会限制跨域请求?</h2>
+<p>浏览器对跨域请求进行限制主要是出于安全方面的考虑<br>可以假想一下没有同源策略会引发什么样的问题<br>假设我们正在访问一个正常网站 a.com 同时打开了另一个恶意站点 b.com<br>如果没有同源限制，那么 b.com 页面上执行的恶意脚本文件即可获得我们所有的 Cookie/LocalStorage 中存放的数据<br>通常我们会把登录相关的信息放在其中，还有可能存放一些用户的隐私数据<br>这时 b.com 通过得到的登录相关信息又可以伪装成已登录的正常用户<br>通过向 a.com 发起请求并携带上这些登录信息，攻击者甚至可以窃取更多存在服务器端的关键数据<br>而 a.com 会认为这些请求是一个普通的已登录用户发出的<br>更危险的是由于一切操作都由脚本执行，普通用户根本感知不到这个过程</p>
+<h2 id="-">怎样才能发起一个正确的跨域请求?</h2>
+<p>由于现今前后端分离的架构，在大多数情况下我们的前端工程不会和后端工程部署在同一域名下<br>这个时候想前后端能进行正常交互就需要我们采取一些特殊的方法来绕过浏览器对跨域的限制  </p>
+<h3 id="jsonp-json-with-padding-">JSONP（JSON with Padding）</h3>
+<p>由于页面中静态资源的加载并不会受到同源策略的限制<br>JSONP 正是利用 <code>&lt;script&gt;</code> 想页面中注入代码来实现跨域请求<br>假设我们需要向 <code>http//www.a.com/api</code> 发起跨域请求<br>客户端通过动态创建一个 <code>&lt;script&gt;</code> 标签并插入页面</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http//www.a.com/api?jsonp=cb"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<p>这样一个标签，浏览器就可以向该 URL 发起请求<br>需要注意的是正是因为 JSONP 是通过这种方式向服务端请求的<br>所以 JSONP 只能发起 GET 请求<br>并且请求返回的类型（Content-Type）应该为 <code>text/javascript</code><br>请求中的参数 <code>?jsonp=cb</code> 是为了告诉服务端前端时使用哪个回调函数来处理请求返回的数据<br>服务端需要将数据嵌套进这个函数中再返回<br>例如返回的真实数据为 <code>{ a: 1 }</code><br>那么服务端在请求中需要返回的 Javascript 代码片段应该为 <code>cb({ a: 1 })</code><br>正因如此 JSONP 的命名是 JSON with Padding 因为需要服务端进行字符串 Padding 操作<br>并且返回的数据恰好就是 JSON 格式，不需要经过 <code>JSON.parse()</code><br>这样当客户端收到这个代码片段并去执行时，我们便可以在先前定义好的 <code>cb()</code> 函数中接受到数据<br>类似 Jquery 等库提供的 JSONP 功能其实就是对上述过程的一种封装</p>
+<h3 id="cors-cross-origin-resource-sharing-">CORS (Cross-Origin Resource Sharing)</h3>
+<p>W3C 在 2014 年正式推出了 CORS 协议来更好的解决跨域问题<br>CORS 把请求分为简单请求和复杂请求<br>复杂请求在发送正式请求之前会先发一个被称作 Preflight 的预校验 <code>OPTIONS</code> 请求<br>只有当一个请求是</p>
+<ul>
+<li>GET</li>
+<li>HEAD</li>
+<li>POST</li>
+</ul>
+<p>以上三种请求之一并且请求头只包含</p>
+<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Type (Ps: 且值只能为 <code>application/x-www-form-urlencoded</code> 或 <code>multipart/form-data</code> 或 <code>text/plain</code>)</li>
+<li>Content-Language</li>
+</ul>
+<p>如上几种时才会被认为是简单请求<br>对于前端来说需要做的支持操作仅仅在于当需要 CORS 请求支持携带 Cookie 等认证信息时<br>因为 CORS 请求默认不会携带这些信息<br>将 <code>xhr</code> 的 <code>withCredentials</code> 设为 <code>true</code>  </p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> xhr = <span class="hljs-keyword">new</span> XMLHttpRequest()
+xhr.withCredentials = <span class="hljs-literal">true</span></code></pre>
+<p>以我目前的项目经历来看，碰到的跨域问题大都是后台配置有误，前端在这方面能做的有限<br>下面介绍一下 CORS 用于验证跨域请求的一些相关 <code>HTTP Headers</code><br>请求头：</p>
+<ul>
+<li>Origin （请求来源域名也就是发起请求页面的域名）</li>
+<li>Access-Control-Request-Method （在预校验请求时预校验的 OPTIONS 请求中携带 告知服务端真实请求的类型）</li>
+<li>Access-Control-Request-Headers （同上 在预校验请求中携带 告知服务端真实请求会携带的自定义请求头）</li>
+</ul>
+<p>响应头：</p>
+<ul>
+<li>Access-Control-Allow-Origin （必备 当前接口允许的请求来源域名 当设为 * 时 请求不能携带 Cookie 等鉴权信息）</li>
+<li>Access-Control-Allow-Headers （预校验请求返回 告知浏览器所有允许携带的自定义请求头）</li>
+<li>Access-Control-Allow-Methods （预校验请求返回 告知浏览器所有服务端支持的请求类型）</li>
+<li>Access-Control-Allow-Crendentials （可选 当需要传递 Cookie 时设为 true）</li>
+<li>Access-Control-Max-Age (预校验请求返回  告知浏览器在一段时间内缓存 不必再次发起预校验请求)</li>
+<li>Access-Control-Expose-Headers （前端能通过 <code>xhr.getResponseHeader()</code> 获取到哪些请求头的具体值）</li>
+</ul>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="selected">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-modal-popup-dialog-body-">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</h1>
+<h2 id="-">序</h2>
+<p>当模态框的遮罩层为透明时，鼠标或手指在模态框内容区进行操作<br>此时如果被遮罩层挡住的 Body 内容仍会滚动会造成视觉上的干扰<br>为了最佳的用户体验，我们需要想办法禁止这种默认的行为</p>
+<h2 id="-body-overflow-hidden">设置Body的样式 <code>overflow: hidden</code></h2>
+<p>在模态框弹出时通过</p>
+<pre><code class="language-js"><span class="hljs-comment">// 弹出</span>
+<span class="hljs-built_in">document</span>.body.style.overflow = <span class="hljs-string">'hidden'</span>
+<span class="hljs-comment">// 关闭</span>
+<span class="hljs-built_in">document</span>.body.style.overflow = <span class="hljs-string">'initial'</span></code></pre>
+<p>修改 <code>&lt;body&gt;</code> 的样式使得滚动条消失，Bootstrap 的 Modal 采取的就是这种方式<br>缺点在于滚动条消失会导致页面向右偏移约 20px，以填充滚动条消失的空白<br>在 PC 端会有比较明显的感觉，对用户体验还是稍有影响<br>另外移动端的大多浏览器对给 <code>&lt;body&gt;</code> 设置 <code>overflow: hidden</code> 并不感冒<br>绝大多数情况下这种方式在移动端不起作用(亲测 ios Chrome 下无效)</p>
+<h2 id="-javascript-">通过 Javascript 禁止滚动事件的默认行为</h2>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">preventScroll</span>(<span class="hljs-params">e</span>) </span>{
+    e.preventDefault()
+}
+
+<span class="hljs-comment">// 弹出</span>
+<span class="hljs-comment">// { passive: false }是因为Chrome对相应事件做了优化 如果不设置会导致页面报错</span>
+<span class="hljs-comment">// Unable to preventDefault inside passive event listener due to target being treated as passive. </span>
+<span class="hljs-comment">// See https://www.chromestatus.com/features/5093566007214080</span>
+<span class="hljs-built_in">document</span>.body.addEventListener(<span class="hljs-string">'mousewheel'</span>, preventScroll, { <span class="hljs-attr">passive</span>: <span class="hljs-literal">false</span> })
+<span class="hljs-built_in">document</span>.body.addEventListener(<span class="hljs-string">'touchmove'</span>, preventScroll, { <span class="hljs-attr">passive</span>: <span class="hljs-literal">false</span> })
+
+<span class="hljs-comment">// 关闭</span>
+<span class="hljs-built_in">document</span>.body.removeEventListener(<span class="hljs-string">'mousewheel'</span>, preventScroll)
+<span class="hljs-built_in">document</span>.body.removeEventListener(<span class="hljs-string">'touchmove'</span>, preventScroll)</code></pre>
+<p>如果模态框的内容区中没有可滚动的元素，那么这个方案是可行的<br>如果有的话会发现内容区中元素的滚动也被一并禁止了</p>
+<h2 id="-">进一步优化方案</h2>
+<p>由于我们不想禁止掉所有元素的滚动，可以考虑在需要滚动的元素上加一个特定类<br>当触发事件的元素是该允许滚动的元素或者其子元素时，不去 preventDefault</p>
+<pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">preventScroll</span>(<span class="hljs-params">e</span>) </span>{
+    <span class="hljs-comment">// 只有容器中类名包含 scroll-able 的元素以及子元素允许滚动</span>
+    <span class="hljs-keyword">if</span> (!e.path.find(<span class="hljs-function"><span class="hljs-params">dom</span> =&gt;</span> dom.classList &amp;&amp; dom.classList.contains(<span class="hljs-string">'scroll-able'</span>))) {
+        e.preventDefault()
+        e.stopPropagation()
+    }
+}</code></pre>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="selected">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

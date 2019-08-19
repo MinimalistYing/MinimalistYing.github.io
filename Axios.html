@@ -1,0 +1,269 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="axios-">Axios 源码解析</h1>
+<p>Axios 是一个发送 Ajax 请求的类库<br>类似于 jQuery 的 <code>$.ajax()</code> 以及 Angular 的 <code>$http</code><br>本文仅会针对其提供的特性对部分核心代码进行分析</p>
+<h2 id="feature">Feature</h2>
+<p>首先罗列一下 Axios 在对 <code>xhr</code> 进行封装的基础上提供的一些高级特性</p>
+<ul>
+<li><code>Promise</code> API</li>
+<li>支持通过 <code>Interceptor</code> 在请求前后进行一些公共业务操作（例如对错误的处理）</li>
+<li>支持通过 <code>transformData</code> 对请求参数以及响应结果做统一处理</li>
+<li>支持通过 <code>axios.defaults</code> 进行全局的默认配置</li>
+<li>支持通过 <code>axios.get() | axios.put()</code> 以及类似 Fetch API 的 <code>axios(url, config)</code> 进行调用</li>
+<li>支持统一设置请求的 <code>BaseURL</code></li>
+<li>支持从服务端（node.js）或者客户端（Browser）发起请求</li>
+</ul>
+<h2 id="axios-">Axios 如何支持多种调用形式</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/axios.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createInstance</span>(<span class="hljs-params">defaultConfig</span>) </span>{
+  <span class="hljs-keyword">var</span> context = <span class="hljs-keyword">new</span> Axios(defaultConfig);
+  <span class="hljs-comment">// 使函数 `Axios.prototype.request` 内部的 this 指向上面通过构造函数实例化的 context 对象</span>
+  <span class="hljs-comment">// 注意这里的 instance 其实仍是一个函数</span>
+  <span class="hljs-comment">// 之所以这样做是为了可以像 axios(url, config) 这样直接调用</span>
+  <span class="hljs-keyword">var</span> instance = bind(Axios.prototype.request, context);
+
+  <span class="hljs-comment">// 将 Axios.prototype 上定义的函数的 this 指向 context 并复制到 instance 上</span>
+  <span class="hljs-comment">// 这样就可以像 axios.get() axios.post() 一样来调用</span>
+  utils.extend(instance, Axios.prototype, context);
+
+  <span class="hljs-comment">// 将 context 的属性复制到 instance 函数上</span>
+  utils.extend(instance, context);
+
+  <span class="hljs-keyword">return</span> instance;
+}
+
+<span class="hljs-comment">// 默认情况下 我们通过 import axios from 'axios' 引入的就是该对象</span>
+<span class="hljs-comment">// 更准确的说就是 createInstance 函数返回的 instance 函数</span>
+<span class="hljs-comment">// 也就是重新 bind 过 this 后的 Axios.prototype.request</span>
+<span class="hljs-keyword">var</span> axios = createInstance(defaults);
+
+<span class="hljs-comment">// ...</span></code></pre>
+<p>在 axios 中，不管我们采取何种形式调用，最终发起请求的都是 <code>Axios.prototype.request</code> </p>
+<pre><code class="language-js"><span class="hljs-comment">// lib/core/Axios.js</span>
+<span class="hljs-comment">// ...</span>
+Axios.prototype.request = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// 支持像 Fetch API 一样调用 axios(url, config)</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> config === <span class="hljs-string">'string'</span>) {
+    config = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">1</span>] || {};
+    config.url = <span class="hljs-built_in">arguments</span>[<span class="hljs-number">0</span>];
+  } <span class="hljs-keyword">else</span> {
+    config = config || {};
+  }
+  <span class="hljs-comment">// ...</span>
+};
+
+<span class="hljs-comment">// 支持通过 axios.get() axios.post() 等方式快捷调用</span>
+<span class="hljs-comment">// delete get head options 默认不会在请求体中携带数据</span>
+utils.forEach([<span class="hljs-string">'delete'</span>, <span class="hljs-string">'get'</span>, <span class="hljs-string">'head'</span>, <span class="hljs-string">'options'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forEachMethodNoData</span>(<span class="hljs-params">method</span>) </span>{
+  Axios.prototype[method] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url, config</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.request(utils.merge(config || {}, {
+      <span class="hljs-attr">method</span>: method,
+      <span class="hljs-attr">url</span>: url
+    }));
+  };
+});
+<span class="hljs-comment">// post put patch 可以在请求体中携带数据</span>
+utils.forEach([<span class="hljs-string">'post'</span>, <span class="hljs-string">'put'</span>, <span class="hljs-string">'patch'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forEachMethodWithData</span>(<span class="hljs-params">method</span>) </span>{
+  Axios.prototype[method] = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">url, data, config</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.request(utils.merge(config || {}, {
+      <span class="hljs-attr">method</span>: method,
+      <span class="hljs-attr">url</span>: url,
+      <span class="hljs-attr">data</span>: data
+    }));
+  };
+});</code></pre>
+<h2 id="axios-baseurl">Axios 如何支持统一设置请求的 BaseURL</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/core/dispatchRequest.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatchRequest</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+
+  <span class="hljs-comment">// 如果设置有 baseURL 并且传入的请求地址是相对路径  </span>
+  <span class="hljs-comment">// 则用 baseURL 与传入的地址拼接后作为最终的请求路径</span>
+  <span class="hljs-comment">// 通过 /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url) 来判断是否为绝对路径</span>
+  <span class="hljs-keyword">if</span> (config.baseURL &amp;&amp; !isAbsoluteURL(config.url)) {
+    <span class="hljs-comment">// axios 会移除 BaseURL 末尾的 / 以及相对路径开头的 / 来进行拼接</span>
+    <span class="hljs-comment">// 所以 axios('/xxx') 和 axios('xxx') 其实是一样的</span>
+    config.url = combineURLs(config.baseURL, config.url);
+  }
+
+  <span class="hljs-comment">// ...</span>
+};</code></pre>
+<h2 id="axios-promise">Axios 如何支持 Promise</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/adapters/xhr.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">xhrAdapter</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// 比较简单 就是用 Promise 对 xhr 原生 API 做了一层封装</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatchXhrRequest</span>(<span class="hljs-params">resolve, reject</span>) </span>{
+    <span class="hljs-keyword">var</span> request = <span class="hljs-keyword">new</span> XMLHttpRequest();
+
+    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), <span class="hljs-literal">true</span>);
+
+    request.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleLoad</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// ...</span>
+      <span class="hljs-comment">// 请求完成后 resolve 或者 reject Promise</span>
+      settle(resolve, reject, response);
+      <span class="hljs-comment">// ...</span>
+    };
+
+    <span class="hljs-comment">// 发送请求</span>
+    request.send(requestData);
+  });
+};</code></pre>
+<h2 id="axios-interceptor">Axios 如何支持 Interceptor</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/core/Axios.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Axios</span>(<span class="hljs-params">instanceConfig</span>) </span>{
+  <span class="hljs-keyword">this</span>.defaults = instanceConfig;
+  <span class="hljs-comment">// 每个 Axios 的实例都包含了俩个拦截器 </span>
+  <span class="hljs-comment">// this.interceptors.request 以及 this.interceptors.response</span>
+  <span class="hljs-comment">// InterceptorManager 用于管理所有的拦截器 也就是维护一个数组</span>
+  <span class="hljs-comment">// 数组中的元素是一个类似 { fulfill: ()=&gt;{}, reject: () =&gt; {}} 的对象</span>
+  <span class="hljs-comment">// 包含 Promise 处理成功函数以及失败函数</span>
+  <span class="hljs-keyword">this</span>.interceptors = {
+    <span class="hljs-attr">request</span>: <span class="hljs-keyword">new</span> InterceptorManager(),
+    <span class="hljs-attr">response</span>: <span class="hljs-keyword">new</span> InterceptorManager()
+  };
+}
+
+Axios.prototype.request = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// 最终请求是在 dispatchRequest 中 通过 Adapter 发送的</span>
+  <span class="hljs-keyword">var</span> chain = [dispatchRequest, <span class="hljs-literal">undefined</span>];
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-built_in">Promise</span>.resolve(config);
+
+  <span class="hljs-comment">// 将拦截函数放入调用链</span>
+  <span class="hljs-keyword">this</span>.interceptors.request.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">unshiftRequestInterceptors</span>(<span class="hljs-params">interceptor</span>) </span>{
+    chain.unshift(interceptor.fulfilled, interceptor.rejected);
+  });
+  <span class="hljs-keyword">this</span>.interceptors.response.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pushResponseInterceptors</span>(<span class="hljs-params">interceptor</span>) </span>{
+    chain.push(interceptor.fulfilled, interceptor.rejected);
+  });
+
+  <span class="hljs-comment">// 此时的 chain 是一个包含了 Promise resolve reject 函数的数组</span>
+  <span class="hljs-comment">// 形如 [reqFulfill, reqReject, dispatchRequest, undefined. resFulfill, resReject]</span>
+  <span class="hljs-comment">// 以下代码其实就是为了形成一个链式的流程 类似</span>
+  <span class="hljs-comment">// Promise(config).then(reqFulfill, reqReject)</span>
+  <span class="hljs-comment">// .then(dispatch, undefined)</span>
+  <span class="hljs-comment">// .then(resFulfill, resReject)</span>
+  <span class="hljs-keyword">while</span> (chain.length) {
+    promise = promise.then(chain.shift(), chain.shift());
+  }
+
+  <span class="hljs-keyword">return</span> promise;
+};</code></pre>
+<h2 id="axios-transformdata">Axios 如何支持 transformData</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/core/dispatchRequest.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dispatchRequest</span>(<span class="hljs-params">config</span>) </span>{
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// 请求发出前 transform request data</span>
+  config.data = transformData(...);
+
+  <span class="hljs-comment">// ...</span>
+  <span class="hljs-comment">// 请求完成后 transform response data</span>
+  <span class="hljs-keyword">return</span> adapter(config).then(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAdapterResolution</span>(<span class="hljs-params">response</span>) </span>{
+    <span class="hljs-comment">// 请求成功 也就是 validateStatus 返回 true 默认响应码 200 - 300 为 true</span>
+    response.data = transformData(...);
+
+    <span class="hljs-keyword">return</span> response;
+  }, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onAdapterRejection</span>(<span class="hljs-params">reason</span>) </span>{
+    <span class="hljs-comment">// 请求失败</span>
+    <span class="hljs-keyword">if</span> (reason &amp;&amp; reason.response) {
+      reason.response.data = transformData(...);
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(reason);
+  });
+};</code></pre>
+<h2 id="axios-">Axios 的默认设置</h2>
+<pre><code class="language-js"><span class="hljs-comment">// lib/defaults.js</span>
+<span class="hljs-comment">// ...</span>
+<span class="hljs-keyword">var</span> DEFAULT_CONTENT_TYPE = {
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/x-www-form-urlencoded'</span>
+};
+
+<span class="hljs-keyword">var</span> defaults = {
+  <span class="hljs-comment">// 默认会根据请求参数的类型来适配请头中的 Content-Type</span>
+  <span class="hljs-comment">// 并且转化发起请求的数据格式</span>
+  transformRequest: [<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformRequest</span>(<span class="hljs-params">data, headers</span>) </span>{
+    normalizeHeaderName(headers, <span class="hljs-string">'Accept'</span>);
+    normalizeHeaderName(headers, <span class="hljs-string">'Content-Type'</span>);
+    <span class="hljs-keyword">if</span> (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      <span class="hljs-keyword">return</span> data;
+    }
+    <span class="hljs-keyword">if</span> (utils.isArrayBufferView(data)) {
+      <span class="hljs-keyword">return</span> data.buffer;
+    }
+    <span class="hljs-keyword">if</span> (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, <span class="hljs-string">'application/x-www-form-urlencoded;charset=utf-8'</span>);
+      <span class="hljs-keyword">return</span> data.toString();
+    }
+    <span class="hljs-keyword">if</span> (utils.isObject(data)) { <span class="hljs-comment">// 对象转为 json 字符串</span>
+      setContentTypeIfUnset(headers, <span class="hljs-string">'application/json;charset=utf-8'</span>);
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">JSON</span>.stringify(data);
+    }
+    <span class="hljs-keyword">return</span> data;
+  }],
+  <span class="hljs-comment">// 默认如果请求返回的数据是字符串则转为 json</span>
+  transformResponse: [<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">transformResponse</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> data === <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">try</span> {
+        data = <span class="hljs-built_in">JSON</span>.parse(data);
+      } <span class="hljs-keyword">catch</span> (e) { <span class="hljs-comment">/* Ignore */</span> }
+    }
+    <span class="hljs-keyword">return</span> data;
+  }],
+  <span class="hljs-comment">// 默认响应码在 200 - 300 间才认为请求成功</span>
+  validateStatus: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">validateStatus</span>(<span class="hljs-params">status</span>) </span>{
+    <span class="hljs-keyword">return</span> status &gt;= <span class="hljs-number">200</span> &amp;&amp; status &lt; <span class="hljs-number">300</span>;
+  }
+};
+<span class="hljs-comment">// 默认接收 json 数据</span>
+defaults.headers = {
+  <span class="hljs-attr">common</span>: {
+    <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json, text/plain, */*'</span>
+  }
+};
+
+<span class="hljs-comment">// post put patch 请求默认的 Content-Type 为 application/x-www-form-urlencoded</span>
+utils.forEach([<span class="hljs-string">'post'</span>, <span class="hljs-string">'put'</span>, <span class="hljs-string">'patch'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">forEachMethodWithData</span>(<span class="hljs-params">method</span>) </span>{
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});</code></pre>
+<h2 id="axios-">Axios 发起一个请求的流程</h2>
+<ol>
+<li><code>axios(config) | axios(url, config) | axios.get(url, config)</code> 启动一个请求</li>
+<li>内部最终通过 <code>Axios.prototype.request(config)</code> 函数来发送请求</li>
+<li>经过 Request Inteceptors 处理配置 / 请求头等</li>
+<li>在 <code>dispatchRequest(config)</code> 中通过 <code>config.data = transformRequest(...)</code> 处理请求参数</li>
+<li>在 <code>xhrAdapter</code> 中实例化 <code>XMLHttpRequest</code> 对象，发送 Ajax 请求</li>
+<li>收到响应后 不管请求成功还是失败，通过 <code>response.data = transformResponse(...)</code> 处理请求返回数据</li>
+<li>经过 Response Inteceptors 处理错误 / 响应头等</li>
+<li>请求完成 <code>axios(config).then(res =&gt; {}).catch(err =&gt; {})</code> 在 <code>then</code> 或 <code>catch</code> 块中处理业务逻辑</li>
+</ol>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="selected">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

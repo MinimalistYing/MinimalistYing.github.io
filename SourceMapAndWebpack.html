@@ -1,0 +1,85 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-source-map-webpack-devtool-">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</h1>
+<h2 id="source-map-">Source Map 是什么</h2>
+<p>为了提升 Web App 的性能，通常我们会把源码压缩混淆后再发布到服务器上<br>当 App 出现问题时这些压缩过后的代码就会使得我们很难具体定位到错误出现在哪<br>Source Map 的出现正是为了解决这个难题<br>通过在压缩后的代码中加入如下注释</p>
+<pre><code class="language-js"><span class="hljs-comment">// 注意此处的 sourceMappingURL 支持 http uri 以及 data uri 俩种形式</span>
+<span class="hljs-comment">//# sourceMappingURL=/path/to/script.js.map</span></code></pre>
+<p>并在压缩混淆同时生成相应的 map 文件</p>
+<pre><code class="language-js">{
+    <span class="hljs-attribute">version</span>: <span class="hljs-number">3</span>,
+    file: <span class="hljs-string">"script.js.map"</span>,
+    sources: [
+        <span class="hljs-string">"a.js"</span>,
+        <span class="hljs-string">"b.js"</span>,
+        <span class="hljs-string">"c.js"</span>
+    ], // 所有源文件的路径
+    sourceRoot: <span class="hljs-string">"/"</span>,
+    names: [<span class="hljs-string">"foo"</span>, <span class="hljs-string">"bar"</span>, <span class="hljs-string">"func"</span>], // 所有源文件中出现的变量名 函数名
+    // 关键所在 具体原理就不管了 有点复杂 大致是通过 Base64-VQL 编码做映射
+    mappings: <span class="hljs-string">"AABASD,ASDFDSA,OAAOC,OAAO..."</span>
+}</code></pre>
+<p>这样浏览器就可以反向定位到错误具体出现在源码中的哪个文件的哪一行中<br>Ps: <a href="https://www.codercto.com/a/31149.html">关于原理</a></p>
+<h2 id="-source-map-">关于 Source Map 的几个问题以及解答</h2>
+<h3 id="-network-map-">为什么在浏览器的 network 中看不到下载 .map 文件的请求</h3>
+<p>浏览器默认只会在打开开发者工具时才去请求 .map 文件<br>所以在 network 中看不到记录
+<a href="https://stackoverflow.com/questions/44315460/when-do-browsers-download-sourcemaps#">Stackoverflow</a></p>
+<h3 id="-map-source-map-">如果将 .map 文件也发布到公开的服务器上，普通用户能否利用 Source Map 看到源文件</h3>
+<p>很不幸，答案是会的<br>更不幸的是，通过 .map 文件以及压缩后的代码可以反向生成源代码<br>这意味着在公开的生产环境下我们不应该去使用 Source Map<br>因为这样相当于把整个 App 的源码暴露在外，是一种很危险的行为<br>建议在类似预发环境(也就是与正式环境相同但是是私有的环境)下来利用 Source Map 进行 Debug<br>Ps: 还可以通过服务器端的配置来禁止普通用户下载 .map 文件，这样就可以安全的把 .map 文件也放到正式环境上</p>
+<h3 id="source-map-">Source Map 对开发环境的意义何在</h3>
+<p>开发环境我们通常不会采用混淆代码，对于简单的 Javascript 应用可能意义并不大<br>但当我们在开发 React App 或者 Vue App 时<br>Source Map 可以将我们 Webpack 打包后的文件直接映射为源代码中的 .jsx/.vue 文件<br>而不利用 Source Map 我们就只能去 Debug 编译过后的文件<br>所以即是在开发环境下，Source Map 也是能给我们提供很大帮助的</p>
+<h2 id="webpack-devtool">Webpack 的 Devtool</h2>
+<p>Webpack 中可以通过这项配置来决定具体使用何种 Source Map<br>默认值为 <code>false</code> 也就是不启用 Source Map<br>从方便 Debug 的角度从差到好排列，Webpack 一共提供了如下几种形式的 Source Map</p>
+<ul>
+<li>bundled code // 不开启 浏览器中只能看到打包过后的代码</li>
+<li>generated code // 可以看到打包前的每个 Module 但是看到的是 Webpack 处理后的文件</li>
+<li>transformed code // 可以看到打包前的每个 Module 但是看到的是经过 Loader 编译过后的文件</li>
+<li>original source // 可以看到源码</li>
+<li>(lines only) // 只定位到行 不定位到列</li>
+<li>without source content // 不暴露源文件 但是仍会暴露目录结构 可以在错误信息中看到源码对应的出错行列</li>
+</ul>
+<p>关于 Devtool 的配置大致由如下几种关键字组合而来，每个关键字代表着不同特性</p>
+<ul>
+<li>eval // 编译速度最快</li>
+<li>inline // 不生成 .map 文件 以DataURL的形式嵌入</li>
+<li>cheap // 只定位到行 transformed code</li>
+<li>cheap-module // 只定位到行 original source</li>
+</ul>
+<p>就目前来说<br>个人感觉在开发环境下设为 <code>cheap-module-eval-source-map</code><br>可以获得较好的 Debug 体验，以及较快的编译速度<br>在预发环境下设为 <code>source-map</code> 可以获得最完整的映射<br>在正式环境下设为 <code>false</code> 避免源文件暴露<br>当然碰到具体问题时可以进行调整<br>要记住 Source Map 的终极目的是为了方便开发者定位问题<br>所以只要能帮助我们找到问题的配置就是好配置</p>
+<p>Ps: Webpack V4 中，当 mode 设为 'production' 时<br>默认使用的 <code>uglifyjs-webpack-plugin</code> 会默认设置 <code>sourceMap: true</code><br>当我们手动去新配置 <code>uglifyjs-webpack-plugin</code> 时会覆盖掉默认配置<br>所以要注意像如下配置一样加上 <code>sourceMap: true</code> 否则 Souce Map 会不生效</p>
+<pre><code class="language-js"><span class="hljs-comment">// webpack.prod.config.js</span>
+<span class="hljs-keyword">const</span> UglifyJsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">"uglifyjs-webpack-plugin"</span>)
+
+<span class="hljs-built_in">module</span>.exports = {
+    <span class="hljs-comment">// ...</span>
+    mode: <span class="hljs-string">'production'</span>,
+    <span class="hljs-attr">optimization</span>: {
+        <span class="hljs-attr">minimizer</span>: [
+            <span class="hljs-keyword">new</span> UglifyJsPlugin({
+                <span class="hljs-comment">// ...</span>
+                sourceMap: <span class="hljs-literal">true</span> <span class="hljs-comment">// 注意这里!!!!!!</span>
+                <span class="hljs-comment">// ...</span>
+            })
+        ]
+    }
+    <span class="hljs-comment">// ...</span>
+}</code></pre>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="selected">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

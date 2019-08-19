@@ -1,0 +1,138 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="array-s-new-api-in-es6">Array's New API In ES6</h1>
+<h2 id="static-function">Static Function</h2>
+<h3 id="array-of-">Array.of()</h3>
+<p>大部分情况下我们都应该优先使用字面量的形式 <code>const a = [1, 2]</code> 来创建一个数组<br>但当我们定义了一个自己的 Array 子类，并且想要创建子类的数组时就只能通过构造器来实例化了</p>
+<pre><code class="language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArr</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
+    max() {
+        <span class="hljs-keyword">let</span> max = <span class="hljs-keyword">this</span>[<span class="hljs-number">0</span>]
+        <span class="hljs-keyword">this</span>.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> {
+            max = <span class="hljs-built_in">Math</span>.max(item, max)
+        })
+        <span class="hljs-keyword">return</span> max
+    }
+}
+
+<span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> MyArr(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)
+a.max() <span class="hljs-comment">// 3</span></code></pre>
+<p>一般情况下上例做法也不会有问题，但是当只传入一个参数时就会产生 empty slots（可能是因为历史原因？）</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> MyArr(<span class="hljs-number">3</span>) <span class="hljs-comment">// 通过这种方式生成的不是 [3] 而是 [empty * 3]</span>
+b.length <span class="hljs-comment">// 3</span>
+b.max() <span class="hljs-comment">// undefined</span></code></pre>
+<p>使用 <code>Array.of()</code> 来实例化新数组可以避免上述问题</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> c = MyArr.of(<span class="hljs-number">3</span>) <span class="hljs-comment">// [3]</span>
+c.length <span class="hljs-comment">// 1</span>
+c.max() <span class="hljs-comment">// 3</span></code></pre>
+<h3 id="array-from-">Array.from()</h3>
+<p><code>Array.from</code> 可用于数组的转化，假设我们有一个 Array-Like Object</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> o = {
+    <span class="hljs-attr">length</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-number">0</span>: <span class="hljs-string">'hello'</span>,
+    <span class="hljs-number">1</span>: <span class="hljs-string">'world'</span>
+}
+
+<span class="hljs-keyword">const</span> a = <span class="hljs-built_in">Array</span>.from(o)
+<span class="hljs-keyword">const</span> b = <span class="hljs-built_in">Array</span>.prototype.slice.call(o) <span class="hljs-comment">// 以往的方式</span></code></pre>
+<p>可以看到，在 ES6 中我们可以很方便的将其转化为一个真正的数组，并且不用担心会产生 empty slots</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> o = {
+    <span class="hljs-attr">length</span>: <span class="hljs-number">2</span>,
+    <span class="hljs-number">0</span>: <span class="hljs-string">'hello'</span>
+}
+
+<span class="hljs-keyword">const</span> a = <span class="hljs-built_in">Array</span>.from(o) <span class="hljs-comment">// ["hello", undefined]</span>
+<span class="hljs-keyword">const</span> b = <span class="hljs-built_in">Array</span>.prototype.slice.call(o) <span class="hljs-comment">// ["hello", empty]</span></code></pre>
+<p>该方法的第一个参数可以是任意 Iterable 的对象，并将其迭代产生的值依次放到一个数组中返回</p>
+<pre><code class="language-js"><span class="hljs-comment">// 可用于复制数组</span>
+<span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-keyword">const</span> arrCopy = <span class="hljs-built_in">Array</span>.from(arr) <span class="hljs-comment">// 更简洁 更易理解</span>
+<span class="hljs-keyword">const</span> arrCopy2 = arr.slice() <span class="hljs-comment">// 以往的方式</span></code></pre>
+<p>该方法的第二个参数可以接受一个函数，并依次对每一个值通过函数处理后再放到结果数组中</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+<span class="hljs-keyword">const</span> arrCopy = <span class="hljs-built_in">Array</span>.from(arr, item =&gt; item + <span class="hljs-number">1</span>) <span class="hljs-comment">// [2, 3, 4]</span></code></pre>
+<h2 id="prototype-method">Prototype Method</h2>
+<h3 id="copywithin-target-start-end-">copyWithin(target, start, end)</h3>
+<p>该方法可以将数组的一部分复制到该数组特定位置，并覆盖原值<br>会直接修改原数组而不是产生一个新数组</p>
+<pre><code class="language-js"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+<span class="hljs-comment">// 可以看到不明确提供 start 和 end 参数时该方法会从下标0处开始尽可能的拷贝更多的值</span>
+arr.copyWithin(<span class="hljs-number">1</span>) <span class="hljs-comment">// [1, 1, 2, 3, 4]</span>
+
+arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+arr.copyWithin(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>) <span class="hljs-comment">// [1, 1, 2, 3, 4]</span>
+
+arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+arr.copyWithin(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>)  <span class="hljs-comment">// [1, 2, 3, 4, 5]</span>
+
+arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+arr.copyWithin(<span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>)  <span class="hljs-comment">// [1, 1, 3, 4, 5]</span>
+
+arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]
+<span class="hljs-comment">// 拷贝过程并不是严格的按照从左到右一个个执行的</span>
+<span class="hljs-comment">// 若果严格按照顺序执行的话，程序的结果应该是[1, 2, 2, 2, 2]</span>
+<span class="hljs-comment">// 可以假定执行过程如下</span>
+<span class="hljs-comment">// [1, 2, 2, 4, 5]</span>
+<span class="hljs-comment">// [1, 2, 2, 2, 5]</span>
+<span class="hljs-comment">// [1, 2, 2, 2, 2]</span>
+arr.copyWithin(<span class="hljs-number">2</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [1, 2, 2, 3, 4]</span></code></pre>
+<h3 id="fill-value-start-end-">fill(value, start, end)</h3>
+<p>该方法可以向数组中的指定位置填充值</p>
+<pre><code class="language-js"><span class="hljs-comment">// 未明确指定start和end时会尽可能的填充更多的值</span>
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(<span class="hljs-number">3</span>).fill(<span class="hljs-string">'hello'</span>) <span class="hljs-comment">// ['hello', 'hello', 'hello']</span>
+[<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>].fill(<span class="hljs-string">'hello'</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// [null, 'hello', 'hello']</span>
+[<span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>, <span class="hljs-literal">null</span>].fill(<span class="hljs-string">'hello'</span>, <span class="hljs-number">1</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// [null, 'hello', null]</span></code></pre>
+<h3 id="find-">find()</h3>
+<p>以往我们想要判断数组中是否包含某个元素通常是借助 <code>indexOf()</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-string">'2'</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">'hello'</span>}]
+arr.indexOf(<span class="hljs-number">1</span>) !== <span class="hljs-number">-1</span> <span class="hljs-comment">// true</span>
+arr.indexOf(<span class="hljs-string">'2'</span>) !== <span class="hljs-number">-1</span> <span class="hljs-comment">// true</span>
+arr.indexOf(<span class="hljs-number">2</span>) !== <span class="hljs-number">-1</span> <span class="hljs-comment">// false</span></code></pre>
+<p>这种方法有几个缺点:</p>
+<ul>
+<li>通过严格的===来比较</li>
+<li>需要通过判断是否等于-1来得出我们要的布尔值结果</li>
+<li>不能实现自定义的匹配条件</li>
+</ul>
+<p>ES5 中新增的 <code>some()</code> 解决了上述问题
+PS: 当我们不需要自定义匹配条件，想利用全等来比较时<br>可以采用ES7新增的更便捷的方法 <code>Array.prototype.includes()</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-string">'2'</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">'hello'</span>}]
+arr.some(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v == <span class="hljs-number">2</span>) <span class="hljs-comment">// true</span>
+arr.some(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v.name === <span class="hljs-string">'hello'</span>) <span class="hljs-comment">// true</span>
+
+arr.includes(<span class="hljs-number">1</span>) <span class="hljs-comment">// true</span></code></pre>
+<p>大部分情况下这种方法都没有问题，但当我们想要直接获得正确匹配到的值<br>这时候就可以借助ES6的 <code>find()</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-string">'2'</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">'hello'</span>}]
+arr.find(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v == <span class="hljs-number">2</span>) <span class="hljs-comment">// '2'</span>
+arr.find(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v,name === <span class="hljs-string">'hello'</span>) <span class="hljs-comment">// {name: 'hello'}</span>
+arr.find(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v === <span class="hljs-number">666</span>) <span class="hljs-comment">// undefined</span></code></pre>
+<h3 id="findindex-">findIndex()</h3>
+<p>总结一下上述数组的查找方法，可以发现，当我们只想确定是否存在特定值时可以采用<code>some()</code><br>当我们想拿到符合比较条件的值时可以采用 <code>find()</code><br>如果我们想要拿到符合比较条件值的下标时就需要用到ES6的 <code>findIndex()</code></p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-string">'2'</span>, {<span class="hljs-attr">name</span>: <span class="hljs-string">'hello'</span>}]
+arr.findIndex(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v == <span class="hljs-number">2</span>) <span class="hljs-comment">// 1</span>
+arr.findIndex(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v,name === <span class="hljs-string">'hello'</span>) <span class="hljs-comment">// 2</span>
+arr.findIndex(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v === <span class="hljs-number">666</span>) <span class="hljs-comment">// -1</span></code></pre>
+<p>不难发现该方法和 <code>indexOf()</code> 的差别仅在于可以自定义匹配条件</p>
+<h3 id="entries-values-keys-">entries() values() keys()</h3>
+<p>类似<code>Map</code> <code>Set</code>等ES6新增的 Collections，Array也提供了一系列的借助 Iterator 的迭代方法</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]
+[...arr.values()] <span class="hljs-comment">// [1, 2, 3]</span>
+[...arr.entries()] <span class="hljs-comment">// [[0, 1], [1, 2], [2, 3]]</span>
+[...arr.keys()] <span class="hljs-comment">// [0, 1, 2]</span></code></pre>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="selected">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="webpack-v3-v4">Webpack V3 升级至 V4</h1>
+<h2 id="-">序</h2>
+<p>半年没关注，最近突然发现 Webpack 的版本已经升到 4.16.2 了，为了紧跟潮流的步伐，决定将项目中使用的 3.10.0 来个升级</p>
+<h2 id="-">步骤</h2>
+<ol>
+<li>安装<code>webpack</code>以及<code>webpack-cli</code> Ps: V4 开始将 CLI 抽离到了独立的 <code>webpack-cli</code> 项目中维护<br>所以现在需要分别安装俩个依赖</li>
+<li>将项目中所有用到的<code>loader</code>以及<code>plugin</code>升级到最新</li>
+<li>配置文件里新增 <code>mode: 'development'</code> or <code>mode: 'production'</code></li>
+<li>移除<code>webpack.optimize.UglifyJsPlugin</code>，现在 webpack 会在生产环境默认对代码进行压缩</li>
+<li>移除<code>extract-text-webpack-plugin</code>，v4推荐使用新的<code>mini-css-extract-plugin</code>来提取样式文件</li>
+<li>引入<code>optimize-css-assets-webpack-plugin</code>以及<code>uglifyjs-webpack-plugin</code>，并在生产环境的配置文件下新增</li>
+</ol>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> UglifyJsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">"uglifyjs-webpack-plugin"</span>)
+<span class="hljs-keyword">const</span> OptimizeCSSAssetsPlugin = <span class="hljs-built_in">require</span>(<span class="hljs-string">"optimize-css-assets-webpack-plugin"</span>)
+
+<span class="hljs-built_in">module</span>.exports = {
+    <span class="hljs-attr">optimization</span>: {
+        <span class="hljs-attr">minimizer</span>: [
+            <span class="hljs-comment">// 由于配置optimization会覆盖默认值 所以这里需要配一下UglifyJsPlugin</span>
+            <span class="hljs-keyword">new</span> UglifyJsPlugin({
+                <span class="hljs-attr">cache</span>: <span class="hljs-literal">true</span>,
+                <span class="hljs-attr">parallel</span>: <span class="hljs-literal">true</span>,
+            }),
+            <span class="hljs-keyword">new</span> OptimizeCSSAssetsPlugin({})
+        ]
+    }
+}</code></pre>
+<ol start="7">
+<li>搞定</li>
+</ol>
+<h2 id="-">总结</h2>
+<p>升级过后打包和编译速度大概提升了15%左右（粗略比较）</p>
+<p>上述只是针对我之前项目配置的升级，并不完整，仅供参考</p>
+<p>Webpack官方有提供详细的迁移<a href="https://webpack.js.org/migrate/4/">文档</a></p>
+<p>遇到问题也可以通过报错信息很快定位到原因，再去相应的Github库上找一找解决办法，迁移过程还是比较顺利的</p>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="selected">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>

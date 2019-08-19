@@ -1,0 +1,121 @@
+<!DOCTYPE html><html><head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+	<meta name="baidu-site-verification" content="e7Xf8PjkZ4">
+	<meta name="description" content="小影子的博客，记录工作经验，分享前端技术~">
+	<meta name="keyword" content="博客 前端 技术 Blog FrontEnd Experience">
+	<title>MinimalistYing.io</title>
+	<script charset="utf-8" src="https://hmcdn.baidu.com/static/tongji/plugins/UrlChangeTracker.js"></script><script src="https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb"></script><script>
+		var _hmt = _hmt || [];
+		(function() {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?a3319bfaaf51660db9fb0bbf68d309cb";
+			var s = document.getElementsByTagName("script")[0]; 
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.963473cab43172722d02.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.1102e7ba37877810cde5.css"><script charset="utf-8" src="2.2397e918c534f0d6fc83.bundle.js"></script></head>
+<body>
+	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="cookie-webstorage">Cookie 和 WebStorage</h1>
+<h2 id="-">为什么需要客户端存储</h2>
+<ul>
+<li>记录用户登录状态，当用户下次访问时不必重新登录</li>
+<li>存储一些用户对应用的自定义偏好设置，例如主题色、表格每页默认显示条数等</li>
+<li>一些广告商需要通过客户端端存储的一些用户行为数据来做一些更个性化的推荐</li>
+</ul>
+<p>恰当的利用客户端存储可以很好的优化用户体验</p>
+<h2 id="cookie">Cookie</h2>
+<h3 id="cookie-">Cookie 是什么</h3>
+<p>Cookie 其实就是网站存储在客户端的一些数据<br>这些数据会自动的被加到网站发起的每个 HTTP 请求的 Request Header 中<br>通常情况下服务端和客户端都可以对 Cookies 进行 CRUD 操作<br><a href="https://tools.ietf.org/html/rfc6265#section-5.2.1">点这里查看 Cookie 协议</a></p>
+<h3 id="-cookie">如何在前端新增 Cookie</h3>
+<pre><code class="language-js"><span class="hljs-comment">// 最简单的设置方式 属性全部采用默认值</span>
+<span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">'name=value'</span>
+<span class="hljs-comment">// 自定义 Cookie 属性</span>
+<span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">'test=111; max-age=3600; domain=xx.com; path=/;'</span></code></pre>
+<p>注意一次只能同时新增一个 Cookie</p>
+<h3 id="-cookie">如何在前端修改或删除 Cookie</h3>
+<pre><code class="language-js"><span class="hljs-comment">// 修改 test 为 222</span>
+<span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">'test=222; max-age=7200; domain=xx.com; path=/'</span>
+<span class="hljs-comment">// 删除 test</span>
+<span class="hljs-built_in">document</span>.cookie = <span class="hljs-string">'test=; max-age=0; domain=xx.com; path=/'</span></code></pre>
+<p>这里要注意的是要确保 <code>domain</code> 以及 <code>path</code> 与待修改 Cookie 设置的一致<br>因为 Cookie 其实是在同一个域名和路径下唯一<br>例如我们访问 <code>www.a.com/test/xx.html</code><br>可以同时存在 <code>test=1; domain=a.com; path=/test</code> 以及 <code>test=1; domain=a.com; path=/</code><br>这俩个 name 相同但是 path 不同的同名 Cookie<br>所以只有 <code>name</code> <code>domain</code> <code>path</code> 这三个值都相同时才能确定一个 Cookie</p>
+<h3 id="-cookie">如何读取 Cookie</h3>
+<p>通过 <code>document.cookie</code> 获取到的是所有数据<br>类似 <code>name1=value1; name2=value2</code> 的字符串<br>要拿来使用的话还需通过一系列字符串操作将需要的值取出</p>
+<h3 id="-cookie-">如何判断 Cookie 是否启用</h3>
+<p>由于 Cookie 涉及到用户的隐私，用户可以手动禁止浏览器使用 Cookie<br>绝大多数浏览器都可以通过以下代码来判断用户是否禁用 Cookie  </p>
+<pre><code class="language-js"><span class="hljs-selector-tag">navigator</span><span class="hljs-selector-class">.cookieEnabled</span></code></pre>
+<p>Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等网站都无法正常访问<br>感觉现在大多数用户都不会去禁用 Cookie，不然会有一堆网站访问不了</p>
+<h3 id="-cookie-">关于 Cookie 的属性</h3>
+<ul>
+<li>domain<br>指定 Cookie 存储在哪个域名下 默认为当前服务器的域名<br>当然也遵循同源策略 例如在 <code>www.son.a.com</code> 页面下<br>我们可以设置 Cookie 的 domain 为 <code>a.com</code><br>这样在 <code>www.another.a.com</code> 页面也可以获取到该 Cookie<br>但是不能在该页面试图去操作 domain 为 <code>b.com</code> 的 Cookie</li>
+<li>path<br>指定 Cookie 存储在哪个路径下 默认为当前 URI 中的路径<br>例如在 <code>www.a.com/page/one.html</code> 我们按默认属性设置了一个Cookie<br>那么在 <code>www.a.com/page/two.html</code> <code>www.a.com/page/son/three.html</code><br>这些页面下都可以获取这个 Cookie<br>但是在 <code>www.a.com/another/four.html</code> 页面上便无法得到这个 Cookie<br>可以将 path 设为 <code>/</code> 使得访问当前域名下所有路径的网页都能拿到设置的 Cookie</li>
+<li>max-age 最大存储时间 以秒为单位 默认当浏览器 Session 结束时清除</li>
+<li>expires 存储失效的 GMT 时间 默认当浏览器 Session 结束时清除</li>
+<li>secure 包含该属性的 Cookie 只能通过 HTTPS 传输</li>
+<li>httponly<br>只能在服务端进行设置<br>包含该属性的 Cookie 只会在 Request Headers 中出现<br>前端无法通过 <code>document.cookie</code> 查看修改</li>
+</ul>
+<h3 id="-cookie-">关于 Cookie 中的保留字符</h3>
+<p>由于 <code>;</code> <code>,</code> <code>空格</code> 在 Cookie 中有特殊含义<br>所以当存储的数据中包含这些特殊字符时<br>需要在存储前通过 <code>encodeURIComponent</code> 进行编码<br>读取前通过 <code>decodeURIComponent</code> 进行解码</p>
+<h3 id="cookie-">Cookie 的优缺点</h3>
+<p>优点：</p>
+<ul>
+<li>适合用于存放需要每个请求都必须携带的数据</li>
+<li>服务端也可以直接操作 Cookie</li>
+<li>可以通过 domain 以及 path 控制数据存储的范围</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>容量有限，规范只要求每个域名下最低提供 4kb 的存储空间</li>
+<li>每次请求都会携带，如果存放了大量不必要的数据很显然会影响页面性能</li>
+<li>不安全，永远不要在 Cookie 中存放用户的敏感数据</li>
+<li>前端 API 不友好，CRUD 都是通过 <code>document.cookie</code> 进行，没有提供相关操作的方法</li>
+</ul>
+<h1 id="webstorage">WebStorage</h1>
+<h2 id="webstorage-">WebStorage 是什么</h2>
+<p>WebStorage 是 HTML5 新增的客户端存储机制<br>分为 <code>LocalStorage</code> 以及 <code>SessionStorage</code><br>IE8+ 以及各现代浏览器对其都有良好的支持<br><a href="https://html.spec.whatwg.org/multipage/webstorage.html#storage">点这里查看 WebStorage 规范</a></p>
+<h2 id="localstorage">LocalStorage</h2>
+<p>永久存储（除非浏览器缓存被清除）在当前域下，遵循同源策略<br>如果在一个浏览器打开多个窗口访问同一域名的网站<br>那么这多个窗口中的 LocalStorage 是共享的</p>
+<h2 id="sessionstorage">SessionStorage</h2>
+<p>存储周期为当前 Session ，同样遵循同源策略<br>要注意这里的 Session 和 Cookie 的默认存储 Session 不同<br>SessionStorage 针对的是浏览器的每个窗口，而不是整个浏览器的进程<br>正因如此，与 LocalStorage 不同的是，多个窗口下的同域名网站，其 SessionStorage 也是分开存储的<br>Ps：要注意的是如果在一个窗口内访问的网站通过 <code>&lt;iframe&gt;</code> 内嵌了俩个同域名网站<br>那么这俩个 <code>&lt;iframe&gt;</code> 内嵌站点的 SessionStorage 是共享的</p>
+<h2 id="api">API</h2>
+<pre><code><span class="hljs-comment">// sessionStorage 与 localStorage 一致</span>
+localStorage.a = <span class="hljs-string">'test1'</span> <span class="hljs-comment">// 新增或修改</span>
+localStorage.a <span class="hljs-comment">// 读取</span>
+localStorage[<span class="hljs-string">'a'</span>] <span class="hljs-comment">// 读取</span>
+
+localStorage.setItem(a, <span class="hljs-string">'test3'</span>) <span class="hljs-comment">// 新增</span>
+localStorage.getItem(a) <span class="hljs-comment">// 读取</span>
+localStorage.removeItem(a) <span class="hljs-comment">// 删除</span>
+localStorage.clear() <span class="hljs-comment">// 清空所有</span>
+localStorage.key(index) <span class="hljs-comment">// 获取指定 index 存储键值对的 key</span>
+localStorage.length <span class="hljs-comment">// 总共存储的键值对数量</span></code></pre><p>可以看到通过类似操作普通对象一样来操作 WebStorage<br>通常来说这种方式更为简洁<br>但是也有类似 <code>clear()</code> <code>removeItem()</code> 等操作只能通过 API 进行</p>
+<h2 id="storage-event">Storage Event</h2>
+<p>WebStorage 还提供了事件机制，用于监听存储发生的变化<br>当打开俩个窗口访问同域网站，如果在其中一个窗口中修改了存储数据<br>在另一个窗口中可以通过如下代码监听到存储改变的事件  </p>
+<pre><code class="language-js"><span class="hljs-comment">// 会被 setItem() removeItem() clear() 触发</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'storage'</span>, e =&gt; {
+    <span class="hljs-comment">/**
+        e: {
+            key, // 发生改变的 key
+            newValue, // 旧值
+            oldValue, // 新值
+            url, // 触发变化的文档 URL
+            ...
+        }
+    */</span>
+    <span class="hljs-comment">// 当事件是由 clear() 触发时 key/newVlue/oldValue 都为 null</span>
+})</code></pre>
+<p>要注意的是这个事件只有在本地存储真的发生变化时才会触发<br>也就是说假设已经通过 <code>localStorage.a = 'test'</code> 设置了本地存储中 <code>a</code> 的值为 <code>test</code><br>那么再次执行 <code>localStorage.a = 'test'</code> 并不会触发事件<br>并且通过 <code>localStorage.removeItem('notExist')</code> 试图移除一个不存在的属性时也不会触发事件<br>Ps:（由于 SessionStorage 是基于浏览器窗口存储，所以只有当使用 <code>&lt;iframe&gt;</code> 处理内嵌页面时才可能会触发事件）<br>这个机制可以用于实现应用的广播功能，当用户在一个窗口的页面进行操作时同步对另一个窗口的页面做出修改<br>例如用户在一个窗口中修改了应用的主题色，我们通过 <code>localStorage.color = 'red'</code> 来保存这一改变<br>另一个窗口通过监听到 <code>localStorage</code> 的变化同步的将应用的主题色也修改为 <code>red</code></p>
+<h2 id="webstorage-">WebStorage 的优势</h2>
+<ul>
+<li>每个域下允许存储超过 5MB 的数据（各个浏览器有所不同）</li>
+<li>更友好的 API</li>
+</ul>
+<h2 id="-">其它注意事项</h2>
+<ul>
+<li>不管是 Cookie 还是 WebStorage 都是与浏览器相关的<br>也就意味着在 Chrome 浏览器中存储的数据，当用户切换为 FireFox 浏览时就无法获取<br>当然这应该是小概率事件，毕竟大多数人习惯于使用同一种浏览器</li>
+<li>当浏览器设置 Cookie 失败时并不会报错，这个过程是静默的<br>例如当你试图跨域的去设置 Cookie 时只会发现不生效，但不会在控制台中看到相应错误信息</li>
+<li>虽然 WebStorage 的规范希望能支持对类似数组对象等结构化数据进行存储<br>但目前为止大多数浏览器仅支持字符串作为 Value<br>传入非字符串的值会被强制转化为字符串<br>例如试图通过 <code>localStorage.o = {a: 1}</code> 存储一个对象<br>会发现实际存储的是 <code>o: "[object Object]"</code></li>
+</ul>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li class="">关于前端框架选型的一些思考</li><li class="">观后感：《低欲望社会》大前研一</li><li class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li class="">Axios 源码解析</li><li class="">React 与 Vue 的一些对比</li><li class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li class="">常见的二叉树类型</li><li class="">Ajax (Asynchronous JavaScript And XML)</li><li class="">关于 XSS 以及 CSRF</li><li class="selected">Cookie 和 WebStorage</li><li class="">关于跨域</li><li class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li class="">二叉树的遍历</li><li class="">React-Redux 从入门到后悔</li><li class="">Redux 从入门到放弃</li><li class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li class="">Promise In ES6</li><li class="">New Collections In ES6</li><li class=""> Object's New API In ES6</li><li class="">Array's New API In ES6</li><li class="">Generator in ES6</li><li class="">Webpack V3 升级至 V4</li><li class="">Iterator in ES6</li><li class="">Symbols in ES6</li><li class="">如何编写一个自己的GulpPlugin</li><li class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.0a1cf8fcdde3eb794126.js"></script>
+</body></html>
