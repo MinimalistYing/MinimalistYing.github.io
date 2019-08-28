@@ -26,10 +26,12 @@ import Axios from '@blog/Axios.md'
 import Cascading from '@blog/Cascading.md'
 import LowDesireSociety from '@blog/LowDesireSociety.md'
 import Frameworks from '@blog/Frameworks.md'
+import MoesifBug from '@blog/MoesifBug.md'
 
 import cat from './category'
 
 const blogs = {
+	MoesifBug,
 	Frameworks,
 	LowDesireSociety,
 	Cascading,

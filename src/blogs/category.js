@@ -1,4 +1,5 @@
 module.exports = [
+	'MoesifBug',
   'Frameworks',
 	'LowDesireSociety',
 	'Cascading',
