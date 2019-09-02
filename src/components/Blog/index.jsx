@@ -22,11 +22,16 @@ class MyBlog extends React.Component {
 
 	componentDidMount() {
 		if (window.innerWidth >= 1024) {
-			setTimeout(() => new Scroll(document.getElementById('category'), {
-				mouseWheel: true,
-				scrollbars: true,
-				fadeScrollbars: true
-			}))
+			setTimeout(() => {
+				const scroll = new Scroll(document.getElementById('category'), {
+					mouseWheel: true,
+					scrollbars: true,
+					fadeScrollbars: true
+				})
+				const pathname = window.location.pathname
+				const id =pathname.slice(1, pathname.length- 5)
+				scroll.scrollToElement(document.getElementById(id))
+			})
 		}
 	}
 
@@ -45,6 +50,7 @@ class MyBlog extends React.Component {
 						{
 							this.state.categories.map((item, index) => (
 								<li
+									id={item.key}
 									key={item.key}
 									className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
 									onClick={() => this.switch(item.key)}
