@@ -5,7 +5,7 @@ import hljs from 'highlight.js/lib/highlight'
 import javascript from 'highlight.js/lib/languages/javascript'
 import css from 'highlight.js/lib/languages/css'
 import xml from 'highlight.js/lib/languages/xml'
-import 'highlight.js/styles/github.css'
+import 'highlight.js/styles/tomorrow-night.css'
 import './style.less'
 
 hljs.registerLanguage('javascript', javascript)

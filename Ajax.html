@@ -14,26 +14,28 @@
 			s.parentNode.insertBefore(hm, s);
 		})();
 	</script>
-<link rel="shortcut icon" href="favicon.ico"><link href="main.ba348b966d7b4dc69e1d.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.34dc1d228a2b3001916f.css"><script charset="utf-8" src="0.9d82b534399ca40448c9.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.721caad03960dfd5486b.css"><script charset="utf-8" src="2.eb5aa1b17eba139d4749.bundle.js"></script></head>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.ba348b966d7b4dc69e1d.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.ef1bd9dbce806a540650.css"><script charset="utf-8" src="0.e3fc404a03ea51474c0f.bundle.js"></script><script charset="utf-8" src="5.4749751c69454854f14e.bundle.js"></script><link rel="stylesheet" type="text/css" href="2.41696c5507cad7d5f341.css"><script charset="utf-8" src="2.510b9aa996f2336192b4.bundle.js"></script></head>
 <body>
 	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="ajax-asynchronous-javascript-and-xml-">Ajax (Asynchronous JavaScript And XML)</h1>
 <h2 id="ajax-">Ajax 是什么？</h2>
-<p>在 Web 发展之初，客户端与服务端通常仅通过 <code>&lt;form&gt;</code> 表单进行数据交互<br>当表单被提交时页面会进行刷新，服务器端可能会根据提交的数据返回不同的 HTML<br>随着 Web Application 的功能愈加复杂，每次交互都需要刷新页面显然对用户来说体验很糟糕<br>这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 可以在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据<br> 在浏览器中主要通过下面介绍的 <code>XMLHttpRequest</code> 对象来发起 Ajax 请求<br>(Ps: 名称中的 XML 其实很有误导性，只是因为该技术诞生之初时 XML 很火爆<br>大家可能本来认为 XML 会发展成为通用的数据交换格式，没想到现在 JSON 异军突起成为最流行的轻量格式，由此亦可见科技进步之快)</p>
+<p>在 Web 发展之初，客户端与服务端通常仅通过 <code>&lt;form&gt;</code> 表单进行数据交互。当表单被提交时页面会进行刷新，服务器端可能会根据提交的数据返回不同的新页面。  </p>
+<p>随着 Web Application 的功能愈加复杂，每次提交表单都需要刷新页面显然对用户来说体验很糟糕。这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 可以在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据。  </p>
+<p>在浏览器中主要通过下面介绍的 <code>XMLHttpRequest</code> 对象来发起 Ajax 请求<br>(Ps: 名称中的 XML 其实很有误导性，只是因为该技术诞生之初时 XML 很火爆。大家可能本来认为 XML 会发展成为通用的数据交换格式，没想到现在 JSON 异军突起成为最流行的轻量格式，由此亦可见科技进步之快)</p>
 <h2 id="xmlhttprequest-api">XMLHttpRequest API</h2>
-<p>由于该 API 是依据 HTTP 协议设计的，所以我们首先要来了解一下关于 HTTP 请求及响应的几个组成部分<br>请求：</p>
+<p>由于该 API 是依据 HTTP 协议设计的，所以我们首先要来了解一下关于 HTTP 请求及响应的几个基础组成部分<br>HTTP Request：</p>
 <ul>
 <li>HTTP Method (Ps: GET/POST/DELETE...)</li>
 <li>Request URL</li>
 <li>Request Header</li>
 <li>Request Body</li>
 </ul>
-<p>响应：</p>
+<p>HTTP Response：</p>
 <ul>
 <li>Response Status (Ps: 200 OK/404 Not Found)</li>
 <li>Response Header</li>
 <li>Response Body</li>
 </ul>
-<p>下例阐述了一个完整的 Ajax 流程，可以看出相应的 API 都是在获取或修改上述的几个值</p>
+<p>下例阐述了一个完整的 Ajax 流程，可以看出相应的 API 都是在获取或修改上述的几个值。</p>
 <pre><code class="language-js"><span class="hljs-comment">// 1. 实例化对象</span>
 <span class="hljs-keyword">const</span> request = <span class="hljs-keyword">new</span> XMLHttpRequest()
 
@@ -87,7 +89,7 @@ request.onreadystatechange = <span class="hljs-function"><span class="hljs-param
 <span class="hljs-comment">// 该例中我们采用 JSON 作为数据交换格式 所以这里需要将对象讲过 JSON.stringify() 处理</span>
 <span class="hljs-comment">// 如果不需要传递 Request Body 可以 request.send(null)</span>
 request.send(<span class="hljs-built_in">JSON</span>.stringify(data))</code></pre>
-<p>除上述简单的请求响应过程外，XHR 还提供了更多的监听事件</p>
+<p>XHR 还提供了很多其它的事件</p>
 <pre><code class="language-js"><span class="hljs-comment">// 在主动调用 request.abort() 或者其余方式导致请求被丢弃的情况下触发</span>
 request.onabort = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}
 <span class="hljs-comment">// 当请求时长超过了 request.timeout 设置的时长时触发</span>
@@ -97,11 +99,12 @@ request.onerror = <span class="hljs-function"><span class="hljs-params">()</span
 <span class="hljs-comment">// 请求完成时触发（Ps: 不考虑兼容性的情况下可以用这个取代监听 readystatechange ?）</span>
 request.onload = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {}
 
-<span class="hljs-comment">// 规范要求一个请求在完成时必定且只能触发上述事件中的一个</span></code></pre>
+<span class="hljs-comment">// 规范要求一个请求在完成时必定会且只能触发上述事件中的一个</span></code></pre>
 <p>当发起一个跨域请求并且希望其携带 Cookie 时，需要额外进行如下设置</p>
 <pre><code class="language-js">request.withCredentials = <span class="hljs-literal">true</span></code></pre>
-<p>每个 <code>XMLHttpRequest</code> 的实例化对象代表了一对 request/reponse ，如果反复利用同一个对象会导致先前的请求被 <code>abort</code><br>由于 HTTP 协议对一个请求有着（方法 / URL =&gt; 请求头 =&gt; 请求体）的先后顺序要求<br><code>XMLHttpRequest</code> API 的调用顺序也有着相同顺序 open() =&gt; setRequestHeader() =&gt; send()<br>例如在 <code>open()</code> 之前调用 <code>setRequestHeader()</code> 会导致浏览器报错</p>
-<pre><code>Uncaught DOMException: Failed to execute <span class="hljs-string">'setRequestHeader'</span> on <span class="hljs-string">'XMLHttpRequest'</span>: The object<span class="hljs-string">'s state must be OPENED.</span></code></pre><p>当我们想利用 XHR 来上传文件时情况会更加复杂一点<br>首先要提的是早期的 XHR 并不支持文件上传，只能利用 <code>&lt;form&gt;</code> 表单加 <code>&lt;input type="file"&gt;</code> 来实现<br>IE10+ 才开始支持通过 XHR2 以及 <code>FormData</code> 来实现文件上传</p>
+<p>每个 <code>XMLHttpRequest</code> 对象代表了一对 request/reponse ，如果反复操作同一对象会导致先前的请求被 <code>abort</code>。  </p>
+<p>此外，由于 HTTP 协议对一个请求有着（方法 / URL =&gt; 请求头 =&gt; 请求体）的先后顺序要求。<code>XMLHttpRequest</code> API 的调用顺序也有着相同顺序 open() =&gt; setRequestHeader() =&gt; send()，例如在 <code>open()</code> 之前调用 <code>setRequestHeader()</code> 会导致浏览器报错。</p>
+<pre><code>Uncaught DOMException: Failed to execute <span class="hljs-string">'setRequestHeader'</span> on <span class="hljs-string">'XMLHttpRequest'</span>: The object<span class="hljs-string">'s state must be OPENED.</span></code></pre><p>当我们想通过 XHR 来上传文件时情况会更复杂一点，首先要提的是早期的 XHR 并不支持文件上传，只能利用 <code>&lt;form&gt;</code> 表单加 <code>&lt;input type="file"&gt;</code> 来实现。IE10+ 才开始支持通过 XHR2 以及 <code>FormData</code> 来实现文件上传。</p>
 <pre><code class="language-js">const data = new FormData()
 const dom = document.querySelector('input[type="file"]')
 data.append('filename', dom.files[0].name)
@@ -119,7 +122,8 @@ request.upload.onload = () =&gt; {}
 // 利用 FormData 上传数据时 Content-Type 会被默认设为 multipart/form-data
 request.send(data)</code></pre>
 <h2 id="-">总结</h2>
-<p>通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美<br>开发者使用起来也很麻烦，所以才出现了 jQuery 中的 <code>$.ajax()</code> 以及时下比较流行的 <code>axios</code> 等框架对其的封装<br>除开这些框架外更令人期待的是浏览器原生支持的 Fetch API<br>虽然目前的兼容性堪忧但是 Fetch 作为 <em>A modern replacement for XMLHttpRequest.</em><br>相信在不久的将来我们就可以抛弃 XHR 了</p>
+<p>通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美。开发者使用起来也很麻烦，所以才出现了 jQuery 中的 <code>$.ajax()</code> 以及时下比较流行的 <code>axios</code> 等框架对其的封装。  </p>
+<p>Ps: 另外需要提一下的是最新的 Fetch API ，虽然目前的兼容性堪忧并且暂时不支持文件上传进度。但是 Fetch 作为 <em>A modern replacement for XMLHttpRequest.</em> 相信在不久的将来我们就可以抛弃 XHR 了。</p>
 </div></div><div id="category" class="category-box"><ul class="blogs-category"><li id="MoesifBug" class="">记一次 Chrome 更新导致插件故障引发的问题</li><li id="Frameworks" class="">关于前端框架选型的一些思考</li><li id="LowDesireSociety" class="">观后感：《低欲望社会》大前研一</li><li id="Cascading" class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li id="Axios" class="">Axios 源码解析</li><li id="VueVsReact" class="">React 与 Vue 的一些对比</li><li id="WhyPreflight" class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li id="ArraySort" class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li id="BinaryTreeType" class="">常见的二叉树类型</li><li id="Ajax" class="selected">Ajax (Asynchronous JavaScript And XML)</li><li id="XSSCSRF" class="">关于 XSS 以及 CSRF</li><li id="CookieAndWebStorage" class="">Cookie 和 WebStorage</li><li id="CrossOrigin" class="">关于跨域</li><li id="WebpackCommonProblem" class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li id="SourceMapAndWebpack" class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li id="BinaryTreeTraversal" class="">二叉树的遍历</li><li id="ReactRedux" class="">React-Redux 从入门到后悔</li><li id="Redux" class="">Redux 从入门到放弃</li><li id="PreventModalScroll" class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li id="PromiseBlog" class="">Promise In ES6</li><li id="Collections" class="">New Collections In ES6</li><li id="ObjectAPI" class=""> Object's New API In ES6</li><li id="ArrayAPI" class="">Array's New API In ES6</li><li id="Generator" class="">Generator in ES6</li><li id="WebpackV3ToV4" class="">Webpack V3 升级至 V4</li><li id="IteratorBlog" class="">Iterator in ES6</li><li id="SymbolBlog" class="">Symbols in ES6</li><li id="GulpPlugin" class="">如何编写一个自己的GulpPlugin</li><li id="WebpackBaseConfig" class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
-<script type="text/javascript" src="main.84657a3601e9c5baddaf.js"></script>
+<script type="text/javascript" src="main.a4334adb117015217671.js"></script>
 </body></html>

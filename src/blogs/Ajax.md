@@ -1,28 +1,27 @@
 # Ajax (Asynchronous JavaScript And XML)
 
 ## Ajax 是什么？
-在 Web 发展之初，客户端与服务端通常仅通过 `<form>` 表单进行数据交互  
-当表单被提交时页面会进行刷新，服务器端可能会根据提交的数据返回不同的 HTML  
-随着 Web Application 的功能愈加复杂，每次交互都需要刷新页面显然对用户来说体验很糟糕  
-这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 可以在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据  
- 在浏览器中主要通过下面介绍的 `XMLHttpRequest` 对象来发起 Ajax 请求  
-(Ps: 名称中的 XML 其实很有误导性，只是因为该技术诞生之初时 XML 很火爆  
-大家可能本来认为 XML 会发展成为通用的数据交换格式，没想到现在 JSON 异军突起成为最流行的轻量格式，由此亦可见科技进步之快)
+在 Web 发展之初，客户端与服务端通常仅通过 `<form>` 表单进行数据交互。当表单被提交时页面会进行刷新，服务器端可能会根据提交的数据返回不同的新页面。  
+
+随着 Web Application 的功能愈加复杂，每次提交表单都需要刷新页面显然对用户来说体验很糟糕。这个时候 Ajax 出现了(2005 年左右开始渐渐被广为使用)，Ajax 可以在不刷新页面的情况下通过 HTTP 请求与服务器异步的交换数据。  
+
+在浏览器中主要通过下面介绍的 `XMLHttpRequest` 对象来发起 Ajax 请求  
+(Ps: 名称中的 XML 其实很有误导性，只是因为该技术诞生之初时 XML 很火爆。大家可能本来认为 XML 会发展成为通用的数据交换格式，没想到现在 JSON 异军突起成为最流行的轻量格式，由此亦可见科技进步之快)
 
 ## XMLHttpRequest API
-由于该 API 是依据 HTTP 协议设计的，所以我们首先要来了解一下关于 HTTP 请求及响应的几个组成部分  
-请求：
+由于该 API 是依据 HTTP 协议设计的，所以我们首先要来了解一下关于 HTTP 请求及响应的几个基础组成部分  
+HTTP Request：
 * HTTP Method (Ps: GET/POST/DELETE...)
 * Request URL
 * Request Header
 * Request Body
 
-响应：
+HTTP Response：
 * Response Status (Ps: 200 OK/404 Not Found)
 * Response Header
 * Response Body
 
-下例阐述了一个完整的 Ajax 流程，可以看出相应的 API 都是在获取或修改上述的几个值
+下例阐述了一个完整的 Ajax 流程，可以看出相应的 API 都是在获取或修改上述的几个值。
 ```js
 // 1. 实例化对象
 const request = new XMLHttpRequest()
@@ -78,7 +77,7 @@ request.onreadystatechange = () => {
 // 如果不需要传递 Request Body 可以 request.send(null)
 request.send(JSON.stringify(data))
 ```
-除上述简单的请求响应过程外，XHR 还提供了更多的监听事件
+XHR 还提供了很多其它的事件
 ```js
 // 在主动调用 request.abort() 或者其余方式导致请求被丢弃的情况下触发
 request.onabort = () => {}
@@ -89,7 +88,7 @@ request.onerror = () => {}
 // 请求完成时触发（Ps: 不考虑兼容性的情况下可以用这个取代监听 readystatechange ?）
 request.onload = () => {}
 
-// 规范要求一个请求在完成时必定且只能触发上述事件中的一个
+// 规范要求一个请求在完成时必定会且只能触发上述事件中的一个
 ```
 
 当发起一个跨域请求并且希望其携带 Cookie 时，需要额外进行如下设置
@@ -97,17 +96,14 @@ request.onload = () => {}
 request.withCredentials = true
 ```
 
-每个 `XMLHttpRequest` 的实例化对象代表了一对 request/reponse ，如果反复利用同一个对象会导致先前的请求被 `abort`  
-由于 HTTP 协议对一个请求有着（方法 / URL => 请求头 => 请求体）的先后顺序要求  
-`XMLHttpRequest` API 的调用顺序也有着相同顺序 open() => setRequestHeader() => send()  
-例如在 `open()` 之前调用 `setRequestHeader()` 会导致浏览器报错
+每个 `XMLHttpRequest` 对象代表了一对 request/reponse ，如果反复操作同一对象会导致先前的请求被 `abort`。  
+
+此外，由于 HTTP 协议对一个请求有着（方法 / URL => 请求头 => 请求体）的先后顺序要求。`XMLHttpRequest` API 的调用顺序也有着相同顺序 open() => setRequestHeader() => send()，例如在 `open()` 之前调用 `setRequestHeader()` 会导致浏览器报错。
 ```
 Uncaught DOMException: Failed to execute 'setRequestHeader' on 'XMLHttpRequest': The object's state must be OPENED.
 ```
 
-当我们想利用 XHR 来上传文件时情况会更加复杂一点  
-首先要提的是早期的 XHR 并不支持文件上传，只能利用 `<form>` 表单加 `<input type="file">` 来实现  
-IE10+ 才开始支持通过 XHR2 以及 `FormData` 来实现文件上传
+当我们想通过 XHR 来上传文件时情况会更复杂一点，首先要提的是早期的 XHR 并不支持文件上传，只能利用 `<form>` 表单加 `<input type="file">` 来实现。IE10+ 才开始支持通过 XHR2 以及 `FormData` 来实现文件上传。
 ```js
 const data = new FormData()
 const dom = document.querySelector('input[type="file"]')
@@ -128,8 +124,6 @@ request.send(data)
 ```
 
 ## 总结
-通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美  
-开发者使用起来也很麻烦，所以才出现了 jQuery 中的 `$.ajax()` 以及时下比较流行的 `axios` 等框架对其的封装  
-除开这些框架外更令人期待的是浏览器原生支持的 Fetch API  
-虽然目前的兼容性堪忧但是 Fetch 作为 *A modern replacement for XMLHttpRequest.*  
-相信在不久的将来我们就可以抛弃 XHR 了
+通过上面这些例子不难看出 XMLHttpRequest 的 API 受时代所拖累，设计的并不完美。开发者使用起来也很麻烦，所以才出现了 jQuery 中的 `$.ajax()` 以及时下比较流行的 `axios` 等框架对其的封装。  
+
+Ps: 另外需要提一下的是最新的 Fetch API ，虽然目前的兼容性堪忧并且暂时不支持文件上传进度。但是 Fetch 作为 *A modern replacement for XMLHttpRequest.* 相信在不久的将来我们就可以抛弃 XHR 了。
