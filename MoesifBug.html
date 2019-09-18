@@ -18,21 +18,23 @@
 <body>
 	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><div class="blogs"><div class="blog"><div class="my-md"><h1 id="-chrome-">记一次 Chrome 更新导致插件故障引发的问题</h1>
 <h2 id="-">起因</h2>
-<p>由于我司现有的系统前后端都部署在同一域名下，所以线上不存在跨域，当然后端项目就不会进行相关的 CORS 配置啦。  </p>
-<p>但是，我们本地去请求预发地址进行联调时就必然会碰到跨域问题。这个时候我们用了一个 Chrome 插件 Moesif 来绕开浏览器的跨域限制。  </p>
-<p>之前一直工作的很好，本地可以正常访问线上的接口，今天突然发现跨域请求报错了。错误信息如下  </p>
-<pre><code>Access to fetch at <span class="hljs-string">'https://xxx.com/api/v1/apps'</span> <span class="hljs-keyword">from</span> origin <span class="hljs-string">'http://localhost:8870'</span> has been blocked by CORS policy: Response to preflight request doesn<span class="hljs-string">'t pass access control check: No '</span>Access-Control-Allow-Origin<span class="hljs-string">' header is present on the requested resource. If an opaque response serves your needs, set the request'</span>s mode to <span class="hljs-string">'no-cors'</span> to fetch the resource <span class="hljs-keyword">with</span> CORS disabled.</code></pre><h2 id="-">探究原因</h2>
-<p>出现这个错误时我的第一想法是会不会后端做了什么改动，因为此时我的另外一个项目是可以正常跨域的。  </p>
+<p>由于我司现有的系统大部分前后端都部署在同一域名下，所以线上请求不会跨域，当然后端就不会特意进行相关的 CORS 配置啦。  </p>
+<p>但是，我们在本地去请求预发地址进行联调时就必然会碰到跨域问题。这个时候我们用了一个 Chrome 插件 Moesif 来绕开浏览器的跨域限制。  </p>
+<p>之前一直工作的很好，本地可以正常请求线上的接口，今天一来突然发现请求会报跨域错误。错误信息如下  </p>
+<pre><code>Access to fetch at 'https://xxx.com/api/v1/apps' from origin 'http://localhost:8870' has been blocked by CORS policy:   
+Response to preflight request doesn't pass access control check: No 'Access-Control-Allow-Origin' header is present on the requested resource.  
+If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.</code></pre><h2 id="-">探究原因</h2>
+<p>出现这个错误时我的第一想法是会不会后端做了什么改动，因为此时我的另一个项目是可以正常跨域的。  </p>
 <p>但是仔细想想又不对，因为 Moesif 插件是通过在所有响应的 ReponsseHeader 中加上相关的 Access-Control-Allow-xxx 响应头来绕开浏览器限制的。  </p>
 <p>所以后端应该没有什么能力影响到插件的工作，还有一点奇怪的是，GET 跨域请求可以通过, 但是其它的请求就不行。  </p>
-<p>要解决问题当然得先找到问题发生在哪，所以我开始用排除法来去掉一些猜测。  </p>
+<p>要解决问题当然得先找到问题出在哪，所以我试着先用排除法来去掉一些猜测。  </p>
 <p>首先我想确定问题究竟是不是由于后端的改动导致的，我让同事帮忙在她的项目中本地请求了一下出问题的地址，发现没有问题。  </p>
 <p>那么基本上就可以确定故障的发生与后端无关，接下来我把自己的 Moesif 配置和同事对比了一下，发现都是相同的配置，那肯定也不是我插件配置出错。</p>
 <p>相同的 Moesif 配置，相同的后端请求地址，她的项目没问题而我的有问题，那是不是我的代码有错误呢？  </p>
 <p>接着又让同事在本地运行了一下我的项目，发现果然也有跨域问题。  </p>
 <p>但是我试着切到以前能正常请求的分支，发现还是有问题。这就很奇怪了，为什么相同的代码突然就不能工作了呢。  </p>
 <p>由于我自己在项目中对原生的 Fetch API 进行了一层封装，而同事项目里没有。会不会是我的封装出了什么问题呢？最好的方法当然是对比一下封装前后的请求有什么不同，比较后我发现原生 Fetch 也能正常请求。这个时候基本可以确定是我的封装出了问题。  </p>
-<p>通过打断点的方式，我发现俩者最终的区别仅在于我封装好发起的请求会多设置一个请求头 Content-Type: application/json 。尝试着手动把该请求头去掉，Bingo !  </p>
+<p>通过打断点的方式，我发现俩者最终的区别仅在于我封装后发起的请求会多设置一个请求头 Content-Type: application/json 。尝试着手动把该请求头去掉，Bingo !  </p>
 <p>问题探究到这里基本已经确定了导致故障的原因，但还是很奇怪。为什么？<br>为什么加个请求头就会有问题？<br>为什么之前都有这个请求头就没问题？  </p>
 <p>去 MDN 上查找发现</p>
 <blockquote>
@@ -44,10 +46,10 @@
 <p>Update: Due to how Chrome handling CORB (thus impact CORS) is in flux, we received reports that Chrome version 76.x may have caused some issues. We are investigating. Thank you for your patience. </p>
 </blockquote>
 <p>Emmmmmm......  </p>
-<p>最终结论就是由于 Chrome 最近的版本更新了一些处理 CORS 的机制，导致插件在碰到 Preflight 跨域请求时不能正常绕开限制了。</p>
+<p>结论出来了，由于 Chrome 最近的版本更新了一些处理 CORS 的机制，导致插件在碰到 Preflight 跨域请求时不能正常绕开限制了。</p>
 <h2 id="-">总结</h2>
 <p>暂时的解决办法只有先统一的去掉请求携带的 Request Header ，静待插件作者更新修复问题。如果一直不修复的话，只好让后端配合支持一下预发环境跨域请求了。  </p>
-<p>感觉下次碰到这类问题要自信一点，首先去看一看相关库或插件的文档或 Issue 页面，看看是不是库或插件自身出了问题。不然 Debug 起来还是比较费时的。</p>
-</div></div><div id="category" class="category-box"><ul class="blogs-category"><li id="MoesifBug" class="selected">记一次 Chrome 更新导致插件故障引发的问题</li><li id="Frameworks" class="">关于前端框架选型的一些思考</li><li id="LowDesireSociety" class="">观后感：《低欲望社会》大前研一</li><li id="Cascading" class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li id="Axios" class="">Axios 源码解析</li><li id="VueVsReact" class="">React 与 Vue 的一些对比</li><li id="WhyPreflight" class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li id="ArraySort" class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li id="BinaryTreeType" class="">常见的二叉树类型</li><li id="Ajax" class="">Ajax (Asynchronous JavaScript And XML)</li><li id="XSSCSRF" class="">关于 XSS 以及 CSRF</li><li id="CookieAndWebStorage" class="">Cookie 和 WebStorage</li><li id="CrossOrigin" class="">关于跨域</li><li id="WebpackCommonProblem" class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li id="SourceMapAndWebpack" class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li id="BinaryTreeTraversal" class="">二叉树的遍历</li><li id="ReactRedux" class="">React-Redux 从入门到后悔</li><li id="Redux" class="">Redux 从入门到放弃</li><li id="PreventModalScroll" class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li id="PromiseBlog" class="">Promise In ES6</li><li id="Collections" class="">New Collections In ES6</li><li id="ObjectAPI" class=""> Object's New API In ES6</li><li id="ArrayAPI" class="">Array's New API In ES6</li><li id="Generator" class="">Generator in ES6</li><li id="WebpackV3ToV4" class="">Webpack V3 升级至 V4</li><li id="IteratorBlog" class="">Iterator in ES6</li><li id="SymbolBlog" class="">Symbols in ES6</li><li id="GulpPlugin" class="">如何编写一个自己的GulpPlugin</li><li id="WebpackBaseConfig" class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
-<script type="text/javascript" src="main.a4334adb117015217671.js"></script>
+<p>感觉下次碰到这类问题要自信一点，首先去看一看相关库或插件的文档或 Issue 页面，看看是不是库或插件自身出了问题。不然找起问题来还是比较费时的。</p>
+</div></div><div id="category" class="category-box"><ul class="blogs-category"><li id="MongoTooManyOpenFiles" class="">记一次解决 MongoDB Too Many Open Files 报错的心路历程</li><li id="MoesifBug" class="selected">记一次 Chrome 更新导致插件故障引发的问题</li><li id="Frameworks" class="">关于前端框架选型的一些思考</li><li id="LowDesireSociety" class="">观后感：《低欲望社会》大前研一</li><li id="Cascading" class="">浅谈 CSS（Cascading Style Sheets) 之层叠</li><li id="Axios" class="">Axios 源码解析</li><li id="VueVsReact" class="">React 与 Vue 的一些对比</li><li id="WhyPreflight" class="">为什么 CORS 需要在跨域请求前进行预校验 (Preflight)</li><li id="ArraySort" class="">Array.prototype.sort() 在使用默认 CompareFn 时的问题</li><li id="BinaryTreeType" class="">常见的二叉树类型</li><li id="Ajax" class="">Ajax (Asynchronous JavaScript And XML)</li><li id="XSSCSRF" class="">关于 XSS 以及 CSRF</li><li id="CookieAndWebStorage" class="">Cookie 和 WebStorage</li><li id="CrossOrigin" class="">关于跨域</li><li id="WebpackCommonProblem" class="">记录配置 Webpack 过程中碰到的问题以及解决方案</li><li id="SourceMapAndWebpack" class="">关于 Source Map 以及 Webpack 中 Devtool 的相关配置</li><li id="BinaryTreeTraversal" class="">二叉树的遍历</li><li id="ReactRedux" class="">React-Redux 从入门到后悔</li><li id="Redux" class="">Redux 从入门到放弃</li><li id="PreventModalScroll" class="">如何阻止模态框 (Modal / Popup / Dialog) 弹出后 Body 可滚动</li><li id="PromiseBlog" class="">Promise In ES6</li><li id="Collections" class="">New Collections In ES6</li><li id="ObjectAPI" class=""> Object's New API In ES6</li><li id="ArrayAPI" class="">Array's New API In ES6</li><li id="Generator" class="">Generator in ES6</li><li id="WebpackV3ToV4" class="">Webpack V3 升级至 V4</li><li id="IteratorBlog" class="">Iterator in ES6</li><li id="SymbolBlog" class="">Symbols in ES6</li><li id="GulpPlugin" class="">如何编写一个自己的GulpPlugin</li><li id="WebpackBaseConfig" class="">Webpack(v3.8.1)</li></ul></div><div class="category-toggle"></div></div></div></div>
+<script type="text/javascript" src="main.8b767b8c1b3254221f2d.js"></script>
 </body></html>

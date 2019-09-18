@@ -63,6 +63,7 @@ const arrCopy2 = arr.slice() // 以往的方式
 该方法的第二个参数可以接受一个函数，并依次对每一个值通过函数处理后再放到结果数组中
 ```js
 const arr = [1, 2, 3]
+// 感觉 arr.map(iten => item + 1) 更方便
 const arrCopy = Array.from(arr, item => item + 1) // [2, 3, 4]
 ```
 
