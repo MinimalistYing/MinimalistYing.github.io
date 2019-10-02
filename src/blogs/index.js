@@ -28,10 +28,12 @@ import LowDesireSociety from '@blog/LowDesireSociety.md'
 import Frameworks from '@blog/Frameworks.md'
 import MoesifBug from '@blog/MoesifBug.md'
 import MongoTooManyOpenFiles from '@blog/MongoTooManyOpenFiles.md'
+import GuiLin from '@blog/GuiLin.md'
 
 import cat from './category'
 
 const blogs = {
+	GuiLin,
 	MongoTooManyOpenFiles,
 	MoesifBug,
 	Frameworks,
