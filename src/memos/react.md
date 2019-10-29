@@ -255,3 +255,24 @@ const App = React.creatElement('div', {
 
 AntD 表格组件 `columns` 的 `filteredValue` 字段只接受字符串数组  
 要注意把其它类型的 ID 转为字符串后再传入，否则会导致筛选项的多选框回填出现问题
+
+---
+
+在 React `children` 属性有着特殊的含义，所以如下代码
+
+```js
+function MyComponent (props) {
+	return (
+		<p>{props.children}</p>
+	)
+}
+
+<MyComponent children='舒客舒克'>
+	<button>按钮</button>
+</MyComponent>
+```
+最终显示出来的是按钮而不是舒客舒克，但是如果是按照如下方式调用则会显示舒客舒克
+```js
+<MyComponent children='舒客舒克' />
+```
+由此可见在 React 中 `props.children` 会优先被传入的子元素覆盖

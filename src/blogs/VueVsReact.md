@@ -9,6 +9,7 @@ Ps: 根据个人经验总结 有些结论可能并不客观
 * 父子组件通信 Props Down 只能向下单向传递
 * 推崇 JSX 语法 也就是 CSS HTML 全都写在 JSX 中
 * React-Router 不支持钩子函数 需要自己实现
+* React-Router 需要通过自己去解析获得 Query / Hash 参数
 
 ## Vue
 * 数据双向绑定
@@ -19,3 +20,4 @@ Ps: 根据个人经验总结 有些结论可能并不客观
 * 父子组件通信 Props Down / Events Up 可以双向通信
 * 虽然都在单文件组件中 但是 CSS / HTML / Javascript 都是分开写的
 * Vue-Router 支持钩子函数 用起来很方便
+* Vue-Router 可以直接通过 `this.$route.query` 或 `this.$route.hash` 获得 Query / Hash 参数
