@@ -236,3 +236,16 @@ Sublime 安装问题以及解决
 
 全角空格占位符 `&emsp;` 可以完美的用作一个中文字符大小的空白  
 不受字体大小变动影响
+
+---
+
+关于 NPM 的 `dependencies` `devDependencies` `peerDependencies`  
+项目实际依赖的包通常是 `dependencies` 通过 `npm i package --save-prod` 或者默认的 `npm i package` 安装的包会被列在该目录下  
+仅在开发过程中被使用的依赖是 `devDependencies` 通过 `npm i package --save-dev` 会被列在该目录下，类似 `babel` `sass` `webpack` 等通常属于这一类  
+最后 `peerDependencies` 通常会在开发一些插件包的时候被使用。例如开发一个 React 的 UI 组件，如果其他开发者想要使用的话必须确保在他的本地环境中已经安装好了使用该 UI 组件的 `peerDependencies` 例如特定版本的 `react` 。这样做的好处是可以尽可能的减少不必要的依赖被安装。
+
+---
+
+关于 NPM 中常见的 Sematic Version Operator  
+`~1.0.1` 意味着可以接受大于或等于 `1.0.1` 但是小于 `1.1.0` 之间的所有版本  
+`^1.0.1` 意味着可以接受大于或等于 `1.0.1` 但是小于 `2.0.0` 之间的所有版本
