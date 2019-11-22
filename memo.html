@@ -14,7 +14,7 @@
 			s.parentNode.insertBefore(hm, s);
 		})();
 	</script>
-<link rel="shortcut icon" href="favicon.ico"><link href="main.da41f8ae8d650f389d21.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.ef1bd9dbce806a540650.css"><script charset="utf-8" src="0.e3fc404a03ea51474c0f.bundle.js"></script><link rel="stylesheet" type="text/css" href="3.88df23c22af9721cc296.css"><script charset="utf-8" src="3.86f280b4c5b6a720c498.bundle.js"></script></head>
+<link rel="shortcut icon" href="favicon.ico"><link href="main.da41f8ae8d650f389d21.css" rel="stylesheet"><link rel="stylesheet" type="text/css" href="0.ef1bd9dbce806a540650.css"><script charset="utf-8" src="0.e3fc404a03ea51474c0f.bundle.js"></script><link rel="stylesheet" type="text/css" href="3.88df23c22af9721cc296.css"><script charset="utf-8" src="3.81f4698ea6593acd139f.bundle.js"></script></head>
 <body>
 	<div id="app"><div><header><h3 class="header-title">MinimalistYing.io</h3><nav><ul><li><a href="/index.html">博客</a></li><li><a class="active" aria-current="page" href="/memo.html">备忘</a></li><li><a href="https://codepen.io/MinimalistYing" target="_blank">代码库</a></li><li><a href="https://leetcode.com/MinimalistYing" target="_blank">Leetcode</a></li><li><a href="https://stackoverflow.com/users/8459774/minimalistying" target="_blank">StackOverflow</a></li><li><a href="https://github.com/MinimalistYing" target="_blank">Github</a></li></ul></nav></header><main class="memos"><section class="memo-wrap"><div class="memo"><div class="my-md"><p>严格模式下函数中的<code>arguments</code>会被禁用</p>
 </div></div><div class="memo"><div class="my-md"><p>HTTP响应中的Date首部应该表示原始服务器最初产生这个对象的日期</p>
@@ -23,13 +23,13 @@
 </div></div><div class="memo"><div class="my-md"><p>Vue中对进行双向绑定的数据需进行初始化(包括向组件中传递的数据)，否则会导致双向绑定失效</p>
 </div></div><div class="memo"><div class="my-md"><p>IE8 中的伪元素只支持类似 <code>:after</code> 的写法，不支持 <code>::after</code> 的写法</p>
 </div></div><div class="memo"><div class="my-md"><p>HTTP中的URL中没有具体表明端口号时，默认访问80端口，而HTTPS中的默认端口号为443</p>
-</div></div><div class="memo"><div class="my-md"><p>全角空格占位符 <code>&amp;emsp;</code> 可以完美的用作一个中文字符大小的空白<br>不受字体大小变动影响</p>
 </div></div><div class="memo"><div class="my-md"><p><code>::selection</code>可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容</p>
+</div></div><div class="memo"><div class="my-md"><p>全角空格占位符 <code>&amp;emsp;</code> 可以完美的用作一个中文字符大小的空白<br>不受字体大小变动影响</p>
 </div></div><div class="memo"><div class="my-md"><p>可以使用 <code>&lt;pre&gt;</code> 来展示代码 / JSON 等内容<br>因为该标签内等空格换行会被完整保留</p>
 </div></div><div class="memo"><div class="my-md"><p>React组件中的HTML标签必须闭合，否则会编译报错，例如 <code>&lt;img&gt;</code> 必须写作 <code>&lt;img/&gt;</code></p>
 </div></div><div class="memo"><div class="my-md"><p>关于浏览器的同源策略:域名（需各级域名完全相同）、协议、端口号都相同称谓同源，非同源的请求会存在跨域问题</p>
-</div></div><div class="memo"><div class="my-md"><p><code>z-index</code> 属性只有设置在定位元素也就是 <code>position</code> 不是 <code>static</code> 的元素上才会生效</p>
 </div></div><div class="memo"><div class="my-md"><p>匹配中文字符（简繁体都包含）的正则 <code>/^[\u4e00-\u9fa5]+$/</code> 暂时无法确认其是否完全正确</p>
+</div></div><div class="memo"><div class="my-md"><p><code>z-index</code> 属性只有设置在定位元素也就是 <code>position</code> 不是 <code>static</code> 的元素上才会生效</p>
 </div></div><div class="memo"><div class="my-md"><p>可以使用Object的 <code>hasOwnProperty()</code> 方法来检测一个属性是该对象独有还是由原型链继承而来</p>
 </div></div><div class="memo"><div class="my-md"><p>判断一个值是否为 <code>NaN</code> 一定要通过 <code>isNaN()</code> 而不是通过等号比较<br>因为 <code>NaN !== NaN</code></p>
 </div></div><div class="memo"><div class="my-md"><p>正则表达式中的 <code>.</code> 可以用于匹配除换行符外的所有字符,如果想匹配含换行符在内的所有字符可以使用 <code>[\s\S]</code></p>
@@ -214,6 +214,7 @@ URL不止指定了资源的地址，同时还指定了获取资源的方式（�
 <span class="hljs-comment">// a.test =&gt; undefined</span>
 <span class="hljs-built_in">Object</span>.prototype.test = <span class="hljs-string">'Hello'</span>
 <span class="hljs-comment">// a.test =&gt; Hello</span></code></pre>
+</div></div><div class="memo"><div class="my-md"><p>关于 NPM 中常见的 Sematic Version Operator<br><code>~1.0.1</code> 意味着可以接受大于或等于 <code>1.0.1</code> 但是小于 <code>1.1.0</code> 之间的所有版本<br><code>^1.0.1</code> 意味着可以接受大于或等于 <code>1.0.1</code> 但是小于 <code>2.0.0</code> 之间的所有版本</p>
 </div></div><div class="memo"><div class="my-md"><p>关于函数参数同时采用解构以及默认参数时的细微不同</p>
 <pre><code class="language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">test</span>(<span class="hljs-params"> { x = <span class="hljs-number">1</span> } = {}, { y } = { y: <span class="hljs-number">1</span> }</span>) </span>{
     <span class="hljs-built_in">console</span>.log(x,y)
@@ -339,6 +340,15 @@ test({}, {}) <span class="hljs-comment">// 1,undefined</span></code></pre>
 <p>或者</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{this.func.bind(this,</span> <span class="hljs-attr">id</span>)}&gt;</span>click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></code></pre>
 <p>第二种方式下的 <code>e</code> 会默认作为最后一个参数传递</p>
+</div></div><div class="memo"><div class="my-md"><p>可以通过 <code>attr()</code> 来在样式中获取到 Dom 上的属性，例如  </p>
+<pre><code class="language-css"><span class="hljs-comment">/*
+&lt;p data-foo="hello"&gt;world&lt;/p&gt;
+含有 data-foo 属性的 dom 元素会在之前显示一个与其属性值相同的伪元素
+*/</span>
+<span class="hljs-selector-attr">[data-foo]</span><span class="hljs-selector-pseudo">::before</span> {
+  <span class="hljs-attribute">content</span>: <span class="hljs-built_in">attr</span>(data-foo) <span class="hljs-string">" "</span>;
+}</code></pre>
+<p>Ps: 这个函数的兼容性好像欠佳，建议谨慎使用</p>
 </div></div><div class="memo"><div class="my-md"><p>避免浏览器缓存HTML页面可以在head中加上标签</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">'Cache-Control'</span> <span class="hljs-attr">content</span>=<span class="hljs-string">'no-store'</span>&gt;</span></code></pre>
 <p>通常会采用 <code>no-cache</code> 的策略，只有在服务器的资源发生变化时才去再重新拉取，否则返回304采用缓存的资源
@@ -928,6 +938,7 @@ wait(<span class="hljs-string">'hi'</span>)</code></pre>
 在用户初次打开应用浏览以及过去合理的一段时间后(可以用Session持续的最长时间来判断)后
 从其它再次切换到这个Tab页都作为一次PV
 详情可见这篇<a href="https://philipwalton.com/articles/how-we-track-pageviews-is-all-wrong/">Blog</a></p>
+</div></div><div class="memo"><div class="my-md"><p>关于 NPM 的 <code>dependencies</code> <code>devDependencies</code> <code>peerDependencies</code><br>项目实际依赖的包通常是 <code>dependencies</code> 通过 <code>npm i package --save-prod</code> 或者默认的 <code>npm i package</code> 安装的包会被列在该目录下<br>仅在开发过程中被使用的依赖是 <code>devDependencies</code> 通过 <code>npm i package --save-dev</code> 会被列在该目录下，类似 <code>babel</code> <code>sass</code> <code>webpack</code> 等通常属于这一类<br>最后 <code>peerDependencies</code> 通常会在开发一些插件包的时候被使用。例如开发一个 React 的 UI 组件，如果其他开发者想要使用的话必须确保在他的本地环境中已经安装好了使用该 UI 组件的 <code>peerDependencies</code> 例如特定版本的 <code>react</code> 。这样做的好处是可以尽可能的减少不必要的依赖被安装。</p>
 </div></div><div class="memo"><div class="my-md"><p>关于在 Promise 中使用 <code>return Promise.reject()</code> 以及 <code>return new Error()</code> 的不同</p>
 <pre><code class="language-js"><span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-string">'a'</span>)
 .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> {
@@ -1313,5 +1324,5 @@ const和let不会申明提升？
     }
 }</code></pre>
 </div></div></section></main></div></div>
-<script type="text/javascript" src="main.a014c9554ec8e17289c2.js"></script>
+<script type="text/javascript" src="main.8a084a3c90abaa7c0527.js"></script>
 </body></html>

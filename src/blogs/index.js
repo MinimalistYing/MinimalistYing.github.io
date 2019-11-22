@@ -29,10 +29,12 @@ import Frameworks from '@blog/Frameworks.md'
 import MoesifBug from '@blog/MoesifBug.md'
 import MongoTooManyOpenFiles from '@blog/MongoTooManyOpenFiles.md'
 import GuiLin from '@blog/GuiLin.md'
+import CSSModules from '@blog/CSSModules.md'
 
 import cat from './category'
 
 const blogs = {
+	CSSModules,
 	GuiLin,
 	MongoTooManyOpenFiles,
 	MoesifBug,

@@ -1,4 +1,5 @@
 module.exports = [
+	'CSSModules',
 	'GuiLin',
 	'MongoTooManyOpenFiles',
 	'MoesifBug',
