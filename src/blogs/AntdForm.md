@@ -61,22 +61,22 @@ class App extends React.Component {
     return (
       <Form onSubmit={this.handleSubmit}>
         <Form.Item label='name'>
-          {getFieldDecorator(`person.name`)(
+          {getFieldDecorator('person.name')(
             <Input />
           )}
         </Form.Item>
         <Form.Item label='age'>
-          {getFieldDecorator(`person.age`)(
+          {getFieldDecorator('person.age')(
             <InputNumber />
           )}
         </Form.Item>
         <Form.Item label='education 1'>
-          {getFieldDecorator(`education[0]`)(
+          {getFieldDecorator('education[0]')(
             <Input />
           )}
         </Form.Item>
         <Form.Item label='education 2'>
-          {getFieldDecorator(`education[1]`)(
+          {getFieldDecorator('education[1]')(
             <Input />
           )}
         </Form.Item>

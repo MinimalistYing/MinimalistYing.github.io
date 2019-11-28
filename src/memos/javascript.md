@@ -1027,3 +1027,12 @@ if (/^a|b|c$/.test(value))
 ```js
 if ([foo, bar, zoo].includes(value))
 ```
+
+---
+
+要注意 `Array.prototype.reverse` 会将原数组的元素的排序反转，而不是像大多的数据方法那样不改变原数组返回新数组。  
+```js
+const arr = [1, 2, 3]
+arr.reverse()
+console.log(arr) // => [3, 2, 1]
+```
