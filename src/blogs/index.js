@@ -30,10 +30,12 @@ import MoesifBug from '@blog/MoesifBug.md'
 import MongoTooManyOpenFiles from '@blog/MongoTooManyOpenFiles.md'
 import GuiLin from '@blog/GuiLin.md'
 import CSSModules from '@blog/CSSModules.md'
+import AntdForm from '@blog/AntdForm.md'
 
 import cat from './category'
 
 const blogs = {
+	AntdForm,
 	CSSModules,
 	GuiLin,
 	MongoTooManyOpenFiles,
