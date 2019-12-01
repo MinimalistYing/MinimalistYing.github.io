@@ -255,3 +255,8 @@ div {
 }
 ```
 Ps: 这个函数的兼容性好像欠佳，建议谨慎使用
+
+--- 
+
+关于清除浮动的各种方法以及其适用场景  
+[what-methods-of-clearfix-can-i-use](https://stackoverflow.com/questions/211383/what-methods-of-clearfix-can-i-use)
