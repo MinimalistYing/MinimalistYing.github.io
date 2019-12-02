@@ -98,4 +98,22 @@ ReactDOM.render(<Wrapped />, mountNode)
 
 ## 如何自定义表单组件并放在 getFieldDecorator 中使用
 有时候除了 Ant Design 提供的基础表单组件，我们也需要取实现一些自定义的表单组件。  
-当然我们也希望自定义的表单组件也能和基础组件一样被使用。
+当然我们也希望自定义的表单组件也能和基础组件一样被使用。  
+```js
+function ColorPicker (props) {
+  return (
+    <div>
+      <span
+        className={props.value === 'Red' ? 'selected' : ''}
+        onClick={() => props.onChange('Red')}
+      >Red</span>
+      <span
+        className={props.value === 'Green' ? 'selected' : ''}
+        onClick={() => props.onChange('Green')}
+      >Green</span>
+    </div>
+  )
+}
+```
+如上例，只需要我们在实现受控组件时接受 `value` 作为组件的值，`onChange` 作为值发生改变的函数。  
+`getFieldDecorator` 即可替我们接管该受控组件。
