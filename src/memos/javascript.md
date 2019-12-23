@@ -406,6 +406,17 @@ window.btoa('a') // "YQ=="
 // ASCII to Binary 解码
 window.atob('YQ==') // "a"
 ```
+需要注意的是这俩个方法只支持 `ASCII` 编码，所以在处理 `UTF-8` 编码的字符串时会出现乱码  
+例如 `btoa('我')` 会报错
+> Uncaught DOMException: Failed to execute 'btoa' on 'Window': The string to be encoded contains characters outside of the Latin1 range.
+
+解决方法如下(Ps: GitHub 提供部分 API 就是通过这种形式对内容编解码的)
+```js
+// 编码
+window.btoa(unescape(encodeURIComponent(str)))
+// 解码
+decodeURIComponent(escape(window.atob(str)))
+```
 
 ---
 
