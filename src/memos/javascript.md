@@ -612,10 +612,17 @@ typeof a; let a=1; //Uncaught ReferenceError: a is not defined
 
 ---
 
-利用解构实现交换俩个变量的值，并且无需中间变量
+利用解构实现交换俩个变量的值，优点是无需中间变量
 ```js
-var x = 1, y = 2;
+let x = 1, y = 2
 [ y, x ] = [ x, y ];
+console.log(x, y) // 2 1
+```
+交换数组中不同下标的俩个值
+```js
+let arr = [1, 2, 3]
+[arr[2], arr[1]] = [arr[1], arr[2]]
+console.log(arr) // [1, 3, 2]
 ```
 
 ---

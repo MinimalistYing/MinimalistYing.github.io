@@ -20,21 +20,6 @@ class MyBlog extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		if (window.innerWidth >= 1024) {
-			setTimeout(() => {
-				const scroll = new Scroll(document.getElementById('category'), {
-					mouseWheel: true,
-					scrollbars: true,
-					fadeScrollbars: true
-				})
-				const pathname = window.location.pathname
-				const id =pathname.slice(1, pathname.length- 5)
-				scroll.scrollToElement(document.getElementById(id))
-			})
-		}
-	}
-
 	switch = key => {
 		this.props.history.push(`${key}.html`)
 	}
@@ -44,20 +29,6 @@ class MyBlog extends React.Component {
 			<div className='blogs'>
 				<div className='blog'>
 					<Markdown data={this.props.content} />
-				</div>
-				<div id="category" className={this.state.showCategory ? 'category-box show' : 'category-box'}>
-					<ul className="blogs-category">
-						{
-							this.state.categories.map((item, index) => (
-								<li
-									id={item.key}
-									key={item.key}
-									className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
-									onClick={() => this.switch(item.key)}
-								>{item.name}</li>
-							))
-						}
-					</ul>
 				</div>
 				<div className={this.state.showCategory ? 'category-toggle show' : 'category-toggle'} onClick={() => this.setState(prev => ({ showCategory: !prev.showCategory }))}></div>
 			</div>

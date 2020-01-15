@@ -18,6 +18,7 @@ import './less/main.less'
 
 const Blog = React.lazy(() => import('./components/Blog'))
 const Memos = React.lazy(() => import('./components/Memos'))
+const Main = React.lazy(() => import('./components/Main'))
 const MessageDemo = React.lazy(() => import('./components/VanillaAntdDemo'))
 
 const App = () => (
@@ -25,8 +26,8 @@ const App = () => (
 		<Header />
 		<Suspense fallback={<Loading />}>
 			<Switch>
-				<Route exact path="/" render={props => <Blog {...props} content={blogs[category[0]]} />} />
-				<Route exact path="/index.html" render={props => <Blog {...props} content={blogs[category[0]]} />} />
+				<Route exact path="/" component={Main} />
+				<Route exact path="/index.html" component={Main} />
 				{
 					Object.keys(blogs).map(key => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} content={blogs[key]} />} />)
 				}
@@ -37,11 +38,9 @@ const App = () => (
 	</div>
 )
 
-// your code
 ReactDOM.render(
 	<Router>
 		<App />
 	</Router>,
 	document.getElementById('app')
 )
-

@@ -3,7 +3,6 @@ import Markdown from '../Markdown'
 
 import './style.less'
 
-
 class Memo extends React.Component {
 	render() {
 		return (

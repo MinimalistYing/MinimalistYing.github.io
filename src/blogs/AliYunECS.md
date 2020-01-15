@@ -61,3 +61,26 @@ http.createServer((req, res) => {
 
 ## 第三步，域名解析
 要求不多的话直接选择域名解析里的新手引导，跟着配置就好。最后还要记得申请一下域名备案，这个流程比较长（可能要几周，因为要走政府监管部门的流程）。等备案下来后才可以正常通过域名直接访问我们的网站。
+
+## 第四步，启用HTTPS
+进入阿里云 SSL 证书购买页面，可以选择 Symantec 提供个免费版 DV 进行购买，支持绑定一个域名，但对个人网站来说应该已经够用了。  
+证书签发下来后需要将证书下载下来，由于我的服务器用的是 Express 所以我选择的是其它服务器类型，如果你用的是 Tomcat / Nginx 等也可以直接下载对应类型的证书。下面以 Node.js + Express 为例子写一个简单的支持 HTTPS 的服务器：
+```js
+const express = require('express')
+const https = require('https')
+const http = require('http')
+const fs = require('fs')
+
+const app = express()
+
+app.use(express.static('./dist'))
+
+http.createServer(app).listen(80)
+
+// key 和 cert 对应的就是下载的证书
+// 需要把证书上传到服务器上
+https.createServer({
+  key: fs.readFileSync('xxx.key'),
+  cert: fs.readFileSync('xxx.pem')
+}, app).listen(443)
+```
