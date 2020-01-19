@@ -1054,3 +1054,22 @@ const arr = [1, 2, 3]
 arr.reverse()
 console.log(arr) // => [3, 2, 1]
 ```
+
+---
+
+在试图通过数组的 `forEach` `map` 等方法对数组内部存储对值进行修改时需要注意
+```js
+const a = {val: 1}
+const b = {val: 2}
+const c = {val: 3}
+const arr = [a, b, c]
+arr.forEach(o => o.val = 0)
+console.log(arr) // [{val: 0}, {val: 0}, {val: 0}]
+``` 
+以上这种修改方式是正确的，因为 `o` 是作为一个临时变量指向的是每次循环过程中的对象  
+但是下面这种修改方式就是错误的，因为我们只不过是把临时变量 `num` 重新赋值了一次而已，并不会对数组本来的数据造成影响
+```js
+const arr = [1, 2, 3]
+arr.forEach(num => num = 0)
+console.log(arr) // [0, 0 ,0]
+```
