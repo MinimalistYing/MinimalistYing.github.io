@@ -90,9 +90,9 @@ a {
 
 ---
 
-关于 'box-sizing: content-box' 以及 'box-sizing: border-box' 前者其实是W3C提出，
-后者是早期IE6、7quirk mode下的盒模型实现。但后来人们发现其实后者更符合人的逻辑，所以加了这个属性。
-对于 `content-box` 盒子宽度等于 `width` + `padding` + `border` 
+关于 `box-sizing: content-box` 以及 `box-sizing: border-box`  
+前者其实是W3C提出，后者是早期IE6、7quirk mode下的盒模型实现。但后来人们发现其实后者更符合人的逻辑，所以加了这个属性。  
+对于 `content-box` 盒子宽度等于 `width` + `padding` + `border`   
 对于 `border-box` 盒子宽度就等于所设的 `width`  减去 `padding` 以及 `border` 才是真正展示内容的宽度
 
 ---
