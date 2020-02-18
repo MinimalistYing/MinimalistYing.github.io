@@ -9,10 +9,13 @@
   h1 {
     align-self: center;
     position: relative;
+    font-weight: lighter;
+    font-family: auto;
+    font-size: 36px;
 
     &::after {
       content: '';
-      bottom: -5px;
+      bottom: -4px;
       display: block;
       position: absolute;
       height: 3px;
@@ -30,7 +33,7 @@
   margin: 0;
   background: #fff;
   width: 60vw;
-  border-radius: 10px;
+  border-radius: 8px;
 
   li {
     cursor: pointer;
@@ -38,10 +41,14 @@
     position: relative;
     border-bottom: 1px solid #eee;
 
+    &:last-child {
+      border: 0;
+    }
+
     a { 
       text-decoration: none;
       display: block;
-      padding: 1.5vh 10px;
+      padding: 1.3vh 20px;
       color: #333;
       font-size: 18px;
     }

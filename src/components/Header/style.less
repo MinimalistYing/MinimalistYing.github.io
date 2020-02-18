@@ -20,6 +20,10 @@ header {
         display: inline-block;
         margin-left: 20px;
         cursor: pointer;
+        animation: header-title-animation 3s linear infinite;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
     }
 
     nav {
@@ -59,4 +63,22 @@ header {
             color: #fff;
         }
     }
+}
+
+@keyframes header-title-animation {
+    each(range(0%, 50%, 0.5), {
+        @{value} {
+            background: linear-gradient(to right, #5fdbd1, (100% - @value * 2), #9e5ac9);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    });
+
+    each(range(50%, 100%, 0.5), {
+        @{value} {
+            background: linear-gradient(to right, #5fdbd1, (@value * 2 - 100%), #9e5ac9);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+    });
 }

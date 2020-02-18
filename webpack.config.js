@@ -47,6 +47,7 @@ module.exports = {
 	devtool: 'cheap-module-eval-source-map',
 	devServer: {
 		historyApiFallback: true,
+		disableHostCheck: true,
 		contentBase: false,
      	hot: true,
      	compress: true,
