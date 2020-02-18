@@ -112,7 +112,7 @@ module.exports = {
 				cache: true,
 				parallel: true,
 			}),
-			new OptimizeCSSAssetsPlugin({})
+			// new OptimizeCSSAssetsPlugin({}) // 由于该插件好像会修改属性的顺序 暂时放弃使用
 		]
 	}
 }

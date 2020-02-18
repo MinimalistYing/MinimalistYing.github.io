@@ -21,8 +21,6 @@ header {
         margin-left: 20px;
         cursor: pointer;
         animation: header-title-animation 3s linear infinite;
-        -webkit-background-clip: text;
-        background-clip: text;
         color: transparent;
     }
 
@@ -68,17 +66,17 @@ header {
 @keyframes header-title-animation {
     each(range(0%, 50%, 0.5), {
         @{value} {
-            background: linear-gradient(to right, #5fdbd1, (100% - @value * 2), #9e5ac9);
-            -webkit-background-clip: text;
+            background: linear-gradient(90deg, #5fdbd1, (100% - @value * 2), #9e5ac9);
             background-clip: text;
+            -webkit-background-clip: text;
         }
     });
 
     each(range(50%, 100%, 0.5), {
         @{value} {
-            background: linear-gradient(to right, #5fdbd1, (@value * 2 - 100%), #9e5ac9);
-            -webkit-background-clip: text;
+            background: linear-gradient(90deg, #5fdbd1, (@value * 2 - 100%), #9e5ac9);
             background-clip: text;
+            -webkit-background-clip: text;
         }
     });
 }
