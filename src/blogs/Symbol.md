@@ -35,6 +35,9 @@ sym instanceof Symbol // false
 const a = Symbol('desc a')
 const b = Symbol.for('desc b')
 
+a.description // desc a
+b.description // desc b
+
 Symbol.keyFor(a) // undefined
 Symbol.keyFor(b) // desc b
 

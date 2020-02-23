@@ -118,8 +118,7 @@ a {
 
 ---
 
-类似 `input/img/iframe` 等内部无法容纳其它内容的元素，
-无法利用伪元素 `::after/::before` 来实现特定样式
+类似 `input/img/iframe` 等内部无法容纳其它内容的元素，无法利用伪元素 `::after/::before` 来实现特定样式
 
 ---
 

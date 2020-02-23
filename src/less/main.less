@@ -17,6 +17,15 @@ article,aside,dialog,footer,header,main,section,footer,nav,figure,menu{
 ::selection {
     background:@tiffany-hover;
 }
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
 /*小屏*/
 @media all and (max-width: 1024px) {
     .info-wrapper {

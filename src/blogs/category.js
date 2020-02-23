@@ -1,4 +1,5 @@
 module.exports = [
+	'DeepClone',
 	'AliYunECS',
 	'AntdForm',
 	'CSSModules',

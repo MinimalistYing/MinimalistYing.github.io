@@ -1,7 +1,3 @@
-React组件中的HTML标签必须闭合，否则会编译报错，例如 `<img>` 必须写作 `<img/>`
-
----
-
 如果确定一个Component再初始化后不需要重新render，可以在组件中声明
 ```js
 shouldComponentUpdate (nextProps, nextState) {return false;}

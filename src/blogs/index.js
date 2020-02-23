@@ -32,10 +32,12 @@ import GuiLin from '@blog/GuiLin.md'
 import CSSModules from '@blog/CSSModules.md'
 import AntdForm from '@blog/AntdForm.md'
 import AliYunECS from '@blog/AliYunECS.md'
+import DeepClone from '@blog/DeepClone.md'
 
 import cat from './category'
 
 const blogs = {
+	DeepClone,
 	AliYunECS,
 	AntdForm,
 	CSSModules,
