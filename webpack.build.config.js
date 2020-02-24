@@ -93,7 +93,7 @@ module.exports = {
       // Required - The path to the webpack-outputted app to prerender.
       staticDir: path.join(__dirname, 'dist'),
       // Required - Routes to render.
-			routes: [ '/index.html', '/memo.html', '/messagedemo.html' ].concat(category.map(item => `/${item}.html`)),
+			routes: [ '/index.html', '/memo.html', '/messagedemo.html', '/tools.html' ].concat(category.map(item => `/${item}.html`)),
 			postProcess(context) {
 				// Remove /index.html from the output path if the dir name ends with a .html file extension.
 				// For example: /dist/dir/special.html/index.html -> /dist/dir/special.html

@@ -29,36 +29,107 @@ header {
         margin-right: 30px;
     }
 
-    nav ul {
+    nav > ul {
         height: 64px;
         margin: 0;
         display: flex;
         list-style: none;
-    }
 
-    nav li {
-        transition: all .5s ease-in-out;
+        & > li {
+            transition: all .5s ease-in-out;
+    
+            &:hover {
+                background: #555;
+            }
 
-        &:hover {
-            background: #555;
+            & > a {
+                text-decoration: none;
+        
+                color: inherit;
+                transition: all .3s ease-in-out;
+                display: block;
+                padding: 20px 23px;
+        
+                &.active {
+                    color: #fff;
+                }
+        
+                &:hover {
+                    cursor: pointer;
+                    color: #fff;
+                }
+            }
         }
     }
 
-    nav a {
-        text-decoration: none;
+    .mine {
+        position: relative;
 
-        color: inherit;
-        transition: all .3s ease-in-out;
-        display: block;
-        padding: 20px 15px;
+        & > ul {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            top: 60px;
+            left: -48px;
+            opacity: 0;
+            transition: all .3s;
+            list-style: none;
+            padding: 0;
 
-        &.active {
-            color: #fff;
+            li {
+                transition: all .3s ease;
+                width: 153px;
+
+                &:nth-child(1) {
+                    transform: translateY(10px);
+                }
+                &:nth-child(2) {
+                    transform: translateY(25px);
+                }
+                &:nth-child(3) {
+                    transform: translateY(45px);
+                }
+                &:nth-child(4) {
+                    transform: translateY(75px);
+                }
+            }
+
+            a {
+                display: block;
+                box-shadow: 0 0 5px #e3e3e3;
+                background: #fff;
+                border-radius: 6px;
+                margin: 10px 0;
+                padding: 10px 8px;
+                color: #333;
+                text-decoration: none;
+                text-align: center;
+                transition: all .3s;
+
+                &:hover {
+                    background: @tiffany-hover;
+                    color: #fff;
+                }
+            }
         }
 
-        &:hover {
-            cursor: pointer;
-            color: #fff;
+        &:hover > ul {
+            opacity: 1;
+
+            li {
+                &:nth-child(1) {
+                    transform: translateY(0);
+                }
+                &:nth-child(2) {
+                    transform: translateY(0);
+                }
+                &:nth-child(3) {
+                    transform: translateY(0);
+                }
+                &:nth-child(4) {
+                    transform: translateY(0);
+                }
+            }
         }
     }
 }
