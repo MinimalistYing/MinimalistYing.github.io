@@ -1,4 +1,5 @@
 module.exports = [
+	'MacroTaskAndMicroTask',
 	'DeepClone',
 	'AliYunECS',
 	'AntdForm',
@@ -32,6 +33,5 @@ module.exports = [
 	'WebpackV3ToV4',
 	'IteratorBlog',
 	'SymbolBlog',
-	'GulpPlugin',
 	'WebpackBaseConfig'
 ]

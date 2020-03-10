@@ -7,7 +7,7 @@
 所以现在需要分别安装俩个依赖
 2. 将项目中所有用到的`loader`以及`plugin`升级到最新
 3. 配置文件里新增 `mode: 'development'` or `mode: 'production'`
-4. 移除`webpack.optimize.UglifyJsPlugin`，现在 webpack 会在生产环境默认对代码进行压缩
+4. 移除`webpack.optimize.UglifyJsPlugin`，现在 `webpack` 会在生产环境默认对代码进行压缩
 5. 移除`extract-text-webpack-plugin`，v4推荐使用新的`mini-css-extract-plugin`来提取样式文件
 6. 引入`optimize-css-assets-webpack-plugin`以及`uglifyjs-webpack-plugin`，并在生产环境的配置文件下新增
 
@@ -35,6 +35,6 @@ module.exports = {
 
 上述只是针对我之前项目配置的升级，并不完整，仅供参考
 
-Webpack官方有提供详细的迁移[文档](https://webpack.js.org/migrate/4/)
+Webpack 官方有提供详细的迁移[文档](https://webpack.js.org/migrate/4/)
 
 遇到问题也可以通过报错信息很快定位到原因，再去相应的Github库上找一找解决办法，迁移过程还是比较顺利的

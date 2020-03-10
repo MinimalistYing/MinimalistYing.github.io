@@ -1,5 +1,5 @@
 # Symbols in ES6
-`Symbol`是 ES6 (时隔多年) 新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一字符串** 的机制，它的真实值在代码中无法直接获得
+`Symbol`是 ES6 (时隔多年) 新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一值** 的机制，它的真实值在代码中无法直接获得，主要用来作为对象的属性解决可能会发生的命名冲突问题。
 
 ## 如何生成 Symbol
 ```js
@@ -22,6 +22,7 @@ const d = Symbol.for('prefix.Symbol')
 
 ## 如何判断一个值是否为 Symbol
 ```js
+// 注意 new Symbol() 会报错 Uncaught TypeError: Symbol is not a constructor
 const sym = Symbol()
 // 推荐方式
 typeof sym === 'symbol'// true
@@ -44,8 +45,8 @@ Symbol.keyFor(b) // desc b
 a.toString() // Symbol(desc a)
 b.toString() // Symbol(desc b)
 ```
-通过上述对比，个人感觉用 `Symbol.for()` 来生成 `Symbol` 好像更加合适  
-不仅可以少声明一个变量，并且能更方便的获得其描述
+~~通过上述对比，个人感觉用 `Symbol.for()` 来生成 `Symbol` 好像更加合适，不仅可以少声明一个变量，并且能更方便的获得其描述。~~  
+`Symbol.for()` 会从某种程度上破坏 `Symbol` 的唯一特性，所以上述俩种生成 `Symbol` 的方式应该各有其适用的场景。
 
 ## Symbol 的使用场景
 借助 `Symbol` 来实现单例模式
@@ -62,11 +63,10 @@ const a = singleton()
 const b = singleton()
 a === b // true
 ```
-
-如果将上例中的 Symbol 替换成任意一个 Magic String 对逻辑的实现并无影响  
-所以从个人经验来看 暂时还未碰到有必须要使用 Symbol 的场景  
-
+`Symbol` 作为对象的 Key 不会被当作普通的键值被遍历。  
+但还是可以通过 `Object.getOwnPropertySymbols()` 来获得，所以通过 Symbol 并不能完全实现私有属性的需求。
 ```js
+// 这里要注意 const o = { Symbol(): 2 } 这种写法会报错
 const o = {
 	foo: 1,
 	[Symbol.for('bar')]: 2
@@ -77,18 +77,19 @@ Object.keys(o) // ['foo']
 for (let key in o ){
 	console.log(key) // 'foo'
 }
-```
-
-可以看到，虽然 Symbol 作为对象的 key 不会被当作普通的键值被遍历  
-但还是可以通过 `Object.getOwnPropertySymbols()` 来获得  
-所以通过 Symbol 并不能实现私有属性的需求
+```  
 
 ## Built-in Symbols
-个人认为 ES6 自身提供的 Built-in Symbols 可能才是最常见的使用方式，例如 `Symbol.iterator`:
+个人认为 ES6 自身提供的 Built-in Symbols 才是最常见的使用方式。  
+从这点来看 `Symbol` 对于语言内部实现来说确实有帮助，当协议制定者向原型链上新增通用属性或方法时就不用再担心与开发者产生命名冲突了，例如 `Symbol.iterator`:
 ```js
 const arr = [1, 2, 3]
 arr[Symbol.iterator] // native function
 const it = arr[Symbol.iterator]() // 获得数组的 Iterator
 ```
-值得一提的是这些内部的 Symbol 并不是像自定义的那样注册到全局库中  
-而是作为 Symbol 构造函数的静态属性存在
+值得一提的是这些内部的 `Symbol` 并不是像自定义的那样注册到全局库中，而是作为 `Symbol` 构造函数的静态属性存在。
+
+
+想要更深入的了解推荐看一下[这篇文章](https://hacks.mozilla.org/2015/06/es6-in-depth-symbols/)。
+
+完。

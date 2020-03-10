@@ -15,6 +15,7 @@ export default function Tools () {
         <a target='_blank' href='https://colorhunt.co/'>Color Palettes for Designers and Artists</a>
         <a target='_blank' href='https://www.json.cn/'>JSON 在线解析</a>
         <a target='_blank' href='https://unbug.github.io/codelf/'>Find Real-World Usage Variable Names</a>
+        <a target='_blank' href='https://bit.dev/'>Build, version and distribute reusable components. </a>
       </div>
     </div>
 
@@ -26,6 +27,7 @@ export default function Tools () {
         <a target='_blank' href='https://surmon-china.github.io/vue-codemirror/'>Vue Codemirror - 用于展示代码的 Vue 组件</a>
         <a target='_blank' href='https://introjs.com/'>Intro.js - Web 应用新手指引</a>
         <a target='_blank' href='https://standardjs.com/'>Standard.js - 基于 ESLint 的编程规范</a>
+        <a target='_blank' href='https://usehooks.com/'>useHooks - Easy to understand React Hook recipes</a>
       </div>
     </div>
 
@@ -35,6 +37,9 @@ export default function Tools () {
         <div className='tools-content'>
           <a target='_blank' href='https://javascript.info/'>The Modern JavaScript Tutorial</a>
           <a target='_blank' href='https://mostly-adequate.gitbooks.io/mostly-adequate-guide/'>Mostly Adequate Guide to FP</a>
+          <a target='_blank' href='https://learnlayout.com/'>Learn CSS Layout</a>
+          <a target='_blank' href='https://css-tricks.com/'>CSS Tricks</a>
+          <a target='_blank' href='https://hacks.mozilla.org/'>Mozilla Hacks</a>
         </div>
       </div>
       
@@ -42,6 +47,7 @@ export default function Tools () {
         <h2>金融</h2>
         <div className='tools-content'>
           <a target='_blank' href='https://cn.tradingview.com/'>TradingView</a>
+          <a target='_blank' href='http://www.cninfo.com.cn/new/index'>巨潮资讯</a>
         </div>
       </div>
 
@@ -51,6 +57,7 @@ export default function Tools () {
           <a target='_blank' href='https://steamcharts.com/'>Steam Charts</a>
           <a target='_blank' href='https://www.metacritic.com/'>Metacritic - Movie / TV / Game Reviews</a>
           <a target='_blank' href='https://www.nexusmods.com/'>Nexus Mods - 游戏 Mod 社区</a>
+          <a target='_blank' href='https://www.2p.com/'>2P - 17173 萤火虫</a>
         </div>
       </div>
     </div>

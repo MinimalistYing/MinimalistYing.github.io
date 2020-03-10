@@ -1,5 +1,4 @@
 import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
-import GulpPlugin from '@blog/GulpPlugin.md'
 import SymbolBlog from '@blog/Symbol.md'
 import IteratorBlog from '@blog/Iterator.md'
 import WebpackV3ToV4 from '@blog/WebpackV3ToV4.md'
@@ -33,10 +32,12 @@ import CSSModules from '@blog/CSSModules.md'
 import AntdForm from '@blog/AntdForm.md'
 import AliYunECS from '@blog/AliYunECS.md'
 import DeepClone from '@blog/DeepClone.md'
+import MacroTaskAndMicroTask from '@blog/MacroTaskAndMicroTask.md'
 
 import cat from './category'
 
 const blogs = {
+	MacroTaskAndMicroTask,
 	DeepClone,
 	AliYunECS,
 	AntdForm,
@@ -70,7 +71,6 @@ const blogs = {
 	WebpackV3ToV4,
 	IteratorBlog,
 	SymbolBlog,
-	GulpPlugin,
 	WebpackBaseConfig
 }
 

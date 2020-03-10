@@ -16,12 +16,23 @@ header {
         top: -65px;
     }
 
+    @media all and (min-width: 1024px) {
+        .header-title {
+            animation: header-title-animation 3s linear infinite;
+            color: transparent;
+        }
+    }
+
+    @media all and (max-width: 1023px) {
+        .header-title {
+            color: @tiffany;
+        }
+    }
+
     .header-title {
         display: inline-block;
         margin-left: 20px;
         cursor: pointer;
-        animation: header-title-animation 3s linear infinite;
-        color: transparent;
     }
 
     nav {

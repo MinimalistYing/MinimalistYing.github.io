@@ -21,7 +21,7 @@ const test = {
 
 console.log(deepClone(test))
 ```
-可以看到使用这种方法无法拷贝类似 `symbol`/`NaN`/`function`/`undefined` 等类型的数据，在过程中会被丢失。
+可以看到使用这种方法无法拷贝类似 `symbol`/`function`/`undefined` 等类型的数据在过程中会被丢失，然后 `NaN` 会被转化为 `null`。  
 
 ```js
 const a = {
@@ -36,12 +36,12 @@ console.log(a) // 循环引用
 
 JSON.stringify(a) // Uncaught TypeError: Converting circular structure to JSON
 ```
-此外，当数据出现循环引用时 `JSON.stringify()` 会直接报错，这种情况下这种方式也是行不通的。
+如上，当数据出现循环引用时 `JSON.stringify()` 会直接报错，这种情况下该方式也是行不通的。
 
 ## 复杂实现
 ```js
 function deepClone (o, refs = []) {
-  // 如果不是 Object 或者 Array 直接返回即可
+  // 原始类型直接返回即可
   // 这里要注意 null 这个特例
   if (typeof o !== 'object' || o === null) { return o }
   
@@ -61,8 +61,11 @@ function deepClone (o, refs = []) {
     return clone
   } else { // Object
     const clone = {}
-    for (let key of Object.keys(o)) {
+    for (let key of Object.keys(o)) { // key 为 String
       clone[key] = deepClone(o[key], refs)
+    }
+    for (let sym of Object.getOwnPropertySymbols(o)) { // key 为 Symbol
+      clone[sym] = deepClone(o[sym], refs)
     }
     return clone
   }
@@ -74,6 +77,6 @@ function deepClone (o, refs = []) {
 * 待拷贝的对象存在循环引用
 * 待拷贝的对象内存在一些特殊类型的数据
   
-深入理解这个问题对理解 JavaScript 中的基本类型和引用类型很有帮助。
+深入理解这个问题对理解 JavaScript 中的原始类型和引用类型很有帮助。
 
 完。
