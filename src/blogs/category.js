@@ -1,4 +1,6 @@
 module.exports = [
+	'Currying',
+	'MobileAdaptation',
 	'MacroTaskAndMicroTask',
 	'DeepClone',
 	'AliYunECS',

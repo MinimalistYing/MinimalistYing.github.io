@@ -33,10 +33,14 @@ import AntdForm from '@blog/AntdForm.md'
 import AliYunECS from '@blog/AliYunECS.md'
 import DeepClone from '@blog/DeepClone.md'
 import MacroTaskAndMicroTask from '@blog/MacroTaskAndMicroTask.md'
+import MobileAdaptation from '@blog/MobileAdaptation.md'
+import Currying from '@blog/Currying.md'
 
 import cat from './category'
 
 const blogs = {
+	Currying,
+	MobileAdaptation,
 	MacroTaskAndMicroTask,
 	DeepClone,
 	AliYunECS,
