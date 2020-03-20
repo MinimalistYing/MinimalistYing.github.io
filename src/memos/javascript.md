@@ -3,12 +3,22 @@
 
 ---
 
-在 Javascript 中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数  
-例如典型的 `0.1 + 0.2 !== 0.3` ~~在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题~~  
+在 Javascript 中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数,例如典型的 `0.1 + 0.2 !== 0.3`  
+
+~~在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题~~  
 ```js
 // 这才是正确判断浮点数是否相等的方式
 Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
 ```
+可以通过以下方法来正确计算俩位浮点数的加法：  
+```js
+function floatAdd(a, b) {
+    return Number((a + b).toFixed(2))
+}
+```
+实际上这么处理仍会有问题，例如无法计算 `0.12 + 0.12345`  
+
+但是考虑到对浮点数计算以及精度要求最高的场景应该就是算钱，所以支持俩位浮点数计算也许足够了？
 
 ---
 
@@ -233,11 +243,32 @@ Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时�
 
 ---
 
-在Javascript中 `Object` 是 `truthy value`  
-所以哪怕是 `new Boolean(false)` 也会在类型转化时被判断为true
+在Javascript中 `Object` 是 `truthy value`,所以哪怕是 `new Boolean(false)` 也会在类型转化时被判断为true
 ```js
 false && console.log(1) // false
 new Boolean(false) && console.log(1) // 1
+```
+这里的关键其实不在于布尔值的判断，而是通过构造函数和直接使用字面量来初始化基本类型的区别。  
+
+例如比较如下三种生成字符串的方式：
+```js
+const str1 = new String('a')
+const str2 = 'a'
+const str3 = String('a')
+
+// 所以 'a' 和 String('a') 是一样的
+str1 === str2 // false
+str1 === str3 // false
+str2 === str3 // true
+
+// 可以看到这就是最主要的区别，以及后续差异的根本原因
+typeof str1 // object
+typeof str2 // string
+
+str1.foo = 'foo'
+str2.foo = 'foo'
+console.log(str1.foo) // foo
+console.log(str2.foo) // undefined
 ```
 
 ---

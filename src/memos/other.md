@@ -249,3 +249,15 @@ Sublime 安装问题以及解决
 关于 NPM 中常见的 Sematic Version Operator  
 `~1.0.1` 意味着可以接受大于或等于 `1.0.1` 但是小于 `1.1.0` 之间的所有版本  
 `^1.0.1` 意味着可以接受大于或等于 `1.0.1` 但是小于 `2.0.0` 之间的所有版本
+
+---
+
+为什么移动端的点击事件会存在 300ms 左右的延时？
+> 移动端的浏览器支持快速双击缩放页面，如果没有这个延时当用户点击时就无法判断用户是想要双击缩放还是仅仅单击。
+
+> mobile browsers will wait approximately 300ms from the time that you tap the button to fire the click event. The reason for this is that the browser is waiting to see if you are actually performing a double tap.
+
+解决方案：
+* 禁用缩放: `<meta name="viewport" content="user-scalable=no">`
+* 不禁用缩放，更改默认的视口宽度: `<meta name="viewport" content="width=device-width, initial-scale=1">`
+* 直接使用 [FastClick](https://github.com/ftlabs/fastclick)

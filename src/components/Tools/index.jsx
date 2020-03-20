@@ -17,6 +17,7 @@ export default function Tools () {
         <a target='_blank' href='https://unbug.github.io/codelf/'>Find Real-World Usage Variable Names</a>
         <a target='_blank' href='https://bit.dev/'>Build, version and distribute reusable components. </a>
         <a target='_blank' href='https://whatwg.org/'>WHATWG - HTML / Fetch / DOM / ... 协议 </a>
+        <a target='_blank' href='http://shijuechuanda.com/screen/index.htm'>屏幕尺寸 / 设计规范</a>
       </div>
     </div>
 
