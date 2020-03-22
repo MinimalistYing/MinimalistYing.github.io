@@ -8,7 +8,6 @@
 * Webpack 异步加载
 * React-Router Switch 有什么用
 * 图片懒加载
-* 防抖和截流
 * react 虚拟DOM 是什么? 如何实现? 说一下diff算法 ? DIFF算法为什么是O(n)复杂度而不是O(n^3)
 * 观察者模式实现 ?
 * http报文头部有哪些字段? 有什么意义 ?

@@ -35,10 +35,12 @@ import DeepClone from '@blog/DeepClone.md'
 import MacroTaskAndMicroTask from '@blog/MacroTaskAndMicroTask.md'
 import MobileAdaptation from '@blog/MobileAdaptation.md'
 import Currying from '@blog/Currying.md'
+import DebounceAndThrottle from '@blog/DebounceAndThrottle.md'
 
 import cat from './category'
 
 const blogs = {
+	DebounceAndThrottle,
 	Currying,
 	MobileAdaptation,
 	MacroTaskAndMicroTask,
