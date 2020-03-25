@@ -1,4 +1,6 @@
 module.exports = [
+	'YDKJSUpGoing',
+	'URLToPage',
 	'DebounceAndThrottle',
 	'Currying',
 	'MobileAdaptation',

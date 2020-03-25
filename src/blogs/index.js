@@ -36,10 +36,14 @@ import MacroTaskAndMicroTask from '@blog/MacroTaskAndMicroTask.md'
 import MobileAdaptation from '@blog/MobileAdaptation.md'
 import Currying from '@blog/Currying.md'
 import DebounceAndThrottle from '@blog/DebounceAndThrottle.md'
+import URLToPage from '@blog/URLToPage.md'
+import YDKJSUpGoing from '@blog/YDKJSUpGoing.md'
 
 import cat from './category'
 
 const blogs = {
+	YDKJSUpGoing,
+	URLToPage,
 	DebounceAndThrottle,
 	Currying,
 	MobileAdaptation,

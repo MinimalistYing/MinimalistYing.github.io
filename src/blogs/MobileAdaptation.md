@@ -32,7 +32,7 @@ Emmmmm...
 
 继续拿 IPhone X 举例，它的 DPR 是 `1125 / 375 = 3`。  
 
-在 JavaSript 中我们可以通过 `window.devicePixelRatio` 获取到当前设备的 DPR。在 CSS 中则可以通过多媒体查询来根据 DPR 设置不同的样式：
+在 JavaScript 中我们可以通过 `window.devicePixelRatio` 获取到当前设备的 DPR。在 CSS 中则可以通过多媒体查询来根据 DPR 设置不同的样式：
 ```css
 @media (-webkit-min-device-pixel-ratio: 2) {
   font-size: 16px;

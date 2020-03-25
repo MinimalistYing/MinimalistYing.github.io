@@ -1,8 +1,3 @@
-判断一个值是否为 `NaN` 一定要通过 `isNaN()` 而不是通过等号比较  
-因为 `NaN !== NaN`
-
----
-
 在 Javascript 中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数,例如典型的 `0.1 + 0.2 !== 0.3`  
 
 ~~在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题~~  
@@ -76,18 +71,6 @@ String.replace(reg, replacement)
 
 ---
 
-Javascript中的假值( falsy values )
-* false
-* null
-* undefined
-* 空字符串''
-* 0
-* NaN
-
-其它值都为 true
-
----
-
 利用原生的JS即可输出格式化后的JSON字符串
 ```js
 JSON.stringify(value[, replacer[, space]])
@@ -132,22 +115,9 @@ arr.length = 1
 
 ---
 
-判断是否是数组的方法，IE9+直接用原生的 `Array.isArray()` 如果要向下兼容的话
-```js
-Object.prototype.toString.call(arg) === '[object Array]'
-```
-Ps:jQuery的 `$.isArray()` 亦是采用这种方式
-
----
-
 Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行  
 不安全并且效率低下，最好不要使用  
 具体可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)
-
----
-
-`Array.prototype.sort()` 可传入比较函数 `comparefn(a, b)` 来排序  
-希望a排在前该函数需返回一个负数，反之返回正数，俩者相等则返回0。
 
 ---
 
@@ -186,39 +156,6 @@ console.info(b);
 使用 `String.prototype.length()` 来判断字符串长度在某些特殊场景下存在问题，例如 `'𝒜'.length === 2` 
 因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码  
 这时候这个方法计算一个字符的长度是2，判断方法可见[这篇Blog](http://ife.baidu.com/note/detail/id/583)
-
----
-
-```js
-//  函数表达式
-var f = function (){ return 1 }
-// 函数表达式
-var f = function g(){ return 1 }
-// 函数声明
-function g(){ return 1 }
-```
-在混合时其实也是函数表达式，所以此时的 `g` 在函数外部是不可见的，试图执行 `g()` 会报错  
-关于函数表达式以及函数声明的具体差别可见[这篇文章](http://kangax.github.io/nfe/)  
-Ps:函数申明会存在函数提升的情况而函数表达式不会
-
----
-
-关于 `Date` 对象有几点需要注意 `new Date(year, month[, day[, hour[, minutes[, seconds[, milliseconds]]]]])`
-使用这个构造函数时 `month` 参数0代表一月，11代表十二月，
-同理 `dateObj.getMonth()` 一月返回0，十二月返回11`dateObj.getDay()` 0代表周日，6代表周一`
-}, {
-	date: `2017/11/22`,
-	content: `
-关于 `typeof` 一共有六种可能结果
-* number
-* string
-* boolean
-* undefined
-* function
-* object
-* symbol // ES6新增
-
-其中有一种较怪异的行为需注意`typeof null // 'object'`
 
 ---
 
@@ -572,73 +509,6 @@ let a = {a : 1}
 let test4 = [a , a,  {a:1}]
 unique(test4)
 uniqueBySet(test4)
-```
-
----
-
-一些有关 Javascript 变量提升的实例
-
-```js
-(function() {
-  var a = b = 1;// var 声明的是a 导致b其实是一个全局变量
-})();
-
-console.log(b)// 1
-console.log(typeof a)//undefined 注意 如果直接试图使用a变量会抛出错误 但在typeof操作符后就不会
-console.log(a)// Uncaught ReferenceError: a is not defined
-
-
-(function() {
-	'use strict'// 严格模式下不加var声明会直接报错
-	var a = b = 1;// Uncaught ReferenceError: b is not defined
-})();
-
-
-// 函数声明会提升 函数表达式不会
-(function test() {
-   console.log(a);// undefined
-   console.log(foo());// 2
-   console.log(bar());// Uncaught TypeError: bar is not a function
-   var a = 1;
-   function foo() {// 函数声明
-      return 2;
-   }
-   var bar = function () {// 函数表达式
-   		return 2;
-   }
-})()
-
-
-/*
-相当于
-var a
-function a(){ return 1 }
-a=123
-console.log(a)
-*/
-var a=123;
-function a(){ return 1 }
-console.log(a);//123 
-
-
-/*
-相当于
-var a
-function a(){ return 1 }
-a()
-*/
-function a(){ return 1 }
-var a;
-a();// 1
-
-/**
-const和let不会申明提升？
-*/
-typeof a; var a=1;
-typeof a; const a=1; //Uncaught ReferenceError: a is not defined
-typeof a; let a=1; //Uncaught ReferenceError: a is not defined
-
-
 ```
 
 ---
@@ -1019,19 +889,6 @@ document.getElementsByTagName("iframe")[0].contentWindow.postMessage('你好 儿
 window.addEventListener('message', e => console.log(e))
 ```
 有安全方面顾虑的话最好把 * 改为特定的域名
-
----
-
-`void` 操作符会计算其后的表达式并返回 `undefined`  
-我们会在一些代码中看到开发者使用 `void 0` 代替 `undefined`  
-因为再早期的 Javascript (ES5 之前)中 `undefined` 是一个变量，所以可能会在程序执行过程中被修改  
-为了避免这个语言设计上的错误，所以开发者会使用 `void 0`  
-此外还可以利用 `void` 来执行 IIFE 例如  
-```js
-void function() {
-	console.log(123)
-}()
-```
 
 ---
 
