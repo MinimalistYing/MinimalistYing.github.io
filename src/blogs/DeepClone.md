@@ -21,7 +21,7 @@ const test = {
 
 console.log(deepClone(test))
 ```
-可以看到使用这种方法无法拷贝类似 `symbol`/`function`/`undefined` 等类型的数据在过程中会被丢失，然后 `NaN` 会被转化为 `null`。  
+可以看到使用这种方法， `symbol`/`function`/`undefined` 等类型的数据在过程中会被丢失，然后 `NaN` 会被转化为 `null`。  
 
 ```js
 const a = {
@@ -43,14 +43,15 @@ JSON.stringify(a) // Uncaught TypeError: Converting circular structure to JSON
 function deepClone (o, refs = []) {
   // 原始类型直接返回即可
   // 这里要注意 null 这个特例
-  if (typeof o !== 'object' || o === null) { return o }
+  if (typeof o !== 'object' || o === null) return o
   
   // 这段逻辑是为了解决存在循环引用时的问题
   // 如果没有这段会出现无限循环
   // 报错 Uncaught RangeError: Maximum call stack size exceeded
   // 通过保存已经克隆过的对象或数组的引用来避免重复克隆
   const alreadyCloned = refs.find(item => item === o)
-  if (alreadyCloned) { return alreadyCloned }
+  if (alreadyCloned) return alreadyCloned
+  
   refs.push(o)
   
   if (Array.isArray(o)) { // Array
@@ -75,7 +76,7 @@ function deepClone (o, refs = []) {
 ## 总结
 需要注意的问题主要有俩点：
 * 待拷贝的对象存在循环引用
-* 待拷贝的对象内存在一些特殊类型的数据
+* 待拷贝的对象存在一些特殊类型的值
   
 深入理解这个问题对理解 JavaScript 中的原始类型和引用类型很有帮助。
 

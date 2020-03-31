@@ -18,3 +18,6 @@
 * canvas 直接设置 width 和通过 css 设置有什么不同
 * 项目中碰到的问题，碰到的问题如何解决？
 * for of 的原理，Object 能不能 for of
+* 设计模式
+* EventEmitter
+* 在工具类文件中操作 react-router?

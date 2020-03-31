@@ -49,23 +49,27 @@ Ps: 经本人测试 禁用 Cookie 后 Github 淘宝 等网站都无法正常访�
 Ps: 虽然大多数人不会完全禁用 Cookie，但是估计有少数注重隐私的人会禁用第三方 Cookie 。最近碰到个问题是由于一个同学在 Chrome 里禁用了第三方 Cookie 导致的，这种情况 `navigator.cookieEnabled` 是检测不了的。禁用第三方 Cookie 会影响到我们从本地 `localhost` 去请求预发环境。
 
 ### 关于 Cookie 的属性
-* domain  
+* Domain  
 指定 Cookie 存储在哪个域名下，默认为当前服务器的域名。  
-当然也遵循同源策略，例如在 `www.son.a.com` 页面下，我们可以设置 Cookie 的 domain 为 `a.com`。  
+~~当然也遵循同源策略~~事实上 Cookie 和浏览器的 Same-Origin Policy 没什么关系，实际上意味着的是第一方 Cookie 或者第三方 Cookie。  
+例如存放在 `.a.com` 下的 Cookie，在 `www.one.a.com` 以及 `www.two.a.com` 页面上携带都属于第一方 Cookie。
+这里需要特别注意 Cookie 不能跨域，例如在 `www.son.a.com` 页面下，我们可以设置 Cookie 的 domain 为 `a.com`。  
 这样在 `www.another.a.com` 页面也可以获取到该 Cookie，但是不能在该页面试图去操作 domain 为 `b.com` 的 Cookie。  
 
-* path  
+* Path  
 指定 Cookie 存储在哪个路径下，默认为当前 URI 中的路径。  
 例如在 `www.a.com/page/one.html` 我们按默认属性设置了一个 Cookie，那么在 `www.a.com/page/two.html` `www.a.com/page/son/three.html` 这些页面下都可以获取这个 Cookie，但是在 `www.a.com/another/four.html` 页面上便无法获取这个 Cookie。  
 可以将 path 设为 `/` 使得访问当前域名下所有路径的网页都能拿到设置的 Cookie。
 
-* max-age 最大存储时间，以秒为单位，默认当浏览器 Session 结束时清除。
+* Max-Age 最大存储时间，以秒为单位，为 0 时立即删除当前 Cookie,默认（或者为负数）当浏览器 Session 结束时清除。
 
-* expires 存储失效的 GMT 时间，默认当浏览器 Session 结束时清除。
+* Expires 存储失效的 GMT 时间，这个日期只与客户端有关，默认当浏览器 Session 结束时清除。
 
-* secure 包含该属性的 Cookie 只能通过 HTTPS 传输。
+* Secure 包含该属性的 Cookie 只能通过 HTTPS 传输。
   
-* httponly 只能在服务端进行设置，包含该属性的 Cookie 只会在 Request Headers 中出现，前端无法通过 `document.cookie` 查看或修改。
+* HTTPOnly 只能在服务端进行设置，包含该属性的 Cookie 只会在 Request Headers 中出现，前端无法通过 `document.cookie` 查看或修改。
+  
+* SameSite 这个属性是 Chrome 在后来的版本中为了防止 CSRF 新增的，所以在协议中还看不到相关的字段。一共有三个可能值 Strict - 仅允许当前页面 URL 与请求 URL 完全一致时携带，Lax - 允许部分携带，None - 无论是否跨站都允许携带。从 Chrome 80 开始，默认值从 None 改为了 Lax，这可能会影响到很多依赖 Cookie 网站的正常工作，在网上也可以看到不少相关的讨论。解决该问题的方法是收到将所有 Cookie 设置 `SameSite=None`，同时需要注意的是需要设置 `Secure` 才会生效。Lax 的规则有些复杂，更详细的内容推荐阅读[这篇文章](http://www.ruanyifeng.com/blog/2019/09/cookie-samesite.html) 和 [这篇文章](https://zhuanlan.zhihu.com/p/114093227) 
 
 ### 关于 Cookie 中的保留字符
 由于 `;` `,` `空格` 在 Cookie 中有特殊含义，所以当存储的数据中包含这些特殊字符时，需要在存储前通过 `encodeURIComponent` 进行编码，读取前通过 `decodeURIComponent` 进行解码。
@@ -168,3 +172,7 @@ Ps:（由于 SessionStorage 是基于浏览器窗口存储，所以只有当使�
 
 * 虽然 WebStorage 的规范希望能支持对类似数组对象等结构化数据进行存储，但目前为止大多数浏览器仅支持字符串作为 Value，传入非字符串的值会被强制转化为字符串。例如试图通过 `localStorage.o = {a: 1}` 存储一个对象，会发现实际存储的是 `o: "[object Object]"`。
 
+
+## 参考文档
+* [https://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work?rq=1](https://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work?rq=1)
+* [https://www.mxsasha.eu/blog/2014/03/04/definitive-guide-to-cookie-domains/](https://www.mxsasha.eu/blog/2014/03/04/definitive-guide-to-cookie-domains/)

@@ -1,4 +1,5 @@
 module.exports = [
+	'YDKJSScopeClosure',
 	'YDKJSUpGoing',
 	'URLToPage',
 	'DebounceAndThrottle',

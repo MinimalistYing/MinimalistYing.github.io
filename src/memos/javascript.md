@@ -115,12 +115,6 @@ arr.length = 1
 
 ---
 
-Javascript的 `setTimeout()` 和 `setInterval()` 都可以接受字符串参数，并类似eval()将其执行  
-不安全并且效率低下，最好不要使用  
-具体可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/setTimeout)
-
----
-
 关于
 ```js
 String.prototype.split([separator[, limit]])
@@ -291,10 +285,6 @@ o2.foo() // 1 2
 
 ---
 
-箭头函数都是匿名的函数表达式(function expression)
-
----
-
 关于ES6 Module
 * 基于文件，每个文件为一个Module，不可能一个文件中包含多个Module
 * 静态，不能动态的去修改一个Module对外export的API
@@ -384,58 +374,6 @@ window.atob('YQ==') // "a"
 window.btoa(unescape(encodeURIComponent(str)))
 // 解码
 decodeURIComponent(escape(window.atob(str)))
-```
-
----
-
-Javascript `catch` 块中申明的变量具有块级作用域（小技巧 应该用不到）
-```js
-try {
-	throw undefined
-} catch(a) {// 这里的a具有块级作用域
-	a = 1
-  console.log(a)
-}
-console.log(a)// Uncaught ReferenceError: a is not defined
-```
-
----
-
-关于 Closure 的几个代码片段
-
-```js
-// var let const 不会影响Closure
-function foo() {
-	var a = 1
-	let b = 2
-	const c = 3
-	function bar() {
-		console.log(a, b, c)
-	}
-  
-	return bar
-}
-
-foo()()
-
-// Arrow Function不会影响Closure
-var foo = () => {
-	var a = 1
-	let b = 2
-	const c = 3
-	return () => console.log(a, b, c)
-}
-
-foo()()
-
-// setTimeout会创建一个Closure
-function wait(message) {
-	setTimeout(() => {
-		console.log(message)
-	}, 1000)
-}
-
-wait('hi')
 ```
 
 ---

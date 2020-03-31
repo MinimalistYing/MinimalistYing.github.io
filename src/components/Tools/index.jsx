@@ -17,7 +17,9 @@ export default function Tools () {
         <a target='_blank' href='https://unbug.github.io/codelf/'>Find Real-World Usage Variable Names</a>
         <a target='_blank' href='https://bit.dev/'>Build, version and distribute reusable components. </a>
         <a target='_blank' href='https://whatwg.org/'>WHATWG - HTML / Fetch / DOM / ... 协议 </a>
+        <a target='_blank' href='http://es5.github.io/#x10.5'>ES5 协议 </a>
         <a target='_blank' href='http://shijuechuanda.com/screen/index.htm'>屏幕尺寸 / 设计规范</a>
+        <a target='_blank' href='http://ecma-international.org/publications/standards/Standard.htm'>ECMA Standard</a>
       </div>
     </div>
 
@@ -30,6 +32,7 @@ export default function Tools () {
         <a target='_blank' href='https://introjs.com/'>Intro.js - Web 应用新手指引</a>
         <a target='_blank' href='https://standardjs.com/'>Standard.js - 基于 ESLint 的编程规范</a>
         <a target='_blank' href='https://usehooks.com/'>useHooks - Easy to understand React Hook recipes</a>
+        <a target='_blank' href='https://astexplorer.net/'>AST Explorer</a>
       </div>
     </div>
 
