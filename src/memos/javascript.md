@@ -1,22 +1,3 @@
-在 Javascript 中进行浮点数运算是不可靠的，遵循IEEE 754标准，二进制的浮点数运算不能正确的处理十进制小数,例如典型的 `0.1 + 0.2 !== 0.3`  
-
-~~在一定的精度范围内可通过将小数转化为整数再进行比较来解决这个问题~~  
-```js
-// 这才是正确判断浮点数是否相等的方式
-Math.abs(0.1 + 0.2 - 0.3) <= Number.EPSILON
-```
-可以通过以下方法来正确计算俩位浮点数的加法：  
-```js
-function floatAdd(a, b) {
-    return Number((a + b).toFixed(2))
-}
-```
-实际上这么处理仍会有问题，例如无法计算 `0.12 + 0.12345`  
-
-但是考虑到对浮点数计算以及精度要求最高的场景应该就是算钱，所以支持俩位浮点数计算也许足够了？
-
----
-
 通过Javascript
 ```js
 element.scrollTop = value
@@ -144,12 +125,6 @@ var b = arr[2].toString();
 console.info(b);
 ```
 再第二行以 `( [ + -` 开头时都需要注意避免以上情况
-
----
-
-使用 `String.prototype.length()` 来判断字符串长度在某些特殊场景下存在问题，例如 `'𝒜'.length === 2` 
-因为这个方法判断的是给定字符串用了几个UTF-16（16bit）来编码，而有些特殊字符需要32bit来编码  
-这时候这个方法计算一个字符的长度是2，判断方法可见[这篇Blog](http://ife.baidu.com/note/detail/id/583)
 
 ---
 
@@ -353,10 +328,6 @@ string/boolean/number/null/undefined/symbol( ES6 新增 )
 
 ---
 
-严格模式下函数中的`arguments`会被禁用
-
----
-
 IE10+ 以及各现代浏览器提供了原生的方法 `btoa` 以及 `atob` 支持对字符串进行 Base64 编解码  
 ```js
 // Binary to ASCII 编码
@@ -552,42 +523,6 @@ regSticky.test(str) // true
 console.log(regSticky.lastIndex) // 6 匹配成功会将lastIndex移动至匹配结果后紧接着的index
 regSticky.test(str) // false
 console.log(regSticky.lastIndex) // 0 匹配失败会将lastIndex重置为0
-```
-
----
-
-Iterator 实现斐波那契数列
-```js
-const febonacci = {
-	[Symbol.iterator]() {
-		let a = 1
-		let b = 1
-		return {
-			next() {
-				const value = b
-				let done = b >= 1000 // 超过1000结束迭代
-				b = a
-				a = value + a       
-
-				return {
-					value,
-					done
-				}
-			},
-			return() {
-				console.log('Stop iterate')
-				return { done: true }
-			}
-		}
-	}
-}
-
-for (let i of febonacci) {
-	console.log(i)
-	if (i > 500) {
-		break;
-	}
-}
 ```
 
 ---
@@ -827,29 +762,6 @@ document.getElementsByTagName("iframe")[0].contentWindow.postMessage('你好 儿
 window.addEventListener('message', e => console.log(e))
 ```
 有安全方面顾虑的话最好把 * 改为特定的域名
-
----
-
-如何通过函数模拟 `new` 操作符？Javascript 中 `new` 到底做了什么？
-```js
-function fakeNew (construct, ...params) {
-	const o = Object.create(construct.prototype)
-	const re = construct.apply(o, params)
-	// 当构造函数中会返回一个引用类型的值时 最终 new 操作符返回的是这个值 而不是新构造的对象
-	return (typeof re === 'object' || typeof re === 'function') ? re : o
-}
-
-// test
-function Foo (name, age) {
-	this.name = name
-	this.age = age
-}
-Foo.prototype.hello = function () {
-	console.log(`Hello ${this.name} ${this.age}`)
-}
-
-const a = fakeNew(Foo, 'a', 18)
-```
 
 ---
 

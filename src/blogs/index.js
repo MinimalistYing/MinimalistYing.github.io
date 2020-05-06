@@ -39,10 +39,12 @@ import DebounceAndThrottle from '@blog/DebounceAndThrottle.md'
 import URLToPage from '@blog/URLToPage.md'
 import YDKJSUpGoing from '@blog/YDKJSUpGoing.md'
 import YDKJSScopeClosure from '@blog/YDKJSScopeClosure.md'
+import Winter from '@blog/Winter.md'
 
 import cat from './category'
 
 const blogs = {
+	Winter,
 	YDKJSScopeClosure,
 	YDKJSUpGoing,
 	URLToPage,

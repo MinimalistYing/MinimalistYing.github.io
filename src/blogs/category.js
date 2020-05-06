@@ -1,4 +1,5 @@
 module.exports = [
+	'Winter',
 	'YDKJSScopeClosure',
 	'YDKJSUpGoing',
 	'URLToPage',

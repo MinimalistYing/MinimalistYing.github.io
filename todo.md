@@ -1,6 +1,6 @@
 * WebWorker
 * React HOC 实现
-* React Hooks,为什么要使用 hooks
+* React Hooks，为什么要使用 hooks，hooks 如何模拟 componentDidMount / componentWillUnmount
 * Vue 数据双向绑定原理
 * Canvas 星星特效 ，类似 https://www.bilibili.com/video/av81516881 片尾
 * Webpack 异步加载
@@ -17,7 +17,8 @@
 * SVG 与 Canvas 的对比
 * canvas 直接设置 width 和通过 css 设置有什么不同
 * 项目中碰到的问题，碰到的问题如何解决？
-* for of 的原理，Object 能不能 for of
 * 设计模式
 * EventEmitter
 * 在工具类文件中操作 react-router?
+* JavaScript 中的异常处理机制
+* === / == / Object.is()
