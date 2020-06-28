@@ -40,10 +40,16 @@ import URLToPage from '@blog/URLToPage.md'
 import YDKJSUpGoing from '@blog/YDKJSUpGoing.md'
 import YDKJSScopeClosure from '@blog/YDKJSScopeClosure.md'
 import Winter from '@blog/Winter.md'
+import WeChatMiniprogram from '@blog/WeChatMiniprogram.md'
+import GridAndFlex from '@blog/GridAndFlex.md'
+import CustomizeCRA from '@blog/CustomizeCRA.md'
 
 import cat from './category'
 
 const blogs = {
+	CustomizeCRA,
+	GridAndFlex,
+	WeChatMiniprogram,
 	Winter,
 	YDKJSScopeClosure,
 	YDKJSUpGoing,

@@ -1,4 +1,7 @@
 module.exports = [
+	'CustomizeCRA',
+	'GridAndFlex',
+	'WeChatMiniprogram',
 	'Winter',
 	'YDKJSScopeClosure',
 	'YDKJSUpGoing',

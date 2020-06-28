@@ -58,7 +58,7 @@ display : inline-block
 
 一种将全部元素reset为 `box-sizing: border-box` 的方法
 ```css
-{
+html {
 	box-sizing: border-box;
 }
 *, *:before, *:after {
