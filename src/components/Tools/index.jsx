@@ -78,5 +78,14 @@ export default function Tools () {
         <a target='_blank' href='https://flowchart.airmore.cn/'>爱莫流程图 - Web 在线画流程图</a>
       </div>
     </div>
+
+    <div className='tools-card'>
+      <h2>博客</h2>
+      <div className='tools-content'>
+        <a target='_blank' href='https://byvoid.com/'>ByVoid</a>
+        <a target='_blank' href='https://botao.hu/'>botao.hu</a>
+        <a target='_blank' href='http://www.yinwang.org/'>王垠</a>
+      </div>
+    </div>
   </div>)
 }
