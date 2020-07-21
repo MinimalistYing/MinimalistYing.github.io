@@ -1,4 +1,5 @@
 module.exports = [
+	'XiaMen',
 	'CustomizeCRA',
 	'GridAndFlex',
 	'WeChatMiniprogram',

@@ -43,10 +43,12 @@ import Winter from '@blog/Winter.md'
 import WeChatMiniprogram from '@blog/WeChatMiniprogram.md'
 import GridAndFlex from '@blog/GridAndFlex.md'
 import CustomizeCRA from '@blog/CustomizeCRA.md'
+import XiaMen from '@blog/XiaMen.md'
 
 import cat from './category'
 
 const blogs = {
+	XiaMen,
 	CustomizeCRA,
 	GridAndFlex,
 	WeChatMiniprogram,
