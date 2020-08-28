@@ -1,7 +1,8 @@
 module.exports = [
+	'YDKJSTypesGrammar',
+	'FormattingContext',
 	'XiaMen',
 	'CustomizeCRA',
-	'GridAndFlex',
 	'WeChatMiniprogram',
 	'Winter',
 	'YDKJSScopeClosure',

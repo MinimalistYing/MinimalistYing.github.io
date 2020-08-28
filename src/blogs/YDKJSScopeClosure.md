@@ -1,4 +1,4 @@
-# 阅读摘要:《YDKJS Scope & Closure》
+# 阅读摘要 - YDKJS Scope & Closure
 
 ## Lexical Scope & Dynamic Scope
 首先引用一下 Wiki 上的定义：

@@ -20,5 +20,9 @@
 ### wx.chooseImage 会触发页面的 onShow 事件
 可能是由于唤起相机时会导致小程序切至后台，然后再次进入时就会触发 onShow 事件。
 
+### 怎么在微信小程序中使用 svg
+由于 WXML 自身不支持 `svg` 标签，可以通过 `background-image` 的 `url()` 将 svg 图片转为 Data URL 来放入其中使用。   
+Ps: [在线 SVG 转 Data Url](https://codepen.io/jakob-e/pen/doMoML)
+
 ## Tips
 * Warning 信息也需要留意，可能会导致小程序执行错误。

@@ -41,16 +41,18 @@ import YDKJSUpGoing from '@blog/YDKJSUpGoing.md'
 import YDKJSScopeClosure from '@blog/YDKJSScopeClosure.md'
 import Winter from '@blog/Winter.md'
 import WeChatMiniprogram from '@blog/WeChatMiniprogram.md'
-import GridAndFlex from '@blog/GridAndFlex.md'
 import CustomizeCRA from '@blog/CustomizeCRA.md'
 import XiaMen from '@blog/XiaMen.md'
+import FormattingContext from '@blog/FormattingContext.md'
+import YDKJSTypesGrammar from '@blog/YDKJSTypesGrammar.md'
 
 import cat from './category'
 
 const blogs = {
+	YDKJSTypesGrammar,
+	FormattingContext,
 	XiaMen,
 	CustomizeCRA,
-	GridAndFlex,
 	WeChatMiniprogram,
 	Winter,
 	YDKJSScopeClosure,

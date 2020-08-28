@@ -85,6 +85,7 @@ export default function Tools () {
         <a target='_blank' href='https://byvoid.com/'>ByVoid</a>
         <a target='_blank' href='https://botao.hu/'>botao.hu</a>
         <a target='_blank' href='http://www.yinwang.org/'>王垠</a>
+        <a target='_blank' href='https://overreacted.io/'>Dan Abramov</a>
       </div>
     </div>
   </div>)
