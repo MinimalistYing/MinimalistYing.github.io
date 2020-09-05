@@ -45,10 +45,12 @@ import CustomizeCRA from '@blog/CustomizeCRA.md'
 import XiaMen from '@blog/XiaMen.md'
 // import FormattingContext from '@blog/FormattingContext.md'
 import YDKJSTypesGrammar from '@blog/YDKJSTypesGrammar.md'
+import PlayerType from '@blog/PlayerType.md'
 
 import cat from './category'
 
 const blogs = {
+	PlayerType,
 	YDKJSTypesGrammar,
 	// FormattingContext,
 	XiaMen,

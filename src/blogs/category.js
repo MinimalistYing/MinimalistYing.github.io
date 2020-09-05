@@ -1,4 +1,5 @@
 module.exports = [
+	'PlayerType',
 	'YDKJSTypesGrammar',
 	// 'FormattingContext',
 	'XiaMen',

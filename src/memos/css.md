@@ -259,3 +259,11 @@ div {
 
 关于清除浮动的各种方法以及其适用场景  
 [what-methods-of-clearfix-can-i-use](https://stackoverflow.com/questions/211383/what-methods-of-clearfix-can-i-use)
+
+---
+
+可以借助 `position: sticky` 来快速实现元素滚动吸顶功能
+
+---
+
+`visibility` 属性可继承，借助这个特性可以实现隐藏父节点，显示子节点的效果。

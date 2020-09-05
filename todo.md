@@ -23,3 +23,6 @@
 * JavaScript 中的异常处理机制
 * === / == / Object.is()
 * IFC & BFC ?
+* GraphQL 缺点 ？ N+1 ？
+* HTTP / HTTPS / 非对称加密
+* Webpack 打包优化？

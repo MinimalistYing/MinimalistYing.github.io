@@ -56,10 +56,7 @@ Javascript 中的部分类型不能被序列化为 JSON 字符串，例如：
 * 循环引用的对象会报错 `Uncaught TypeError: Converting circular structure to JSON`
   ```js
   const a = {}
-  const b = {}
-
-  a.b = b
-  b.a = a
+  a.a = a
 
   JSON.stringify(a)
   ```
