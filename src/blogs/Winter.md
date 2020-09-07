@@ -182,7 +182,7 @@ const fakeNew = (construct, ...params) => {
   // 调用构造函数进行一些初始化赋值
   const re = construct.apply(o, params)
   // 当构造函数中会返回一个引用类型的值时 最终 new 操作符返回的是这个值 而不是新构造的对象
-  return (typeof re === 'object' || typeof re === 'function') ? re : o
+  return ((typeof re === 'object' && re !== null) || typeof re === 'function') ? re : o
 }
 ```
 
