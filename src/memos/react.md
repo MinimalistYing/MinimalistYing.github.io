@@ -272,3 +272,24 @@ function MyComponent (props) {
 <MyComponent children='舒客舒克' />
 ```
 由此可见在 React 中 `props.children` 会优先被传入的子元素覆盖
+
+---
+
+利用 *React Hooks* 模拟 Vue 的计算属性
+
+```js
+function App () {
+	const [fistName, setFirstName] = useState('F')
+	const [lastName, setLastName] = useState('L')
+
+	const fullName = useMemo(() => {
+		return `${firstName} ${lastName}`
+	}, [firstName, lastName])
+
+	return (
+		<div>
+			{fullName}
+		</div>
+	)
+}
+```

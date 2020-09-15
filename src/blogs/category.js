@@ -1,7 +1,7 @@
 module.exports = [
+	'FormattingContext',
 	'PlayerType',
 	'YDKJSTypesGrammar',
-	// 'FormattingContext',
 	'XiaMen',
 	'CustomizeCRA',
 	'WeChatMiniprogram',

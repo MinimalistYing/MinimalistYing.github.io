@@ -26,3 +26,5 @@
 * GraphQL 缺点 ？ N+1 ？
 * HTTP / HTTPS / 非对称加密
 * Webpack 打包优化？
+* Vuex 和 Redux 的区别？
+* 为什么 Redux 需要中间件来对异步事件进行处理？
