@@ -28,3 +28,9 @@
 * Webpack 打包优化？
 * Vuex 和 Redux 的区别？
 * 为什么 Redux 需要中间件来对异步事件进行处理？
+
+
+// 更新网站
+scp -r /Users/mininalistying/Documents/MinimalistYing.github.io/dist root@47.96.77.197:app
+
+scp -r /Users/mininalistying/Documents/MinimalistYing.github.io/server.js root@47.96.77.197:app

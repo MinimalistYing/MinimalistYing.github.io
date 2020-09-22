@@ -18,7 +18,7 @@
 
 除了根元素外，下面这些情况都会建立一个新的 BFC（只列举了常见的）：
 * 设置了 `float` 属性的浮动元素
-* 绝对定位元素 `position: fixed | sticky`
+* 绝对定位元素 `position: fixed | sticky | absolute`
 * Grid Items 以及 Flex Items
 * 设置了 `display: flow-root` 的元素
 * `overflow` 属性不是 visible 的块级元素

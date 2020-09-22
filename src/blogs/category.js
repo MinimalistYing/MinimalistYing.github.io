@@ -1,4 +1,5 @@
 module.exports = [
+	'DOMDiff',
 	'FormattingContext',
 	'PlayerType',
 	'YDKJSTypesGrammar',
