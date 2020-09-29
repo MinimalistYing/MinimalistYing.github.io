@@ -47,10 +47,12 @@ import YDKJSTypesGrammar from '@blog/YDKJSTypesGrammar.md'
 import PlayerType from '@blog/PlayerType.md'
 import FormattingContext from '@blog/FormattingContext.md'
 import DOMDiff from '@blog/DOMDiff.md'
+import Dependencies from '@blog/Dependencies.md'
 
 import cat from './category'
 
 const blogs = {
+	Dependencies,
 	DOMDiff,
 	FormattingContext,
 	PlayerType,
