@@ -4,18 +4,18 @@ import './index.less'
 function Loading() {
 	return (
 		<div id="init-loading">
-      <div class="pac-man-head">
-        <div class="pac-man-top">
-          <div class="pac-man pac-man-lt" />
-          <div class="pac-man pac-man-rt" />
+      <div className="pac-man-head">
+        <div className="pac-man-top">
+          <div className="pac-man pac-man-lt" />
+          <div className="pac-man pac-man-rt" />
         </div>
-        <div class="pac-man-down">
-          <div class="pac-man pac-man-ld" />
-          <div class="pac-man pac-man-rd" />
+        <div className="pac-man-down">
+          <div className="pac-man pac-man-ld" />
+          <div className="pac-man pac-man-rd" />
         </div>
-        <div class="candy first" />
-        <div class="candy second" />
-        <div class="candy third" />
+        <div className="candy first" />
+        <div className="candy second" />
+        <div className="candy third" />
       </div>
     </div>
 	)

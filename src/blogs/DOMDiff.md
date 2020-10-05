@@ -3,7 +3,7 @@
 ## Virtual DOM
 React 自身维护了一组描述 HTML 的树形数据，也就是我们通常说的 Virtual DOM。例如有如下 HTML ：
 ```html
-<button class='button button-blue'>
+<button class="button button-blue">
   <b>
     Hello
   </b>

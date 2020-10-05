@@ -7,10 +7,11 @@ header {
     font-size: 16px;
     line-height: initial;
 
-    color: @tiffany;
-    background-color: #000;
+    color: #212121;
+    background-color: #fff;
     z-index: 999;
     transition: top .5s;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
 
     &.hide-top {
         top: -65px;
@@ -50,19 +51,19 @@ header {
             transition: all .5s ease-in-out;
     
             &:hover {
-                background: #555;
+                background:@tiffany;
             }
 
             & > a {
                 text-decoration: none;
         
                 color: inherit;
-                transition: all .3s ease-in-out;
+                transition: all .3s linear;
                 display: block;
                 padding: 20px 23px;
         
                 &.active {
-                    color: #fff;
+                    color: #212121;
                 }
         
                 &:hover {
