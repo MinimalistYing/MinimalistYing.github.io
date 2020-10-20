@@ -55,6 +55,7 @@ export default function Tools () {
         <div className='tools-content'>
           <a target='_blank' href='https://cn.tradingview.com/'>TradingView</a>
           <a target='_blank' href='http://www.cninfo.com.cn/new/index'>巨潮资讯</a>
+          <a target='_blank' href='https://duibiao.info/'>职级对标</a>
         </div>
       </div>
 
