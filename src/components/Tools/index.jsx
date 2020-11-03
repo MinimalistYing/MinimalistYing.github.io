@@ -89,6 +89,7 @@ export default function Tools () {
         <a target='_blank' href='https://botao.hu/'>botao.hu</a>
         <a target='_blank' href='http://www.yinwang.org/'>王垠</a>
         <a target='_blank' href='https://overreacted.io/'>Dan Abramov</a>
+        <a target='_blank' href='https://yinwang1.wordpress.com/author/yinwang0/'>正常人类收容所</a>
       </div>
     </div>
   </div>)
