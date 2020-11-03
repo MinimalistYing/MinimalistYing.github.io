@@ -1,4 +1,5 @@
 module.exports = [
+	'IMSystemdev',
 	'Dependencies',
 	'DOMDiff',
 	'FormattingContext',

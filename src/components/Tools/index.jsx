@@ -78,6 +78,7 @@ export default function Tools () {
         <a target='_blank' href='https://dos.zczc.cz/'>浏览器上玩 DOS 游戏</a>
         <a target='_blank' href='https://putianxi.github.io/'>滚蛋吧！莆田系！</a>
         <a target='_blank' href='https://flowchart.airmore.cn/'>爱莫流程图 - Web 在线画流程图</a>
+        <a target='_blank' href='https://app.diagrams.net/'>Web 在线画流程图</a>
       </div>
     </div>
 

@@ -48,10 +48,12 @@ import PlayerType from '@blog/PlayerType.md'
 import FormattingContext from '@blog/FormattingContext.md'
 import DOMDiff from '@blog/DOMDiff.md'
 import Dependencies from '@blog/Dependencies.md'
+import IMSystemdev from '@blog/IMSystemdev.md'
 
 import cat from './category'
 
 const blogs = {
+	IMSystemdev,
 	Dependencies,
 	DOMDiff,
 	FormattingContext,
