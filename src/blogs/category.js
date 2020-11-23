@@ -1,4 +1,5 @@
 module.exports = [
+	'MixedContent',
 	'IMSystemdev',
 	'Dependencies',
 	'DOMDiff',

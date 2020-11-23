@@ -60,12 +60,16 @@ const ws = new WebSocket('ws://xxx.com/api')
 // 连接建立成功
 ws.addEventListener('open', e => {})
 // 连接关闭
-ws.addEventListener('close', e => {})
+ws.addEventListener('close', e => {
+  // e.code 错误原因 https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent#Status_codes
+  // 可以根据该错误原因来判断是客户端主动关闭还是意外关闭
+})
 // 收到服务端推送消息
 ws.addEventListener('message', e => {})
 // 向服务端发送消息
 ws.send(JSON.stringify({ data: 'hello' }))
 // 主动关闭连接
+// ws.close(1000) 可以传入错误 code, 在监听关闭事件时可以根据这个 code 做一些逻辑区分
 ws.close()
 
 // 可以用于判断当前等连接状态
