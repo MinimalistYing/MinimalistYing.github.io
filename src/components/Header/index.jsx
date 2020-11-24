@@ -35,6 +35,9 @@ class Header extends React.Component {
 									<li>
 			            	<NavLink to="/tools.html" exact>收藏</NavLink>
 			           	</li>
+									<li>
+			            	<NavLink to="/games.html" exact>玩世</NavLink>
+			           	</li>
 									<li className='mine'>
 			            	<NavLink to="#" exact>我的</NavLink>
 										<ul>

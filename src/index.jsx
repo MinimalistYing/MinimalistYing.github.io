@@ -21,6 +21,7 @@ const Memos = React.lazy(() => import('./components/Memos'))
 const Main = React.lazy(() => import('./components/Main'))
 const MessageDemo = React.lazy(() => import('./components/VanillaAntdDemo'))
 const Tools = React.lazy(() => import('./components/Tools'))
+const Games = React.lazy(() => import('./components/Games'))
 
 const App = () => (
 	<div>
@@ -35,6 +36,7 @@ const App = () => (
 				<Route exact path="/memo.html" component={Memos} />
 				<Route exact path="/messagedemo.html" component={MessageDemo} />
 				<Route exact path="/tools.html" component={Tools} />
+				<Route exact path="/games.html" component={Games} />
 			</Switch>
 		</Suspense>
 	</div>
