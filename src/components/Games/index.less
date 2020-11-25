@@ -7,7 +7,7 @@
   justify-content: space-between;
 
   img {
-    transition: all .3s;
+    transition: box-shadow .5s, transform .3s,;
     cursor: pointer;
     border-radius: 25px;
 
@@ -22,9 +22,18 @@
     align-items: center;
     margin: 0 auto;
     width: 100vw;
+
+    &:hover {
+      figcaption {
+        color: #333;
+      }
+    }
   }
 
   figcaption {
     margin: 3vh 0 5vh;
+    font-size: 18px;
+    color: #ccc;
+    transition: color 0.3s;
   }
 }

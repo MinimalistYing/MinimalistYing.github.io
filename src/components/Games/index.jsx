@@ -18,7 +18,7 @@ export default function Games () {
 function ImageCard ({ image }) {
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
-  const width = window.innerWidth * 3 / 5;
+  const width = window.innerWidth * 3.5 / 5;
   const halfWidth = width / 2;
   const height = width * ( 9 / 16 );
   const halfHeight = height / 2;
@@ -41,13 +41,64 @@ function ImageCard ({ image }) {
       style={{
         width,
         height,
-        transform: `perspective(250px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+        transform: `perspective(2000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
       }}
     />
   )
 }
 
 const images = [{
+  title: '最终幻想 15',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTi0s.jpg',
+}, {
+  title: '最终幻想 零式 FINAL FANTASY TYPE-0',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTF7n.jpg',
+}, {
+  title: '最终幻想 10',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTAkq.jpg',
+}, {
+  title: '刺客信条 兄弟会 Assassins Creed Brotherhood',
+  url: 'https://s3.ax1x.com/2020/11/24/DNT7CV.jpg',
+}, {
+  title: '阿门罗 Armello',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTH3T.jpg',
+}, {
+  title: 'Spellbreak',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTbgU.jpg',
+}, {
+  title: '碧蓝幻想 Versus',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTqvF.jpg',
+}, {
+  title: '古剑奇谭3',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTXDJ.jpg',
+}, {
+  title: '命运2',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTjb9.jpg',
+}, {
+  title: '泰坦陨落2',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTxER.jpg',
+}, {
+  title: '激战2',
+  url: 'https://s3.ax1x.com/2020/11/24/DNTzU1.jpg',
+}, {
+  title: '武侠乂',
+  url: 'https://s3.ax1x.com/2020/11/24/DN7S4x.jpg',
+}, {
+  title: '仙侠世界2',
+  url: 'https://s3.ax1x.com/2020/11/24/DN79C6.jpg',
+}, {
+  title: '永恒轮回 黑色幸存者 Eternal Return Black Survival',
+  url: 'https://s3.ax1x.com/2020/11/24/DN7C8K.jpg',
+}, {
+  title: '在远方 追云者编年史 Yonder The Cloud Catcher Chronicles',
+  url: 'https://s3.ax1x.com/2020/11/24/DN7PgO.jpg',
+}, {
+  title: '战锤 末世鼠疫2 Warhammer Vermintide 2',
+  url: 'https://s3.ax1x.com/2020/11/24/DN7ivD.jpg',
+}, {
+  title: '战国无双 真田丸',
+  url: 'https://s3.ax1x.com/2020/11/24/DN7kKe.jpg',
+}, {
   title: '质量效应2 Mass.Effect.2',
   url: 'https://s3.ax1x.com/2020/11/23/DYcJHg.jpg',
 }, {
