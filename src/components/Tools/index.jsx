@@ -66,6 +66,7 @@ export default function Tools () {
           <a target='_blank' href='https://www.metacritic.com/'>Metacritic - Movie / TV / Game Reviews</a>
           <a target='_blank' href='https://www.nexusmods.com/'>Nexus Mods - 游戏 Mod 社区</a>
           <a target='_blank' href='https://www.2p.com/'>2P - 17173 萤火虫</a>
+          <a target='_blank' href='https://indienova.com/'>独立精神</a>
         </div>
       </div>
     </div>
