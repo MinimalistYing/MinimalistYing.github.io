@@ -47,6 +47,8 @@ export default function Tools () {
           <a target='_blank' href='https://css-tricks.com/'>CSS Tricks</a>
           <a target='_blank' href='https://hacks.mozilla.org/'>Mozilla Hacks</a>
           <a target='_blank' href='https://developers.google.com/web'>Google Developers</a>
+          <a target='_blank' href='https://medium.com/dailyjs'>JavaScript Daily</a>
+          <a target='_blank' href='https://javascriptweekly.com/'>JavaScript Weekly</a>
         </div>
       </div>
       
