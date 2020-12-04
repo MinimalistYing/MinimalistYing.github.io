@@ -45,7 +45,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "iscroll": "^5.2.0",
     "marked": "^0.4.0",
     "natives": "^1.1.6",
