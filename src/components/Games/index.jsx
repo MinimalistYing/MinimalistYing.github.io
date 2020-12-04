@@ -48,6 +48,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '守望先锋 Overwatch',
+  url: 'https://s3.ax1x.com/2020/12/02/Do1DKS.jpg',
+}, {
   title: '最终幻想 15',
   url: 'https://s3.ax1x.com/2020/11/24/DNTi0s.jpg',
 }, {
