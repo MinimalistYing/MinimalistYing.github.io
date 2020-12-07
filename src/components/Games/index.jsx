@@ -38,6 +38,7 @@ function ImageCard ({ image }) {
       }}
       src={image.url}
       alt={image.title}
+      loading="lazy"
       style={{
         width,
         height,
