@@ -89,3 +89,91 @@ ws.readyState !== ws.OPEN
 当碰到点击通讯录组件需要改变右侧信息栏以及会话列表状态时，当碰到几乎所有组件都需要获取当前正在的聊天对象数据时。几乎是下意识的，你就会想到我是不是需要把这些数据放到 Redux 中管理。  
 
 所以，看到这篇文章的同学们，真的，不要为了 Redux 而 Redux。不要觉得好像只有用上了 Redux / RxJS / dva 才显得技术高深，更不要把页面中所有的状态都放到 Redux 中管理。当真的有全局需要的状态 React 自身不能很好的支持时，你会发现的，那个时候再考虑 Redux 也不迟。
+
+## 长列表对页面性能的影响以及优化
+项目一上线发现客服个个都有着几千个好友和群聊，直接导致通讯录列表非常卡顿，可以明显的观察到渲染大量 DOM 节点导致的性能问题。借助 Chrome 的 Performance 评估了一下，页面初始化完全加载完成需要接近 5s。  
+
+首先考虑到的是头像资源的懒加载，一次加载几千张图片很明显会影响性能。这个很简单，如果不考虑兼容性的话直接这样就好了：
+```html
+<img loading="lazy" src="xxx" />
+```
+
+再就是要尽可能的减少页面上的 DOM 节点，这个通常的做法是分页，但是通讯录这种场景明显分页不太合适。所以最终采用的是窗口化技术，推荐使用 [react-window](https://github.com/bvaughn/react-window)，如果不能支持需求的话还可以使用 [react-virtualized](https://github.com/bvaughn/react-virtualized) 。都是相同的作者开发的，前者更为轻量。  
+
+最终成功将页面初始化到加载完成的时间优化到了 1.5s 左右(Ps: 不是用户可以开始操作的时间，而是所有逻辑都运行完的时间)。  
+
+下面截取部分 `react-window` 的源码来简单介绍最基础的窗口化技术实现：
+```jsx
+class List extends React.PureComponent {
+  render () {
+    // ...省略
+
+    // 根据当前滚动区域的 scrollOffset 来判断需要渲染的列表项数据
+    // 例如一个列表共有 10000 条记录，在滚到到一个区域时只需要展示其中第 10-20 条记录
+    // 所以最终只需要渲染这 10 条记录的 DOM 节点
+    const [startIndex, stopIndex] = this._getRangeToRender();
+
+    const items = [];
+    if (itemCount > 0) {
+      for (let index = startIndex; index <= stopIndex; index++) {
+        items.push(
+          createElement(children, {
+            data: itemData,
+            key: itemKey(index, itemData),
+            index,
+            isScrolling: useIsScrolling ? isScrolling : undefined,
+            /*
+              根据当前渲染的是第几项来确定每个列表项的定位样式
+              {
+                position: 'absolute',
+                left: isRtl ? undefined : offsetHorizontal,
+                right: isRtl ? offsetHorizontal : undefined,
+                top: !isHorizontal ? offset : 0,
+                height: !isHorizontal ? size : '100%',
+                width: isHorizontal ? size : '100%',
+              }
+            */
+            style: this._getItemStyle(index),
+          })
+        );
+      }
+    }
+    // ...省略
+
+    return createElement(
+      outerElementType || outerTagName || 'div',
+      {
+        className,
+        onScroll,
+        ref: this._outerRefSetter,
+        /*
+          包裹可滚动区域的样式，宽度高度固定，相对定位
+        */
+        style: {
+          position: 'relative',
+          height,
+          width,
+          overflow: 'auto',
+          WebkitOverflowScrolling: 'touch',
+          willChange: 'transform',
+          direction,
+          ...style,
+        },
+      },
+      createElement(innerElementType || innerTagName || 'div', {
+        children: items,
+        ref: innerRef,
+        /*
+          内部可滚动区域的样式，假设是垂直滚动
+          则 estimatedTotalSize = 每个列表项的高度 * 列表项的数目
+        */
+        style: {
+          height: isHorizontal ? '100%' : estimatedTotalSize,
+          pointerEvents: isScrolling ? 'none' : undefined,
+          width: isHorizontal ? estimatedTotalSize : '100%',
+        },
+      })
+    );
+  }
+}
+```
