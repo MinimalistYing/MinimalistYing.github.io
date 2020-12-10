@@ -36,6 +36,6 @@ app.get('/guess-proxy', function (req, res) {
 http.createServer(app).listen(80)
 
 https.createServer({
-  key: fs.readFileSync('./3294475_minimalistying.com_other/3294475_minimalistying.com.key'),
-  cert: fs.readFileSync('./3294475_minimalistying.com_other/3294475_minimalistying.com.pem')
+  key: fs.readFileSync('./4901826_www.minimalistying.com_other/4901826_www.minimalistying.com.key'),
+  cert: fs.readFileSync('./4901826_www.minimalistying.com_other/4901826_www.minimalistying.com.pem')
 }, app).listen(443)
