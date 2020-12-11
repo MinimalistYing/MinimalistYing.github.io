@@ -236,3 +236,12 @@ Sublime 安装问题以及解决
 * 禁用缩放: `<meta name="viewport" content="user-scalable=no">`
 * 不禁用缩放，更改默认的视口宽度: `<meta name="viewport" content="width=device-width, initial-scale=1">`
 * 直接使用 [FastClick](https://github.com/ftlabs/fastclick)
+
+---
+
+关于此图片来自微信公众平台未经允许不可引用的解决方法。  
+搜了一下发现大多的方案都不正确，推测微信公众平台是依据浏览器请求图片资源时携带的 [Referer](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) 来判断是否为盗链的。  
+所以对于图片资源的最佳解决方案是利用 [Referrer-Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy) 例如：
+```html
+<img referrerPolicy="no-referrer" src="https://mmbiz.qpic.cn/mmbiz_png/9gYq0FHZpd3UzcibfXVwGSZVqUcaibCnJkFroYjTXSr8yKceicCPkm3iaXNNcseSaA7s79H1JZntXoIza7gMVJ1V4Q/640?wx_fmt=png&wxfrom=200" />
+```
