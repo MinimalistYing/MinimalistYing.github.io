@@ -49,6 +49,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '彩虹坠入 IrisFall',
+  url: 'https://s3.ax1x.com/2020/12/12/rV6GRg.jpg',
+}, {
   title: '守望先锋 Overwatch',
   url: 'https://s3.ax1x.com/2020/12/02/Do1DKS.jpg',
 }, {
