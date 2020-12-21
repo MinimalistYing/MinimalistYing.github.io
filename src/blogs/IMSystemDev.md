@@ -177,3 +177,37 @@ class List extends React.PureComponent {
   }
 }
 ```
+
+## Emoji 表情的展示
+😊😢😊😢😊😢😊😢😊😢  
+在 DPR 为 1 的屏幕上，这些 Emoji 表情左右可能会发生重叠。因为默认 Emoji 的表情是通过系统自带的字体进行展示的，当然字体的渲染和图片不同，而且如果部分系统没有字体库的话就无法正常渲染 Emoji。  
+
+所以出于兼容性考虑，我们会发现像 Twitter 等网站还是把 Emoji 对应的编码转为图片再进行的展示。经过一番调研后我最后选择了 [Emoji Mart](https://github.com/missive/emoji-mart) 这个开源库。  
+
+除了 Emoji 选择面版外这个库还提供了工具方法可以帮我们通过编码获取对应的图片展示：
+```js
+import { getEmojiDataFromNative, Emoji } from 'emoji-mart'
+import data from 'emoji-mart/data/all.json'
+
+const emojiData = getEmojiDataFromNative('🏊🏽‍♀️', 'apple', data)
+
+<Emoji
+  emoji={emojiData}
+  set={'apple'}
+  skin={emojiData.skin || 1}
+  size={48}
+/>
+```
+另外一个需要注意的是 Emoji 是通过俩位 Unicode 编码来存储的，所以在遍历时需要留意
+```js
+const str = "😊😢"
+console.log(str.length) // 4
+for (let ch of str) {
+  console.log(ch) // 😊 😢
+}
+
+// 错误的方式！！！
+for (let i = 0; i < str.length; i++) {
+  console.log(str[i]) // � � � �
+}
+```
