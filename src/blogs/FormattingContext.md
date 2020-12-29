@@ -1,5 +1,5 @@
 # Formatting Context
-以前经常听到说 BFC / IFC，但是一直只是知其然不知其所以然，最近忙里偷闲去深入学习了一下相关知识并在此做个整理。  
+以前经常听到说 BFC / IFC，但是一直只是知其然不知其所以然，最近忙里偷闲去学习了一下相关知识并在此做个整理。  
 
 所谓 BFC / IFC 都是属于 Formatting Context 的一种，最新的还有 Flex Formatting Context 以及 Grid Formatting Context。直译过来就是*格式化上下文*，浏览器会依据不同的上下文来排放内部的元素。  
 

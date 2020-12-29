@@ -1,4 +1,4 @@
-# 阅读摘要 - YDKJS Types & Grammar
+# 「YDKJS Types & Grammar」
 
 ## Function
 在 Javascript 中函数其实是一种可被调用的特殊对象，所以函数也可以拥有属性。例如：
