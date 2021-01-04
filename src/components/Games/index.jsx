@@ -49,6 +49,12 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: 'Braveland',
+  url: 'https://s3.ax1x.com/2020/12/31/rjNK0I.jpg',
+}, {
+  title: 'The Vagrant',
+  url: 'https://s3.ax1x.com/2020/12/31/rXfvJe.jpg',
+}, {
   title: '铸时匠',
   url: 'https://s3.ax1x.com/2020/12/26/r4p5FO.jpg',
 }, {

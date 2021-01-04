@@ -5,6 +5,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 const path = require('path')
 const category = require('./src/blogs/category.js')
 
@@ -102,7 +103,15 @@ module.exports = {
 				}
 			
 				return context
-			}
+			},
+			// The actual renderer to use. (Feel free to write your own)
+      // Available renderers: https://github.com/Tribex/prerenderer/tree/master/renderers
+      renderer: new Renderer({
+        // Optional - defaults to 0, no limit.
+        // Routes are rendered asynchronously.
+        // Use this to limit the number of routes rendered in parallel.
+        maxConcurrentRoutes: 2,
+      })
     })
 	],
 	optimization: {
