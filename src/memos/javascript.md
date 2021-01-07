@@ -62,20 +62,6 @@ JSON.stringify(value[, replacer[, space]])
 
 ---
 
-Javascript中的原型是一种动态关系，改变原型的属性会立即对所有该原型链下的对象可见
-```js
-var a = {}
-// a.test => undefined
-Object.prototype.test = 'Hello'
-// a.test => Hello
-```
-
----
-
-可以使用Object的 `hasOwnProperty()` 方法来检测一个属性是该对象独有还是由原型链继承而来
-
----
-
 Javascript中的Array其实是一种类数组的对象，效率比真正的数组要低，所以会有如下一些奇怪的行为
 ```js
 var arr = [1,2,3]
@@ -88,11 +74,6 @@ arr[10] = 10
 arr.length = 1
 // arr => [1]
 ```
-
----
-
-在Javascript中尝试去获取对象的某个属性值时，如果该对象没有该属性  
-则会继续在其原型链上查找直至 `Object.prototype` ,如果都没有找到才会返回 `undefined`
 
 ---
 
@@ -131,11 +112,6 @@ console.info(b);
 Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时精度无法精确至个位  
 会出现 `Math.pow(2, 53) + 1 === Math.pow(2, 53)` 的情况  
 关于其它数字过大时存在的问题可见[这篇Blog](http://www.plqblog.com/views/article.php?id=29)
-
----
-
-小技巧，可以通过俩次取反运算来将 `string` 形式的整数转为(效率比 parseInt 等高) `number`   
-类似 `~~'123'// 123` ,Ps: 处理数字的上限是 `Math.pow(2,31) - 1` 对超出该值的数字无法正确转化
 
 ---
 
@@ -779,7 +755,7 @@ if (value === 'a' || value === 'b' || value === 'c')
 ```
 如果都是字符串的话，可以运用正则使得比较更加优雅
 ```js
-if (/^a|b|c$/.test(value))
+if (/^a$|^b$|^c$/.test(value))
 ```
 如果是变量，可以运用数组来比较
 ```js
@@ -813,7 +789,3 @@ const arr = [1, 2, 3]
 arr.forEach(num => num = 0)
 console.log(arr) // [0, 0 ,0]
 ```
-
----
-
-Fetch API 目前为止还不提供对请求超时的相关设置，如果有需要的话可能得自己实现

@@ -1,46 +1,3 @@
-为了使
-```css
-display: inline-block
-```
-在IE8中起作用，必须在文档开头加上
-```html
-<!DOCTYPE html>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-```
-
----
-
-IE8 中的伪元素只支持类似 `:after` 的写法，不支持 `::after` 的写法
-
----
-
-IE8 切换为兼容性视图模式时会将原 User-Agent 中包含的 `MSIE8.0` 转变为 `MSIE7.0`  
-所以在通过 UA 来判断 IE 版本时尤其要注意
-
----
-
-可以通过
-```css
-filter: Alpha(opacity = ?)
-```
-来在 IE7-8 中兼容 CSS3 的 `opacity` 属性
-
----
-
-在 IE8 下如果在 `table-layout: auto` 的表格中为单元格设置
-```css
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-```
-想实现单元格内文字过长时出现...并截断多余内容会发现无效，反而表格会被内容撑宽，破坏原有布局。
-要想实现这种效果，只能将表格设为 
-```css
-table-layout: fixed
-```
-
----
-
 Edge / IE11 / Safari 好像会试图去识别页面上的数字是否像电话号码  
 如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)  
 想禁用这一特性可在 `<head>` 中加上
@@ -58,22 +15,6 @@ Edge / IE11 / Safari 好像会试图去识别页面上的数字是否像电话�
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 ```
 详情参看[这个回答](https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do)
-
----
-
-通过 ES5shim 和 Babel 使用新特性 Class 时如果类并没有继承却在 `contructor()` 中调用了 `super()`
-会导致在 IE8 下报错 Stackoverflow。谨记如果没有继承关系则不应该调用 `super()` 方法
-
----
-
-IE8下可采用
-```css
-filter:
-progid:DXImageTransform
-.Microsoft
-.gradient(startColorstr=xxx,endColorstr=xxx);
-```
-来兼容 `rgba()`
 
 ---
 
@@ -157,11 +98,3 @@ function getPath(e) {
 }
 ```
 去获取这个事件从触发事件的 Dom 节点开始到 Window 的 Dom 路径
-
----
-
-HTML 中的类名 / ID等都建议以字母开头  
-虽然有少部分浏览器兼容数字或下划线开头  
-但还是有不少浏览器不支持以数字或下划线开头的CSS选择器  
-并且通过 `document.querySelector()` 查找节点时  
-部分浏览器会报错 `Failed to execute 'querySelector' on 'Document': xxx is not a valid selector.`

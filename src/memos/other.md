@@ -1,8 +1,3 @@
-在自测与后台有交互，会发送请求的地方时一定要注意在Chrome的Network中观察发送请求的URL、参数等是否符合预期，
-同时也要注意考虑请求返回失败或返回空结果时页面UI的展示
-
----
-
 关于采集站点的PV、UV数据，传统的做法是当页面load完成后像后台发送数据，
 当作一次PV但在SPA(Single Page App)以及PWA(Progressive Web App)的情景下，这样的断定方式显得不那么合理，
 用户有可能一天中只Load一次页面然后在一天的任意时间段在这个应用中活动
@@ -47,11 +42,6 @@ HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存
 
 ---
 
-当页面的UI需要在后台数据返回后进行刷新时，一定要考虑到网络极差的情况下，请求会延迟很久后返回。
-这期间UI要怎样展示，或者用户能否进行操作，会不会有遗留的表单数据等等。
-
----
-
 关于HTML中的相对路径 `./` 是文档相对路径，也就是当前访问页面的路径 `/` 是基于站点根目录的相对路径，
 举例说明访问网址http://0.0.0.0/1/2/son.html
 * ./test.js => http://0.0.0.0/1/2/test.js
@@ -69,11 +59,6 @@ HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存
 ---
 
 匹配中文字符（简繁体都包含）的正则 `/^[\u4e00-\u9fa5]+$/` 暂时无法确认其是否完全正确
-
----
-
-npm安装node-sass报错 `%1 is not a valid Win32 application` 看了看报错信息大概是说什么东西下载失败导致的，
-切换成淘宝镜像用cnmp安装就好了 `npm install -g cnpm --registry=https://registry.npm.taobao.org`
 
 ---
 
@@ -179,21 +164,6 @@ HTML5 新引入了 `defer` 以及 `async` 来优化这个过程
 
 ---
 
-Sublime 安装问题以及解决
-### There are no packages available for install  
-修改 Package Control 设置，增加
-```
-"channels":
-    [
-        "http://cst.stu.126.net/u/json/cms/channel_v3.json"
-    ]
-```
-
-### 无法安装 Package Control 
-下载 Package Control.sublime-package 放入 Sublime Installed Package 目录下
-
----
-
 可以通过
 ```html
 <noscript>
@@ -204,20 +174,8 @@ Sublime 安装问题以及解决
 
 ---
 
-可以使用 `<pre>` 来展示代码 / JSON 等内容  
-因为该标签内等空格换行会被完整保留
-
----
-
 全角空格占位符 `&emsp;` 可以完美的用作一个中文字符大小的空白  
 不受字体大小变动影响
-
----
-
-关于 NPM 的 `dependencies` `devDependencies` `peerDependencies`  
-项目实际依赖的包通常是 `dependencies` 通过 `npm i package --save-prod` 或者默认的 `npm i package` 安装的包会被列在该目录下  
-仅在开发过程中被使用的依赖是 `devDependencies` 通过 `npm i package --save-dev` 会被列在该目录下，类似 `babel` `sass` `webpack` 等通常属于这一类  
-最后 `peerDependencies` 通常会在开发一些插件包的时候被使用。例如开发一个 React 的 UI 组件，如果其他开发者想要使用的话必须确保在他的本地环境中已经安装好了使用该 UI 组件的 `peerDependencies` 例如特定版本的 `react` 。这样做的好处是可以尽可能的减少不必要的依赖被安装。
 
 ---
 
