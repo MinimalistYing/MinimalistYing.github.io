@@ -13,10 +13,6 @@ overflow: hidden;
 
 ---
 
-`::selection`可用于改变文字选中时的字体颜色和背景色，IE9及以上和现代浏览器兼容
-
----
-
 想实现鼠标悬浮在一个父元素上能触发其子元素在 `:hover` 下的样式，
 之前的思路是通过借助jQuery `$(parent).hover(() => $(son).hover())`来实现，
 今天突然发现原来的方法太复杂，其实只需要几行CSS即可实现想要的效果，类似 
@@ -129,12 +125,6 @@ Ps:知乎在内容收起时的渐变透明文字遮罩的实现方式
 -webkit-mask-image: linear-gradient(#1a1a1a calc(100% - 8rem),transparent calc(100% - 2.8rem));
 -webkit-mask-size: 100% 100%;
 ```
-
----
-
-在Less 1.x和2.x的版本中会默认的对calc中的数值进行计算，从而导致一些意外的结果，例如  
-`height: calc(100vh - 20px)`经less编译后的结果是80vh，很明显与我们想要的不符  
-为了避免这个问题需要采用`height: calc(~"100vh - 20px")`这样的写法(Ps: Less 3.x版本已修复这个问题)
 
 ---
 

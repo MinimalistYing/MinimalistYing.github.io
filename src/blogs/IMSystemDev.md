@@ -10,14 +10,14 @@
 
 第一步，我们需要找到对应的表情资源以及存储对应关系的 Map，资源可以在 CSDN 上找到，然后我是通过如下数据结构存储的对应关系：
 ```js
-const EMOJI = [
-  ['100.gif', '[微笑]'],
-  ['101.gif', '[伤心]'],
+const EMOJI = new Map([
+  ['[微笑]', '100.gif'],
+  ['[伤心]', '101.gif'],
   // ...
-]  
+])
 ```
 
-第二步，对消息进行转译后显示，首先想到的是把消息中的 `[**]` 转为对应的 `<img src={xxxx} />` 然后通过 `dangerouslySetInnerHTML` 把消息直接展示。因为我们需要 `<img/>` 标签来显示图片，但显然这会导致安全问题。  
+第二步，对消息进行转译后显示，首先想到的是把消息中的 `[**]` 转为对应的 `<img src={xxxx} />` 然后通过 `dangerouslySetInnerHTML` 把消息直接展示。因为我们需要 `<img/>` 标签来显示图片，但显然这会带来安全性上的问题。  
 
 最终解决方案如下：
 ```jsx
@@ -25,7 +25,7 @@ function contentToHTML(content: string) {
   // 利用了 String.prototype.split 会把正则中捕获型分组的值也放入结果数组中的特性
   return content.split(/(\[[^\]]+\])/).map((item: string) => {
     if (/(\[[^\]]+\])/.test(item)) {
-      const emoji = EMOJI.find(emoji => emoji[1] === item);
+      const emoji = EMOJI.get(item);
       return emoji ? <img src={emoji[0]} /> : item;
     }
     return item;
@@ -52,7 +52,7 @@ Sec-WebSocket-Version: 13
 ```
 来实现一个协议升级过程。当实现了 WebSocket 的服务器接收到该请求时就会将连接升级，然后连接就成功建立了。  
 
-在前端连接一个 WebSocket 个人感觉比发起一个正常 AJAX 请求还简单：
+在前端建立一个 WebSocket 链接个人感觉比发起 AJAX 请求要简单：
 ```js
 // 与 https 相对应的 WebSocket 也有 wss
 const ws = new WebSocket('ws://xxx.com/api')
@@ -75,12 +75,12 @@ ws.close()
 // 可以用于判断当前等连接状态
 ws.readyState !== ws.OPEN
 ```
-需要注意的是如果长时间没有收发消息浏览器或者服务器好像会把连接自动断开，所以首先我们需要每间隔一段时间主动向服务端发送一条心跳消息来保证连接不关闭。另外考虑到断网等意外情况，需要实现自动重连机制，这样才能让用户对意外的掉线无感知。  
+需要注意的是如果长时间没有收发消息浏览器或者服务器好像会把连接自动断开，所以首先我们需要每间隔一段时间主动向服务端发送一条心跳消息来保证连接不关闭。另外考虑到断网等意外情况，还需要实现自动重连机制，这样才能让用户对意外的掉线无感知。  
 
 ## 关于 Redux 的一点思考
-做了那么多的中后台系统前端，一直都没有想明白 Redux 的意义在哪。看那些把全部状态都放在 Redux 中管理的项目真是让人头大。发自内心的讲，我觉得这么做就是跟自己过不去，碰到过无数 Bug 都是因为全局状态没有及时清除或者被不小心改变引起的。再算上引入 Redux 后需要多写的 Boilerplate ，这么做的同学们估计真的是嫌自己加班加少了。  
+做了那么多的中后台系统前端，一直都没有想明白 Redux 的意义在哪。看着那些把整个应用的状态都放在 Redux 中管理的项目真是让人头大。发自内心的讲，我觉得这么做就是跟自己过不去，碰到过无数 Bug 都是因为全局状态没有及时清除或者被不小心改变引起的。再算上引入 Redux 后需要多写的 Boilerplate ，这么做的同学们估计真的是嫌自己加班加少了。  
 
-这次上手做 IM 系统的前端开发，让我突然明白了 Redux 文档里所说的
+这次上手做 IM 系统的前端开发，让我彻底领悟了 Redux 文档里所说的
 > You'll know when you need Flux. If you aren't sure if you need it, you don't need it.
 
 以及 Dan Abramov 说的
@@ -88,21 +88,21 @@ ws.readyState !== ws.OPEN
 
 当碰到点击通讯录组件需要改变右侧信息栏以及会话列表状态时，当碰到几乎所有组件都需要获取当前正在的聊天对象数据时。几乎是下意识的，你就会想到我是不是需要把这些数据放到 Redux 中管理。  
 
-所以，看到这篇文章的同学们，真的，不要为了 Redux 而 Redux。不要觉得好像只有用上了 Redux / RxJS / dva 才显得技术高深，更不要把页面中所有的状态都放到 Redux 中管理。当真的有全局需要的状态 React 自身不能很好的支持时，你会发现的，那个时候再考虑 Redux 也不迟。
+所以，看到这篇文章的同学们，真的，不要为了 Redux 而 Redux。不要觉得好像只有用上了 Redux / RxJS / dva 才显得技术高深，更不要把页面中所有的状态都放到 Redux 中管理。当真的有全局需要的状态而 React 自身不能很好的支持时，你会发现的，那个时候再考虑 Redux 也不迟。
 
 ## 长列表对页面性能的影响以及优化
 项目一上线发现客服个个都有着几千个好友和群聊，直接导致通讯录列表非常卡顿，可以明显的观察到渲染大量 DOM 节点导致的性能问题。借助 Chrome 的 Performance 评估了一下，页面初始化完全加载完成需要接近 5s。  
 
-首先考虑到的是头像资源的懒加载，一次加载几千张图片很明显会影响性能。这个很简单，如果不考虑兼容性的话直接这样就好了：
+首先考虑到的是头像资源的懒加载，一次请求几千张图片很明显会占满网络带宽。解决方法很简单，如果不考虑兼容性的话直接这样就好了：
 ```html
 <img loading="lazy" src="xxx" />
 ```
 
-再就是要尽可能的减少页面上的 DOM 节点，这个通常的做法是分页，但是通讯录这种场景明显分页不太合适。所以最终采用的是窗口化技术，推荐使用 [react-window](https://github.com/bvaughn/react-window)，如果不能支持需求的话还可以使用 [react-virtualized](https://github.com/bvaughn/react-virtualized) 。都是相同的作者开发的，前者更为轻量。  
+再就是要尽可能的减少页面上的 DOM 节点，这个通常的做法是分页，但是通讯录这种场景分页显得不太合适。所以最终采用的是窗口化技术，推荐使用 [react-window](https://github.com/bvaughn/react-window)，如果不能完全支持需求的话还可以使用 [react-virtualized](https://github.com/bvaughn/react-virtualized) 。都是相同的作者开发的，前者更为轻量。  
 
 最终成功将页面初始化到加载完成的时间优化到了 1.5s 左右(Ps: 不是用户可以开始操作的时间，而是所有逻辑都运行完的时间)。  
 
-下面截取部分 `react-window` 的源码来简单介绍最基础的窗口化技术实现：
+下面截取部分 `react-window` 的源码来简单介绍下最基础的窗口化技术实现：
 ```jsx
 class List extends React.PureComponent {
   render () {

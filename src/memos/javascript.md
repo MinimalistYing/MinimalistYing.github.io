@@ -27,11 +27,6 @@ parseInt('0x16', 10) === 0
 
 ---
 
-判断点击是否在某个DOM外部发生的思路，判断 `event.srcElement(IE) || event.target(FF)`  
-是否是这个DOM节点本身或者是其子元素,这里要注意在内部元素有特殊定位的情况下可能这个思路会有问题
-
----
-
 Javascript中字符串替换API
 ```js
 const replacement = (match, $1, $2, offset, string) =>{}
@@ -85,10 +80,6 @@ String.prototype.split([separator[, limit]])
 // 'a,b'.split(/(,)/) => ['a', ',', 'b']
 'abc'.split('').reverse().join('') // 字符串倒序
 ```
-
----
-
-Javascript的变量名允许使用Unicode字符集中的所有字母和数字，所以类似 `var 变量 = 1` 也是合法的
 
 ---
 

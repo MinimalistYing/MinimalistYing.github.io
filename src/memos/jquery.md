@@ -36,10 +36,6 @@ $('<div>', {'class': 'a'}) // 生成一个标签并包装成jQuery对象
 
 ---
 
-使用 `$(dom).html('...')` 时需注意防范脚本注入攻击，如果传入的字符串中包含可由用户填写的字段需要先进行转义，更好的办法是尽量使用 `$(dom).text('...')`
-
----
-
 jQuery部分版本(1.10.X 1.8.X 可能还有其它)存在一个很奇怪的Bug，
 在HTML标签中使用nodeName作为ID(或者input的name)会导致页面报错 `a.nodeName.toLowerCase is not a function` 
 使用nodeType作为ID会导致$(window)发生变化并且绑定在上面的resize事件会失效。

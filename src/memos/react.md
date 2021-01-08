@@ -28,11 +28,6 @@ PureComponent只会对属性进行浅比较，当属性的数据结构复杂，�
 
 ---
 
-使用React-Router(3.x版本 其它版本估计也一样)，如果在 `<Router history={xxx}>` 上不配置 `history`
-会报错 `Uncaught TypeError: Cannot read property 'getCurrentLocation' of undefined` 所以这个属性是SPA必配？
-
----
-
 关于React-Router中 `browserHisory` 和 `hashHistory` 的区别，
 前者的URL类似 `xx/xx` 后者是 `/#/xx` 由于HTTP协议的约定，URL中 `#` 后作为片段(frag)不会随请求发送至后台，
 所以不需要服务器进行特殊配置，而前者是借助浏览器下的 `history` API实现，
