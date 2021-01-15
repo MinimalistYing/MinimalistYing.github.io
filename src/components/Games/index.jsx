@@ -49,6 +49,12 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: 'Apex 英雄',
+  url: 'https://s3.ax1x.com/2021/01/11/sGCW0x.jpg',
+}, {
+  title: '极限竞速 地平线3',
+  url: 'https://s3.ax1x.com/2021/01/10/s1nzPP.jpg',
+}, {
   title: 'Braveland',
   url: 'https://s3.ax1x.com/2020/12/31/rjNK0I.jpg',
 }, {

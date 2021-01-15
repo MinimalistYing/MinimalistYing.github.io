@@ -90,6 +90,15 @@ const arr = [1, 2, 3]
 arr[Symbol.iterator] // native function
 const it = arr[Symbol.iterator]() // 获得数组的 Iterator
 ```
+
+以及 `Symbol.toStringTag`:
+```js
+const test = {
+  [Symbol.toStringTag]: 'TestClass'
+}
+Object.prototype.toString.call(test) // "[object TestClass]"
+```
+
 值得一提的是这些内部的 `Symbol` 并不是像自定义的那样注册到全局库中，而是作为 `Symbol` 构造函数的静态属性存在。
 
 

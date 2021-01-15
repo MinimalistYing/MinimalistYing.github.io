@@ -231,20 +231,6 @@ div {
 
 `z-index` 属性只有设置在定位元素也就是 `position` 不是 `static` 的元素上才会生效
 
----
-
-可以通过 `attr()` 来在样式中获取到 Dom 上的属性，例如  
-```css
-/*
-<p data-foo="hello">world</p>
-含有 data-foo 属性的 dom 元素会在之前显示一个与其属性值相同的伪元素
-*/
-[data-foo]::before {
-  content: attr(data-foo) " ";
-}
-```
-Ps: 这个函数的兼容性好像欠佳，建议谨慎使用
-
 --- 
 
 关于清除浮动的各种方法以及其适用场景  

@@ -33,15 +33,6 @@ HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存
 
 ---
 
-```html
-<meta http-equiv="Content-Type"
-	content="text/html; charset=utf-8">
-<meta charset="utf-8">
-```
-在HTML中俩者都可用来表明页面所采用的字符集，各浏览器的兼容性良好，但后者更短建议采用后者
-
----
-
 关于HTML中的相对路径 `./` 是文档相对路径，也就是当前访问页面的路径 `/` 是基于站点根目录的相对路径，
 举例说明访问网址http://0.0.0.0/1/2/son.html
 * ./test.js => http://0.0.0.0/1/2/test.js
@@ -75,15 +66,6 @@ HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存
 * `src='../xx.js'` 相对与当前页面的上级路径，
 * `src='/xx.js'` 相对于根目录路径，
 * `src='http//:xx.com/xx.js'` 绝对路径
-
----
-
-避免浏览器缓存HTML页面可以在head中加上标签
-```html
-<meta http-equiv='Cache-Control' content='no-store'>
-```
-通常会采用 `no-cache` 的策略，只有在服务器的资源发生变化时才去再重新拉取，否则返回304采用缓存的资源
-Ps: 这种方式好像不可靠，不能保证浏览器一定会按照这个规则来执行，最好还是去配置提供静态资源的服务端容器
 
 ---
 

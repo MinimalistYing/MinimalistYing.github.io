@@ -1,4 +1,5 @@
 module.exports = [
+	'Winter2',
 	'ChineseCharacteristics',
 	'MixedContent',
 	'IMSystemdev',

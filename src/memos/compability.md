@@ -1,23 +1,3 @@
-Edge / IE11 / Safari 好像会试图去识别页面上的数字是否像电话号码  
-如果像的话会在这些数字下加一个下划线，并使其可点击打开Skype之类的应用拨号(有些邮箱以及地址也同理)  
-想禁用这一特性可在 `<head>` 中加上
-```html
-<meta
-	name="format-detection"
-	content="telephone=no,email=no,address=no"
->
-```
-
----
-
-关于
-```html
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-```
-详情参看[这个回答](https://stackoverflow.com/questions/6771258/what-does-meta-http-equiv-x-ua-compatible-content-ie-edge-do)
-
----
-
 Andriod 中调用 WebView 来访问 H5 页面时 HTML5 的 DOMStorage 也就是  
 `localStorage|sessionStorage` 默认是关闭的  
 需要通过 `settings.setDomStorageEnabled(true)` 来开启  

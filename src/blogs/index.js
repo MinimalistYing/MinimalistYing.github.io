@@ -51,10 +51,12 @@ import Dependencies from '@blog/Dependencies.md'
 import IMSystemdev from '@blog/IMSystemdev.md'
 import MixedContent from '@blog/MixedContent.md'
 import ChineseCharacteristics from '@blog/ChineseCharacteristics.md'
+import Winter2 from '@blog/Winter2.md'
 
 import cat from './category'
 
 const blogs = {
+	Winter2,
 	ChineseCharacteristics,
 	MixedContent,
 	IMSystemdev,
