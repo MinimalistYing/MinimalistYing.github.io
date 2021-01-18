@@ -92,7 +92,14 @@ module.exports = {
 		new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
 		new PrerenderSPAPlugin({
       // Required - The path to the webpack-outputted app to prerender.
-      staticDir: path.join(__dirname, 'dist'),
+			staticDir: path.join(__dirname, 'dist'),
+			minify: {
+        collapseBooleanAttributes: true,
+        collapseWhitespace: true,
+        decodeEntities: true,
+        keepClosingSlash: true,
+        sortAttributes: true
+      },
       // Required - Routes to render.
 			routes: [ '/index.html', '/memo.html', '/messagedemo.html', '/tools.html', '/games.html' ].concat(category.map(item => `/${item}.html`)),
 			postProcess(context) {
@@ -110,7 +117,7 @@ module.exports = {
         // Optional - defaults to 0, no limit.
         // Routes are rendered asynchronously.
         // Use this to limit the number of routes rendered in parallel.
-        maxConcurrentRoutes: 2,
+        maxConcurrentRoutes: 1,
       })
     })
 	],
