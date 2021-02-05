@@ -153,7 +153,7 @@ Ps:（由于 SessionStorage 是基于浏览器窗口存储，所以只有当使�
 
 
 ### WebStorage 的优势
-* 每个域下允许存储超过 5MB 的数据（各个浏览器有所不同）
+* 每个域下允许存储超过 5Mb 的数据（各个浏览器有所不同 Ps: Chrome 目前最多能存储 5Mb 数据）
 * 更友好的 API
 
 ## WebStroge 可不可以完全替代 Cookies ?

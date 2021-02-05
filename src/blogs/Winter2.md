@@ -77,3 +77,43 @@ img {
   <body></body>
 </html>
 ```
+
+## Link
+`<link>` 标签除了用于最常见的加载样式表外还有很多其它用途：
+```html
+<!-- 当我们将多个 URL 定位到同样的页面时，可以通过这种方式告诉搜索引擎，避免搜索引擎重复收录内容 -->
+<link rel="canonical" href="...">
+
+<!-- 页面提供 RSS 订阅 -->
+<link rel="alternate" type="application/rss+xml" title="RSS" href="...">
+
+<!-- 浏览器 Tab 上显示的页面小图标 -->
+<link rel="shortcut icon" href="..." type="image/x-icon">
+
+<!-- ios 设备 safari 将网页添加到主屏幕时使用的图标 -->
+<link rel="apple-touch-icon" href="..." sizes="...">
+
+<!-- 提前对域名进行 DNS 解析，性能优化用，href 里填的只能是域名 -->
+<link rel="dns-prefetch" href="//xxx.com">
+
+<!-- 提前与服务器建立 TCP 连接，性能优化用 -->
+<link rel="preconnect" href="//xxx.com">
+
+<!-- 提前请求资源，性能优化用 -->
+<link rel="prefetch" as="script" href="...">
+<!-- 提前请求资源并加载，性能优化用 -->
+<link rel="preload" as="script" crossorigin="anonymous" href="...">
+<!-- 提前请求资源并加载渲染，性能优化用 -->
+<link rel="prerender" href="...">
+```
+
+## 如何点击一图片上不同区域跳转至不同链接？
+可借助 `<area>` 和 `<map>` 标签实现，支持 circle / rect / poly 三种形状，例如：
+```html
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/area -->
+<map name="primary">
+  <area shape="circle" coords="75,75,75" href="left.html" alt="Click to go Left">
+  <area shape="circle" coords="275,75,75" href="right.html" alt="Click to go Right">
+</map>
+<img usemap="#primary" src="http://placehold.it/350x150" alt="350 x 150 pic">
+```

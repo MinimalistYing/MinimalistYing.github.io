@@ -49,6 +49,12 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '死亡搁浅 Death Stranding',
+  url: 'https://s3.ax1x.com/2021/01/23/s7zGO1.jpg',
+}, {
+  title: '糖豆人 终极淘汰赛',
+  url: 'https://s3.ax1x.com/2021/01/23/s7z8yR.jpg',
+}, {
   title: 'Apex 英雄',
   url: 'https://s3.ax1x.com/2021/01/11/sGCW0x.jpg',
 }, {

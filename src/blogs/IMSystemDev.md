@@ -211,3 +211,27 @@ for (let i = 0; i < str.length; i++) {
   console.log(str[i]) // � � � �
 }
 ```
+
+## 如何判断用户是否停留在当前页面
+```js
+document.visibilityState === 'visible'
+```
+
+## 收到新消息时给出通知提示
+```js
+const n = new Notification(
+  '标题',
+  {
+    body: '内容',
+  }
+)
+
+// 点击通知切回当前页签
+n.onclick = () => {
+  window.focus()
+  n.close()
+}
+
+// 延时关闭通知
+setTimeout(() => n.close(), 7000)
+```
