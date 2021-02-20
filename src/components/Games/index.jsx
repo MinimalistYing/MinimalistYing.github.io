@@ -49,6 +49,12 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '剑灵',
+  url: 'https://s3.ax1x.com/2021/02/19/y4pUhV.jpg',
+}, {
+  title: '梦塔防',
+  url: 'https://s3.ax1x.com/2021/02/01/yeRJDf.jpg',
+}, {
   title: '死亡搁浅 Death Stranding',
   url: 'https://s3.ax1x.com/2021/01/23/s7zGO1.jpg',
 }, {
