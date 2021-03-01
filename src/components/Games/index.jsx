@@ -49,6 +49,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '巫师2',
+  url: 'https://s3.ax1x.com/2021/02/28/6C6BSx.jpg',
+}, {
   title: '剑灵',
   url: 'https://s3.ax1x.com/2021/02/19/y4pUhV.jpg',
 }, {
