@@ -240,3 +240,33 @@ setTimeout(() => n.close(), 7000)
 参考微信、钉钉等目前主流的聊天软件实现，需要留意以下几点：
 * 当前窗口停留在最底部时（可以设置一定的偏移量）则认为用户正在浏览最新的消息，所以这个时候每当有新消息来则自动滚动到最底部，以便用户在聊天时不用滚动屏幕即可看到最新的消息。
 * 当窗口滚动到离底部有一定的距离时则认为用户正在浏览历史聊天记录，这个时候来新消息如果还自动滚动到底部会干扰用户浏览历史聊天记录的行为。所以通常的做法时在一侧弹出新消息来了的提示，用户点击后即可滚动至最新消息处。Ps: 如果此时用户手动滚动至最底部，也要记得清除该提示
+  
+## 如何复制页面中的图片到剪贴板
+Ps: 只测试了最新版的 Chrome，不保证所有浏览器可用
+```js
+/**
+ * 复制图片到剪贴板
+ * 
+ * @param img 页面上的 <img> 节点 Ps: 如果图片资源跨域需要设置属性 crossOrigin 为 anonymous
+ */
+function copyImageToClipboard(img) {
+  // 新建一个 Canvas 并将页面上的图片绘制到画布上
+  const canvas = document.createElement('canvas');
+  canvas.width = img.width;
+  canvas.height = img.height;
+  canvas.getContext('2d').drawImage(img, 0, 0, img.width, img.height);
+
+  // 将画布上的图像转为 blob
+  canvas.toBlob((blob) => {
+    // 参考: https://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write
+    const data = [new ClipboardItem({ [blob.type]: blob })];
+
+    // 将数据写入剪贴板
+    navigator.clipboard.write(data).then(() => {
+      // 成功
+    }, () => {
+      // 失败
+    });
+  });
+}
+```

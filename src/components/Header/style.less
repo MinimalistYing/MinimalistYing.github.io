@@ -50,8 +50,15 @@ header {
         & > li {
             transition: all .5s ease-in-out;
     
-            &:hover {
-                background:@tiffany;
+            &:hover,&.active {
+                background: @tiffany;
+
+                > a.active {
+                    color: #fff;
+                }
+                > a {
+                    color: #fff;
+                }
             }
 
             & > a {

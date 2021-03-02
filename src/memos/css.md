@@ -40,12 +40,6 @@ display : inline-block
 
 ---
 
-当一个 `position: absolute` 的绝对定位元素的父元素的 `overflow` 值被设为非 `visible` 时，
-会出现该定位元素超出父元素的部分会被遮盖掉无法显示的情况，
-暂时对这种问题的解决方式只知道将父元素改为 `overflow: visible` 或者尽量保证定位元素不会超出父元素的边界
-
----
-
 当一个元素被设为 `display: flex` 时，它会被当作一个Flex Container，
 而它的所有子元素都会被当作Flex Item，并且这时候在其子元素上设置 `float | clear | vertical-align` 
 的值都是无效的

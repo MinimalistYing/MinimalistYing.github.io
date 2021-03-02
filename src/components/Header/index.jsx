@@ -21,21 +21,22 @@ const codesandbox = <svg style={iconStyle} viewBox="0 0 1024 1024" version="1.1"
 
 class Header extends React.Component {
 	render() {
+		const href = window.location.href;
 		return (
 			<header>
 			    <h3 className="header-title" onClick={() => this.props.history.push('/')}>MinimalistYing.io</h3>
 			    <nav>
 			        <ul>
-			            <li>
+			            <li className={href.endsWith('index.html') || !href.endsWith('html') ? 'active' : ''}>
 			            	<NavLink to="/index.html" exact>文章</NavLink>
 			            </li>
-			            <li>
+			            <li className={href.endsWith('memo.html') ? 'active' : ''}>
 			            	<NavLink to="/memo.html" exact>备忘</NavLink>
 			           	</li>
-									<li>
+									<li className={href.endsWith('tools.html') ? 'active' : ''}>
 			            	<NavLink to="/tools.html" exact>收藏</NavLink>
 			           	</li>
-									<li>
+									<li className={href.endsWith('games.html') ? 'active' : ''}>
 			            	<NavLink to="/games.html" exact>玩世</NavLink>
 			           	</li>
 									<li className='mine'>

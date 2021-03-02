@@ -62,7 +62,7 @@ class Button extends React.Component {
 	}
 	
 	render () {
-		return <button onClick="this.handleClick"></button>
+		return <button onClick={this.handleClick}></button>
 	}
 }
 ```
@@ -75,18 +75,12 @@ class Button extends React.Component {
 		// 借助 Function.prototype.bind
 		this.handleClick = this.handleClick.bind(this)
 	}
+
 	handleClick() {
 		console.log(this)
 	}
-	
-	render() {
-		return <button onClick={this.handleClick}></button>
-	}
-}
-```
-```js
-class Button extends React.Component {
-	// 使用 public class fields syntax 来声明函数
+
+	// 或者使用 public class fields syntax 来声明函数
 	handleClick = () => {
 		console.log(this)
 	}
@@ -94,14 +88,7 @@ class Button extends React.Component {
 	render() {
 		return <button onClick={this.handleClick}></button>
 	}
-}
-```
-```js
-class Button extends React.Component {
-	handleClick() {
-		console.log(this)
-	}
-	
+
 	// 借助箭头函数
 	// 这种方式的缺点是每次 Button 组件的重绘都需要生成一个新函数
 	// 当这个函数被当作 props 传入子组件时 可能会导致不必要的重绘
@@ -112,7 +99,8 @@ class Button extends React.Component {
 		return <button onClick={e => this.handleClick(e)}></button>
 	}
 }
-
+```
+```js
 class Alphabet extends React.Component {
 	state = {
 		num: null

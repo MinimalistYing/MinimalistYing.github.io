@@ -755,15 +755,6 @@ if ([foo, bar, zoo].includes(value))
 
 ---
 
-要注意 `Array.prototype.reverse` 会将原数组的元素的排序反转，而不是像大多的数据方法那样不改变原数组返回新数组。  
-```js
-const arr = [1, 2, 3]
-arr.reverse()
-console.log(arr) // => [3, 2, 1]
-```
-
----
-
 在试图通过数组的 `forEach` `map` 等方法对数组内部存储对值进行修改时需要注意
 ```js
 const a = {val: 1}
