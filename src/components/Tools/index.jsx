@@ -49,6 +49,7 @@ export default function Tools () {
           <a target='_blank' href='https://developers.google.com/web'>Google Developers</a>
           <a target='_blank' href='https://medium.com/dailyjs'>JavaScript Daily</a>
           <a target='_blank' href='https://javascriptweekly.com/'>JavaScript Weekly</a>
+          <a target='_blank' href='https://tympanus.net/codrops/'>Codrops</a>
         </div>
       </div>
       
@@ -69,6 +70,7 @@ export default function Tools () {
           <a target='_blank' href='https://www.nexusmods.com/'>Nexus Mods - 游戏 Mod 社区</a>
           <a target='_blank' href='https://www.2p.com/'>2P - 17173 萤火虫</a>
           <a target='_blank' href='https://indienova.com/'>独立精神</a>
+          <a target='_blank' href='https://www.qimai.cn/'>七麦数据</a>
         </div>
       </div>
     </div>

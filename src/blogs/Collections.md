@@ -1,7 +1,7 @@
 # New Collections In ES6
 
 ## Map
-以往当我们需要一种键/值对形式的数据结构时通常使用的是原生的 `Object`
+以往当我们需要一种键/值对形式的数据结构时通常使用的是原生的 `Object`。
 ```js
 // 这里不直接通过 const o = {} 来创建对象是为了避免从原型上继承不必要的属性
 const o = Object.create(null)
@@ -19,9 +19,9 @@ map[y] = 2
 // 因为x.toString() === '[object Object]'
 console.log(map) // {[object Object]: 2}
 ```
-可以看到这种方法其实有很多缺陷，稍后我们再具体分析    
-ES6 提供了对 Map 的原生支持，它可以将任何数据类型（Function / Object / Primitive Type）作为 Key  
-下面我们首先来看一下一些基本的使用
+可以看到这种方法其实有很多缺陷，稍后我们再具体分析。  
+    
+ES6 提供了对 Map 的原生支持，它可以将任何数据类型（Function / Object / Primitive Type）作为 Key。  
 ```js
 const map = new Map()
 const x = { a: 1 }
@@ -64,15 +64,16 @@ for (let [key, value] of map) {
 map.clear()
 map.size // 0
 ```
-Map 的实例是 Iterable 的，并且其默认的 Iterator 与 `map.entries()` 返回的结果一致  
-所以下列方法都可以用于拷贝产生一个新的 Map
+Map 的实例是 Iterable 的，并且其默认的 Iterator 与 `map.entries()` 返回的结果一致。  
+
+所以下列方法都可以用于拷贝产生一个新的 Map。
 ```js
 const map = new Map()
 const copy2 = new Map(map.entries())
 const copy1 = new Map(map) // 推荐 更简洁
 ```
 
-Map 和 Array 存在一些特殊的关联
+Map 和 Array 存在一些特殊的关联：
 ```js
 const first = [
 	[1, 'a'],
@@ -100,15 +101,14 @@ Map 的一些优势：
 * 在频繁的操作 Map 时会获得性能上的提升。
 
 ## WeakMap
-WeakMap 的大部分行为与 Map 一致，主要区别在于 WeakMap 对内存分配机制的特殊处理  
-WeakMap 的 Key 只能是 Object ，并且当作为 Key 的 Object 被 GC 回收后  
-其存储在 WeakMap 中的 Entry 也会随之被销毁  
-WeakMap 相较 Map 而言只提供了 `set()` `get()` `delete()` `has()` 四个有限的API  
-尤其适用于需要把不受我们控制的对象(例如 DOM 对象)作为 Key 值的情况
+WeakMap 的大部分行为与 Map 一致，主要区别在于 WeakMap 对内存分配机制的特殊处理。  
+
+WeakMap 的 Key 只能是 Object ，并且当作为 Key 的 Object 被 GC 回收后，其存储在 WeakMap 中的 Entry 也会随之被销毁。  
+
+WeakMap 相较 Map 而言只提供了 `set()` `get()` `delete()` `has()` 四个有限的API，尤其适用于需要把不受我们控制的对象(例如 DOM 对象)作为 Key 值的情况。
 
 ## Set
-ES6 新增的 Set 用于存储一系列不重复的值  
-其判断是否重复的规则除了 Set 会认为 +0 等与 -0 外都与 `Object.is()` 相同
+ES6 新增的 Set 用于存储一系列不重复的值，其判断是否重复的规则除了 Set 会认为 +0 等与 -0 外都与 `Object.is()` 相同。
 ```js
 const set = new Set()
 const x = { a: 1 }
@@ -135,18 +135,17 @@ for (let val of set) { // 1 '1' 2
 
 [...set.entries()] // [[1, 1], ["1", "1"], [2, 2]]
 ``` 
-可以利用 Set 来进行数组去重
+可以利用 Set 来进行数组去重：
 ```js
 const arr = [1, 1, 2, 3, 3, 4, '4']
 const unique = [...new Set(arr)]
 console.log(unique) // [1, 2, 3, 4, "4"]
 ```
-可以直接去重字符串
+可以直接去重字符串：
 ```js
 const str = 'aabbcc'
 new Set(str) // Set(3) {"a", "b", "c"}
 ```
 
 ## WeakSet
-同 WeakMap 类似，WeakSet 中存储的值只能是 Object
-并且当 Object 被 GC 后 WeakSet 也会自动将其从集合中删除
+同 WeakMap 类似，WeakSet 中存储的值只能是 Object，并且当 Object 被 GC 后 WeakSet 也会自动将其从集合中删除。

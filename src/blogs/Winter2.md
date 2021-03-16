@@ -117,3 +117,29 @@ img {
 </map>
 <img usemap="#primary" src="http://placehold.it/350x150" alt="350 x 150 pic">
 ```
+
+## 对比 `stopPropagation` 和 `stopImmediatePropagation`
+一言蔽之，`stopImmediatePropagation` 不仅会阻止事件继续传递（捕获或者冒泡）还会阻止当前 DOM 上已绑定的后续事件执行。  
+
+实例见 [CodesandBox](https://codesandbox.io/s/stoppropagation-vs-stopimmediatepropagation-2zfxo)
+
+## 浏览器窗口操作 API
+需要注意的是以下几个 API，只有操作通过 `window.open` 打开的新窗口（且该窗口只有一个 Tab 页）时才会生效。  
+
+所以稍作了解即可，用到的可能性不大。
+```js
+// 移动窗口
+window.moveTo(x, y)
+window.moveBy(x, y)
+
+// 调整窗口尺寸
+window.resizeTo(x, y)
+window.resizeBy(x, y)
+```
+
+## 如何获取一个元素的准确位置？
+返回值的具体含义见 [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect)。
+```js
+let elem = document.getElementById('id')
+let rect = elem.getBoundingClientRect()
+```

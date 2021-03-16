@@ -49,6 +49,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '劳拉和奥西里斯神庙 Lara Croft and The Temple of Osiris',
+  url: 'https://s3.ax1x.com/2021/03/06/6nV4XR.jpg',
+}, {
   title: '巫师2',
   url: 'https://s3.ax1x.com/2021/02/28/6C6BSx.jpg',
 }, {
