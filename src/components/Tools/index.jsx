@@ -21,6 +21,7 @@ export default function Tools () {
         <a target='_blank' href='http://shijuechuanda.com/screen/index.htm'>屏幕尺寸 / 设计规范</a>
         <a target='_blank' href='http://ecma-international.org/publications/standards/Standard.htm'>ECMA Standard</a>
         <a target='_blank' href='https://tc39.es/'>Ecma International's TC39</a>
+        <a target='_blank' href='https://www.w3.org/TR/'>W3C</a>
       </div>
     </div>
 
@@ -80,8 +81,8 @@ export default function Tools () {
       <div className='tools-content'>
         <a target='_blank' href='https://www.airpano.com/'>AirPano - 世界各地 360 度全景摄影</a>
         <a target='_blank' href='https://uimovement.com/'>UI Movement - 设计师创意设计分享</a>
+        <a target='_blank' href='https://www.artstation.com/'>ArtStation</a>
         <a target='_blank' href='https://dos.zczc.cz/'>浏览器上玩 DOS 游戏</a>
-        <a target='_blank' href='https://putianxi.github.io/'>滚蛋吧！莆田系！</a>
         <a target='_blank' href='https://flowchart.airmore.cn/'>爱莫流程图 - Web 在线画流程图</a>
         <a target='_blank' href='https://app.diagrams.net/'>Web 在线画流程图</a>
       </div>

@@ -6,12 +6,13 @@ header {
     width: 100%;
     font-size: 16px;
     line-height: initial;
+    padding: 0 10vw;
 
     color: #212121;
     background-color: #fff;
     z-index: 999;
     transition: top .5s;
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.06);
 
     &.hide-top {
         top: -65px;
@@ -32,7 +33,7 @@ header {
 
     .header-title {
         display: inline-block;
-        margin-left: 20px;
+        margin: 15px;
         cursor: pointer;
     }
 
@@ -42,7 +43,7 @@ header {
     }
 
     nav > ul {
-        height: 64px;
+        height: 54px;
         margin: 0;
         display: flex;
         list-style: none;
@@ -67,7 +68,7 @@ header {
                 color: inherit;
                 transition: all .3s linear;
                 display: block;
-                padding: 20px 23px;
+                padding: 15px 23px;
         
                 &.active {
                     color: #212121;
