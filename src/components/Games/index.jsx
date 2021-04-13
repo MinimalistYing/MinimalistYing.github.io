@@ -49,10 +49,16 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '无主之地 3',
+  url: 'https://z3.ax1x.com/2021/04/11/c00jyj.jpg',
+}, {
+  title: '超能队长的奇异冒险 The Awesome Adventures of Captain Spirit',
+  url: 'https://z3.ax1x.com/2021/03/17/6gCWvV.jpg',
+}, {
   title: '劳拉和奥西里斯神庙 Lara Croft and The Temple of Osiris',
   url: 'https://s3.ax1x.com/2021/03/06/6nV4XR.jpg',
 }, {
-  title: '巫师2',
+  title: '巫师 2',
   url: 'https://s3.ax1x.com/2021/02/28/6C6BSx.jpg',
 }, {
   title: '剑灵',
@@ -70,7 +76,7 @@ const images = [{
   title: 'Apex 英雄',
   url: 'https://s3.ax1x.com/2021/01/11/sGCW0x.jpg',
 }, {
-  title: '极限竞速 地平线3',
+  title: '极限竞速 地平线 3',
   url: 'https://s3.ax1x.com/2021/01/10/s1nzPP.jpg',
 }, {
   title: 'Braveland',
@@ -109,22 +115,22 @@ const images = [{
   title: '碧蓝幻想 Versus',
   url: 'https://s3.ax1x.com/2020/11/24/DNTqvF.jpg',
 }, {
-  title: '古剑奇谭3',
+  title: '古剑奇谭 3',
   url: 'https://s3.ax1x.com/2020/11/24/DNTXDJ.jpg',
 }, {
-  title: '命运2',
+  title: '命运 2',
   url: 'https://s3.ax1x.com/2020/11/24/DNTjb9.jpg',
 }, {
-  title: '泰坦陨落2',
+  title: '泰坦陨落 2',
   url: 'https://s3.ax1x.com/2020/11/24/DNTxER.jpg',
 }, {
-  title: '激战2',
+  title: '激战 2',
   url: 'https://s3.ax1x.com/2020/11/24/DNTzU1.jpg',
 }, {
   title: '武侠乂',
   url: 'https://s3.ax1x.com/2020/11/24/DN7S4x.jpg',
 }, {
-  title: '仙侠世界2',
+  title: '仙侠世界 2',
   url: 'https://s3.ax1x.com/2020/11/24/DN79C6.jpg',
 }, {
   title: '永恒轮回 黑色幸存者 Eternal Return Black Survival',
@@ -133,13 +139,13 @@ const images = [{
   title: '在远方 追云者编年史 Yonder The Cloud Catcher Chronicles',
   url: 'https://s3.ax1x.com/2020/11/24/DN7PgO.jpg',
 }, {
-  title: '战锤 末世鼠疫2 Warhammer Vermintide 2',
+  title: '战锤 末世鼠疫 2 Warhammer Vermintide 2',
   url: 'https://s3.ax1x.com/2020/11/24/DN7ivD.jpg',
 }, {
   title: '战国无双 真田丸',
   url: 'https://s3.ax1x.com/2020/11/24/DN7kKe.jpg',
 }, {
-  title: '质量效应2 Mass.Effect.2',
+  title: '质量效应 2 Mass.Effect.2',
   url: 'https://s3.ax1x.com/2020/11/23/DYcJHg.jpg',
 }, {
   title: '中土世界：暗影魔多',
@@ -154,7 +160,7 @@ const images = [{
   title: '永恒之塔',
   url: 'https://s3.ax1x.com/2020/11/23/DYc1jf.jpg'
 }, {
-  title: '无主之地2',
+  title: '无主之地 2',
   url: 'https://s3.ax1x.com/2020/11/23/DYcQ3t.jpg'
 }, {
   title: '雨纪',
@@ -181,7 +187,7 @@ const images = [{
   title: '天命奇御',
   url: 'https://s3.ax1x.com/2020/11/23/DYcFc6.jpg'
 }, {
-  title: '全面战争战锤2 Total War WARHAMMER II',
+  title: '全面战争战锤 2 Total War WARHAMMER II',
   url: 'https://s3.ax1x.com/2020/11/23/DYci1x.jpg'
 }, {
   title: '瑞奇与叮当 Ratchet & Clank',
