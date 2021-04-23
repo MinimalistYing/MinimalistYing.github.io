@@ -732,14 +732,6 @@ window.addEventListener('message', e => console.log(e))
 
 ---
 
-想用 Unicode 动态生成字符时，如果试图通过 `const str = '\u' + '0000'` 会报错  
-```
-Invalid Unicode escape sequence
-```
-需要通过 `String.fromCodePoint()` 来实现
-
----
-
 考虑如下一种比较情景
 ```js
 if (value === 'a' || value === 'b' || value === 'c')

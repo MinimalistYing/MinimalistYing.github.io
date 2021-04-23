@@ -37,6 +37,7 @@ const App = () => (
 				<Route exact path="/messagedemo.html" component={MessageDemo} />
 				<Route exact path="/tools.html" component={Tools} />
 				<Route exact path="/games.html" component={Games} />
+				<Route path="*" component={Main}/>
 			</Switch>
 		</Suspense>
 	</div>

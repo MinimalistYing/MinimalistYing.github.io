@@ -46,12 +46,16 @@ module.exports = {
 	},
 	devtool: 'cheap-module-eval-source-map',
 	devServer: {
-		historyApiFallback: true,
+		historyApiFallback: {
+			rewrites: [
+        { from: /./, to: '/index.html' },
+      ],
+		},
 		disableHostCheck: true,
 		contentBase: false,
-     	hot: true,
-     	compress: true,
-     	open: true
+		hot: true,
+		compress: true,
+		open: true
 	},
 	plugins: [
 		new webpack.NamedModulesPlugin(),

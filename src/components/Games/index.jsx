@@ -49,6 +49,12 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '暴雨 Heavy Rain',
+  url: 'https://z3.ax1x.com/2021/04/19/cT0XDg.jpg',
+}, {
+  title: '一起开火车 Unrailed!',
+  url: 'https://z3.ax1x.com/2021/04/19/cT0qv8.jpg',
+}, {
   title: '无主之地 3',
   url: 'https://z3.ax1x.com/2021/04/11/c00jyj.jpg',
 }, {

@@ -1,4 +1,5 @@
 module.exports = [
+	'Unicode',
 	'Winter2',
 	'ChineseCharacteristics',
 	'MixedContent',

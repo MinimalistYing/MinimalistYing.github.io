@@ -22,6 +22,7 @@ export default function Tools () {
         <a target='_blank' href='http://ecma-international.org/publications/standards/Standard.htm'>ECMA Standard</a>
         <a target='_blank' href='https://tc39.es/'>Ecma International's TC39</a>
         <a target='_blank' href='https://www.w3.org/TR/'>W3C</a>
+        <a target='_blank' href='https://www.fileformat.info/'>FileFormat.Info</a>
       </div>
     </div>
 

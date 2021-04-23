@@ -49,10 +49,6 @@ HTML5新增了 `input` 事件来监听文本框的输入变化，但在IE9下存
 
 ---
 
-匹配中文字符（简繁体都包含）的正则 `/^[\u4e00-\u9fa5]+$/` 暂时无法确认其是否完全正确
-
----
-
 由于node有许多底层依赖包需要依靠c++,所以需要额外安装 `node-gyp` 提供跨平台的编译支持，
 安装之前需要先装好相应的python/c++等环境，
 根据官方文档 `npm install --global --production windows-build-tools` 即可

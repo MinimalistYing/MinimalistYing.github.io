@@ -21,13 +21,7 @@
 MDN:
 > ECMAScript 2016 (ed. 7) established a maximum length of 2^53 - 1 elements. Previously, no maximum length was specified. In Firefox, strings have a maximum length of 2\*\*30 - 2 (~1GB). In versions prior to Firefox 65, the maximum length was 2\*\*28 - 1 (~256MB).
 
-所以答案是有的，并且最新的协议也规定了最大长度为 `2^53 - 1`。另外特别需要注意的一点是 `String.prototype.length` 统计的是该字符串用了多少个 UTF-16 编码（16bit），虽然大部分的字符都只是一个字符对应一个编码，但是仍有少数特殊字符需要俩个 UTF-16 编码：
-> This property returns the number of code units in the string. UTF-16, the string format used by JavaScript, uses a single 16-bit code unit to represent the most common characters, but needs to use two code units for less commonly-used characters, so it's possible for the value returned by length to not match the actual number of characters in the string
-
-所以会出现 `length` 属性大于字符串中实际出现字符数的情况，例如：
-```js
-'𝒜'.length // 2
-```
+所以答案是有的，并且最新的协议也规定了最大长度为 `2^53 - 1`。
 
 ## Infinity & -Infinity
 这俩个值的出现应该是为了避免任意数字除以 0 报错，例如：
