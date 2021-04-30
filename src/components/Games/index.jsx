@@ -49,6 +49,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '龙崖',
+  url: 'https://z3.ax1x.com/2021/04/30/gAe8Jg.jpg',
+}, {
   title: '暴雨 Heavy Rain',
   url: 'https://z3.ax1x.com/2021/04/19/cT0XDg.jpg',
 }, {
