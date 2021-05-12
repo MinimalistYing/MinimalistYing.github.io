@@ -49,6 +49,15 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '古墓丽影 TombRaider',
+  url: 'https://z3.ax1x.com/2021/05/07/g3R4BQ.jpg',
+}, {
+  title: '战意',
+  url: 'https://z3.ax1x.com/2021/05/04/gu9qcd.jpg',
+}, {
+  title: '拾荒者 Scavengers',
+  url: 'https://z3.ax1x.com/2021/05/03/gmQ3xP.jpg',
+}, {
   title: '龙崖',
   url: 'https://z3.ax1x.com/2021/04/30/gAe8Jg.jpg',
 }, {
