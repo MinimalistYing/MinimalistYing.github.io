@@ -49,6 +49,9 @@ function ImageCard ({ image }) {
 }
 
 const images = [{
+  title: '乐高旋风忍者大电影',
+  url: 'https://z3.ax1x.com/2021/05/14/gyFd0K.jpg',
+}, {
   title: '古墓丽影 TombRaider',
   url: 'https://z3.ax1x.com/2021/05/07/g3R4BQ.jpg',
 }, {

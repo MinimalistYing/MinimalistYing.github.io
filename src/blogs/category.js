@@ -1,4 +1,5 @@
 module.exports = [
+	'NpmLinkError',
 	'Unicode',
 	'Winter2',
 	'ChineseCharacteristics',
