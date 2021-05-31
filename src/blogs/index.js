@@ -54,10 +54,12 @@ import ChineseCharacteristics from '@blog/ChineseCharacteristics.md'
 import Winter2 from '@blog/Winter2.md'
 import Unicode from '@blog/Unicode.md'
 import NpmLinkError from '@blog/NpmLinkError.md'
+import InfluencePeople from '@blog/InfluencePeople.md'
 
 import cat from './category'
 
 const blogs = {
+	InfluencePeople,
 	NpmLinkError,
 	Unicode,
 	Winter2,

@@ -1,4 +1,4 @@
-# 记录配置 Webpack 过程中碰到的问题以及解决方案
+# 记录配置 Webpack 过程中碰到的问题
 Ps: 基于 Webpack V4
 
 ## Vue
@@ -12,7 +12,6 @@ vue-loader was used without the corresponding plugin.
 Make sure to include VueLoaderPlugin in your webpack config.
 ```
 [参考文档](https://vue-loader.vuejs.org/guide/#manual-configuration)  
-解决方案
 ```js
 // webpack.config.js
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
@@ -35,10 +34,8 @@ Error: [vue-loader] vue-template-compiler must be installed as a peer dependency
 or a compatible compiler implementation must be passed via options.
 ```
 [参考文档](https://github.com/vuejs/vue/tree/dev/packages/vue-template-compiler#vue-template-compiler)  
-由于`vue-loader`内部实现需要依赖`vue-template-compiler`  
-但我们通过 npm 安装`vue-loader`时并未同时安装`vue-template-complier`  
-所以需要显示的在本地项目安装一下
-解决方案
+
+由于 `vue-loader` 内部实现需要依赖 `vue-template-compiler` ，但我们通过 npm 安装 `vue-loader` 时并未同时安装 `vue-template-complier` ，所以需要显示的在本地项目安装一下：
 ```
 npm i vue-template-complier --save-dev
 ```
@@ -56,13 +53,15 @@ You may need an appropriate loader to handle this file type.
 |       font-size: 24px;
 |       margin-top: 50%;
 ```
-由于默认的`.vue`文件中`<style>`的lang属性值为`css`  
-所以`vue-loader`默认会将`<style>`块中的样式文件抽出作为 Css 文件提供给`webpack`加载  
-而不配置`css-loader`的话`webpack`是无法正确加载 Css 文件的
-解决方案
+由于默认的 `.vue` 文件中 `<style>` 的lang属性值为 `css`。  
+
+所以 `vue-loader` 默认会将 `<style>` 块中的样式文件抽出作为 CSS 文件提供给 Webpack 加载。  
+
+而不配置 `css-loader` 的话 Webpack 是无法正确加载 CSS 文件的：
 ```
 npm i css-loader --save-dev
 ```
+修改配置文件：
 ```js
 // webpack.config.js
 module.exports = {
@@ -80,6 +79,7 @@ module.exports = {
 ```
 npm i style-loader --save-dev
 ```
+修改配置文件：
 ```js
 // webpack.config.js
 module.exports = {
@@ -97,12 +97,12 @@ module.exports = {
 }
 ```
 [Style Loader](https://webpack.js.org/loaders/style-loader/)  
-[Css Loader](https://webpack.js.org/loaders/css-loader/)  
-Css Loader 的作用是使我们可以在 Js 文件中通过 `import style from 'xxx.css'` 来告诉 webpack 这个文件对样式的依赖  
-这样当打包这个 Css 文件时也会将 xxx.css 算入其中  
-当这样并不能使样式文件被浏览器正确加载  
-Style Loader 正是启到将依赖的样式文件通过在页面上插入 `<style>` 标签的形式注入到页面中  
-所以简单来讲 不做其他特殊配置的话 一定要同时使用这俩个 Loader 才能使得样式正确加载
+
+[CSS Loader](https://webpack.js.org/loaders/css-loader/)  
+
+CSS Loader 的作用是使我们可以在 JS 文件中通过 `import style from 'xxx.css'` 来告诉 Webpack 这个文件对样式的依赖，这样当打包时这个 CSS 文件时也会将 xxx.css 算入其中，当这样并不能使样式文件被浏览器正确加载。  
+
+Style Loader 正是起到将依赖的样式文件通过在页面上插入 `<style>` 标签的形式注入到页面中，所以简单来讲，不做其他特殊配置的话，一定要同时使用这俩个 Loader 才能使得样式正确加载。
 
 ### 未正确配置项目所使用的 Vue 文件
 错误信息
@@ -124,12 +124,15 @@ Either pre-compile the templates into render functions, or use the compiler-incl
 </html>
 ```
 [参考文档](https://vuejs.org/v2/guide/installation.html#Explanation-of-Different-Builds)  
-这个问题出现主要是由于 Vue 对外提供了俩个版本的最终构造文件 Full(Runtime + Compiler) 以及 Runtime-only   
-俩者的区别就在于一个有 Compiler 另一个没有  
+
+这个问题出现主要是由于 Vue 对外提供了俩个版本的最终构造文件 Full(Runtime + Compiler) 以及 Runtime-only，俩者的区别就在于一个有 Compiler 另一个没有。  
+
 此外，在 Vue 的 package.json 中可以看到 `"module": "dist/vue.runtime.esm.js"`  
-也就是说在使用 webpack 打包时 `import Vue from 'vue'` 默认使用的是 vue.runtime.esm.js 也就是 Rutime-only 的版本  
+也就是说在使用 webpack 打包时 `import Vue from 'vue'` 默认使用的是 vue.runtime.esm.js 也就是 Rutime-only 的版本。  
+
 Compiler 的主要作用在于将文件中的模版字符串转化为 render 函数（注意这里的文件不包括 .vue 文件 因为他们会被 vue-loader 自动预编译）  
-举例，在如下 Vue 应用的主入口文件中  
+
+举例，在如下 Vue 应用的主入口文件中：  
 ```js
 // main.js
 import Vue from 'vue'
@@ -148,10 +151,7 @@ new Vue({
 	}
 })
 ```
-所以以上问题的解决方案有俩种  
-其一是如果我们确定不会在除 .vue 文件外使用 Vue 的 template  
-那么直接照常引入默认的 Runtime-only 版本即可  
-否则则需要我们显示的引入 Full(Runtime + Compiler) 版本  
+所以以上问题的解决方案有俩种，其一是如果我们确定不会在除 .vue 文件外使用 Vue 的 template，那么直接照常引入默认的 Runtime-only 版本即可，否则则需要我们显示的引入 Full(Runtime + Compiler) 版本。  
 ``` js
 // main.js
 import Vue from 'vue/dist/vue.esm.js'
@@ -175,8 +175,8 @@ module.exports = {
 
 ### ES6 代码未正确经过Babel编译
 [参考文档](https://github.com/vuejs/babel-plugin-transform-vue-jsx)  
+
 Ps: 基于 Babel V7  
-解决方案
 ```
 npm install
   babel-plugin-syntax-jsx
@@ -224,9 +224,8 @@ Uncaught Error: [HMR] Hot Module Replacement is disabled.
     at main.js:84
     at main.js:87
 ```
-
 [参考文档](https://webpack.js.org/guides/hot-module-replacement/)  
-解决方案
+
 ```js
 // webpack.dev.config.js
 const webpack = require('webpack')
@@ -246,15 +245,14 @@ module.exports = {
 ```
 
 ### CSS 中通过 `url(xxx)` 引入的的图片路径不正确
-当我们通过配置使得输出的静态文件放到不同目录下时很容易碰到这个问题  
-例如我们将打包后的文件分别放到js/css/images三个目录下  
-这时如果没有特意配置过的话被 `url-loader` 处理过后的图片引用路径通常会变为 `images/xxx.png`  
-如果是在根目录下的 HTML 中的文件下这样访问图片不会有问题  
-但如果是在 CSS 中的  `url(images/xxx.png)` 则会出现找不到图片的问题  
-因为这种形式的 URL 是一种相对路径  
-而 CSS 文件时放在 css 目录下的，而这个路径下并没有 images 文件夹  
-所以当然找不到正确的图片  
-这时可通过配置 `url-loader` 的 `publicPath` 为相对服务器根目录的相对路径来解决  
+当我们通过配置使得输出的静态文件放到不同目录下时很容易碰到这个问题，例如我们将打包后的文件分别放到js/css/images三个目录下。  
+
+这时如果没有特意配置过的话被 `url-loader` 处理过后的图片引用路径通常会变为 `images/xxx.png`。如果是在根目录下的 HTML 中的文件下这样访问图片不会有问题，但如果是在 CSS 中的  `url(images/xxx.png)` 则会出现找不到图片的问题。  
+
+因为这种形式的 URL 是一种相对路径，而 CSS 文件时放在 css 目录下的，而这个路径下并没有 images 文件夹，所以当然找不到正确的图片。  
+
+这时可通过配置 `url-loader` 的 `publicPath` 为相对服务器根目录的相对路径来解决。  
+
 关于 `publicPath` 有如下这些[配置方式](https://webpack.js.org/configuration/output/#output-publicpath)  
 ```js
 module.exports = {
@@ -271,26 +269,34 @@ module.exports = {
 }
 ```
 
-## React
-
-
 ## 优化
 
 ### 关于 `optimization.moduleIds`
-Webpack V4 新引入的这条配置其功能相当于之前的 `xxxModuleIdsPlugin`  
-一共有 `natural/named/hashed/size/total-size` 这五个可选值  
-默认为 `false` 即以一个自增的数字作为 moduleId  
-首先要理解在 Webpack 中 module 的含义就是我们在代码里每一处 `import xx from 'xx'` 中的 xx 模块  
-moduleId 即是 Webpack 在打包过程中赋予每一个模块的唯一 Id  
-个人认为在开发环境下将其设为 `named` 也就是每个模块的文件路径作为 Id 可以方便 Debug  
-在生产环境下将其设为 `hashed` 避免每次改动都导致所有模块的 Id 发生变化
+Webpack V4 新引入的这条配置其功能相当于之前的 `xxxModuleIdsPlugin`，一共有 `natural/named/hashed/size/total-size` 这五个可选值，默认为 `false` 即以一个自增的数字作为 moduleId。  
+
+首先要理解在 Webpack 中 module 的含义就是我们在代码里每一处 `import xx from 'xx'` 中的 xx 模块，moduleId 即是 Webpack 在打包过程中赋予每一个模块的唯一 Id。  
+
+个人认为在开发环境下将其设为 `named` 也就是每个模块的文件路径作为 Id 可以方便 Debug，在生产环境下将其设为 `hashed` 避免每次改动都导致所有模块的 Id 发生变化。
 
 ### 启用 Tree Shaking
-Webpack 提供了 Tree Shaking 的功能  
-帮助我们在打包的过程把无用的代码块移除，进一步减小包的体积  
-在V4中要正确启用这个功能需要确保下列这几点
+Webpack 提供了 Tree Shaking 的功能，帮助我们在打包的过程把无用的代码块移除，进一步减小包的体积。在V4中要正确启用这个功能需要确保下列这几点：
+
 * 使用 ES6 的 `import` 以及 `export` 来管理 Module
 * `mode` 设为 `production`
 * 在 `package.json` 中加入 `"sideEffects": false` 或者 `"sideEffects": ["*.css"]` 避免不小心移除样式文件
 * 如果有使用 `@babel/preset-env` 注意在 .babelrc 中将其默认的配置 `"modules": "commonjs"` 
 改为 `"modules": false` 也就是说不让 Babel 转义源码中的 ES6 Module 语法
+
+### 关于 Moment.js
+`moment`的国际化文件很大，所以在生产环境打包时要留意不要将不必要的国际化文件也包含进来，可以通过如下 Webpack 插件来解决这个问题：
+```js
+plugins: [
+	// 以下的配置会使打包出来的文件只包含简体以及繁体中文的国际化
+	new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn|zh-tw/)
+]
+```
+
+### URL Loader 以及 File Loader 的区别
+Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字体之类的静态资源文件，区别在于 URL Loader 会对一定大小限制内的图片进行 Base64 编码并采用 DataUrl 的形式嵌入页面或样式表。  
+
+优点在于经过 URL Loader 编码后的图片不会占用 HTTP 请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）。

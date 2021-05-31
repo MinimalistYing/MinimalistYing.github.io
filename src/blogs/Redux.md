@@ -1,13 +1,12 @@
 # Redux 从入门到放弃
 
 ## 基本概念
-当我们通过各类MVVM框架(React / Vue / Angular)开发复杂的单页应用(SPA)时  
-随之而来碰到的问题是对应用中各种状态的管理  
-每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更  
-当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原由  
-并且当组件层级过深时，一层层的在组件间传递 props 也显得颇为繁琐  
-Redux 的出现给开发者提供了一种更优雅的管理前端应用状态的解决方案  
-当然相应的代价是需要引入一些冗余的语法( boilerplate )  
+当我们通过各类MVVM框架(React / Vue / Angular)开发复杂的单页应用(SPA)时，随之而来碰到的问题是对应用中各种状态的管理。每个组件都有各自的状态，当任意一个组件的状态发生变更，同时也可能需要触发另一个组件状态的变更。  
+
+当这种耦合关系越来越多的时候，我们会发现很难去寻找一个状态发生变更的原由，并且当组件层级过深时，一层层的在组件间传递 props 也显得颇为繁琐。  
+
+Redux 的出现给开发者提供了一种更优雅的管理前端应用状态的解决方案，当然相应的代价是需要引入一些冗余的语法( boilerplate )。
+
 Redux 的核心是以下三个原则:  
 * Single source of truth: 每个 Redux App 应该只有一个全局唯一的 Store
 * State is read-only: Store 中存储的状态只能通过 Dispatch Action 来进行修改  
@@ -17,9 +16,9 @@ Redux 的核心是以下三个原则:
 * Changes are made with pure functions: Reducer 是 Pure Function  
 
 ### Actions
-不同于直接去修改应用的状态，例如 React 中的 `this.setState()`  
-Redux 推崇通过 Dispacth Action 来修改状态  
-Action 是一个携带了操作类型以及具体数据的简单对象( Plain Object )  
+不同于直接去修改应用的状态，例如 React 中的 `this.setState()`，Redux 推崇通过 Dispacth Action 来修改状态。  
+
+Action 其实就是一个携带了操作类型以及具体数据的简单对象( Plain Object )。  
 ```js
 const action = {
 	// 操作类型 用于描述该次操作的用意
@@ -32,19 +31,17 @@ const action = {
 	}
 }
 ```
-以上 Action 中的数据是固定的，可以实现一个 ActionCreator 来根据参数动态的生成 Action  
+以上 Action 中的数据是固定的，可以实现一个 ActionCreator 来根据参数动态的生成 Action：  
 ```js
 const actionCreator = people => ({
 	type: 'ADD_PEOPLE',
 	people
 })
 ```
-注意最终还是需要通过 `store.dispatch(action)` 将 Action 派发至 Reducer 中才能进行应用状态的变更  
+注意最终还是需要通过 `store.dispatch(action)` 将 Action 派发至 Reducer 中才能进行应用状态的变更。  
 
 ### Reducer
-Reducer 用于定义如何根据收到的不同 Action 去改变应用的状态  
-Reducer 应该是一个 Pure Function , 意味着不应该在其中进行由副作用的操作  
-并且当入参相同时其返回值应该总是相同的  
+Reducer 用于定义如何根据不同的 Action 去改变应用的状态。Reducer 应该是一个 Pure Function , 意味着不应该在其中进行有副作用的操作，并且当入参相同时其返回值应该总是相同的。  
 ```js
 // 注意需要给我们的应用设置一个初始化的 initalState
 // 如果未指定 Redux 会开发环境下给出警告
@@ -60,9 +57,7 @@ function reducer(state = initalState, action) {
 ```
 
 ### Store
-每一个应用都只能有一个唯一的 Store  
-通过 `createStore(reducers)` 来生成  
-用于维护应用的所有 State ，以及提供一些静态方法用于改变、获取当前状态  
+每一个应用都只能有一个唯一的 Store，通过 `createStore(reducers)` 来生成，用于维护应用的所有 State ，以及提供一些静态方法用于改变、获取当前状态。  
 ```js
 store.getState() // 获取当前状态
 store.dispatch(action) // 提交action来改变当前状态
@@ -71,12 +66,10 @@ unsubscribe() // 取消监听
 ```
 
 ## 进阶以及源码(v4.0.0)
-为了看起来更加精简，本文仅仅会对一些核心代码进行分析  
-所以展示的只是不完整的代码片段，例如一些校验性质的代码就会被省略
+为了看起来更加精简，本文仅仅会对一些核心代码进行分析，所以展示的只是不完整的代码片段，例如一些校验性质的代码就会被省略。
 
 ### Middleware
-Redux 的中间件使开发者可以在每次 `dispatch(action)` 前后加上一些特定的逻辑  
-例如 logging/routing 等，中间件的写法如下  
+Redux 的中间件使开发者可以在每次 `dispatch(action)` 前后加上一些特定的逻辑，例如 logging/routing 等，中间件的写法如下：  
 ```js
 const middleware = store => next => action => {
 	// 在dispatch前执行的逻辑
@@ -91,9 +84,10 @@ const middleware = store => next => action => {
 ```
 
 ### compose.js
-在 Redux 的 applyMiddleware 中会用到，函数式编程中常见  
-可以将传入的函数从右至左依次执行  
-并且每个函数执行的结果会作为下一个函数的参数  
+在 Redux 的 applyMiddleware 中会用到，函数式编程中常见。  
+
+可以将传入的函数从右至左依次执行，并且每个函数执行的结果会作为下一个函数的参数。  
+
 例如 `compose(a, b, c)(arg)` 执行起来同 `a(b(c(arg)))`
 ```js
 export function compose(...funcs) {
@@ -212,9 +206,8 @@ export default function applyMiddleware(...middlewares) {
 }
 ```
 
-### utils/isPlainObject.js
-该工具函数用于判断一个 Action 是不是 Plain Object    
-所谓的 Plain Object 指的是直接通过 `{}` 或者 `new Object()` 生成，原型链上并没有其它对象的 Object
+### utils/isPlainObject.js    
+所谓的 Plain Object 指的是直接通过 `{}` 或者 `new Object()` 生成，原型链上并没有其它对象的 Object。
 ```js
 // 大体上就相当于 Object.getPrototypeOf(obj) === Object.prototype
 export function isPlainObject(obj) {
@@ -247,8 +240,7 @@ export function isPlainObject(obj) {
 	return Object.getPrototypeOf(obj) === proto
 }
 ```
-Ps: `lodash.isPlainObject` 逻辑与上述代码基本一致  
-同样是 Redux 的开发者 *timdorr* 提的 PR
+Ps: `lodash.isPlainObject` 逻辑与上述代码基本一致，同样是 Redux 的开发者 *timdorr* 提的 PR。
 
 ### index.js
 ```js
@@ -433,12 +425,11 @@ export default function createStore(reducer, preloadedState, enhancer) {
 ```
 
 ### combineReducer.js
-由于在大型应用中我们需要管理一个复杂的状态树  
-如果将所有的 Action 处理逻辑写在同一个 Reducer 中会很难维护  
-所以大多数情况下我们的项目中会有很多个不同的 Reducer 文件  
-而 Redux 的 `createStore(reducer)` 只接受一个 RootReducer 作为参数  
-所以这个时候就需要借助 Redux 提供的这个工具方法将所有的子 Reducer 合为最终的 RootReducer
-其主要作用如下  
+由于在大型应用中我们需要管理一个复杂的状态树，如果将所有的 Action 处理逻辑写在同一个 Reducer 中会很难维护。  
+
+所以大多数情况下我们的项目中会有很多个不同的 Reducer 文件，而 Redux 的 `createStore(reducer)` 只接受一个 RootReducer 作为参数。  
+
+所以这个时候就需要借助 Redux 提供的这个工具方法将所有的子 Reducer 合为最终的 RootReducer。 
 ```js
 // 应用的状态树
 const state = {
@@ -506,8 +497,9 @@ export default function combineReducers(reducers) {
 ```
 
 ### bindActionCreators.js
-在 Redux 中我们需要先生成 `Action` 然后再将其 `dispatch` 至 `Reducer` 来触发状态的改变  
-如果你觉得分俩步操作过于繁琐就可以通过 `bindActionCreators` 将这俩步操作绑定在一起  
+在 Redux 中我们需要先生成 `Action` 然后再将其 `dispatch` 至 `Reducer` 来触发状态的改变。  
+
+如果你觉得分俩步操作过于繁琐就可以通过 `bindActionCreators` 将这俩步操作绑定在一起。  
 ```js
 function bindActionCreator(actionCreator, dispatch) {
 	// 返回一个函数 执行会先 Create Action  
@@ -537,5 +529,50 @@ export default bindActionCreators(actionCreators, dispatch) {
 	}
 	// 将绑定后的结果返回
 	return boundActionCreators
+}
+```
+
+## 其它
+
+### 实现一个最基础的 Redux
+抛开中间件、工具类、校验等相关逻辑，其实简单几十行代码就可以搞定。
+```js
+function createStore(reducer, initState) {
+  const listeners = []
+
+  function subscribe(listener) {
+    listeners.push(listener)
+
+    return function unsubscribe() {
+      const i = listeners.indexOf(listener)
+      listeners.splice(i, 1);
+    }
+  }
+
+  let state = initState
+  function getState() {
+    return state
+  }
+
+  function dispatch(action) {
+    state = reducer(state, action)
+
+    for (let i = 0; i < listeners.length; i++) {
+			const listener = listeners[i]
+			listener()
+		}
+  }
+
+  dispatch({ type: "INIT" })
+
+  return {
+    getState,
+    subscribe,
+    dispatch
+  }
+}
+
+export default {
+  createStore
 }
 ```

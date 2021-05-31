@@ -1,4 +1,5 @@
 module.exports = [
+	'InfluencePeople',
 	'NpmLinkError',
 	'Unicode',
 	'Winter2',

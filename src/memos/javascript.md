@@ -11,15 +11,6 @@ overflow-y: scroll
 
 ---
 
-在使用Javascript的 `parseInt()` 时，最好显示的指明进制，因为 `parseInt('0x16') === 22`  
-而你可能期望的结果是 `parseInt('0x16') === 0` 所以显示的指定进制才能做到真正的结果可控 
-```js
-parseInt('0x16', 16) === 22
-parseInt('0x16', 10) === 0
-```
-
----
-
 实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数  
 或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑  
 改变完成后再将原有函数绑定回元素上注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时  
@@ -146,12 +137,6 @@ console.log(str2.foo) // undefined
 
 ---
 
-ES6的 `import` 除了通常的 `import xx from 'lib'` 外，还可以采用 `import 'lib'`   
-将依赖全部引入但不将其赋值给任何变量。在使用webpack引入样式文件时有一些作用  
-我们可以 `import 'xx.less'` 而不需要繁琐的 `import Style from 'xx.less'`
-
----
-
 关于`encodeURI|decodeURI`以及`encodeURIComponent|decodeURIComponent`，俩者都是用于对URI进行编解码操作  
 区别在于前者默认接受的是一个完整的URL所以不会对所有的字符进行编解码  
 而后者会对所有需要被编解码的字符进行编解码，例如对`http://www.a.com?a=1+1`进行`encodeURI`  
@@ -235,21 +220,6 @@ o2.foo() // 1 2
 
 ---
 
-对比`let o1 = {}`以及`let o2 = Object.create(null)`可以发现  
-在o2并没有从Object.prototype上继承任何属性`o2.__proto__ === undefined`，是一个干净的空对象  
-通过`{}`创建对象等同于`Object.create(Object.prototype)`
-
----
-
-ES7 引入了新的指数计算操作符`**`  
-可以用于替代以往使用的`Math.pow()`  
-```js
-Math.pow(2, 3) // 4
-2 ** 3 //8
-```
-
----
-
 可以借助`\`来实现跨行书写单行字符串  
 ES6的Template String也支持这种写法
 ```js
@@ -287,11 +257,6 @@ setTimeout(() => {
 区别在于前者只会列出所有可枚举属性的key值，而后者会列出所有属性的key值，包括不可枚举的  
 所谓不可枚举的属性，即是通过类似  
 `Object.defineProperty(o, 'a', { enumerable: false, value: 0 })`定义的属性
-
----
-
-Javascript 中一共有六种种原始类型( primitive type )  
-string/boolean/number/null/undefined/symbol( ES6 新增 )
 
 ---
 
@@ -684,15 +649,6 @@ Promise.resolve('a')
 
 ---
 
-通过代码判断文件是否被压缩
-```js
-// 学习自 Redux
-function isCrushed() {}
-if (isCrushed.name === 'isCrushed') console.log('not minified')
-```
-
----
-
 ```js
 const listeners = []
 listeners.push(function() {
@@ -729,21 +685,6 @@ document.getElementsByTagName("iframe")[0].contentWindow.postMessage('你好 儿
 window.addEventListener('message', e => console.log(e))
 ```
 有安全方面顾虑的话最好把 * 改为特定的域名
-
----
-
-考虑如下一种比较情景
-```js
-if (value === 'a' || value === 'b' || value === 'c')
-```
-如果都是字符串的话，可以运用正则使得比较更加优雅
-```js
-if (/^a$|^b$|^c$/.test(value))
-```
-如果是变量，可以运用数组来比较
-```js
-if ([foo, bar, zoo].includes(value))
-```
 
 ---
 

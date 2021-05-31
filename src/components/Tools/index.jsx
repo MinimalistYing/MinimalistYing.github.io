@@ -78,6 +78,17 @@ export default function Tools () {
     </div>
 
     <div className='tools-card'>
+      <h2>博客</h2>
+      <div className='tools-content'>
+        <a target='_blank' href='https://byvoid.com/'>ByVoid</a>
+        <a target='_blank' href='http://www.yinwang.org/'>王垠</a>
+        <a target='_blank' href='https://overreacted.io/'>Dan Abramov</a>
+        <a target='_blank' href='https://yinwang1.wordpress.com/author/yinwang0/'>正常人类收容所</a>
+        <a target='_blank' href='https://jelly.jd.com/'>京东 JELLY</a>
+      </div>
+    </div>
+
+    <div className='tools-card'>
       <h2>其它</h2>
       <div className='tools-content'>
         <a target='_blank' href='https://www.airpano.com/'>AirPano - 世界各地 360 度全景摄影</a>
@@ -85,17 +96,6 @@ export default function Tools () {
         <a target='_blank' href='https://www.artstation.com/'>ArtStation</a>
         <a target='_blank' href='https://dos.zczc.cz/'>浏览器上玩 DOS 游戏</a>
         <a target='_blank' href='https://app.diagrams.net/'>diagrams.net</a>
-      </div>
-    </div>
-
-    <div className='tools-card'>
-      <h2>博客</h2>
-      <div className='tools-content'>
-        <a target='_blank' href='https://byvoid.com/'>ByVoid</a>
-        <a target='_blank' href='https://botao.hu/'>botao.hu</a>
-        <a target='_blank' href='http://www.yinwang.org/'>王垠</a>
-        <a target='_blank' href='https://overreacted.io/'>Dan Abramov</a>
-        <a target='_blank' href='https://yinwang1.wordpress.com/author/yinwang0/'>正常人类收容所</a>
       </div>
     </div>
   </div>)

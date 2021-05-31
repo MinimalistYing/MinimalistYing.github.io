@@ -1,14 +1,3 @@
-利用好jQuery的事件命名空间可以减少很多需要在一个Dom元素的同一事件上绑定多个不同回调函数时会碰到的问题，例如
-```js
-$(dom).on('click.a', () => {})
-$(dom).on('click.b', () => {})
-```
-当出于某种原因需要解绑第一个函数时，只需要`$(dom).off('.a')` 即可实现，
-同时也不会对b命名空间下的绑定事件有任何影响。如果想触发某个特定空间下的事件，
-可以通过 `$(dom).trigger('click.b')` 来实现
-
----
-
 jQuery可以通过 `$(':visible')/$(':hidden')` 来查找可见/不可见的Dom元素
 (通过判断元素的height和width是否大于0，所以
 ```css
@@ -33,13 +22,6 @@ $() // 1.4以后返回空的jQuery对象
 $('<div></div>') // 将Html字符串包装成jQuery对象
 $('<div>', {'class': 'a'}) // 生成一个标签并包装成jQuery对象
 ```
-
----
-
-jQuery部分版本(1.10.X 1.8.X 可能还有其它)存在一个很奇怪的Bug，
-在HTML标签中使用nodeName作为ID(或者input的name)会导致页面报错 `a.nodeName.toLowerCase is not a function` 
-使用nodeType作为ID会导致$(window)发生变化并且绑定在上面的resize事件会失效。
-综上所述，以后谨记不要使用nodeName/nodeType/nodeValue作为HEML标签的ID或者name。
 
 ---
 

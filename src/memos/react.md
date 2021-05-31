@@ -16,18 +16,6 @@ PureComponent只会对属性进行浅比较，当属性的数据结构复杂，�
 
 ---
 
-关于React中的Event Handlers传参数有一下俩种方式
-```html
-<button onClick={(e) => this.func(id, e)}>click</button>
-```
-或者
-```html
-<button onClick={this.func.bind(this, id)}>click</button>
-```
-第二种方式下的 `e` 会默认作为最后一个参数传递
-
----
-
 关于React-Router中 `browserHisory` 和 `hashHistory` 的区别，
 前者的URL类似 `xx/xx` 后者是 `/#/xx` 由于HTTP协议的约定，URL中 `#` 后作为片段(frag)不会随请求发送至后台，
 所以不需要服务器进行特殊配置，而前者是借助浏览器下的 `history` API实现，
@@ -71,45 +59,6 @@ setTimeout(() => {
 
 ---
 
-由于 React Component 只允许有一个根结点  
-所以当碰到当我们当组件由一个列表组成时需要在最外层加上一个额外的 `<div>`  
-```js
-function Columns() {
-	// 如果该组件嵌套在 <tr> 中 => <tr><Columns /></tr>
-	// 会导致最终生成的 HTML 不符合标准 => <tr><div><td></td><td></td></div></tr>
-	return (
-		<div>
-			<td></td>
-			<td></td>
-		</div>
-	)
-}
-```
-现在我们可以借助 `React.Fragment` 来解决这个问题
-```js
-function Columns() {
-	return (
-		<React.Fragment>
-			<td></td>
-			<td></td>
-		</React.Fragment>
-	)
-}
-```
-如果不需要像 Fragment 传递 Props 或者 key, 可以采用简
-```js
-function Columns() {
-	return (
-		<>
-			<td></td>
-			<td></td>
-		</>
-	)
-}
-```
-
----
-
 关于 React 中的组件名称为何需要以大写字母开头  
 因为如下 JSX
 ```js
@@ -128,32 +77,6 @@ React.creatElement(Button, null)
 ```js
 // 直接生成 <button>  标签
 React.creatElement('button', null)
-```
-
----
-
-当使用 Uncontrolled Component 时，如果想要指定一个输入框当默认值需要采用 `defaultValue`  
-```js
-<input defaultValue="默认值" />
-```
-因为直接设置 `value` 会导致输入框的值无法修改，因为 React 当每次 Render 都会根据 `value` 重新设置输入框的值  
-
----
-
-`<input type="file" />` 只能是 Uncontrolled Component  
-因为在前端文件只能通过用户交互来选择，不能在程序中控制
-
----
-
-JSX 其实仅仅是一种方便我们写 React App 的语法糖，经过 Babel 编译最后的产出仍是 Vanilla Javascript
-```js
-const App = <div className="app">Hello World</div>
-```
-如让 JSX 编译后其实就是
-```js
-const App = React.creatElement('div', {
-	className: 'app'
-}, 'Hello World')
 ```
 
 ---
