@@ -55,10 +55,12 @@ import Winter2 from '@blog/Winter2.md'
 import Unicode from '@blog/Unicode.md'
 import NpmLinkError from '@blog/NpmLinkError.md'
 import InfluencePeople from '@blog/InfluencePeople.md'
+import ImportCaseSensitiveError from '@blog/ImportCaseSensitiveError.md'
 
 import cat from './category'
 
 const blogs = {
+	ImportCaseSensitiveError,
 	InfluencePeople,
 	NpmLinkError,
 	Unicode,

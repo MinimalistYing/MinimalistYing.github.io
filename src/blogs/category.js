@@ -1,4 +1,5 @@
 module.exports = [
+	'ImportCaseSensitiveError',
 	'InfluencePeople',
 	'NpmLinkError',
 	'Unicode',
