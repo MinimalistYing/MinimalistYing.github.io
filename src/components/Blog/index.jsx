@@ -12,7 +12,7 @@ class MyBlog extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			categories: category.map(key => ({
+			categories: category.map(({ key }) => ({
 				name: blogs[key].slice(2, blogs[key].indexOf('\n')),
 				key
 			})),

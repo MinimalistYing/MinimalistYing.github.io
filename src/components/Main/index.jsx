@@ -5,9 +5,10 @@ import blogs, { category } from '@blog'
 
 class Main extends Component {
   state={
-    categories: category.map(key => ({
+    categories: category.map(({ key, img }) => ({
       name: blogs[key].slice(2, blogs[key].indexOf('\n')),
-      key
+      key,
+      img,
     }))
   }
 
@@ -18,11 +19,17 @@ class Main extends Component {
         <ul className='blogs-category'>
           {
             this.state.categories.map((item, index) => (
-              <li
-                id={item.key}
-                key={item.key}
-                className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
-              ><Link to={`${item.key}.html`}>{item.name}</Link></li>
+                <li
+                  id={item.key}
+                  key={item.key}
+                  onClick={() => this.props.history.push(`${item.key}.html`)}
+                  className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
+                >
+                  <figure>
+                    <img src={item.img} loading="lazy" />
+                    <figcaption>{item.name}</figcaption>
+                  </figure>
+                </li>
             ))
           }
         </ul>
