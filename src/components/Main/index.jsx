@@ -5,10 +5,12 @@ import blogs, { category } from '@blog'
 
 class Main extends Component {
   state={
-    categories: category.map(({ key, img }) => ({
+    categories: category.map(({ key, img, date, tags = [] }) => ({
       name: blogs[key].slice(2, blogs[key].indexOf('\n')),
       key,
       img,
+      date,
+      tags,
     }))
   }
 
@@ -26,8 +28,15 @@ class Main extends Component {
                   className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
                 >
                   <figure>
-                    <img src={item.img} loading="lazy" />
-                    <figcaption>{item.name}</figcaption>
+                    <img src={item.img} alt="图" loading="lazy" />
+                    <figcaption>
+                      <div className="blog-name">{item.name}</div>
+                      <div className="blog-date">{item.date}</div>
+
+                      <div className="tag-box">
+                        {item.tags.map(tag => <div key={tag} className="tag">{tag}</div>)}
+                      </div>
+                    </figcaption>
                   </figure>
                 </li>
             ))

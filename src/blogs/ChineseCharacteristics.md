@@ -1,7 +1,5 @@
 # 「中国人的性格」
 
-![农田](https://pic.imgdb.cn/item/60b5ab7939f6859bc2dc4f57.jpg)
-
 ## 序
 「Chinese Characteristics」是明恩溥(Arthur Henderson Smith 1845—1932) 写的一本关于描写中国人性格的书，备受鲁迅先生的推崇。虽说书里写的是那个屈辱时期的中国人，但经过百年的发展，现在中国人的精神面貌又变了多少呢？最近得闲读了一遍，在此略作小记。
 

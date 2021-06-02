@@ -31,7 +31,9 @@ const App = () => (
 				<Route exact path="/" component={Main} />
 				<Route exact path="/index.html" component={Main} />
 				{
-					Object.keys(blogs).map(key => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} content={blogs[key]} />} />)
+					Object
+						.keys(blogs)
+						.map(key => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} content={blogs[key]} blogKey={key} />} />)
 				}
 				<Route exact path="/memo.html" component={Memos} />
 				<Route exact path="/messagedemo.html" component={MessageDemo} />

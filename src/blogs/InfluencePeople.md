@@ -1,7 +1,5 @@
 # 「人性的弱点」
 
-![黑神话](https://pic.imgdb.cn/item/60b4baee39f6859bc2326e7a.jpg)
-
 ## 序
 作为一本带有些许鸡汤感觉的成功学畅销书，对比英文书名「How to Win Friends and Influence People」我觉得中文书名「人性的弱点」更加意味深长。  
 
