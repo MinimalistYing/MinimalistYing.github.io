@@ -15,11 +15,10 @@ class MyBlog extends React.Component {
 
 	render() {
 		const cat = category.find(({ key }) => key === this.props.blogKey)
-		console.log(cat)
-
-		const index = this.props.content.indexOf('\n')
-		const title = this.props.content.slice(2, index)
-		const content = this.props.content.slice(index + 1)
+		const { content } = this.props
+		const index = content.indexOf('\n')
+		const title = content.slice(2, index)
+		const body = content.slice(index + 1)
 
 		return (
 			<div className='blogs'>
@@ -36,7 +35,7 @@ class MyBlog extends React.Component {
 					</figure>
 					
 					<div className="md-box">
-						<Markdown data={content} />
+						<Markdown data={body} />
 					</div>
 				</div>
 			</div>

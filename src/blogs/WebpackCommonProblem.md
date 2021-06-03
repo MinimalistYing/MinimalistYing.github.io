@@ -269,6 +269,15 @@ module.exports = {
 }
 ```
 
+## React
+
+### 优先引入 Polyfill
+如果想要确保 Webpack 优先加载 Polyfill 代码，需要进行如下配置：
+```js
+app: ['babel-polyfill', './app.js']
+```
+详情可参见 `React` 的[Issue](https://github.com/facebook/react/issues/8379)
+
 ## 优化
 
 ### 关于 `optimization.moduleIds`
@@ -300,3 +309,10 @@ plugins: [
 Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字体之类的静态资源文件，区别在于 URL Loader 会对一定大小限制内的图片进行 Base64 编码并采用 DataUrl 的形式嵌入页面或样式表。  
 
 优点在于经过 URL Loader 编码后的图片不会占用 HTTP 请求。但在图片过大的情况下会增加文件的大小，得不偿失，更适用于处理一些项目中多处用到的小图片（1kb以下）。
+
+### [hash] / [chunkhash] / [contenthash] 的区别
+* [hash] 会在每一构建时都重新生成一个唯一的哈希值，会导致所有的静态资源文件都不会被浏览器缓存
+* [chunkhash] 会根据不同的 entry 来计算hash值,如果一个 entry 中的文件被修改过则会产生不同的哈希值
+缺点在于假设有一个 CSS 以及 JS 文件都来自同一 entry 会导致输出中的这俩个文件名包含的哈希值相同
+也就是说，如果只变动了 CSS 文件也会同时影响到 JS 文件的缓存
+* [contenthash] 会根据每个输出文件的内容来计算哈希值，只要有过改动则会产生不同的值，推荐使用这个

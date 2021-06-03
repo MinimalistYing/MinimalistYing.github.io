@@ -16,14 +16,6 @@ PureComponent只会对属性进行浅比较，当属性的数据结构复杂，�
 
 ---
 
-关于React-Router中 `browserHisory` 和 `hashHistory` 的区别，
-前者的URL类似 `xx/xx` 后者是 `/#/xx` 由于HTTP协议的约定，URL中 `#` 后作为片段(frag)不会随请求发送至后台，
-所以不需要服务器进行特殊配置，而前者是借助浏览器下的 `history` API实现，
-在IE8/9下会导致跳页时Full Load，并且需要服务器配置接受所有请求都返回 `index.html` 。
-优点时使得站点有清晰干净的URL，并且服务器端渲染只能通过这种方式实现，固推荐使用 `browserHistory`
-
----
-
 如果希望在React组件内部进行路由、页面跳转，可以借助React-Router提供的 `withRouter(comp)` 
 之后便可在组件内部通过 `this.props.router` 来进行跳转。但有时候我们希望在组件外部来跳转，
 这就需要借助history来实现
@@ -78,11 +70,6 @@ React.creatElement(Button, null)
 // 直接生成 <button>  标签
 React.creatElement('button', null)
 ```
-
----
-
-AntD 表格组件 `columns` 的 `filteredValue` 字段只接受字符串数组  
-要注意把其它类型的 ID 转为字符串后再传入，否则会导致筛选项的多选框回填出现问题
 
 ---
 
