@@ -6,7 +6,7 @@ import {
 	Link,
 	Switch
 } from 'react-router-dom'
-import blogs, { category } from '@blog'
+import category from '@blog/category'
 
 import {
 	Header,
@@ -30,9 +30,7 @@ const App = () => (
 				<Route exact path="/" component={Main} />
 				<Route exact path="/index.html" component={Main} />
 				{
-					Object
-						.keys(blogs)
-						.map(key => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} content={blogs[key]} blogKey={key} />} />)
+					category.map(({key}) => <Route exact key={key} path={`/${key}.html`} render={props => <Blog {...props} blogKey={key} />} />)
 				}
 				<Route exact path="/memo.html" component={Memos} />
 				<Route exact path="/messagedemo.html" component={MessageDemo} />

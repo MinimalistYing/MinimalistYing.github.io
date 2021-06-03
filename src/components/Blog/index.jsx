@@ -9,13 +9,21 @@ import blogs, { category } from '@blog'
 import './style.less'
 
 class MyBlog extends React.Component {
+	state = {
+		content: ''
+	}
+
 	componentDidMount () {
 		window.scrollTo(0, 0)
+
+		import(`@blog/${this.props.blogKey}.md`).then(res => {
+			this.setState({ content: res.default })
+		})
 	}
 
 	render() {
 		const cat = category.find(({ key }) => key === this.props.blogKey)
-		const { content } = this.props
+		const { content } = this.state
 		const index = content.indexOf('\n')
 		const title = content.slice(2, index)
 		const body = content.slice(index + 1)
