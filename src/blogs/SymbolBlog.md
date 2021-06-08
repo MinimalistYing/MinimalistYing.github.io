@@ -1,5 +1,5 @@
 # Symbols in ES6
-`Symbol`是 ES6 (时隔多年) 新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一值** 的机制，它的真实值在代码中无法直接获得，主要用来作为对象的属性解决可能会发生的命名冲突问题。
+`Symbol`是 ES6 (时隔多年) 新增的一种 **primitive type** ，可以把它看做一种自动生成 **唯一值** 的机制，它的真实值在代码中无法直接获得，主要用来作为对象的属性避免可能会发生的命名冲突。
 
 ## 如何生成 Symbol
 ```js
@@ -84,7 +84,7 @@ for (let key in o ){
 ## Built-in Symbols
 个人认为 ES6 自身提供的 Built-in Symbols 才是最常见的使用方式。  
 
-从这点来看 `Symbol` 对于语言内部实现来说确实有帮助，当协议制定者向原型链上新增通用属性或方法时就不用再担心与开发者产生命名冲突了，例如 `Symbol.iterator`:
+从这点来看 `Symbol` 对于语言内部实现来说确实有帮助，当协议制定者向原型链上新增属性或方法时就不用再担心与开发者产生命名冲突了，例如 `Symbol.iterator`:
 ```js
 const arr = [1, 2, 3]
 arr[Symbol.iterator] // native function

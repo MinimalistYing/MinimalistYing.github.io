@@ -47,11 +47,10 @@ export default function Tools () {
           <a target='_blank' href='https://mostly-adequate.gitbooks.io/mostly-adequate-guide/'>Mostly Adequate Guide to FP</a>
           <a target='_blank' href='https://learnlayout.com/'>Learn CSS Layout</a>
           <a target='_blank' href='https://css-tricks.com/'>CSS Tricks</a>
-          <a target='_blank' href='https://hacks.mozilla.org/'>Mozilla Hacks</a>
           <a target='_blank' href='https://developers.google.com/web'>Google Developers</a>
           <a target='_blank' href='https://medium.com/dailyjs'>JavaScript Daily</a>
           <a target='_blank' href='https://javascriptweekly.com/'>JavaScript Weekly</a>
-          <a target='_blank' href='https://tympanus.net/codrops/'>Codrops</a>
+          <a target='_blank' href='https://bigfrontend.dev/'>BFE.dev</a>
         </div>
       </div>
       
@@ -85,6 +84,10 @@ export default function Tools () {
         <a target='_blank' href='https://overreacted.io/'>Dan Abramov</a>
         <a target='_blank' href='https://yinwang1.wordpress.com/author/yinwang0/'>正常人类收容所</a>
         <a target='_blank' href='https://jelly.jd.com/'>京东 JELLY</a>
+        <a target='_blank' href='https://tympanus.net/codrops/'>Codrops</a>
+        <a target='_blank' href='https://hacks.mozilla.org/'>Mozilla Hacks</a>
+        <a target='_blank' href='https://isux.tencent.com/'>ISUX</a>
+        <a target='_blank' href='https://www.alloyteam.com/'>AlloyTeam</a>
       </div>
     </div>
 

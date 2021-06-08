@@ -27,13 +27,6 @@ browserHistory.push()
 
 ---
 
-React-Router采用动态路由的形式时页面报错 `The root route must render a single element`
-可能是因为React组件是采用ES6的 `export default` 导出，
-而React-Router是采用CommonJS来 `require` 所以需要在导出的组件后加上 `.default` 
-类似 `require('components/Comp')).default`
-
----
-
 在 HTML 中一个带有初始值的输入框可以简单写作 `<input value="hello" />`  
 但在 React 中由于推崇使用 Controlled Component  
 ```js

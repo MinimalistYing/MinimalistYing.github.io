@@ -1,5 +1,5 @@
 import WebpackBaseConfig from '@blog/WebpackBaseConfig.md'
-import SymbolBlog from '@blog/Symbol.md'
+import SymbolBlog from '@blog/SymbolBlog.md'
 import IteratorBlog from '@blog/Iterator.md'
 import WebpackV3ToV4 from '@blog/WebpackV3ToV4.md'
 import Generator from '@blog/Generator.md'
@@ -48,7 +48,7 @@ import PlayerType from '@blog/PlayerType.md'
 import FormattingContext from '@blog/FormattingContext.md'
 import DOMDiff from '@blog/DOMDiff.md'
 import Dependencies from '@blog/Dependencies.md'
-import IMSystemdev from '@blog/IMSystemdev.md'
+import IMSystemDev from '@blog/IMSystemDev.md'
 import MixedContent from '@blog/MixedContent.md'
 import ChineseCharacteristics from '@blog/ChineseCharacteristics.md'
 import Winter2 from '@blog/Winter2.md'
@@ -67,7 +67,7 @@ const blogs = {
 	Winter2,
 	ChineseCharacteristics,
 	MixedContent,
-	IMSystemdev,
+	IMSystemDev,
 	Dependencies,
 	DOMDiff,
 	FormattingContext,

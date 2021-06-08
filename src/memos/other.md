@@ -73,12 +73,6 @@ pump([gulp.src(), uglify(), concat()], cb)
 
 ---
 
-当页面有大量图片需要展示时可以考虑采用Google提出的[webp](https://developers.google.com/speed/webp/)来进行优化  
-由于兼容性还欠佳所以仍需要做一些降级工作，在浏览器不支持时降级为其它图片格式
-相关细节可以看[这篇Blog](https://aotu.io/notes/2016/06/23/explore-something-of-webp/index.html)
-
----
-
 算法题中经常出现要求输出modulo 10^9+7后的结果  
 是因为当数字过大时，程序需要特定的算法才能精确的计算  
 而通过模计算，可以使得不需要实现大数计算的算法便可比较结果的正确性
