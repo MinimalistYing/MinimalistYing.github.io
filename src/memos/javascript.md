@@ -1,16 +1,3 @@
-通过Javascript
-```js
-element.scrollTop = value
-$(dom).scrollTop(value)
-```
-去设置滚动条滚动位置时，注意所选取的元素就是设置了
-```css
-overflow-y: scroll
-```
-的元素
-
----
-
 实现类似改变一个DOM元素的滚动条位置但不触发绑定在上面的onscroll函数  
 或者改变一个input元素的值不触发绑定在上面的onchange函数的一种思路：在改变值之前先将其绑定的事件函数解绑  
 改变完成后再将原有函数绑定回元素上注意如果值的改变如果是连续的，也就是这个过程会短时间内重复多次执行时  
@@ -26,15 +13,6 @@ String.replace(reg, replacement)
 ```
 通过种方法可以实现将被匹配的文本做特殊的转化后再替换的功能  
 具体参数意义以及接口可见[这篇文档](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace)
-
----
-
-用于监听CSS3动画结束的事件
-* webkitAnimationEnd// Chrome Safari
-* mozAnimationEnd
-* MSAnimationEnd// IE10
-* oanimationend// Opera
-* animationend
 
 ---
 
@@ -87,7 +65,7 @@ var arr = [1,2,3];
 var b = arr[2].toString();
 console.info(b);
 ```
-再第二行以 `( [ + -` 开头时都需要注意避免以上情况
+在第二行以 `( [ + -` 开头时都需要注意避免以上情况
 
 ---
 
@@ -99,11 +77,6 @@ Javascript中的整数在超过9007199254740992也就是 `Math.pow(2, 53)` 时�
 
 获取浏览器当前滚动条位置可通过 `window.scrollY(Chrome Safari FF)||window.pageYOffset(IE9+)`   
 横向位置则通过 `window.scrollX||window.pageXOffset`
-
----
-
-通过 `Element.requestFullscreen()` 以及 `Document.exitFullscreen()`   
-可以将页面上的内容进行全屏展示以及取消全屏展示
 
 ---
 
@@ -153,21 +126,6 @@ console.log(str2.foo) // undefined
 在使用ES6的Default Parameter时需要注意  
 调用函数时如果希望传入空参数应该传 `undefined` 而不是 `null`  
 例如 `foo(undefined, 66)`
-
----
-
-返回一个只能执行一次的函数
-```js
-function once(fn) {
-	let isCalled = false
-	return () => {
-		if (!isCalled) {
-			isCalled = true
-			fn.apply(this, arguments)
-		}
-	}
-}
-```
 
 ---
 
@@ -484,19 +442,6 @@ while(i) {
 
 ---
 
-最新的 ES 提案在 `Class` 内可以通过 `#` 申明私有属性
-```js
-class Foo {
-	#foo = 5
-	#bar = 6
-	test() {
-		console.log(this.#foo, this.#bar)
-	}
-}
-```
-
----
-
 给定一组数 `1 2 3 4 5 6 7 8 9` 在其间隔处任意加上 `+ - * / 空白` 五种操作符  
 列出其所有计算结果为 `100` 的组合
 ```js
@@ -602,16 +547,6 @@ function Foo() {
 typepf Object // => function
 typeof Array // => function
 typeof Symbol // => function
-```
-
----
-
-判断一个变量是否为数字
-```js
-// 排除 NaN +Infinity -Infinity
-function isNumber(a) {
-	return typeof a === 'number' && Number.isFinite(a)
-}
 ```
 
 ---

@@ -316,3 +316,27 @@ Webpack中的 `url-loader` 和 `file-loader` 都是用于打包一些图片字�
 缺点在于假设有一个 CSS 以及 JS 文件都来自同一 entry 会导致输出中的这俩个文件名包含的哈希值相同
 也就是说，如果只变动了 CSS 文件也会同时影响到 JS 文件的缓存
 * [contenthash] 会根据每个输出文件的内容来计算哈希值，只要有过改动则会产生不同的值，推荐使用这个
+  
+## 其它
+
+### 使用 alias 时 eslint 报错
+eslint 的 `import/no-unresolved` 规则并不会识别 alias。  
+
+这时需要借助[eslint-import-resolver-webpack](https://github.com/benmosher/eslint-plugin-import/tree/master/resolvers/webpack)，并在 	`.eslintrc` 文件中增加配置项：  
+```js
+{
+	settings: {
+		'import/resolver': {
+			webpack: {
+				// 配置alias的文件路径
+				config: './webpack.base.js'
+			}
+		}
+	}
+}
+```
+
+### 如何 Dubug DevServer
+在使用 `devServer` 遇到问题时可以路由至URL `/webpack-dev-server`。  
+
+通过观察打包出来的 bundle 文件详情来 Debug。

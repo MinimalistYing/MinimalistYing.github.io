@@ -11,8 +11,7 @@ const {
 	js,
 	other,
 	react,
-	vue,
-	webpack
+	vue
 } = memos
 const all = [
 	...compability.split('---'),
@@ -22,8 +21,7 @@ const all = [
 	...js.split('---'),
 	...other.split('---'),
 	...react.split('---'),
-	...vue.split('---'),
-	...webpack.split('---'),
+	...vue.split('---')
 ]
 
 // 按照字数从多到少排列

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './style.less'
 import { Link } from 'react-router-dom'
+import LazyLoad from 'react-lazyload'
 import blogs, { category } from '@blog'
 
 class Main extends Component {
@@ -28,7 +29,9 @@ class Main extends Component {
                   className={this.props.history.location.pathname.endsWith(`${item.key}.html`) ? 'selected' : ''}
                 >
                   <figure>
-                    <img src={item.img} alt="图" loading="lazy" />
+                    <LazyLoad style={{ height: 'calc(100% - 110px)' }} once>
+                      <img src={item.img} alt="图" loading="lazy" />
+                    </LazyLoad>
                     <figcaption>
                       <div className="blog-name">{item.name}</div>
                       <div className="blog-date">{item.date}</div>

@@ -65,13 +65,13 @@ const images = [{
   url: 'https://ftp.bmp.ovh/imgs/2021/06/a28008901b922baa.webp',
 }, {
   title: '拾荒者 Scavengers',
-  url: 'https://z3.ax1x.com/2021/05/03/gmQ3xP.jpg',
+  url: 'https://ftp.bmp.ovh/imgs/2021/06/9fb5c0c101239a98.webp',
 }, {
   title: '龙崖',
-  url: 'https://z3.ax1x.com/2021/04/30/gAe8Jg.jpg',
+  url: 'https://ftp.bmp.ovh/imgs/2021/06/0182bd7ffd1aedca.webp',
 }, {
   title: '暴雨 Heavy Rain',
-  url: 'https://z3.ax1x.com/2021/04/19/cT0XDg.jpg',
+  url: 'https://ftp.bmp.ovh/imgs/2021/06/2b53c219573145b3.webp',
 }, {
   title: '一起开火车 Unrailed!',
   url: 'https://z3.ax1x.com/2021/04/19/cT0qv8.jpg',
